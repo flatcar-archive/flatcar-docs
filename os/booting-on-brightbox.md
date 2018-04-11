@@ -1,4 +1,4 @@
-# Running CoreOS Container Linux on Brightbox Cloud
+# Running Flatcar Linux on Brightbox Cloud
 
 These instructions will walk you through running a Container Linux cluster on Brightbox. This guide uses the [Brightbox CLI](http://brightbox.com/docs/guides/cli/getting-started/) but you can also use the [Brightbox Manager](http://brightbox.com/docs/guides/manager/).
 
@@ -147,6 +147,6 @@ core@srv-n8uak ~ $
 
 If you don’t have ipv6, you’ll need to [create and map a Cloud IP](http://brightbox.com/docs/guides/cli/cloud-ips/) first.
 
-## Using CoreOS Container Linux
+## Using Flatcar Linux
 
 Now that you have a cluster bootstrapped it is time to play around. Check out the [Container Linux Quickstart](quickstart.md) guide or dig into [more specific topics](https://coreos.com/docs).

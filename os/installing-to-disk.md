@@ -1,4 +1,4 @@
-# Installing CoreOS Container Linux to disk
+# Installing Flatcar Linux to disk
 
 ## Install script
 
@@ -122,7 +122,7 @@ systemd:
           ExecStartPre=/usr/bin/etcdctl set /coreos.com/network/config '{"Network":"10.1.0.0/16", "Backend": {"Type": "vxlan"}}'
 ```
 
-## Using CoreOS Container Linux
+## Using Flatcar Linux
 
 Now that you have a machine booted it is time to play around. Check out the [Container Linux Quickstart][quickstart] guide or dig into [more specific topics][docs-root].
 

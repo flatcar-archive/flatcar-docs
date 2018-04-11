@@ -1,4 +1,4 @@
-# Running CoreOS Container Linux on Microsoft Azure
+# Running Flatcar Linux on Microsoft Azure
 
 ## Choosing a channel
 
@@ -77,7 +77,7 @@ Now that you have a resource group, create an instance of Container Linux Alpha 
 az vm create --name node-1 --resource-group group-1 --admin-username core --custom-data "$(cat config.ign)" --image CoreOS:CoreOS:Alpha:latest
 ```
 
-## Using CoreOS Container Linux
+## Using Flatcar Linux
 
 Now that you have a machine booted it is time to play around. Check out the [Container Linux quickstart guide][quickstart] or dig into [more specific topics][docs].
 

@@ -1,4 +1,4 @@
-# Running CoreOS Container Linux on DigitalOcean
+# Running Flatcar Linux on DigitalOcean
 
 ## Choosing a channel
 
@@ -191,7 +191,7 @@ For more details, check out [DigitalOcean's API documentation][do-api-docs].
 
 Note that DigitalOcean is not able to inject a root password into Container Linux images like it does with other images. You'll need to add your keys via the web console or add keys or passwords via your Container Linux Config in order to log in.
 
-## Using CoreOS Container Linux
+## Using Flatcar Linux
 
 Now that you have a machine booted it is time to play around. Check out the [Container Linux Quickstart][quick-start] guide or dig into [more specific topics][docs].
 

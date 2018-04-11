@@ -1,4 +1,4 @@
-# CoreOS Container Linux developer SDK guide
+# Flatcar Linux developer SDK guide
 
 These are the instructions for building Container Linux itself. By the end of the guide you will build a developer image that you can run under KVM and have tools for making changes to the code.
 
@@ -143,7 +143,7 @@ Build all of the target binary packages:
 ./build_packages
 ```
 
-#### Render the CoreOS Container Linux image
+#### Render the Flatcar Linux image
 
 Build an image based on the binary packages built above, including development tools:
 

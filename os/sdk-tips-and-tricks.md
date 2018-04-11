@@ -195,7 +195,7 @@ Delete all `*.portage_lockfile`s in `/build/<arch>/`. To avoid stale lockfiles, 
 
 ## Constants and IDs
 
-### CoreOS Container Linux app ID
+### Flatcar Linux app ID
 
 This UUID is used to identify Container Linux to the update service and elsewhere.
 

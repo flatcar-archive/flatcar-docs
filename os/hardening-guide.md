@@ -1,4 +1,4 @@
-# CoreOS Container Linux hardening guide
+# Flatcar Linux hardening guide
 
 This guide covers the basics of securing a Container Linux instance. Container Linux has a very slim network profile and the only service that listens by default on Container Linux is sshd on port 22 on all interfaces. There are also some defaults for local users and services that should be considered.
 

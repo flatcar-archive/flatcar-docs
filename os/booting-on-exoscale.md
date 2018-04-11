@@ -1,4 +1,4 @@
-# Running CoreOS Container Linux on Exoscale
+# Running Flatcar Linux on Exoscale
 
 ## Choosing a channel
 
@@ -70,7 +70,7 @@ cs startVirtualMachine id=<UUID of instance>
 
 [API reference for updateVirtualMachine](https://community.exoscale.ch/compute/api/#updatevirtualmachine_GET)
 
-## SSH to your CoreOS Container Linux instances
+## SSH to your Flatcar Linux instances
 
 Container Linux does not allow root connection to the instance. By default, it uses the `core` user instead of `root` and doesn't use a password for authentication. You'll need to add an SSH key(s) via the web console or add keys/passwords via your cloud-config in order to log in.
 
@@ -140,7 +140,7 @@ Be sure to specify your SSH key to be able to access the machine. Management of 
 
 Unlike other Exoscale images where the root password is randomly set at startup, Container Linux does not have password logon activated. You will need to [configure your public key with Exoscale][exo-keys-docs] in order to login to the Container Linux instances or to specify external keys using cloud-config.
 
-## Using CoreOS Container Linux
+## Using Flatcar Linux
 
 Now that you have a machine booted it is time to play around. Check out the [Container Linux Quickstart][quick-start] guide or dig into [more specific topics][docs].
 

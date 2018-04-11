@@ -1,4 +1,4 @@
-# Running CoreOS Container Linux with AWS EC2 Container Service
+# Running Flatcar Linux with AWS EC2 Container Service
 
 [Amazon EC2 Container Service (ECS)](http://aws.amazon.com/ecs/) is a container management service which provides a set of APIs for scheduling container workloads across EC2 clusters. It supports Container Linux with Docker containers.
 

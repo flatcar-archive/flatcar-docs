@@ -1,4 +1,4 @@
-# Running CoreOS Container Linux on OpenStack
+# Running Flatcar Linux on OpenStack
 
 These instructions will walk you through downloading Container Linux for OpenStack, importing it with the `glance` tool, and running your first cluster with the `nova` tool.
 
@@ -184,7 +184,7 @@ nova boot \
 
 If you would like to create multiple clusters you'll need to generate and use a new discovery token. Change the token value on the etcd discovery parameter in the Container Linux Config, and boot new instances.
 
-## Using CoreOS Container Linux
+## Using Flatcar Linux
 
 Now that you have instances booted it is time to play around. Check out the [Container Linux Quickstart](quickstart.md) guide or dig into [more specific topics](https://coreos.com/docs).
 

@@ -1,4 +1,4 @@
-# Running CoreOS Container Linux on Rackspace
+# Running Flatcar Linux on Rackspace
 
 These instructions will walk you through running Container Linux on the Rackspace OpenStack cloud, which differs slightly from the generic OpenStack instructions. There are two ways to launch a Container Linux cluster: launch an entire cluster with Heat or launch machines with Nova.
 
@@ -213,6 +213,6 @@ You can also launch servers with either the `alpha` and `beta` channel versions 
  7. Click on 'Create Server'
 
 
-## Using CoreOS Container Linux
+## Using Flatcar Linux
 
 Now that you have a machine booted it is time to play around. Check out the [Container Linux Quickstart](quickstart.md) guide or dig into [more specific topics](https://coreos.com/docs).

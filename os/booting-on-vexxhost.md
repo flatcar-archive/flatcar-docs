@@ -1,4 +1,4 @@
-# Running CoreOS Container Linux on VEXXHOST
+# Running Flatcar Linux on VEXXHOST
 
 VEXXHOST is a Canadian OpenStack cloud computing provider based in Canada. In order to get started, you must have an active account on the VEXXHOST [public cloud computing][cloud-compute] service.
 
@@ -129,6 +129,6 @@ Adding new instances to the cluster is as easy as launching more with the same c
 
 If you would like to create multiple clusters you'll need to generate and use a new discovery token. Change the token value on the etcd discovery parameter in the cloud-config, and boot new instances.
 
-## Using CoreOS Container Linux
+## Using Flatcar Linux
 
 Now that you have instances booted it is time to play around. Check out the [Container Linux Quickstart](quickstart.md) guide or dig into [more specific topics](https://coreos.com/docs).

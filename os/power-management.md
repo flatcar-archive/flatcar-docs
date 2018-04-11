@@ -1,4 +1,4 @@
-# Tuning CoreOS Container Linux power management
+# Tuning Flatcar Linux power management
 
 ## CPU governor
 

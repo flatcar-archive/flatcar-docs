@@ -1,4 +1,4 @@
-# Checking hardware and firmware support for CoreOS Container Linux Trusted Computing
+# Checking hardware and firmware support for Flatcar Linux Trusted Computing
 
 Trusted Computing requires support in both system hardware and firmware. This document specifies the required support and explains how to determine if a physical machine has the features needed to enable Trusted Computing in Container Linux.
 

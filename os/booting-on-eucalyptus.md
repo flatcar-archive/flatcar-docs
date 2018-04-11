@@ -1,4 +1,4 @@
-# Running CoreOS Container Linux on Eucalyptus 3.4
+# Running Flatcar Linux on Eucalyptus 3.4
 
 These instructions will walk you through downloading Container Linux, bundling the image, and running an instance from it.
 
@@ -99,6 +99,6 @@ $ ssh -i core.pem core@10.0.1.61
 core@10-0-0-3 ~ $
 ```
 
-## Using CoreOS Container Linux
+## Using Flatcar Linux
 
 Now that you have a machine booted it is time to play around. Check out the [Container Linux Quickstart](quickstart.md) guide or dig into [more specific topics](https://coreos.com/docs).

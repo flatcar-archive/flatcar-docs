@@ -1,4 +1,4 @@
-# Running CoreOS Container Linux on cloud.ca
+# Running Flatcar Linux on cloud.ca
 
 [cloud.ca](http://www.cloud.ca) is a regional IaaS designed to help meet regulatory or security requirements by storing data in Canada. Container Linux is a supported operating system for VMs on the cloud.ca infrastructure.
 
@@ -204,7 +204,7 @@ core@coreos-node01 ~ $ etcdctl member list
 7cb50ab9db389524: name=6a02cad1a70840d8a6ac2c5d3bf80aea peerURLs=http://10.151.68.222:2380 clientURLs=http://10.151.68.222:2379,http://10.151.68.222:4001
 ```
 
-## Using CoreOS Container Linux
+## Using Flatcar Linux
 
 Now that you have a machine booted it is time to play around. Check out the [Container Linux Quickstart][quick-start] guide or dig into [more specific topics][docs].
 

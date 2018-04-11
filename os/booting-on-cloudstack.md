@@ -1,9 +1,9 @@
-# Running CoreOS Container Linux on CloudStack
+# Running Flatcar Linux on CloudStack
 
 This guide explains how to deploy Container Linux with CloudStack. These instructions will walk you through downloading Container Linux image and running an instance from it. This document assumes that CloudStack is already installed. Please refer to the [Install Guide][install-guide] for CloudStack installation steps.
 
 
-## Register the CoreOS Container Linux image (template)
+## Register the Flatcar Linux image (template)
 
 After logging in to CloudStack UI, to upload a template:
 
@@ -22,11 +22,11 @@ After logging in to CloudStack UI, to upload a template:
 
 Alternatively, the [registerTemplate API][register-template-api] can also be used.
 
-### CoreOS Container Linux templates
+### Flatcar Linux templates
 
 Apache CloudStack community created [Container Linux templates][coreos-templates] are currently available for XenServer, KVM, VMware and HyperV hypervisors.
 
-### Deploy CoreOS Container Linux instance
+### Deploy Flatcar Linux instance
 
 To create a VM from a template:
 
@@ -43,7 +43,7 @@ Alternatively, the [deployVirtualMachine API][deploy-vm-api] can also be used to
 
 cloud-config can be provided using userdata while deploying virtual machine. userdata is an optional request parameter for the [deployVirtualMachine API][deploy-vm-api].
 
-## Using CoreOS Container Linux
+## Using Flatcar Linux
 
 Now that you have a machine booted it is time to play around.
 Check out the [Container Linux Quickstart][coreos-quickstart] guide or dig into [more specific topics][coreos-docs].

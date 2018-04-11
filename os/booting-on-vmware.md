@@ -1,4 +1,4 @@
-# Running CoreOS Container Linux on VMware
+# Running Flatcar Linux on VMware
 
 These instructions walk through running Container Linux on VMware Fusion or ESXi. If you are familiar with another VMware product, you can use these instructions as a starting point.
 
@@ -164,7 +164,7 @@ ssh core@10.0.1.81
 
 Alternatively, appending `coreos.autologin` to the kernel parameters at boot causes the console to accept the `core` user's login with no password. This is handy for debugging.
 
-## Using CoreOS Container Linux
+## Using Flatcar Linux
 
 Now that you have a machine booted, it's time to explore. Check out the [Container Linux Quickstart][quickstart] guide, or dig into [more specific topics][docs].
 

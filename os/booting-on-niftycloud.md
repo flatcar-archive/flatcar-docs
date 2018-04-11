@@ -1,4 +1,4 @@
-# Running CoreOS Container Linux on NIFTY Cloud
+# Running Flatcar Linux on NIFTY Cloud
 
 NIFTY Cloud is a Japanese cloud computing provider. These instructions are also [available in Japanese](booting-on-niftycloud-JA_JP.md). Before proceeding, you will need to [install NIFTY Cloud CLI][cli-documentation].
 
@@ -77,6 +77,6 @@ You can log in your Container Linux instances using:
 ssh core@<ip address> -i <path to keyfile>
 ```
 
-## Using CoreOS Container Linux
+## Using Flatcar Linux
 
 Now that you have a machine booted it is time to play around. Check out the [Container Linux Quickstart](quickstart.md) guide or dig into [more specific topics](https://coreos.com/docs).

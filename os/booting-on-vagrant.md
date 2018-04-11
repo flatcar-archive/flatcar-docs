@@ -1,4 +1,4 @@
-# Running CoreOS Container Linux on Vagrant
+# Running Flatcar Linux on Vagrant
 
 Running Container Linux with Vagrant is one way to bring up a single machine or virtualize an entire cluster on your laptop. Since the true power of Container Linux can be seen with a cluster, we're going to concentrate on that. Instructions for a single machine can be found [towards the end](#single-machine) of the guide.
 
@@ -78,7 +78,7 @@ If you need to update your cloud-config later on, run `vagrant reload --provisio
 
 [cloud-config-docs]: https://github.com/coreos/coreos-cloudinit/blob/master/Documentation/cloud-config.md
 
-### Start up CoreOS Container Linux
+### Start up Flatcar Linux
 
 The `config.rb.sample` file contains a few useful settings about your Vagrant environment and most importantly, how many machines you'd like in your cluster.
 
@@ -192,7 +192,7 @@ coreos:
       command: start
 ```
 
-### Start up CoreOS Container Linux
+### Start up Flatcar Linux
 
 The `config.rb.sample` file contains a few useful settings about your Vagrant environment. We're going to set the Container Linux channel that we'd like the machine to track.
 
@@ -275,7 +275,7 @@ If you'd like to download the box separately, you can download the URL contained
 vagrant box add coreos-alpha <path-to-box-file>
 ```
 
-## Using CoreOS Container Linux
+## Using Flatcar Linux
 
 Now that you have a machine booted it is time to play around. Check out the [Container Linux Quickstart](quickstart.md) guide, learn about [Container Linux clustering with Vagrant](https://coreos.com/blog/coreos-clustering-with-vagrant/), or dig into [more specific topics](https://coreos.com/docs).
 

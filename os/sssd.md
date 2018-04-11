@@ -1,4 +1,4 @@
-# Configuring SSSD on CoreOS Container Linux
+# Configuring SSSD on Flatcar Linux
 
 Container Linux ships with the System Security Services Daemon, allowing integration between Container Linux and enterprise authentication services.
 

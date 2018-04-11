@@ -1,4 +1,4 @@
-# SELinux on CoreOS Container Linux
+# SELinux on Flatcar Linux
 
 SELinux is a fine-grained access control mechanism integrated into Container Linux and rkt. Each container runs in its own independent SELinux context, increasing isolation between containers and providing another layer of protection should a container be compromised.
 

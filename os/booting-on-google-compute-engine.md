@@ -1,4 +1,4 @@
-# Running CoreOS Container Linux on Google Compute Engine
+# Running Flatcar Linux on Google Compute Engine
 
 Before proceeding, you will need a GCE account ([GCE free trial ][free-trial]) and [install gcloud][gcloud-documentation] on your machine. In each command below, be sure to insert your project name in place of `<project-id>`.
 
@@ -104,6 +104,6 @@ gcloud compute ssh --zone us-central1-a core@<instance-name>
 
 Users other than `core`, which are set up by the GCE account manager, may not be a member of required groups. If you have issues, try running commands such as `journalctl` with sudo.
 
-## Using CoreOS Container Linux
+## Using Flatcar Linux
 
 Now that you have a machine booted it is time to play around. Check out the [Container Linux Quickstart](quickstart.md) guide or dig into [more specific topics](https://coreos.com/docs).

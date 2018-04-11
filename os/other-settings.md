@@ -82,7 +82,7 @@ Further details can be found in the systemd man pages:
 
 The Container Linux bootloader parses the configuration file `/usr/share/oem/grub.cfg`, where custom kernel boot options may be set.
 
-### Enable CoreOS Container Linux autologin
+### Enable Flatcar Linux autologin
 
 To login without a password on every boot, edit `/usr/share/oem/grub.cfg` to add the line:
 

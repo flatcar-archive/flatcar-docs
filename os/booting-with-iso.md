@@ -1,4 +1,4 @@
-# Booting CoreOS Container Linux from an ISO
+# Booting Flatcar Linux from an ISO
 
 The latest Container Linux ISOs can be downloaded from the image storage site:
 

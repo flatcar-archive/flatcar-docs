@@ -1,4 +1,4 @@
-# Running CoreOS Container Linux on EC2
+# Running Flatcar Linux on EC2
 
 The current AMIs for all Container Linux channels and EC2 regions are listed below and updated frequently. Using CloudFormation is the easiest way to launch a cluster, but it is also possible to follow the manual steps at the end of the article. Questions can be directed to the CoreOS [IRC channel][irc] or [user mailing list][coreos-user].
 
@@ -460,7 +460,7 @@ First we need to create a security group to allow Container Linux instances to c
   </div>
 </div>
 
-## Using CoreOS Container Linux
+## Using Flatcar Linux
 
 Now that you have a machine booted it is time to play around. Check out the [Container Linux Quickstart](quickstart.md) guide or dig into [more specific topics](https://coreos.com/docs).
 

@@ -1,4 +1,4 @@
-# Running CoreOS Container Linux on a Vultr VPS
+# Running Flatcar Linux on a Vultr VPS
 
 These instructions will walk you through running a single Container Linux node. This guide assumes:
 
@@ -124,6 +124,6 @@ CoreOS stable (557.2.0)
 core@localhost ~ $
 ```
 
-## Using CoreOS Container Linux
+## Using Flatcar Linux
 
 Check out the [Container Linux Quickstart](quickstart.md) guide or dig into [more specific topics](https://coreos.com/docs).

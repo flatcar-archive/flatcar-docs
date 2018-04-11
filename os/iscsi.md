@@ -1,4 +1,4 @@
-# iSCSI on CoreOS Container Linux
+# iSCSI on Flatcar Linux
 
 [iSCSI][iscsi-wiki] is a protocol which provides block-level access to storage devices over IP.
 This allows applications to treat remote storage devices as if they were local disks.
@@ -9,7 +9,7 @@ This guide covers iSCSI configuration manually or automatically with [Container 
 
 ## Manual iSCSI configuration
 
-### Set the CoreOS Container Linux iSCSI initiator name
+### Set the Flatcar Linux iSCSI initiator name
 
 iSCSI clients each have a unique initiator name.
 Container Linux generates a unique initiator name on each install and stores it in `/etc/iscsi/initiatorname.iscsi`.

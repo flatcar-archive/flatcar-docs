@@ -1,4 +1,4 @@
-# Running CoreOS Container Linux on Ikoula Cloud
+# Running Flatcar Linux on Ikoula Cloud
 
 [Ikoula](https://www.ikoula.com) is a French cloud hosting company. Its CloudStack 4.5 based cloud is deployed on its own datacenters worldwide on several Basic and Advanced networking zones. Currently zones are available on France, Germany, Netherlands, USA East, Singapore.
 
@@ -8,7 +8,7 @@ On Basic networking zones, you have the support of security groups and a directl
 
 On Advanced networking zones, you have a virtual router deployed which protects your own private VLAN network. Instances deployed on this private VLAN receive a private IP address from a range you can choose, and they have external access through the virtual router. On Advanced networking zones, you have access to VPC which can be connected to your own office network by means of using site-to-site VPNs.
 
-### CoreOS Container Linux images on Ikoula Cloud
+### Flatcar Linux images on Ikoula Cloud
 
 You can deploy and boot officially-built Container Linux images on Ikoula Cloud!
 
@@ -182,9 +182,9 @@ u6uft/7nDi4pMmEt06DpE+pTRFE5syVDRaKHbQyQtmN9YSmOT4yVYQwcIu [...]
 $ chmod 400 MySSHkey
 ```
 
-## Deploy CoreOS Container Linux on an advanced zone
+## Deploy Flatcar Linux on an advanced zone
 
-### Deploy your CoreOS Container Linux instance with your SSH key pair
+### Deploy your Flatcar Linux instance with your SSH key pair
 
 This example is made in Advanced networking zone, so we assume that you have already created your VPC or network:
 
@@ -208,7 +208,7 @@ Apache CloudStack CloudMonkey 5.0.0. Type help or ? to list commands.
 
 You need to adapt the "<>" fields. After launching this command, you will receive the IP address information.
 
-### Connect to your CoreOS Container Linux instance through SSH
+### Connect to your Flatcar Linux instance through SSH
 
 ```sh
 $ ssh -i MySSHkey core@178.170.X.X
@@ -216,7 +216,7 @@ CoreOS stable (723.3.0)
 core@coreos557x64 ~ $"
 ```
 
-## Deploy CoreOS Container Linux on a basic zone
+## Deploy Flatcar Linux on a basic zone
 
 Deploying on a Basic networking zone is somewhat similar, but you don't need to create NAT rule, just configure correctly the security group.
 
@@ -227,7 +227,7 @@ Apache CloudStack CloudMonkey 5.0.0. Type help or ? to list commands.
 > deploy virtualmachine zoneid=<Zone ID> templateid=<Container Linux Template ID of this zone> serviceofferingid=<Serviceoffering ID> securitygroupids=<ID of your security group> keypair=MySSHkey name=<Instance Name>
 ```
 
-# Going further with CoreOS Container Linux on Ikoula Cloud
+# Going further with Flatcar Linux on Ikoula Cloud
 
 Now that you have successfully deployed a Container Linux instance, you should consult the [quickstart on Container Linux][quickstart] and [plan a cluster][cluster-configure]!
 

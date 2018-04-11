@@ -1,4 +1,4 @@
-# Running CoreOS Container Linux on QEMU
+# Running Flatcar Linux on QEMU
 
 These instructions will bring up a single Container Linux instance under QEMU, the small Swiss Army knife of virtual machine and CPU emulators. If you need to do more such as [configuring networks][qemunet] differently refer to the [QEMU Wiki][qemuwiki] and [User Documentation][qemudoc].
 
@@ -55,7 +55,7 @@ emerge -av app-emulation/qemu
 [qemugen]: http://wiki.gentoo.org/wiki/QEMU
 
 
-## Startup CoreOS Container Linux
+## Startup Flatcar Linux
 
 Once QEMU is installed you can download and start the latest Container Linux image.
 
@@ -174,7 +174,7 @@ This will pass the contents of `config.ign` through to Ignition, which runs in t
 
 [cl-configs]: provisioning.md
 
-## Using CoreOS Container Linux
+## Using Flatcar Linux
 
 Now that you have a machine booted it is time to play around. Check out the [Container Linux Quickstart](quickstart.md) guide or dig into [more specific topics](https://coreos.com/docs).
 

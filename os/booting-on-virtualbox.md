@@ -1,4 +1,4 @@
-# Running CoreOS Container Linux on VirtualBox
+# Running Flatcar Linux on VirtualBox
 
 These instructions will walk you through running Container Linux on Oracle VM VirtualBox.
 
@@ -114,6 +114,6 @@ Now, login using your private SSH key.
 ssh core@192.168.56.101
 ```
 
-## Using CoreOS Container Linux
+## Using Flatcar Linux
 
 Now that the machine has booted, it is time to play around. Check out the [Container Linux Quickstart](quickstart.md) guide or dig into [more specific topics](https://coreos.com/docs).

@@ -36,7 +36,7 @@ Enable the unit so this overlay is mounted automatically on boot.
 sudo systemctl enable lib-modules.mount
 ```
 
-## Prepare a CoreOS Container Linux development container
+## Prepare a Flatcar Linux development container
 
 Read system configuration files to determine the URL of the development container that corresponds to the current Container Linux version.
 

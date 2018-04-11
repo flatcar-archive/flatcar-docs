@@ -1,8 +1,8 @@
-# Running CoreOS Container Linux on RimuHosting's LaunchtimeVPS service
+# Running Flatcar Linux on RimuHosting's LaunchtimeVPS service
 
 RimuHosting's LaunchtimeVPS service provides hosted virtual machines, and provides Container Linux as one of their standard images. Customers can launch these VMs via the web interface or via the RimuHosting server management API.
 
-## About the RimuHosting CoreOS Container Linux setup
+## About the RimuHosting Flatcar Linux setup
 
 RimuHosting automatically creates the systemd networking files (no need to put networking setup in the cloud init block).
 
@@ -119,7 +119,7 @@ ssh core@<ip address>
 
 Optionally, you may want to [configure your ssh-agent](https://github.com/coreos/fleet/blob/master/Documentation/using-the-client.md#remote-fleet-access) to more easily run [fleet commands](../fleet/launching-containers-fleet.md).
 
-## Using CoreOS Container Linux
+## Using Flatcar Linux
 
 Now that you have a cluster bootstrapped it is time to play around. Check out the [Container Linux quickstart guide](quickstart.md) or dig into [more specific topics](https://coreos.com/docs).
 

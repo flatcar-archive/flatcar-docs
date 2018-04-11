@@ -1,4 +1,4 @@
-# CoreOS Container Linux startup process
+# Flatcar Linux startup process
 
 The Container Linux startup process is built on the standard [Linux startup process][linux-startup]. Since this process is already well documented and generally well understood, this document will focus on aspects specific to booting Container Linux.
 

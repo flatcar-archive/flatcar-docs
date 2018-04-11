@@ -1,4 +1,4 @@
-# CoreOS Container Linux cluster architectures
+# Flatcar Linux cluster architectures
 
 ## Overview
 

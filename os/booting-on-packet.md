@@ -1,4 +1,4 @@
-# Running CoreOS Container Linux on Packet
+# Running Flatcar Linux on Packet
 
 Packet is a bare metal cloud hosting provider. Container Linux is installable as one of the default operating system options. You can deploy Container Linux servers via the Packet portal or API.
 
@@ -58,6 +58,6 @@ etcd:
 
 [cl-configs]: provisioning.md
 
-## Using CoreOS Container Linux
+## Using Flatcar Linux
 
 Now that you have a machine booted it is time to play around. Check out the [Container Linux Quickstart](quickstart.md) guide or dig into [more specific topics](https://coreos.com/docs).

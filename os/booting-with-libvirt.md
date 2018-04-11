@@ -1,4 +1,4 @@
-# Running CoreOS Container Linux on libvirt
+# Running Flatcar Linux on libvirt
 
 This guide explains how to run Container Linux with libvirt using the QEMU driver. The libvirt configuration
 file can be used (for example) with `virsh` or `virt-manager`. The guide assumes
@@ -7,7 +7,7 @@ don’t have that, other solutions are most likely easier.
 
 You can direct questions to the [IRC channel][irc] or [mailing list][coreos-dev].
 
-## Download the CoreOS Container Linux image
+## Download the Flatcar Linux image
 
 In this guide, the example virtual machine we are creating is called container-linux1 and
 all files are stored in `/var/lib/libvirt/images/container-linux`. This is not a requirement — feel free
@@ -298,7 +298,7 @@ Now you can log in to the virtual machine with:
 ssh container-linux1
 ```
 
-## Using CoreOS Container Linux
+## Using Flatcar Linux
 
 Now that you have a machine booted it is time to play around. Check out the [Container Linux Quickstart](quickstart.md) guide or dig into [more specific topics](https://coreos.com/docs).
 

@@ -1,4 +1,4 @@
-# Booting CoreOS Container Linux via iPXE
+# Booting Flatcar Linux via iPXE
 
 These instructions will walk you through booting Container Linux via iPXE on real or virtual hardware. By default, this will run Container Linux completely out of RAM. Container Linux can also be [installed to disk](installing-to-disk.md).
 
@@ -116,7 +116,7 @@ Similar to the [OEM partition][oem] in Container Linux disk images, iPXE images 
 
 [oem]: notes-for-distributors.md#image-customization
 
-## Using CoreOS Container Linux
+## Using Flatcar Linux
 
 Now that you have a machine booted it is time to play around. Check out the [Container Linux Quickstart](quickstart.md) guide or dig into [more specific topics](https://coreos.com/docs).
 

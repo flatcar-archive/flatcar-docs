@@ -1,4 +1,4 @@
-# CoreOS Container Linux cluster discovery
+# Flatcar Linux cluster discovery
 
 ## Overview
 

@@ -1,4 +1,4 @@
-# Booting CoreOS Container Linux via PXE
+# Booting Flatcar Linux via PXE
 
 These instructions will walk you through booting Container Linux via PXE on real or virtual hardware. By default, this will run Container Linux completely out of RAM. Container Linux can also be [installed to disk](installing-to-disk.md).
 
@@ -212,7 +212,7 @@ kernel coreos_production_pxe.vmlinuz coreos.first_boot=1
 ...
 ```
 
-## Using CoreOS Container Linux
+## Using Flatcar Linux
 
 Now that you have a machine booted it is time to play around. Check out the [Container Linux Quickstart][qs] guide or dig into [more specific topics][docs].
 

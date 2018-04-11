@@ -1,4 +1,4 @@
-# CoreOS Container Linux disk layout
+# Flatcar Linux disk layout
 
 Container Linux is designed to be reliably updated via a [continuous stream of updates](https://coreos.com/why/#updates). The operating system has 9 different disk partitions, utilizing a subset of those to make each update safe and enable a roll-back to a previous version if anything goes wrong.
 
