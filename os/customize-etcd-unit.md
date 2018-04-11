@@ -1,10 +1,10 @@
 # Customizing the etcd unit
 
-The etcd systemd unit can be customized by overriding the unit that ships with the default Container Linux settings. Common use-cases for doing this are covered below.
+The etcd systemd unit can be customized by overriding the unit that ships with the default Flatcar Linux settings. Common use-cases for doing this are covered below.
 
 ## Use client certificates
 
-etcd supports client certificates as a way to provide secure communication between clients &#8596; leader and internal traffic between etcd peers in the cluster. Configuring certificates for both scenarios is done through the etcd section in a Container Linux Config. Options provided here will augment the unit that ships with Container Linux.
+etcd supports client certificates as a way to provide secure communication between clients &#8596; leader and internal traffic between etcd peers in the cluster. Configuring certificates for both scenarios is done through the etcd section in a Flatcar Linux Config. Options provided here will augment the unit that ships with Flatcar Linux.
 
 Please follow the [instruction](generate-self-signed-certificates.md) to know how to create self-signed certificates and private keys.
 

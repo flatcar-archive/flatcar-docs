@@ -1,14 +1,14 @@
-# Migrating from Cloud-Config to Container Linux Config
+# Migrating from Cloud-Config to Flatcar Linux Config
 
-Historically, the recommended way to provision a Container Linux machine was with a cloud-config. This was a YAML file specifying things like systemd units to run, users that should exist, and files that should be written. This file would be given to a Container Linux machine, and saved on disk. Then a utility called coreos-cloudinit running in a systemd unit would read this file, look at the system state, and make necessary changes on every boot.
+Historically, the recommended way to provision a Flatcar Linux machine was with a cloud-config. This was a YAML file specifying things like systemd units to run, users that should exist, and files that should be written. This file would be given to a Flatcar Linux machine, and saved on disk. Then a utility called coreos-cloudinit running in a systemd unit would read this file, look at the system state, and make necessary changes on every boot.
 
-Going forward, a new method of provisioning with Container Linux Configs is now recommended.
+Going forward, a new method of provisioning with Flatcar Linux Configs is now recommended.
 
-This document details how to convert an existing cloud-config into a Container Linux Config. Once a Container Linux Config has been written, it is given to the Config Transpiler to be converted into an Ignition Config. This Ignition Config can then be provided to a booting machine. For more information on this process, take a look at the [provisioning guide][provisioning].
+This document details how to convert an existing cloud-config into a Flatcar Linux Config. Once a Flatcar Linux Config has been written, it is given to the Config Transpiler to be converted into an Ignition Config. This Ignition Config can then be provided to a booting machine. For more information on this process, take a look at the [provisioning guide][provisioning].
 
-The etcd and flannel examples shown in this document will use dynamic data in the Container Linux Config (anything looking like this: `{PRIVATE_IPV4}`). Not all types of dynamic data are supported on all cloud providers, and if the machine is not on a cloud provider this feature cannot be used. Please see [here][dynamic-data] for more information.
+The etcd and flannel examples shown in this document will use dynamic data in the Flatcar Linux Config (anything looking like this: `{PRIVATE_IPV4}`). Not all types of dynamic data are supported on all cloud providers, and if the machine is not on a cloud provider this feature cannot be used. Please see [here][dynamic-data] for more information.
 
-To see all supported options available in a Container Linux Config, please look at the [Container Linux Config schema][ct-config].
+To see all supported options available in a Flatcar Linux Config, please look at the [Flatcar Linux Config schema][ct-config].
 
 ### etcd2
 
@@ -26,7 +26,7 @@ coreos:
     listen-peer-urls:            "http://$private_ipv4:2380,http://$private_ipv4:7001"
 ```
 
-etcd can be configured in a more general way with a Container Linux Config. This CL Config will use the etcd-member.service systemd unit rather than the etcd2 service understood by cloud-config and coreos-cloudinit. The etcd-member service will download a version of etcd of the user's choosing and run it. This means that in a Container Linux Config both etcd v2 and v3 can be configured.
+etcd can be configured in a more general way with a Flatcar Linux Config. This CL Config will use the etcd-member.service systemd unit rather than the etcd2 service understood by cloud-config and coreos-cloudinit. The etcd-member service will download a version of etcd of the user's choosing and run it. This means that in a Flatcar Linux Config both etcd v2 and v3 can be configured.
 
 This is done under the etcd section:
 
@@ -35,7 +35,7 @@ etcd:
     version: 3.1.6
 ```
 
-Omitting the version specification declares that the unit file should use the version of etcd matching the running version of Container Linux.
+Omitting the version specification declares that the unit file should use the version of etcd matching the running version of Flatcar Linux.
 
 Configuration options in this section can be provided the same way as they were in a cloud-config, with the exception of dashes (`-`) being replaced with underscores (`_`) in key names.
 
@@ -61,7 +61,7 @@ coreos:
       etcd_prefix: "/coreos.com/network2"
 ```
 
-The flannel section in a Container Linux Config is used the same way, and a version can optionally be specified for flannel as well.
+The flannel section in a Flatcar Linux Config is used the same way, and a version can optionally be specified for flannel as well.
 
 ```yaml container-linux-config
 flannel:
@@ -81,7 +81,7 @@ coreos:
       endpoint: "http://example.com:2379"
 ```
 
-Locksmith can be configured in the same way under the locksmith section of a Container Linux Config, but some of the accepted options are slightly different. Also the reboot strategy is set in the locksmith section, instead of the update section. Check out the [Container Linux Config schema][ct-config] to see what options are available.
+Locksmith can be configured in the same way under the locksmith section of a Flatcar Linux Config, but some of the accepted options are slightly different. Also the reboot strategy is set in the locksmith section, instead of the update section. Check out the [Flatcar Linux Config schema][ct-config] to see what options are available.
 
 ```yaml container-linux-config
 locksmith:
@@ -102,7 +102,7 @@ coreos:
     server:          "https://public.update.core-os.net/v1/update/"
 ```
 
-In the update section in a Container Linux Config the group and server can be configured, but the reboot-strategy option has been moved under the locksmith section.
+In the update section in a Flatcar Linux Config the group and server can be configured, but the reboot-strategy option has been moved under the locksmith section.
 
 ```yaml container-linux-config
 update:
@@ -159,7 +159,7 @@ coreos:
       command: "start"
 ```
 
-One big difference in Container Linux Config compared to cloud-configs is that the configuration is applied via [Ignition][ignition] before the machine has fully booted, as opposed to coreos-cloudinit that runs after the machine has fully booted. As a result units cannot be directly started in a Container Linux Config, the unit is instead enabled so that systemd will begin the unit once systemd starts.
+One big difference in Flatcar Linux Config compared to cloud-configs is that the configuration is applied via [Ignition][ignition] before the machine has fully booted, as opposed to coreos-cloudinit that runs after the machine has fully booted. As a result units cannot be directly started in a Flatcar Linux Config, the unit is instead enabled so that systemd will begin the unit once systemd starts.
 
 _Note: in this example an `[Install]` section has been added so that the unit can be enabled._
 
@@ -183,7 +183,7 @@ systemd:
         WantedBy=multi-user.target
 ```
 
-Drop-in files can be provided for units in a Container Linux Config just like in a cloud-config.
+Drop-in files can be provided for units in a Flatcar Linux Config just like in a cloud-config.
 
 ```yaml container-linux-config
 systemd:
@@ -216,7 +216,7 @@ ssh_authorized_keys:
   - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC0g+ZTxC7weoIJLUafOgrm+h..."
 ```
 
-In a Container Linux Config there is no analogous section to `ssh_authorized_keys`, but ssh keys for the core user can be set just as easily using the `passwd.users.*` section:
+In a Flatcar Linux Config there is no analogous section to `ssh_authorized_keys`, but ssh keys for the core user can be set just as easily using the `passwd.users.*` section:
 
 ```yaml container-linux-config
 passwd:
@@ -236,7 +236,7 @@ In a cloud-config the `hostname` section can be used to set a machine's hostname
 hostname: "coreos1"
 ```
 
-The Container Linux Config is intentionally more generalized than a cloud-config, and there is no equivalent hostname section understood in a CL Config. Instead, set the hostname by writing it to `/etc/hostname` in a CL Config `storage.files.*` section.
+The Flatcar Linux Config is intentionally more generalized than a cloud-config, and there is no equivalent hostname section understood in a CL Config. Instead, set the hostname by writing it to `/etc/hostname` in a CL Config `storage.files.*` section.
 
 ```yaml container-linux-config
 storage:
@@ -265,7 +265,7 @@ users:
       - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC0g+ZTxC7weoIJLUafOgrm+h..."
 ```
 
-This same information can be added to the Container Linux Config in the `passwd.users.*` section.
+This same information can be added to the Flatcar Linux Config in the `passwd.users.*` section.
 
 ```yaml container-linux-config
 passwd:
@@ -293,7 +293,7 @@ write_files:
       nameserver 8.8.8.8
 ```
 
-This can be done in a Container Linux Config with the `storage.files.*` section.
+This can be done in a Flatcar Linux Config with the `storage.files.*` section.
 
 ```yaml container-linux-config
 storage:
@@ -308,7 +308,7 @@ storage:
 
 File specifications in this section of a CL Config must define the target filesystem and the file's path relative to the root of that filesystem. This allows files to be written to filesystems other than the root filesystem.
 
-Under the `contents` section, the file contents are under a sub-section called `inline`. This is because a file's contents can be remote by replacing the `inline` section with a `remote` section. To see what options are available under the `remote` section, look at the [Container Linux Config schema][ct-config].
+Under the `contents` section, the file contents are under a sub-section called `inline`. This is because a file's contents can be remote by replacing the `inline` section with a `remote` section. To see what options are available under the `remote` section, look at the [Flatcar Linux Config schema][ct-config].
 
 ### manage_etc_hosts
 
@@ -320,7 +320,7 @@ The `manage_etcd_hosts` section in a cloud-config can be used to configure the c
 manage_etc_hosts: "localhost"
 ```
 
-There is no analogous section in a Container Linux Config, however the `/etc/hosts` file can be written in the `storage.files.*` section.
+There is no analogous section in a Flatcar Linux Config, however the `/etc/hosts` file can be written in the `storage.files.*` section.
 
 ```yaml container-linux-config
 storage:

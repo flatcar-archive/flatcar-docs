@@ -1,6 +1,6 @@
 # Running Flatcar Linux on Packet
 
-Packet is a bare metal cloud hosting provider. Container Linux is installable as one of the default operating system options. You can deploy Container Linux servers via the Packet portal or API.
+Packet is a bare metal cloud hosting provider. Flatcar Linux is installable as one of the default operating system options. You can deploy Flatcar Linux servers via the Packet portal or API.
 
 ## Deployment instructions
 
@@ -12,7 +12,7 @@ Packet has a concept of 'projects' that represent a grouping of machines that de
 
 ### Portal instructions
 
-Once logged into the portal you will be able to click the 'Deploy' button and choose Container Linux from the menu of operating systems, and choose which project you want the server to be deployed in. If you choose to enter a custom Ignition config, you can click the 'manage' link and add that as well. The SSH key that you associate with your account and any other team member's keys that are on the project will be added to your Container Linux machine once it is provisioned.
+Once logged into the portal you will be able to click the 'Deploy' button and choose Flatcar Linux from the menu of operating systems, and choose which project you want the server to be deployed in. If you choose to enter a custom Ignition config, you can click the 'manage' link and add that as well. The SSH key that you associate with your account and any other team member's keys that are on the project will be added to your Flatcar Linux machine once it is provisioned.
 
 ### API instructions
 
@@ -29,13 +29,13 @@ curl -X POST \
 https://api.packet.net/projects/<PROJECT_ID>/devices
 ```
 
-Double quotes in the `<USERDATA>` value must be escaped such that the request body is valid JSON. See the Container Linux Config section below for more information about accepted forms of userdata.
+Double quotes in the `<USERDATA>` value must be escaped such that the request body is valid JSON. See the Flatcar Linux Config section below for more information about accepted forms of userdata.
 
-## Container Linux Configs
+## Flatcar Linux Configs
 
-Container Linux allows you to configure machine parameters, configure networking, launch systemd units on startup, and more via Container Linux Configs. These configs are then transpiled into Ignition configs and given to booting machines. Head over to the [docs to learn about the supported features][cl-configs]. Note that Packet doesn't allow an instance's userdata to be modified after the instance has been launched. This isn't a problem since Ignition only runs on the first boot.
+Flatcar Linux allows you to configure machine parameters, configure networking, launch systemd units on startup, and more via Flatcar Linux Configs. These configs are then transpiled into Ignition configs and given to booting machines. Head over to the [docs to learn about the supported features][cl-configs]. Note that Packet doesn't allow an instance's userdata to be modified after the instance has been launched. This isn't a problem since Ignition only runs on the first boot.
 
-You can provide a raw Ignition config to Container Linux via Packet's userdata field.
+You can provide a raw Ignition config to Flatcar Linux via Packet's userdata field.
 
 As an example, this config will configure and start etcd:
 
@@ -60,4 +60,4 @@ etcd:
 
 ## Using Flatcar Linux
 
-Now that you have a machine booted it is time to play around. Check out the [Container Linux Quickstart](quickstart.md) guide or dig into [more specific topics](https://coreos.com/docs).
+Now that you have a machine booted it is time to play around. Check out the [Flatcar Linux Quickstart](quickstart.md) guide or dig into [more specific topics](https://coreos.com/docs).

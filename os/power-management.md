@@ -2,7 +2,7 @@
 
 ## CPU governor
 
-By default, Container Linux uses the "performance" CPU governor meaning that the CPU operates at the maximum frequency regardless of load. This is reasonable for a system that is under constant load or cannot tolerate increased latency. On the other hand, if the system is idle much of the time and latency is not a concern, power savings may be desired.
+By default, Flatcar Linux uses the "performance" CPU governor meaning that the CPU operates at the maximum frequency regardless of load. This is reasonable for a system that is under constant load or cannot tolerate increased latency. On the other hand, if the system is idle much of the time and latency is not a concern, power savings may be desired.
 
 Several governors are available:
 
@@ -21,7 +21,7 @@ modprobe cpufreq_conservative
 echo "conservative" | tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor > /dev/null
 ```
 
-This can be configured with a [Container Linux Config][cl-configs] as well:
+This can be configured with a [Flatcar Linux Config][cl-configs] as well:
 
 ```yaml container-linux-config
 systemd:

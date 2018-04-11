@@ -2,7 +2,7 @@
 
 Swap is the process of moving pages of memory to a designated part of the hard disk, freeing up space when needed. Swap can be used to alleviate problems with low-memory environments.
 
-By default Container Linux does not include a partition for swap, however one can configure their system to have swap, either by including a dedicated partition for it or creating a swapfile.
+By default Flatcar Linux does not include a partition for swap, however one can configure their system to have swap, either by including a dedicated partition for it or creating a swapfile.
 
 ## Managing swap with systemd
 
@@ -76,7 +76,7 @@ Filesystem     Type      Size  Used Avail Use% Mounted on
 
 The block device mounted at `/var/`, `/dev/sdXN`, is the correct filesystem type and has enough space for a 1GiB swapfile.
 
-## Adding swap with a Container Linux Config
+## Adding swap with a Flatcar Linux Config
 
 The following config sets up a 1GiB swapfile located at `/var/vm/swapfile1`.
 

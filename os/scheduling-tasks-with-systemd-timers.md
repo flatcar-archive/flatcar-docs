@@ -1,6 +1,6 @@
 # Scheduling tasks with systemd timers
 
-Container Linux uses systemd timers (`cron` replacement) to schedule tasks. Here we will show you how you can schedule a periodic job.
+Flatcar Linux uses systemd timers (`cron` replacement) to schedule tasks. Here we will show you how you can schedule a periodic job.
 
 Let's create an alternative for this `crontab` job:
 
@@ -39,9 +39,9 @@ You can also create timer with different name, i.e. `task.timer`. In this case y
 Unit=date.service
 ```
 
-## Container Linux Config
+## Flatcar Linux Config
 
-Here you'll find an example Container Linux Config demonstrating how to install systemd timers:
+Here you'll find an example Flatcar Linux Config demonstrating how to install systemd timers:
 
 ```yaml container-linux-config
 systemd:

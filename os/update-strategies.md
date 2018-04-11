@@ -1,8 +1,8 @@
 # Reboot strategies on updates
 
-The overarching goal of Container Linux is to secure the Internet's backend infrastructure. We believe that [automatically updating](https://coreos.com/why/#updates) the operating system is one of the best tools to achieve this goal.
+The overarching goal of Flatcar Linux is to secure the Internet's backend infrastructure. We believe that [automatically updating](https://coreos.com/why/#updates) the operating system is one of the best tools to achieve this goal.
 
-We realize that each Container Linux cluster has a unique tolerance for risk and the operational needs of your applications are complex. In order to meet everyone's needs, there are three update strategies that we have developed based on feedback during our alpha period.
+We realize that each Flatcar Linux cluster has a unique tolerance for risk and the operational needs of your applications are complex. In order to meet everyone's needs, there are three update strategies that we have developed based on feedback during our alpha period.
 
 It's important to note that updates are always downloaded to the passive partition when they become available. A reboot is the last step of the update, where the active and passive partitions are swapped ([rollback instructions][rollback]). These strategies control how that reboot occurs:
 
@@ -14,7 +14,7 @@ It's important to note that updates are always downloaded to the passive partiti
 
 ## Reboot strategy options
 
-The reboot strategy can be set with a Container Linux Config:
+The reboot strategy can be set with a Flatcar Linux Config:
 
 ```yaml container-linux-config
 locksmith:
@@ -62,15 +62,15 @@ The `off` strategy is also straightforward. The update will be installed onto th
 
 ## Updating PXE/iPXE machines
 
-PXE/iPXE machines download a new copy of Container Linux every time they are started thus are dependent on the version of Container Linux they are served. If you don't automatically load new Container Linux images into your PXE/iPXE server, your machines will never have new features or security updates.
+PXE/iPXE machines download a new copy of Flatcar Linux every time they are started thus are dependent on the version of Flatcar Linux they are served. If you don't automatically load new Flatcar Linux images into your PXE/iPXE server, your machines will never have new features or security updates.
 
-An easy solution to this problem is to use iPXE and reference images [directly from the Container Linux storage site](booting-with-ipxe.md#setting-up-ipxe-boot-script). The `alpha` URL is automatically pointed to the new version of Container Linux as it is released.
+An easy solution to this problem is to use iPXE and reference images [directly from the Flatcar Linux storage site](booting-with-ipxe.md#setting-up-ipxe-boot-script). The `alpha` URL is automatically pointed to the new version of Flatcar Linux as it is released.
 
 ## Disable Automatic Updates Daemon
 
 In case when you don't want to install updates onto the passive partition and avoid update process on failure reboot, you can disable `update-engine` service manually with `sudo systemctl stop update-engine` command (it will be enabled automatically next reboot).
 
-If you wish to disable automatic updates permanently, use can configure this with a Container Linux Config. This example will stop `update-engine`, which executes the updates, and `locksmithd`, which coordinates reboots across the cluster:
+If you wish to disable automatic updates permanently, use can configure this with a Flatcar Linux Config. This example will stop `update-engine`, which executes the updates, and `locksmithd`, which coordinates reboots across the cluster:
 
 ```yaml container-linux-config
 systemd:
@@ -83,7 +83,7 @@ systemd:
 
 ## Updating behind a proxy
 
-Public Internet access is required to contact CoreUpdate and download new versions of Container Linux. If direct access is not available the `update-engine` service may be configured to use a HTTP or SOCKS proxy using curl-compatible environment variables, such as `HTTPS_PROXY` or `ALL_PROXY`.
+Public Internet access is required to contact CoreUpdate and download new versions of Flatcar Linux. If direct access is not available the `update-engine` service may be configured to use a HTTP or SOCKS proxy using curl-compatible environment variables, such as `HTTPS_PROXY` or `ALL_PROXY`.
 See [curl's documentation](http://curl.haxx.se/docs/manpage.html#ALLPROXY) for details.
 
 ```yaml container-linux-config
@@ -114,7 +114,7 @@ Locksmith supports maintenance windows in addition to the reboot strategies ment
 
 Windows are defined by a start time and a length. In this example, the window is defined to be every Thursday between 04:00 and 05:00:
 
-Container Linux Configs don't yet support maintenance windows, but will very soon.
+Flatcar Linux Configs don't yet support maintenance windows, but will very soon.
 
 As an example, consider the following cloud config:
 
@@ -128,7 +128,7 @@ coreos:
     window-length: 1h
 ```
 
-This will configure a Container Linux machine to follow the `reboot` strategy, and thus when an update is ready it will simply reboot instead of attempting to grab a lock in etcd. This machine however has also been configured to only reboot between 04:00 and 05:00 on Thursdays, so if an update occurs outside of this window the machine will then wait until it is inside of this window to reboot.
+This will configure a Flatcar Linux machine to follow the `reboot` strategy, and thus when an update is ready it will simply reboot instead of attempting to grab a lock in etcd. This machine however has also been configured to only reboot between 04:00 and 05:00 on Thursdays, so if an update occurs outside of this window the machine will then wait until it is inside of this window to reboot.
 
 For more information about the supported syntax, refer to the [Locksmith documentation][reboot-windows].
 

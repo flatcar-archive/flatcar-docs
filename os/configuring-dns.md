@@ -1,12 +1,12 @@
 # DNS Configuration
 
-By default, DNS resolution on Container Linux is handled through `/etc/resolv.conf`, which is a symlink to `/run/systemd/resolve/resolv.conf`. This file is managed by [systemd-resolved][systemd-resolved]. Normally, `systemd-resolved` gets DNS IP addresses from [systemd-networkd][systemd-networkd], either via DHCP or static configuration. DNS IP addresses can also be set via `systemd-resolved`'s [resolved.conf][resolved.conf]. See [Network configuration with networkd](network-config-with-networkd.md) for more information on `systemd-networkd`.
+By default, DNS resolution on Flatcar Linux is handled through `/etc/resolv.conf`, which is a symlink to `/run/systemd/resolve/resolv.conf`. This file is managed by [systemd-resolved][systemd-resolved]. Normally, `systemd-resolved` gets DNS IP addresses from [systemd-networkd][systemd-networkd], either via DHCP or static configuration. DNS IP addresses can also be set via `systemd-resolved`'s [resolved.conf][resolved.conf]. See [Network configuration with networkd](network-config-with-networkd.md) for more information on `systemd-networkd`.
 
 ## Using a local DNS cache
 
 `systemd-resolved` includes a caching DNS resolver. To use it for DNS resolution and caching, you must enable it via [nsswitch.conf][nsswitch.conf] by adding `resolve` to the `hosts` section.
 
-Here is an example [Container Linux Config][cl-configs] snippet to do that:
+Here is an example [Flatcar Linux Config][cl-configs] snippet to do that:
 
 ```yaml container-linux-config
 storage:

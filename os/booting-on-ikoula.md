@@ -10,14 +10,14 @@ On Advanced networking zones, you have a virtual router deployed which protects 
 
 ### Flatcar Linux images on Ikoula Cloud
 
-You can deploy and boot officially-built Container Linux images on Ikoula Cloud!
+You can deploy and boot officially-built Flatcar Linux images on Ikoula Cloud!
 
 You will need:
 
 - a valid account
 - a valid cloud public subscription
 
-Please note that images deployed on Ikoula Cloud update themselves automatically. The reboot strategy is "best effort", which means that if the deployed Container Linux is standalone then it will reboot automatically. You can, however, [disable this behaviour][reboot-after-update]. We also provide a FAQ on how to [achieve][coreos-update-manually] this.
+Please note that images deployed on Ikoula Cloud update themselves automatically. The reboot strategy is "best effort", which means that if the deployed Flatcar Linux is standalone then it will reboot automatically. You can, however, [disable this behaviour][reboot-after-update]. We also provide a FAQ on how to [achieve][coreos-update-manually] this.
 
 [reboot-after-update]: update-strategies.md
 [coreos-update-manually]: https://ikoula.wiki/help/Mettre_a_jour_CoreOS_manuellement/fr
@@ -69,7 +69,7 @@ Your public cloud subscription appear:
   </div>
 </div>
 
-If you click on it, you'll have access to a menu that quickly permits you to deploy and configure an instance of Container Linux on a Basic networking zone of your choice:
+If you click on it, you'll have access to a menu that quickly permits you to deploy and configure an instance of Flatcar Linux on a Basic networking zone of your choice:
 
 <div class="row">
   <div class="col-lg-8 col-md-10 col-sm-8 col-xs-12">
@@ -87,7 +87,7 @@ To create your instance:
 2. Choose "CoreOS Stable 64bits SSH KEYPAIR with core user" on Template section.
 3. Choose your service offering, that will represent the power of your instance, the resources that it will get.
 4. Choose the incoming firewall rules that will be accepted (we recommend to open at least SSH, by default all ports are closed).
-5. Choose the authentication type. On Container Linux this is a sshkeypair, choose to create on, or use an already existent one.
+5. Choose the authentication type. On Flatcar Linux this is a sshkeypair, choose to create on, or use an already existent one.
 6. Choose the Basic zone in which you will want your instance to be deployed.
 
 Click on CREATE MY INSTANCE, then, thanks to SSD-backed Ikoula Cloud hosts, you will rapidly get information about your instance:
@@ -96,7 +96,7 @@ Click on CREATE MY INSTANCE, then, thanks to SSD-backed Ikoula Cloud hosts, you 
   <div class="col-lg-8 col-md-10 col-sm-8 col-xs-12">
     <br/>
     <img src="img/ikoula-instance-deployed.png" class="screenshot" />
-    <div align="center" class="caption">Instance Container Linux deployed on Extranet Ikoula portal</div>
+    <div align="center" class="caption">Instance Flatcar Linux deployed on Extranet Ikoula portal</div>
     <br/>
     <br/>
   </div>
@@ -108,9 +108,9 @@ Finally with the IP address the sshkey, and the firewall rule, you will be able 
 
 The Ikoula Cloud offers a template "CoreOS Stable" which is available on every all of the different geographic zones (France, USA East, Singapore, Germany, Netherlands).
 
-Consistent with the normal use of Container Linux, the SSH connection to an instance deployed with this template is only possible with the user “core” and through SSH key authentication. You can then rely on official FAQs Container Linux without encountering unexpected behavior.
+Consistent with the normal use of Flatcar Linux, the SSH connection to an instance deployed with this template is only possible with the user “core” and through SSH key authentication. You can then rely on official FAQs Flatcar Linux without encountering unexpected behavior.
 
-In the following procedure, we will use the tool Apache CloudMonkey to deploy a Container Linux instance. To be able to use CloudMonkey, you must have valid API and secret keys. You have received them both on subscription to Ikoula Cloud service. If you don't have them, please follow this [FAQ](https://ikoula.wiki/help/Utiliser_le_moteur_API_du_cloud_public_ikoula)
+In the following procedure, we will use the tool Apache CloudMonkey to deploy a Flatcar Linux instance. To be able to use CloudMonkey, you must have valid API and secret keys. You have received them both on subscription to Ikoula Cloud service. If you don't have them, please follow this [FAQ](https://ikoula.wiki/help/Utiliser_le_moteur_API_du_cloud_public_ikoula)
 to generate them.
 
 ## Prepare CloudMonkey environment
@@ -203,7 +203,7 @@ You need to adapt the "<>" fields. Hint: To get correct IDs, either use tab comp
 $ cloudmonkey
 Apache CloudStack CloudMonkey 5.0.0. Type help or ? to list commands.
 
-> create portforwardingrule virtualmachineid=<ID of the deployed Container Linux instance above> networkid=<Network ID> ipaddressid=<Public address IP of your network> privateport=22 publicport=<port publique> protocol=tcp
+> create portforwardingrule virtualmachineid=<ID of the deployed Flatcar Linux instance above> networkid=<Network ID> ipaddressid=<Public address IP of your network> privateport=22 publicport=<port publique> protocol=tcp
 ```
 
 You need to adapt the "<>" fields. After launching this command, you will receive the IP address information.
@@ -224,12 +224,12 @@ Deploying on a Basic networking zone is somewhat similar, but you don't need to 
 $ CloudMonkey
 Apache CloudStack CloudMonkey 5.0.0. Type help or ? to list commands.
 
-> deploy virtualmachine zoneid=<Zone ID> templateid=<Container Linux Template ID of this zone> serviceofferingid=<Serviceoffering ID> securitygroupids=<ID of your security group> keypair=MySSHkey name=<Instance Name>
+> deploy virtualmachine zoneid=<Zone ID> templateid=<Flatcar Linux Template ID of this zone> serviceofferingid=<Serviceoffering ID> securitygroupids=<ID of your security group> keypair=MySSHkey name=<Instance Name>
 ```
 
 # Going further with Flatcar Linux on Ikoula Cloud
 
-Now that you have successfully deployed a Container Linux instance, you should consult the [quickstart on Container Linux][quickstart] and [plan a cluster][cluster-configure]!
+Now that you have successfully deployed a Flatcar Linux instance, you should consult the [quickstart on Flatcar Linux][quickstart] and [plan a cluster][cluster-configure]!
 
 [quickstart]: quickstart.md
 [cluster-configure]: cluster-discovery.md

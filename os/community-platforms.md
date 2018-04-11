@@ -1,8 +1,8 @@
 # Community supported platforms
 
-The Container Linux community has provided support for Container Linux on a number of platforms beyond those [officially supported][official-support] by CoreOS.
+The Flatcar Linux community has provided support for Flatcar Linux on a number of platforms beyond those [officially supported][official-support] by CoreOS.
 
-The platforms and providers listed below each provide support and documentation for running Container Linux:
+The platforms and providers listed below each provide support and documentation for running Flatcar Linux:
 
 ## Cloud providers
 

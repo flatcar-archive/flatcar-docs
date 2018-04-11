@@ -4,20 +4,20 @@
 This allows applications to treat remote storage devices as if they were local disks.
 iSCSI handles taking requests from clients and carrying them out on the remote SCSI devices.
 
-Container Linux has integrated support for mounting devices.
-This guide covers iSCSI configuration manually or automatically with [Container Linux Configs][cl-configs].
+Flatcar Linux has integrated support for mounting devices.
+This guide covers iSCSI configuration manually or automatically with [Flatcar Linux Configs][cl-configs].
 
 ## Manual iSCSI configuration
 
 ### Set the Flatcar Linux iSCSI initiator name
 
 iSCSI clients each have a unique initiator name.
-Container Linux generates a unique initiator name on each install and stores it in `/etc/iscsi/initiatorname.iscsi`.
+Flatcar Linux generates a unique initiator name on each install and stores it in `/etc/iscsi/initiatorname.iscsi`.
 This may be replaced if necessary.
 
 ### Configure the global iSCSI credentials
 
-If all iSCSI mounts on a Container Linux system use the same credentials, these may be configured locally by editing `/etc/iscsi/iscsid.conf` and setting the `node.session.auth.username` and `node.session.auth.password` fields.
+If all iSCSI mounts on a Flatcar Linux system use the same credentials, these may be configured locally by editing `/etc/iscsi/iscsid.conf` and setting the `node.session.auth.username` and `node.session.auth.password` fields.
 If the iSCSI target is configured to support mutual authentication (allowing the initiator to verify that it is speaking to the correct client), these should be set in `node.session.auth.username_in` and `node.session.auth.password_in`.
 
 ### Start the iSCSI daemon
@@ -82,13 +82,13 @@ $ systemctl enable iscsid
 
 To configure and start iSCSI automatically after a machine is provisioned, credentials need to be written to disk and the iSCSI service started.
 
-A Container Linux Config will be used to write the file `/etc/iscsi/iscsid.conf` to disk:
+A Flatcar Linux Config will be used to write the file `/etc/iscsi/iscsid.conf` to disk:
 
 #### /etc/iscsi/iscsid.conf
 <!-- TODO: It's inclear based on documentation what the actual first line of this doc snippet should be.
      This is a best guess based on docs I've read, the rest I'm pretty certain of.
      I know we want to do discovery in this file, just not sure if that line accomplished the task. -->
-     
+
 ```
 isns.address = host_ip
 isns.port = host_port
@@ -98,7 +98,7 @@ discovery.sendtargets.auth.username = my_username
 discovery.sendtargets.auth.password = my_secret_password
 ```
 
-### The Container Linux Config
+### The Flatcar Linux Config
 
 ```yaml container-linux-config
 systemd:

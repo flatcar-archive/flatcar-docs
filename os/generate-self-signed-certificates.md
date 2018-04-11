@@ -1,6 +1,6 @@
 # Generate self-signed certificates
 
-If you build Container Linux cluster on top of public networks it is recommended to enable encryption for Container Linux services to prevent traffic interception and man-in-the-middle attacks. For these purposes you have to use Certificate Authority (CA), private keys and certificates signed by CA. Let's use [cfssl][cfssl] and walk through the whole process to create all these components.
+If you build Flatcar Linux cluster on top of public networks it is recommended to enable encryption for Flatcar Linux services to prevent traffic interception and man-in-the-middle attacks. For these purposes you have to use Certificate Authority (CA), private keys and certificates signed by CA. Let's use [cfssl][cfssl] and walk through the whole process to create all these components.
 
 **NOTE:** We will use basic procedure here. If your configuration requires advanced security options, please refer to official [cfssl][cfssl] documentation.
 
@@ -29,7 +29,7 @@ cfssl print-defaults config > ca-config.json
 cfssl print-defaults csr > ca-csr.json
 ```
 
-### Certificate types which are used inside Container Linux
+### Certificate types which are used inside Flatcar Linux
 
 * **client certificate** is used to authenticate client by server. For example `etcdctl`, `etcd proxy`, `fleetctl` or `docker` clients.
 * **server certificate** is used by server and verified by client for server identity. For example `docker` server or `kube-apiserver`.
@@ -279,7 +279,7 @@ openssl x509 -in client.pem -text -noout
 
 ### Things to know
 
-* Don't put your `ca-key.pem` into a Container Linux Config, it is recommended to store it in safe place. This key allows to generate as much certificates as possible.
+* Don't put your `ca-key.pem` into a Flatcar Linux Config, it is recommended to store it in safe place. This key allows to generate as much certificates as possible.
 * Keep **key** files in safe. Don't forget to set proper file permissions, i.e. `chmod 0600 server-key.pem`.
 * Certificates in this **TLDR** example have both `server auth` and `client auth` X509 V3 extensions and you can use them with servers and clients' authentication.
 * You are free to generate keys and certificates for wildcard `*` address as well. They will work on any machine. It will simplify certificates routine but increase security risks.

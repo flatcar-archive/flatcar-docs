@@ -1,6 +1,6 @@
 # Customizing docker
 
-The Docker systemd unit can be customized by overriding the unit that ships with the default Container Linux settings. Common use-cases for doing this are covered below.
+The Docker systemd unit can be customized by overriding the unit that ships with the default Flatcar Linux settings. Common use-cases for doing this are covered below.
 
 ## Enable the remote API on a new socket
 
@@ -34,9 +34,9 @@ Test that it's working:
 docker -H tcp://127.0.0.1:2375 ps
 ```
 
-### Container Linux Config
+### Flatcar Linux Config
 
-To enable the remote API on every Container Linux machine in a cluster, use a [Container Linux Config][cl-configs]. We need to provide the new socket file and Docker's socket activation support will automatically start using the socket:
+To enable the remote API on every Flatcar Linux machine in a cluster, use a [Flatcar Linux Config][cl-configs]. We need to provide the new socket file and Docker's socket activation support will automatically start using the socket:
 
 ```yaml container-linux-config
 systemd:
@@ -69,7 +69,7 @@ Docker TLS configuration consists of three parts: keys creation, configuring new
 
 ### TLS keys creation
 
-Please follow the [instruction][self-signed-certs] to know how to create self-signed certificates and private keys. Then copy with following files into `/etc/docker` Container Linux's directory and fix their permissions:
+Please follow the [instruction][self-signed-certs] to know how to create self-signed certificates and private keys. Then copy with following files into `/etc/docker` Flatcar Linux's directory and fix their permissions:
 
 ```sh
 scp ~/cfssl/{server.pem,server-key.pem,ca.pem} coreos.example.com:
@@ -145,7 +145,7 @@ If you've experienceed problems connection to remote Docker API using TLS connec
 curl -v --cacert ~/.docker/ca.pem --cert ~/.docker/cert.pem --key ~/.docker/key.pem https://server:2376
 ```
 
-Or on your Container Linux host:
+Or on your Flatcar Linux host:
 
 ```sh
 journalctl -f -u docker.service
@@ -158,9 +158,9 @@ export DOCKER_HOST=tcp://server.example.com:2376 DOCKER_TLS_VERIFY=1
 docker images
 ```
 
-### Container Linux Config
+### Flatcar Linux Config
 
-A Container Linux Config for Docker TLS authentication will look like:
+A Flatcar Linux Config for Docker TLS authentication will look like:
 
 ```yaml container-linux-config
 storage:
@@ -220,7 +220,7 @@ docker:
 
 ## Use attached storage for Docker images
 
-Docker containers can be very large and debugging a build process makes it easy to accumulate hundreds of containers. It's advantageous to use attached storage to expand your capacity for container images. Check out the guide to [mounting storage to your Container Linux machine][mounting-storage] for an example of how to bind mount storage into `/var/lib/docker`.
+Docker containers can be very large and debugging a build process makes it easy to accumulate hundreds of containers. It's advantageous to use attached storage to expand your capacity for container images. Check out the guide to [mounting storage to your Flatcar Linux machine][mounting-storage] for an example of how to bind mount storage into `/var/lib/docker`.
 
 ## Enabling the Docker debug flag
 
@@ -245,9 +245,9 @@ docker ps
 journalctl -u docker
 ```
 
-### Container Linux Config
+### Flatcar Linux Config
 
-If you need to modify a flag across many machines, you can add the flag with a Container Linux Config:
+If you need to modify a flag across many machines, you can add the flag with a Flatcar Linux Config:
 
 ```yaml container-linux-config
 docker:
@@ -279,9 +279,9 @@ systemctl restart docker
 
 Proxy environment variables can also be set [system-wide][systemd-env-vars].
 
-### Container Linux Config
+### Flatcar Linux Config
 
-The easiest way to use this proxy on all of your machines is via a Container Linux Config:
+The easiest way to use this proxy on all of your machines is via a Flatcar Linux Config:
 
 ```yaml container-linux-config
 systemd:
@@ -317,9 +317,9 @@ systemctl daemon-reload
 systemctl restart docker
 ```
 
-### Container Linux Config
+### Flatcar Linux Config
 
-The easiest way to use these new ulimits on all of your machines is via a Container Linux Config:
+The easiest way to use these new ulimits on all of your machines is via a Flatcar Linux Config:
 
 ```yaml container-linux-configs
 systemd:

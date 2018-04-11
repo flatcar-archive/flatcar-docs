@@ -8,11 +8,11 @@ Before proceeding, you will need a GCE account ([GCE free trial ][free-trial]) a
 
 After installation, log into your account with `gcloud auth login` and enter your project ID when prompted.
 
-## Container Linux Config
+## Flatcar Linux Config
 
-Container Linux allows you to configure machine parameters, configure networking, launch systemd units on startup, and more via Container Linux Configs. These configs are then transpiled into Ignition configs and given to booting machines. Head over to the [docs to learn about the supported features][cl-configs].
+Flatcar Linux allows you to configure machine parameters, configure networking, launch systemd units on startup, and more via Flatcar Linux Configs. These configs are then transpiled into Ignition configs and given to booting machines. Head over to the [docs to learn about the supported features][cl-configs].
 
-You can provide a raw Ignition config to Container Linux via the Google Cloud console's metadata field `user-data` or via a flag using `gcloud`.
+You can provide a raw Ignition config to Flatcar Linux via the Google Cloud console's metadata field `user-data` or via a flag using `gcloud`.
 
 As an example, this config will configure and start etcd:
 
@@ -37,7 +37,7 @@ etcd:
 
 ## Choosing a channel
 
-Container Linux is designed to be [updated automatically](https://coreos.com/why/#updates) with different schedules per channel. You can [disable this feature](update-strategies.md), although we don't recommend it. Read the [release notes](https://coreos.com/releases) for specific features and bug fixes.
+Flatcar Linux is designed to be [updated automatically](https://coreos.com/why/#updates) with different schedules per channel. You can [disable this feature](update-strategies.md), although we don't recommend it. Read the [release notes](https://coreos.com/releases) for specific features and bug fixes.
 
 Create 3 instances from the image above using our Ignition from `example.ign`:
 
@@ -49,15 +49,15 @@ Create 3 instances from the image above using our Ignition from `example.ign`:
   </ul>
   <div class="tab-content coreos-docs-image-table">
     <div class="tab-pane" id="alpha-create">
-      <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Container Linux {{site.alpha-channel}}.</p>
+      <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Flatcar Linux {{site.alpha-channel}}.</p>
       <pre>gcloud compute instances create core1 core2 core3 --image-project coreos-cloud --image-family coreos-alpha --zone us-central1-a --machine-type n1-standard-1 --metadata-from-file user-data=config.ign</pre>
     </div>
     <div class="tab-pane" id="beta-create">
-      <p>The Beta channel consists of promoted Alpha releases. The current version is Container Linux {{site.beta-channel}}.</p>
+      <p>The Beta channel consists of promoted Alpha releases. The current version is Flatcar Linux {{site.beta-channel}}.</p>
       <pre>gcloud compute instances create core1 core2 core3 --image-project coreos-cloud --image-family coreos-beta --zone us-central1-a --machine-type n1-standard-1 --metadata-from-file user-data=config.ign</pre>
     </div>
     <div class="tab-pane active" id="stable-create">
-      <p>The Stable channel should be used by production clusters. Versions of Container Linux are battle-tested within the Beta and Alpha channels before being promoted. The current version is Container Linux {{site.stable-channel}}.</p>
+      <p>The Stable channel should be used by production clusters. Versions of Flatcar Linux are battle-tested within the Beta and Alpha channels before being promoted. The current version is Flatcar Linux {{site.stable-channel}}.</p>
       <pre>gcloud compute instances create core1 core2 core3 --image-project coreos-cloud --image-family coreos-stable --zone us-central1-a --machine-type n1-standard-1 --metadata-from-file user-data=config.ign</pre>
     </div>
   </div>
@@ -65,7 +65,7 @@ Create 3 instances from the image above using our Ignition from `example.ign`:
 
 ### Additional storage
 
-Additional disks attached to instances can be mounted with a `.mount` unit. Each disk can be accessed via `/dev/disk/by-id/google-<disk-name>`. Here's the Container Linux Config to format and mount a disk called `database-backup`:
+Additional disks attached to instances can be mounted with a `.mount` unit. Each disk can be accessed via `/dev/disk/by-id/google-<disk-name>`. Here's the Flatcar Linux Config to format and mount a disk called `database-backup`:
 
 ```yaml container-linux-config:gce
 storage:
@@ -88,7 +88,7 @@ systemd:
         RequiredBy=local-fs.target
 ```
 
-For more information about mounting storage, Google's [own documentation](https://developers.google.com/compute/docs/disks#attach_disk) is the best source. You can also read about [mounting storage on Container Linux](mounting-storage.md).
+For more information about mounting storage, Google's [own documentation](https://developers.google.com/compute/docs/disks#attach_disk) is the best source. You can also read about [mounting storage on Flatcar Linux](mounting-storage.md).
 
 ### Adding more machines
 
@@ -96,7 +96,7 @@ To add more instances to the cluster, just launch more with the same Ignition co
 
 ## SSH
 
-You can log in your Container Linux instances using:
+You can log in your Flatcar Linux instances using:
 
 ```sh
 gcloud compute ssh --zone us-central1-a core@<instance-name>
@@ -106,4 +106,4 @@ Users other than `core`, which are set up by the GCE account manager, may not be
 
 ## Using Flatcar Linux
 
-Now that you have a machine booted it is time to play around. Check out the [Container Linux Quickstart](quickstart.md) guide or dig into [more specific topics](https://coreos.com/docs).
+Now that you have a machine booted it is time to play around. Check out the [Flatcar Linux Quickstart](quickstart.md) guide or dig into [more specific topics](https://coreos.com/docs).

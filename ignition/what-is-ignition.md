@@ -1,6 +1,6 @@
 # What is Ignition?
 
-Ignition is a new provisioning utility designed specifically for Container Linux, which allows you to manipulate disks during early boot. This includes partitioning disks, formatting partitions, writing files (regular files, systemd units, networkd units, and more), and configuring users. On the first boot, Ignition reads its configuration from a source-of-truth (remote URL, network metadata service, or hypervisor bridge, for example) and applies the configuration.
+Ignition is a new provisioning utility designed specifically for Flatcar Linux, which allows you to manipulate disks during early boot. This includes partitioning disks, formatting partitions, writing files (regular files, systemd units, networkd units, and more), and configuring users. On the first boot, Ignition reads its configuration from a source-of-truth (remote URL, network metadata service, or hypervisor bridge, for example) and applies the configuration.
 
 A [series of example configs][examples] are provided for reference.
 
@@ -20,7 +20,7 @@ Because Ignition runs so early in the boot process, the network config is availa
 
 Because Ignition only runs once, there's no reason for it to incorporate dynamic data (like  floating IP addresses, or compute regions).
 
-Instead, use Ignition to write static files and leverage systemd's environment variable expansion to insert dynamic data. The Ignition config should install a service which fetches the necessary runtime data, then any services which need this data (such as etcd or fleet) can rely on the installed service and source in their output. The result is that the data is only collected if and when it is needed. For supported platforms, Container Linux provides a small utility (`coreos-metadata.service`) to help fetch this data.
+Instead, use Ignition to write static files and leverage systemd's environment variable expansion to insert dynamic data. The Ignition config should install a service which fetches the necessary runtime data, then any services which need this data (such as etcd or fleet) can rely on the installed service and source in their output. The result is that the data is only collected if and when it is needed. For supported platforms, Flatcar Linux provides a small utility (`coreos-metadata.service`) to help fetch this data.
 
 The lack of variable substitution in Ignition has an added benefit of leveling the playing field when it comes to compute providers. The user's experience is no longer crippled because the metadata for their platform isn't supported. It is possible to write a [custom metadata agent][custom-agent] to fetch the necessary data.
 
@@ -32,7 +32,7 @@ Note that [PXE][supported-platforms] deployments don't use GRUB to boot, so `cor
 
 ## Providing Ignition a config
 
-Ignition can read its config from a number of different locations, but only from one at a time. When running Container Linux on the supported cloud providers, Ignition will read its config from the instance's userdata. This means that if Ignition is being used, it will not be possible to use other tools which also use this userdata (such as coreos-cloudinit). Bare metal installations and PXE boots can use the kernel boot parameters to point Ignition at the config.
+Ignition can read its config from a number of different locations, but only from one at a time. When running Flatcar Linux on the supported cloud providers, Ignition will read its config from the instance's userdata. This means that if Ignition is being used, it will not be possible to use other tools which also use this userdata (such as coreos-cloudinit). Bare metal installations and PXE boots can use the kernel boot parameters to point Ignition at the config.
 
 ## Where is Ignition supported?
 

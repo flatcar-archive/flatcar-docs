@@ -1,6 +1,6 @@
 # Adding disk space to your Flatcar Linux machine
 
-On a Container Linux machine, the operating system itself is mounted as a read-only partition at `/usr`. The root partition provides read-write storage by default and on a fresh install is mostly blank. The default size of this partition depends on the platform but it is usually between 3GB and 16GB. If more space is required simply extend the virtual machine's disk image and Container Linux will fix the partition table and resize the root partition to fill the disk on the next boot.
+On a Flatcar Linux machine, the operating system itself is mounted as a read-only partition at `/usr`. The root partition provides read-write storage by default and on a fresh install is mostly blank. The default size of this partition depends on the platform but it is usually between 3GB and 16GB. If more space is required simply extend the virtual machine's disk image and Flatcar Linux will fix the partition table and resize the root partition to fill the disk on the next boot.
 
 ## Amazon EC2
 

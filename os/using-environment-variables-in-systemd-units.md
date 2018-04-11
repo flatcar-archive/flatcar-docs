@@ -2,7 +2,7 @@
 
 ## Environment directive
 
-systemd has an Environment directive which sets environment variables for executed processes. It takes a space-separated list of variable assignments. This option may be specified more than once in which case all listed variables will be set. If the same variable is set twice, the later setting will override the earlier setting. If the empty string is assigned to this option, the list of environment variables is reset, all prior assignments have no effect. Environments directives are used in built-in Container Linux systemd units, for example in etcd2 and flannel.
+systemd has an Environment directive which sets environment variables for executed processes. It takes a space-separated list of variable assignments. This option may be specified more than once in which case all listed variables will be set. If the same variable is set twice, the later setting will override the earlier setting. If the empty string is assigned to this option, the list of environment variables is reset, all prior assignments have no effect. Environments directives are used in built-in Flatcar Linux systemd units, for example in etcd2 and flannel.
 
 With the example below, you can configure your etcd2 daemon to use encryption. Just create `/etc/systemd/system/etcd2.service.d/30-certificates.conf` [drop-in] for etcd2.service:
 
@@ -24,7 +24,7 @@ Then run `sudo systemctl daemon-reload` and `sudo systemctl restart etcd2.servic
 
 EnvironmentFile similar to Environment directive but reads the environment variables from a text file. The text file should contain new-line-separated variable assignments.
 
-For example, in Container Linux, the `coreos-metadata.service` service creates `/run/metadata/coreos`. This environment file can be included by other services in order to inject dynamic configuration. Here's an example of the environment file when run on DigitalOcean (the IP addresses have been removed):
+For example, in Flatcar Linux, the `coreos-metadata.service` service creates `/run/metadata/coreos`. This environment file can be included by other services in order to inject dynamic configuration. Here's an example of the environment file when run on DigitalOcean (the IP addresses have been removed):
 
 ```
 COREOS_DIGITALOCEAN_IPV4_ANCHOR_0=X.X.X.X
@@ -79,7 +79,7 @@ This unit file will run nginx Docker container and bind it to specific IP addres
 
 ### System wide environment variables
 
-You can define system wide environment variables using a [Container Linux Config][cl-configs] as explained below:
+You can define system wide environment variables using a [Flatcar Linux Config][cl-configs] as explained below:
 
 ```yaml container-linux-config
 storage:
@@ -102,7 +102,7 @@ storage:
 Where:
 
 * `/etc/systemd/system.conf.d/10-default-env.conf` config file will set default environment variables for all systemd units.
-* `/etc/profile.env` will set environment variables for all users logged in Container Linux.
+* `/etc/profile.env` will set environment variables for all users logged in Flatcar Linux.
 
 ### etcd2.service unit advanced example
 
@@ -115,7 +115,7 @@ For more systemd examples, check out these documents:
 [Customizing Docker][customizing-docker]
 [Customizing the SSH Daemon][customizing-sshd]
 [Using systemd Drop-In Units][drop-in]
-[etcd Cluster Runtime Reconfiguration on Container Linux][etcd-cluster-reconfiguration]
+[etcd Cluster Runtime Reconfiguration on Flatcar Linux][etcd-cluster-reconfiguration]
 
 [drop-in]: using-systemd-drop-in-units.md
 [customizing-sshd]: customizing-sshd.md#changing-the-sshd-port

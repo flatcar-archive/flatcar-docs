@@ -1,6 +1,6 @@
 # Running Flatcar Linux on Brightbox Cloud
 
-These instructions will walk you through running a Container Linux cluster on Brightbox. This guide uses the [Brightbox CLI](http://brightbox.com/docs/guides/cli/getting-started/) but you can also use the [Brightbox Manager](http://brightbox.com/docs/guides/manager/).
+These instructions will walk you through running a Flatcar Linux cluster on Brightbox. This guide uses the [Brightbox CLI](http://brightbox.com/docs/guides/cli/getting-started/) but you can also use the [Brightbox Manager](http://brightbox.com/docs/guides/manager/).
 
 ## Firewall policy
 
@@ -77,7 +77,7 @@ $ brightbox images list | grep CoreOS
 
 ## Cloud-config
 
-Container Linux allows you to configure machine parameters, launch systemd units on startup and more via [cloud-config][cloud-config]. We're going to provide the `cloud-config` data via the `user-data-file` flag.
+Flatcar Linux allows you to configure machine parameters, launch systemd units on startup and more via [cloud-config][cloud-config]. We're going to provide the `cloud-config` data via the `user-data-file` flag.
 
 [cloud-config]: https://github.com/coreos/coreos-cloudinit/blob/master/Documentation/cloud-config.md
 
@@ -149,4 +149,4 @@ If you don’t have ipv6, you’ll need to [create and map a Cloud IP](http://br
 
 ## Using Flatcar Linux
 
-Now that you have a cluster bootstrapped it is time to play around. Check out the [Container Linux Quickstart](quickstart.md) guide or dig into [more specific topics](https://coreos.com/docs).
+Now that you have a cluster bootstrapped it is time to play around. Check out the [Flatcar Linux Quickstart](quickstart.md) guide or dig into [more specific topics](https://coreos.com/docs).

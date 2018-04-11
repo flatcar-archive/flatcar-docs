@@ -1,11 +1,11 @@
 # Running Flatcar Linux on Rackspace
 
-These instructions will walk you through running Container Linux on the Rackspace OpenStack cloud, which differs slightly from the generic OpenStack instructions. There are two ways to launch a Container Linux cluster: launch an entire cluster with Heat or launch machines with Nova.
+These instructions will walk you through running Flatcar Linux on the Rackspace OpenStack cloud, which differs slightly from the generic OpenStack instructions. There are two ways to launch a Flatcar Linux cluster: launch an entire cluster with Heat or launch machines with Nova.
 
 
 ## Choosing a channel
 
-Container Linux is designed to be [updated automatically](https://coreos.com/why/#updates) with different schedules per channel. You can [disable this feature](update-strategies.md), although we don't recommend it. Read the [release notes](https://coreos.com/releases) for specific features and bug fixes.
+Flatcar Linux is designed to be [updated automatically](https://coreos.com/why/#updates) with different schedules per channel. You can [disable this feature](update-strategies.md), although we don't recommend it. Read the [release notes](https://coreos.com/releases) for specific features and bug fixes.
 
 <div id="rax-images">
   <ul class="nav nav-tabs">
@@ -16,21 +16,21 @@ Container Linux is designed to be [updated automatically](https://coreos.com/why
   <div class="tab-content coreos-docs-image-table">
     <div class="tab-pane" id="alpha">
       <div class="channel-info">
-        <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Container Linux {{site.alpha-channel}}.</p>
+        <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Flatcar Linux {{site.alpha-channel}}.</p>
         <p>The following command can be used to determine the image IDs for Alpha:</p>
         <pre>supernova production image-list | grep 'CoreOS (Alpha)'</pre>
       </div>
     </div>
     <div class="tab-pane" id="beta">
       <div class="channel-info">
-        <p>The Beta channel consists of promoted Alpha releases. The current version is Container Linux {{site.beta-channel}}.</p>
+        <p>The Beta channel consists of promoted Alpha releases. The current version is Flatcar Linux {{site.beta-channel}}.</p>
         <p>The following command can be used to determine the image IDs for Beta:</p>
         <pre>supernova production image-list | grep 'CoreOS (Beta)'</pre>
       </div>
     </div>
     <div class="tab-pane active" id="stable">
       <div class="channel-info">
-        <p>The Stable channel should be used by production clusters. Versions of Container Linux are battle-tested within the Beta and Alpha channels before being promoted. The current version is Container Linux {{site.stable-channel}}.</p>
+        <p>The Stable channel should be used by production clusters. Versions of Flatcar Linux are battle-tested within the Beta and Alpha channels before being promoted. The current version is Flatcar Linux {{site.stable-channel}}.</p>
         <p>The following command can be used to determine the image IDs for Stable:</p>
         <pre>supernova production image-list | grep 'CoreOS (Stable)'</pre>
       </div>
@@ -40,7 +40,7 @@ Container Linux is designed to be [updated automatically](https://coreos.com/why
 
 ## Cloud-config
 
-Container Linux allows you to configure machine parameters, launch systemd units on startup and more via cloud-config. Jump over to the [docs to learn about the supported features][cloud-config-docs]. Cloud-config is intended to bring up a cluster of machines into a minimal useful state and ideally shouldn't be used to configure anything that isn't standard across many hosts. Once a machine is created on Rackspace, the cloud-config can't be modified.
+Flatcar Linux allows you to configure machine parameters, launch systemd units on startup and more via cloud-config. Jump over to the [docs to learn about the supported features][cloud-config-docs]. Cloud-config is intended to bring up a cluster of machines into a minimal useful state and ideally shouldn't be used to configure anything that isn't standard across many hosts. Once a machine is created on Rackspace, the cloud-config can't be modified.
 
 You can provide cloud-config data via both Heat and Nova APIs. You **cannot** provide cloud-config via the Control Panel. If you launch machines via the UI, you will have to do all configuration manually.
 
@@ -91,7 +91,7 @@ coreos:
 
 Mounting Cloud Block Storage can be done with a mount unit, but should not be included in cloud-config unless the disk is present on the first boot.
 
-For more general information, check out [mounting storage on Container Linux](mounting-storage.md).
+For more general information, check out [mounting storage on Flatcar Linux](mounting-storage.md).
 
 ## Launch with Nova
 
@@ -125,7 +125,7 @@ We're ready to create a keypair then boot a server with it.
 
 ### Create keypair
 
-For this guide, I'm assuming you already have a public key you use for your Container Linux servers. Note that only RSA keypairs are supported. Load the public key to Rackspace:
+For this guide, I'm assuming you already have a public key you use for your Flatcar Linux servers. Note that only RSA keypairs are supported. Load the public key to Rackspace:
 
 ```sh
 supernova production keypair-add --pub-key ~/.ssh/coreos.pub coreos-key
@@ -215,4 +215,4 @@ You can also launch servers with either the `alpha` and `beta` channel versions 
 
 ## Using Flatcar Linux
 
-Now that you have a machine booted it is time to play around. Check out the [Container Linux Quickstart](quickstart.md) guide or dig into [more specific topics](https://coreos.com/docs).
+Now that you have a machine booted it is time to play around. Check out the [Flatcar Linux Quickstart](quickstart.md) guide or dig into [more specific topics](https://coreos.com/docs).

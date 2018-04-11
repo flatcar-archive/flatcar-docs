@@ -1,6 +1,6 @@
 # Performing manual Flatcar Linux rollbacks
 
-In the event of an upgrade failure, Container Linux will automatically boot with the version on the rollback partition. Immediately after an upgrade reboot, the active version of Container Linux can be rolled back to the version installed on the rollback partition, or downgraded to the version current on any lower release channel. There is no method to downgrade to an arbitrary version number.
+In the event of an upgrade failure, Flatcar Linux will automatically boot with the version on the rollback partition. Immediately after an upgrade reboot, the active version of Flatcar Linux can be rolled back to the version installed on the rollback partition, or downgraded to the version current on any lower release channel. There is no method to downgrade to an arbitrary version number.
 
 This section describes the automated upgrade process, performing a manual rollback, and forcing a channel downgrade.
 
@@ -151,7 +151,7 @@ $ cgpt prioritize "$(cgpt find -t coreos-usr | grep --invert-match "$(rootdev -s
 
 ## Forcing a Channel Downgrade
 
-The procedure above restores the last known good Container Linux version from immediately before an upgrade reboot. The system remains on the same [Container Linux channel][relchans] after rebooting with the previous USR partition. It is also possible, though not recommended, to switch a Container Linux installation to an older release channel, for example to make a system running an Alpha release downgrade to the Stable channel. Root privileges are required for this procedure, noted by `sudo` in the commands below.
+The procedure above restores the last known good Flatcar Linux version from immediately before an upgrade reboot. The system remains on the same [Flatcar Linux channel][relchans] after rebooting with the previous USR partition. It is also possible, though not recommended, to switch a Flatcar Linux installation to an older release channel, for example to make a system running an Alpha release downgrade to the Stable channel. Root privileges are required for this procedure, noted by `sudo` in the commands below.
 
 First, edit `/etc/coreos/update.conf` to set `GROUP` to the name of the target channel, one of `stable` or `beta`:
 

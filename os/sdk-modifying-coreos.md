@@ -1,14 +1,14 @@
 # Flatcar Linux developer SDK guide
 
-These are the instructions for building Container Linux itself. By the end of the guide you will build a developer image that you can run under KVM and have tools for making changes to the code.
+These are the instructions for building Flatcar Linux itself. By the end of the guide you will build a developer image that you can run under KVM and have tools for making changes to the code.
 
-Container Linux is an open source project. All of the source for Container Linux is available on [github][github-coreos]. If you find issues with these docs or the code please send a pull request.
+Flatcar Linux is an open source project. All of the source for Flatcar Linux is available on [github][github-coreos]. If you find issues with these docs or the code please send a pull request.
 
 Direct questions and suggestions to the [IRC channel][irc] or [mailing list][coreos-dev].
 
 ## Getting started
 
-Let's get set up with an SDK chroot and build a bootable image of Container Linux. The SDK chroot has a full toolchain and isolates the build process from quirks and differences between host OSes. The SDK must be run on an x86-64 Linux machine, the distro should not matter (Ubuntu, Fedora, etc).
+Let's get set up with an SDK chroot and build a bootable image of Flatcar Linux. The SDK chroot has a full toolchain and isolates the build process from quirks and differences between host OSes. The SDK must be run on an x86-64 Linux machine, the distro should not matter (Ubuntu, Fedora, etc).
 
 ### Prerequisites
 
@@ -80,11 +80,11 @@ To use the SDK chroot in the future, run `cork enter` from the above directory.
 
 ### Using QEMU for cross-compiling
 
-The Container Linux initramfs is generated with the `dracut` tool. `Dracut` assumes it is running on the target system, and produces output only for that CPU architecture. In order to create initramfs files for other architectures, `dracut` is executed under QEMU's user mode emulation of the target CPU via the host system's binfmt support.
+The Flatcar Linux initramfs is generated with the `dracut` tool. `Dracut` assumes it is running on the target system, and produces output only for that CPU architecture. In order to create initramfs files for other architectures, `dracut` is executed under QEMU's user mode emulation of the target CPU via the host system's binfmt support.
 
 #### Configuring QEMU for 64 bit ARM binaries
 
-Note that "64 bit ARM" is known by two short forms: `aarch64` (as seen in the configuration file for QEMU), and `arm64` (as seen in how Container Linux and many other distributions refer to the architecture).
+Note that "64 bit ARM" is known by two short forms: `aarch64` (as seen in the configuration file for QEMU), and `arm64` (as seen in how Flatcar Linux and many other distributions refer to the architecture).
 
 The QEMU binary, `/usr/bin/qemu-aarch64-static` is not expected to be on the host workstation. It will be inside the `arm64-usr` build chroot entered before running `dracut`.
 
@@ -161,7 +161,7 @@ Once you build an image you can launch it with KVM (instructions will print out 
 
 ### git and repo
 
-Container Linux is managed by `repo`, a tool built for the Android project that makes managing a large number of git repositories easier. From the repo announcement blog:
+Flatcar Linux is managed by `repo`, a tool built for the Android project that makes managing a large number of git repositories easier. From the repo announcement blog:
 
 > The repo tool uses an XML-based manifest file describing where the upstream
 > repositories are, and how to merge them into a single working checkout. repo
@@ -175,7 +175,7 @@ You can find the full manual for repo by visiting [android.com - Developing][and
 
 ### Updating repo manifests
 
-The repo manifest for Container Linux lives in a git repository in
+The repo manifest for Flatcar Linux lives in a git repository in
 `.repo/manifests`. If you need to update the manifest edit `default.xml`
 in this directory.
 

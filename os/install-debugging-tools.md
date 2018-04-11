@@ -32,7 +32,7 @@ Pulling repository index.example.com/debug
 ...
 ```
 
-You can also specify this in a Container Linux Config:
+You can also specify this in a Flatcar Linux Config:
 
 ```yaml container-linux-config
 storage:

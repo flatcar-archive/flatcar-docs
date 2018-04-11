@@ -1,10 +1,10 @@
 # Running Flatcar Linux on EC2
 
-The current AMIs for all Container Linux channels and EC2 regions are listed below and updated frequently. Using CloudFormation is the easiest way to launch a cluster, but it is also possible to follow the manual steps at the end of the article. Questions can be directed to the CoreOS [IRC channel][irc] or [user mailing list][coreos-user].
+The current AMIs for all Flatcar Linux channels and EC2 regions are listed below and updated frequently. Using CloudFormation is the easiest way to launch a cluster, but it is also possible to follow the manual steps at the end of the article. Questions can be directed to the CoreOS [IRC channel][irc] or [user mailing list][coreos-user].
 
 ## Choosing a channel
 
-Container Linux is designed to be [updated automatically](https://coreos.com/why/#updates) with different schedules per channel. You can [disable this feature](update-strategies.md), although we don't recommend it. Read the [release notes](https://coreos.com/releases) for specific features and bug fixes.
+Flatcar Linux is designed to be [updated automatically](https://coreos.com/why/#updates) with different schedules per channel. You can [disable this feature](update-strategies.md), although we don't recommend it. Read the [release notes](https://coreos.com/releases) for specific features and bug fixes.
 
 <div id="ec2-images">
   <ul class="nav nav-tabs">
@@ -15,7 +15,7 @@ Container Linux is designed to be [updated automatically](https://coreos.com/why
   <div class="tab-content coreos-docs-image-table">
     <div class="tab-pane" id="alpha">
       <div class="channel-info">
-        <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Container Linux {{site.alpha-channel}}.</p>
+        <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Flatcar Linux {{site.alpha-channel}}.</p>
         <a class="btn btn-link btn-icon-left co-p-docs-rss" href="https://coreos.com/dist/aws/aws-alpha.json"><span class="fa fa-rss"></span>View as json feed</a>
       </div>
       <table>
@@ -47,7 +47,7 @@ Container Linux is designed to be [updated automatically](https://coreos.com/why
     </div>
     <div class="tab-pane" id="beta">
       <div class="channel-info">
-        <p>The Beta channel consists of promoted Alpha releases. The current version is Container Linux {{site.beta-channel}}.</p>
+        <p>The Beta channel consists of promoted Alpha releases. The current version is Flatcar Linux {{site.beta-channel}}.</p>
         <a class="btn btn-link btn-icon-left co-p-docs-rss" href="https://coreos.com/dist/aws/aws-beta.json"><span class="fa fa-rss"></span>View as json feed</a>
       </div>
       <table>
@@ -79,7 +79,7 @@ Container Linux is designed to be [updated automatically](https://coreos.com/why
     </div>
     <div class="tab-pane active" id="stable">
       <div class="channel-info">
-        <p>The Stable channel should be used by production clusters. Versions of Container Linux are battle-tested within the Beta and Alpha channels before being promoted. The current version is Container Linux {{site.stable-channel}}.</p>
+        <p>The Stable channel should be used by production clusters. Versions of Flatcar Linux are battle-tested within the Beta and Alpha channels before being promoted. The current version is Flatcar Linux {{site.stable-channel}}.</p>
         <a class="btn btn-link btn-icon-left co-p-docs-rss" href="https://coreos.com/dist/aws/aws-stable.json"><span class="fa fa-rss"></span>View as json feed</a>
       </div>
       <table>
@@ -112,15 +112,15 @@ Container Linux is designed to be [updated automatically](https://coreos.com/why
   </div>
 </div>
 
-CloudFormation will launch a cluster of Container Linux machines with a security and autoscaling group.
+CloudFormation will launch a cluster of Flatcar Linux machines with a security and autoscaling group.
 
-## Container Linux Configs
+## Flatcar Linux Configs
 
-Container Linux allows you to configure machine parameters, configure networking, launch systemd units on startup, and more via Container Linux Configs. These configs are then transpiled into Ignition configs and given to booting machines. Head over to the [docs to learn about the supported features][cl-configs].
+Flatcar Linux allows you to configure machine parameters, configure networking, launch systemd units on startup, and more via Flatcar Linux Configs. These configs are then transpiled into Ignition configs and given to booting machines. Head over to the [docs to learn about the supported features][cl-configs].
 
-You can provide a raw Ignition config to Container Linux via the Amazon web console or [via the EC2 API][ec2-user-data].
+You can provide a raw Ignition config to Flatcar Linux via the Amazon web console or [via the EC2 API][ec2-user-data].
 
-As an example, this Container Linux Config will configure and start etcd:
+As an example, this Flatcar Linux Config will configure and start etcd:
 
 ```yaml container-linux-config:ec2
 etcd:
@@ -144,7 +144,7 @@ etcd:
 
 ### Instance storage
 
-Ephemeral disks and additional EBS volumes attached to instances can be mounted with a `.mount` unit. Amazon's block storage devices are attached differently [depending on the instance type](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/InstanceStorage.html#InstanceStoreDeviceNames). Here's the Container Linux Config to format and mount the first ephemeral disk, `xvdb`, on most instance types:
+Ephemeral disks and additional EBS volumes attached to instances can be mounted with a `.mount` unit. Amazon's block storage devices are attached differently [depending on the instance type](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/InstanceStorage.html#InstanceStoreDeviceNames). Here's the Flatcar Linux Config to format and mount the first ephemeral disk, `xvdb`, on most instance types:
 
 ```yaml container-linux-config:ec2
 storage:
@@ -168,15 +168,15 @@ systemd:
         RequiredBy=local-fs.target
 ```
 
-For more information about mounting storage, Amazon's [own documentation](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/InstanceStorage.html) is the best source. You can also read about [mounting storage on Container Linux](mounting-storage.md).
+For more information about mounting storage, Amazon's [own documentation](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/InstanceStorage.html) is the best source. You can also read about [mounting storage on Flatcar Linux](mounting-storage.md).
 
 ### Adding more machines
 
-To add more instances to the cluster, just launch more with the same Container Linux Config, the appropriate security group and the AMI for that region. New instances will join the cluster regardless of region if the security groups are configured correctly.
+To add more instances to the cluster, just launch more with the same Flatcar Linux Config, the appropriate security group and the AMI for that region. New instances will join the cluster regardless of region if the security groups are configured correctly.
 
 ## SSH to your instances
 
-Container Linux is set up to be a little more secure than other cloud images. By default, it uses the `core` user instead of `root` and doesn't use a password for authentication. You'll need to add an SSH key(s) via the AWS console or add keys/passwords via your Container Linux Config in order to log in.
+Flatcar Linux is set up to be a little more secure than other cloud images. By default, it uses the `core` user instead of `root` and doesn't use a password for authentication. You'll need to add an SSH key(s) via the AWS console or add keys/passwords via your Flatcar Linux Config in order to log in.
 
 To connect to an instance after it's created, run:
 
@@ -203,12 +203,12 @@ You need open port 2379, 2380, 7001 and 4001 between servers in the `etcd` clust
 
 _This step is only needed once_
 
-First we need to create a security group to allow Container Linux instances to communicate with one another.
+First we need to create a security group to allow Flatcar Linux instances to communicate with one another.
 
 1. Go to the [security group][sg] page in the EC2 console.
 2. Click "Create Security Group"
     * Name: coreos-testing
-    * Description: Container Linux instances
+    * Description: Flatcar Linux instances
     * VPC: No VPC
     * Click: "Yes, Create"
 3. In the details of the security group, click the `Inbound` tab
@@ -462,7 +462,7 @@ First we need to create a security group to allow Container Linux instances to c
 
 ## Using Flatcar Linux
 
-Now that you have a machine booted it is time to play around. Check out the [Container Linux Quickstart](quickstart.md) guide or dig into [more specific topics](https://coreos.com/docs).
+Now that you have a machine booted it is time to play around. Check out the [Flatcar Linux Quickstart](quickstart.md) guide or dig into [more specific topics](https://coreos.com/docs).
 
 
 [coreos-user]: https://groups.google.com/forum/#!forum/coreos-user

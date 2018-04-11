@@ -1,6 +1,6 @@
 # Running Flatcar Linux on CloudStack
 
-This guide explains how to deploy Container Linux with CloudStack. These instructions will walk you through downloading Container Linux image and running an instance from it. This document assumes that CloudStack is already installed. Please refer to the [Install Guide][install-guide] for CloudStack installation steps.
+This guide explains how to deploy Flatcar Linux with CloudStack. These instructions will walk you through downloading Flatcar Linux image and running an instance from it. This document assumes that CloudStack is already installed. Please refer to the [Install Guide][install-guide] for CloudStack installation steps.
 
 
 ## Register the Flatcar Linux image (template)
@@ -17,14 +17,14 @@ After logging in to CloudStack UI, to upload a template:
   * **Hypervisor**: The supported hypervisors are listed. Select the desired one.
   * **Format**: The format of the template upload file, such as VHD or OVA.
   * **Extractable**: Choose Yes if the template is available for extraction. If this option is selected, end users can download a full image of a template.
-  * **Public**: Choose Yes to make this template accessible to all users of this CloudStack installation. The template will appear in the Community Templates list. See [Container Linux Templates](#coreos-container-linux-templates).
+  * **Public**: Choose Yes to make this template accessible to all users of this CloudStack installation. The template will appear in the Community Templates list. See [Flatcar Linux Templates](#coreos-container-linux-templates).
   * **Featured**: Choose Yes if you would like this template to be more prominent for users to select. The template will appear in the Featured Templates list. Only an administrator can make a template Featured.
 
 Alternatively, the [registerTemplate API][register-template-api] can also be used.
 
 ### Flatcar Linux templates
 
-Apache CloudStack community created [Container Linux templates][coreos-templates] are currently available for XenServer, KVM, VMware and HyperV hypervisors.
+Apache CloudStack community created [Flatcar Linux templates][coreos-templates] are currently available for XenServer, KVM, VMware and HyperV hypervisors.
 
 ### Deploy Flatcar Linux instance
 
@@ -34,10 +34,10 @@ To create a VM from a template:
 2. In the left navigation bar, click Instances.
 3. Click Add Instance.
 4. Select a zone.
-5. Select the Container Linux template registered in the previous step.
+5. Select the Flatcar Linux template registered in the previous step.
 6. Click Submit and your VM will be created and started.
 
-Alternatively, the [deployVirtualMachine API][deploy-vm-api] can also be used to deploy Container Linux instances.
+Alternatively, the [deployVirtualMachine API][deploy-vm-api] can also be used to deploy Flatcar Linux instances.
 
 ### Virtual machine configuration
 
@@ -46,7 +46,7 @@ cloud-config can be provided using userdata while deploying virtual machine. use
 ## Using Flatcar Linux
 
 Now that you have a machine booted it is time to play around.
-Check out the [Container Linux Quickstart][coreos-quickstart] guide or dig into [more specific topics][coreos-docs].
+Check out the [Flatcar Linux Quickstart][coreos-quickstart] guide or dig into [more specific topics][coreos-docs].
 
 [install-guide]: http://docs.cloudstack.apache.org/projects/cloudstack-installation/en/latest/
 [register-template-api]: http://cloudstack.apache.org/docs/api/apidocs-4.4/user/registerTemplate.html

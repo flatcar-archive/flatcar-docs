@@ -1,13 +1,13 @@
 # Running Flatcar Linux on cloud.ca
 
-[cloud.ca](http://www.cloud.ca) is a regional IaaS designed to help meet regulatory or security requirements by storing data in Canada. Container Linux is a supported operating system for VMs on the cloud.ca infrastructure.
+[cloud.ca](http://www.cloud.ca) is a regional IaaS designed to help meet regulatory or security requirements by storing data in Canada. Flatcar Linux is a supported operating system for VMs on the cloud.ca infrastructure.
 
 
 ## Choosing a channel
 
-Container Linux is designed to be [updated automatically][update-docs], with three channels of different update schedules: Stable, Beta, and Alpha. You can [disable this feature][reboot-docs], although we don't recommend it. Read the [release notes][release-notes] for specific features and bug fixes.
+Flatcar Linux is designed to be [updated automatically][update-docs], with three channels of different update schedules: Stable, Beta, and Alpha. You can [disable this feature][reboot-docs], although we don't recommend it. Read the [release notes][release-notes] for specific features and bug fixes.
 
-The cloud.ca Container Linux image is built from the official stable release CloudStack image.
+The cloud.ca Flatcar Linux image is built from the official stable release CloudStack image.
 
 <div id="cca-images">
   <ul class="nav nav-tabs">
@@ -18,7 +18,7 @@ The cloud.ca Container Linux image is built from the official stable release Clo
   <div class="tab-content coreos-docs-image-table">
     <div class="tab-pane" id="alpha">
       <div class="channel-info">
-        <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Container Linux {{site.alpha-channel}}. To use the Alpha channel on cloud.ca, select the "CoreOS Stable" template and update the cloud-config to [change the channel to alpha][switching-channels]:</p>
+        <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Flatcar Linux {{site.alpha-channel}}. To use the Alpha channel on cloud.ca, select the "CoreOS Stable" template and update the cloud-config to [change the channel to alpha][switching-channels]:</p>
       </div>
 
 ```cloud-config
@@ -31,7 +31,7 @@ coreos:
     </div>
     <div class="tab-pane" id="beta">
       <div class="channel-info">
-        <p>The Beta channel consists of promoted Alpha releases. The current version is Container Linux {{site.beta-channel}}. To use the Beta channel on cloud.ca, use the "CoreOS Stable" template and update the cloud-config to [change the channel to beta][switching-channels]: </p>
+        <p>The Beta channel consists of promoted Alpha releases. The current version is Flatcar Linux {{site.beta-channel}}. To use the Beta channel on cloud.ca, use the "CoreOS Stable" template and update the cloud-config to [change the channel to beta][switching-channels]: </p>
       </div>
 
 ```cloud-config
@@ -44,7 +44,7 @@ coreos:
     </div>
     <div class="tab-pane active" id="stable">
       <div class="channel-info">
-        <p>The Stable channel should be used by production clusters. Versions of Container Linux are battle-tested within the Beta and Alpha channels before being promoted. The current version is Container Linux {{site.stable-channel}}.</p>
+        <p>The Stable channel should be used by production clusters. Versions of Flatcar Linux are battle-tested within the Beta and Alpha channels before being promoted. The current version is Flatcar Linux {{site.stable-channel}}.</p>
       </div>
       <table>
         <thead>
@@ -70,7 +70,7 @@ coreos:
 
 ## Cloud-config
 
-Container Linux allows you to configure machine parameters, launch systemd units on startup, and more via cloud-config. Jump over to the [docs to learn about the supported features][cloud-config-docs]. Cloud-config is intended to bring up a cluster of machines into a minimal useful state and ideally shouldn't be used to configure anything that isn't standard across many hosts. Once the machine is created, cloud-config cannot be modified.
+Flatcar Linux allows you to configure machine parameters, launch systemd units on startup, and more via cloud-config. Jump over to the [docs to learn about the supported features][cloud-config-docs]. Cloud-config is intended to bring up a cluster of machines into a minimal useful state and ideally shouldn't be used to configure anything that isn't standard across many hosts. Once the machine is created, cloud-config cannot be modified.
 
 You can provide cloud-config data using cloud.ca management portal or through the CloudStack API. When using CloudStack API, the cloud-conf must be base64 encoded as the `userdata` parameter.
 
@@ -130,7 +130,7 @@ To add more instances to the cluster, just launch more with the same cloud-confi
 
 ## Launching instances
 
-Before deploying Container Linux on cloud.ca, you need the following:
+Before deploying Flatcar Linux on cloud.ca, you need the following:
 
 * An account on `https://your_organization_name.cloud.ca`.
 * Access to an Environment with a running VPC. VPC and subnet creation are not
@@ -206,7 +206,7 @@ core@coreos-node01 ~ $ etcdctl member list
 
 ## Using Flatcar Linux
 
-Now that you have a machine booted it is time to play around. Check out the [Container Linux Quickstart][quick-start] guide or dig into [more specific topics][docs].
+Now that you have a machine booted it is time to play around. Check out the [Flatcar Linux Quickstart][quick-start] guide or dig into [more specific topics][docs].
 
 
 [update-docs]: https://coreos.com/why/#updates

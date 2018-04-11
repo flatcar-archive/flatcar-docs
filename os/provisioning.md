@@ -1,20 +1,20 @@
 # Provisioning
 
-Container Linux automates machine provisioning with a specialized system for applying initial configuration. This system implements a process of (trans)compilation and validation for machine configs, and an atomic service to apply validated configurations to machines.
+Flatcar Linux automates machine provisioning with a specialized system for applying initial configuration. This system implements a process of (trans)compilation and validation for machine configs, and an atomic service to apply validated configurations to machines.
 
-## Container Linux Config
+## Flatcar Linux Config
 
-Container Linux admins define these configurations in a format called the [Container Linux Config][clc], which is specific to Container Linux, structured as YAML, and intended to be human-readable. The Container Linux Config has features devoted to configuring Container Linux services such as [etcd][etcd], [rkt][rkt], Docker, [flannel][flannel], and [locksmith][locksmith]. The defining feature of the config is that it cannot be sent directly to a Container Linux provisioning target. Instead, it is first validated and transformed into a machine-readable and wire-efficient form.
+Flatcar Linux admins define these configurations in a format called the [Flatcar Linux Config][clc], which is specific to Flatcar Linux, structured as YAML, and intended to be human-readable. The Flatcar Linux Config has features devoted to configuring Flatcar Linux services such as [etcd][etcd], [rkt][rkt], Docker, [flannel][flannel], and [locksmith][locksmith]. The defining feature of the config is that it cannot be sent directly to a Flatcar Linux provisioning target. Instead, it is first validated and transformed into a machine-readable and wire-efficient form.
 
-The following examples demonstrate the simplicity of the Container Linux Config format.
+The following examples demonstrate the simplicity of the Flatcar Linux Config format.
 
-This extremely simple Container Linux Config will fetch and run the current release of etcd:
+This extremely simple Flatcar Linux Config will fetch and run the current release of etcd:
 
 ```yaml container-linux-config:norender
 etcd:
 ```
 
-Extend the definition to specify the version of etcd to run. The following example will provision a new Container Linux machine to fetch and run the etcd service, version 3.1.6:
+Extend the definition to specify the version of etcd to run. The following example will provision a new Flatcar Linux machine to fetch and run the etcd service, version 3.1.6:
 
 ```yaml container-linux-config:norender
 etcd:
@@ -32,27 +32,27 @@ etcd:
   discovery:                   https://discovery.etcd.io/<token>
 ```
 
-`PUBLIC_IPV4` and `PRIVATE_IPV4` are automatically populated from the environment in which Container Linux runs, if this metadata exists. Given the many different environments in which Container Linux can run, it's difficult if not impossible to accurately determine these variables in every instance. Be certain to check this value as a troubleshooting measure.
+`PUBLIC_IPV4` and `PRIVATE_IPV4` are automatically populated from the environment in which Flatcar Linux runs, if this metadata exists. Given the many different environments in which Flatcar Linux can run, it's difficult if not impossible to accurately determine these variables in every instance. Be certain to check this value as a troubleshooting measure.
 
 For example, the default metadata for an EC2 environment would be used: `public_ipv4` and `local_ipv4`. On Azure, *either* the virtual IP or public IP could be used for the `PUBLIC_IPV4` (`ct` makes a best guess and uses the virtual IP, but this could change in the future), and the dynamic IP would be used for the `PRIVATE_IPV4`. On bare metal, this information cannot be reliably derived in a general manner, so these variables cannot be used.
 
-Because variable expansion is unpredictable and complex, and because it is also common for users to inadvertently write invalid configs, the use of a transformation tool is strongly encouraged. The default tool recommended for this task is the [Config Transpiler][ct] (ct for short). The Config Transpiler will validate and transform a Container Linux Config into the format that Container Linux can consume: the Ignition Config.
+Because variable expansion is unpredictable and complex, and because it is also common for users to inadvertently write invalid configs, the use of a transformation tool is strongly encouraged. The default tool recommended for this task is the [Config Transpiler][ct] (ct for short). The Config Transpiler will validate and transform a Flatcar Linux Config into the format that Flatcar Linux can consume: the Ignition Config.
 
 ## Ignition Config
 
-Ignition, the utility in Container Linux responsible for provisioning the machine, fetches and executes the Ignition Config. Container Linux directly consumes the Ignition Config configuration format.
+Ignition, the utility in Flatcar Linux responsible for provisioning the machine, fetches and executes the Ignition Config. Flatcar Linux directly consumes the Ignition Config configuration format.
 
-Ignition Configs are mostly static, distro-agnostic, and meant to be generated by a machine rather than a human. While they can be written directly by users, it is highly discouraged due to the ease with which errors may be introduced. Rather than writing Ignition Configs directly, users are encouraged to use provisioning tools like [Matchbox][matchbox], which transparently translate Container Linux Configs to Ignition Configs, or to use the Config Transpiler itself.
+Ignition Configs are mostly static, distro-agnostic, and meant to be generated by a machine rather than a human. While they can be written directly by users, it is highly discouraged due to the ease with which errors may be introduced. Rather than writing Ignition Configs directly, users are encouraged to use provisioning tools like [Matchbox][matchbox], which transparently translate Flatcar Linux Configs to Ignition Configs, or to use the Config Transpiler itself.
 
 ![visual overview of the alternate ct workflows](img/ct-workflow.svg)
 
-As shown in this diagram, `ct` is manually invoked only when users are manually provisioning machines. If a provisioning tool like Matchbox is used, `ct` will transparently be incorporated into the deployment pipeline. In which case, the user only needs to prepare a Container Linux Config - Ignition and the Ignition Config are merely an implementation detail.
+As shown in this diagram, `ct` is manually invoked only when users are manually provisioning machines. If a provisioning tool like Matchbox is used, `ct` will transparently be incorporated into the deployment pipeline. In which case, the user only needs to prepare a Flatcar Linux Config - Ignition and the Ignition Config are merely an implementation detail.
 
 ## Config Transpiler
 
-The Container Linux Config Transpiler abstracts the details of configuring Container Linux. It's responsible for transforming a Container Linux Config written by a user into an Ignition Config to be consumed by instances of Container Linux.
+The Flatcar Linux Config Transpiler abstracts the details of configuring Flatcar Linux. It's responsible for transforming a Flatcar Linux Config written by a user into an Ignition Config to be consumed by instances of Flatcar Linux.
 
-The Container Linux Config Transpiler command line interface, `ct` for short, can be downloaded from its [GitHub Releases page][download-ct].
+The Flatcar Linux Config Transpiler command line interface, `ct` for short, can be downloaded from its [GitHub Releases page][download-ct].
 
 The following config will configure an etcd cluster using the machine's public and private IP addresses:
 
@@ -72,7 +72,7 @@ $ ct < example.yml
 error: platform must be specified to use templating
 ```
 
-This message states that because the config takes advantage of templating (in this case,  `PUBLIC_IPV4`), `ct` must be invoked with the `--platform` argument. This extra information is used by `ct` to make the platform-specific customizations necessary. Keeping the Container Linux Config and the invocation arguments separate allows the Container Linux Config to remain largely platform independent.
+This message states that because the config takes advantage of templating (in this case,  `PUBLIC_IPV4`), `ct` must be invoked with the `--platform` argument. This extra information is used by `ct` to make the platform-specific customizations necessary. Keeping the Flatcar Linux Config and the invocation arguments separate allows the Flatcar Linux Config to remain largely platform independent.
 
 CT can be invoked again and given Amazon EC2 as an example:
 
@@ -99,7 +99,7 @@ This time, `ct` successfully runs and produces the following Ignition Config:
 }
 ```
 
-This Ignition Config enables and configures etcd as specified in the above Container Linux Config. This can be more easily seen if the contents of the etcd drop-in are formatted nicely:
+This Ignition Config enables and configures etcd as specified in the above Flatcar Linux Config. This can be more easily seen if the contents of the etcd drop-in are formatted nicely:
 
 ```ini
 [Unit]
@@ -121,13 +121,13 @@ The details of these changes are covered in depth in Ignition's [metadata docume
 
 ## Migrating from cloud configs
 
-Previously, the recommended way to provision a Container Linux machine was with a cloud-config. These configs would be given to a Container Linux machine and a utility called [coreos-cloudinit][cloudinit] would read this file and apply the configuration on every boot.
+Previously, the recommended way to provision a Flatcar Linux machine was with a cloud-config. These configs would be given to a Flatcar Linux machine and a utility called [coreos-cloudinit][cloudinit] would read this file and apply the configuration on every boot.
 
-For a [number of reasons][vs], coreos-cloudinit has been deprecated in favor of Container Linux Configs and Ignition. For help migrating from these legacy cloud-configs to Container Linux Configs, refer to the [migration guide][migrating].
+For a [number of reasons][vs], coreos-cloudinit has been deprecated in favor of Flatcar Linux Configs and Ignition. For help migrating from these legacy cloud-configs to Flatcar Linux Configs, refer to the [migration guide][migrating].
 
-## Using Container Linux Configs
+## Using Flatcar Linux Configs
 
-Now that the basics of Container Linux Configs have been covered, a good next step is to read through the [examples][examples] and start experimenting. The [troubleshooting guide][troubleshooting] is a good reference for debugging issues.
+Now that the basics of Flatcar Linux Configs have been covered, a good next step is to read through the [examples][examples] and start experimenting. The [troubleshooting guide][troubleshooting] is a good reference for debugging issues.
 
 [clc]: https://github.com/coreos/container-linux-config-transpiler/blob/master/doc/configuration.md
 [cloudinit]: https://github.com/coreos/coreos-cloudinit

@@ -1,6 +1,6 @@
 # Mounting storage
 
-Container Linux Configs can be used to format and attach additional filesystems to Container Linux nodes, whether such storage is provided by an underlying cloud platform, physical disk, SAN, or NAS system. This is done by specifying how partitions should be mounted in the config, and then using a _systemd mount unit_ to mount the partition. By [systemd convention](http://www.freedesktop.org/software/systemd/man/systemd.mount.html), mount unit names derive from the target mount point, with interior slashes replaced by dashes, and the `.mount` extension appended. A unit mounting onto `/var/www` is thus named `var-www.mount`.
+Flatcar Linux Configs can be used to format and attach additional filesystems to Flatcar Linux nodes, whether such storage is provided by an underlying cloud platform, physical disk, SAN, or NAS system. This is done by specifying how partitions should be mounted in the config, and then using a _systemd mount unit_ to mount the partition. By [systemd convention](http://www.freedesktop.org/software/systemd/man/systemd.mount.html), mount unit names derive from the target mount point, with interior slashes replaced by dashes, and the `.mount` extension appended. A unit mounting onto `/var/www` is thus named `var-www.mount`.
 
 
 Mount units name the source filesystem and target mount point, and optionally the filesystem type. *Systemd* mounts filesystems defined in such units at boot time. The following example formats an [EC2 ephemeral disk](booting-on-ec2.md#instance-storage) and then mounts it at the node's `/media/ephemeral` directory. The mount unit is therefore named `media-ephemeral.mount`.
@@ -67,7 +67,7 @@ systemd:
 
 ## Creating and mounting a btrfs volume file
 
-Container Linux uses ext4 + overlayfs to provide a layered filesystem for the root partition. If you'd like to use btrfs for your Docker containers, you can do so with two systemd units: one that creates and formats a btrfs volume file and another that mounts it.
+Flatcar Linux uses ext4 + overlayfs to provide a layered filesystem for the root partition. If you'd like to use btrfs for your Docker containers, you can do so with two systemd units: one that creates and formats a btrfs volume file and another that mounts it.
 
 In this example, we are going to mount a new 25GB btrfs volume file to `/var/lib/docker`. One can verify that Docker is using the btrfs storage driver once the Docker service has started by executing `sudo docker info`. We recommend allocating **no more than 85%** of the available disk space for a btrfs filesystem as journald will also require space on the host filesystem.
 
@@ -104,7 +104,7 @@ Note the declaration of `ConditionPathExists=!/var/lib/docker.btrfs`. Without th
 
 ## Mounting NFS exports
 
-This Container Linux Config excerpt mounts an NFS export onto the Container Linux node's `/var/www`.
+This Flatcar Linux Config excerpt mounts an NFS export onto the Flatcar Linux node's `/var/www`.
 
 ```yaml container-linux-config
 systemd:

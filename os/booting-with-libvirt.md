@@ -1,6 +1,6 @@
 # Running Flatcar Linux on libvirt
 
-This guide explains how to run Container Linux with libvirt using the QEMU driver. The libvirt configuration
+This guide explains how to run Flatcar Linux with libvirt using the QEMU driver. The libvirt configuration
 file can be used (for example) with `virsh` or `virt-manager`. The guide assumes
 that you already have a running libvirt setup and `virt-install` tool. If you
 don’t have that, other solutions are most likely easier.
@@ -15,7 +15,7 @@ to substitute that path if you use another one.
 
 ### Choosing a channel
 
-Container Linux is designed to be [updated automatically](https://coreos.com/why/#updates) with different schedules per channel. You can [disable this feature](update-strategies.md), although we don't recommend it. Read the [release notes](https://coreos.com/releases) for specific features and bug fixes.
+Flatcar Linux is designed to be [updated automatically](https://coreos.com/why/#updates) with different schedules per channel. You can [disable this feature](update-strategies.md), although we don't recommend it. Read the [release notes](https://coreos.com/releases) for specific features and bug fixes.
 
 <div id="libvirt-create">
   <ul class="nav nav-tabs">
@@ -25,7 +25,7 @@ Container Linux is designed to be [updated automatically](https://coreos.com/why
   </ul>
   <div class="tab-content coreos-docs-image-table">
     <div class="tab-pane" id="alpha-create">
-      <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Container Linux {{site.alpha-channel}}.</p>
+      <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Flatcar Linux {{site.alpha-channel}}.</p>
       <p>We start by downloading the most recent disk image:</p>
       <pre>
 mkdir -p /var/lib/libvirt/images/container-linux
@@ -35,7 +35,7 @@ gpg --verify coreos_production_qemu_image.img.bz2.sig
 bunzip2 coreos_production_qemu_image.img.bz2</pre>
     </div>
     <div class="tab-pane" id="beta-create">
-      <p>The Beta channel consists of promoted Alpha releases. The current version is Container Linux {{site.beta-channel}}.</p>
+      <p>The Beta channel consists of promoted Alpha releases. The current version is Flatcar Linux {{site.beta-channel}}.</p>
       <p>We start by downloading the most recent disk image:</p>
       <pre>
 mkdir -p /var/lib/libvirt/images/container-linux
@@ -45,7 +45,7 @@ gpg --verify coreos_production_qemu_image.img.bz2.sig
 bunzip2 coreos_production_qemu_image.img.bz2</pre>
     </div>
     <div class="tab-pane active" id="stable-create">
-      <p>The Stable channel should be used by production clusters. Versions of Container Linux are battle-tested within the Beta and Alpha channels before being promoted. The current version is Container Linux {{site.stable-channel}}.</p>
+      <p>The Stable channel should be used by production clusters. Versions of Flatcar Linux are battle-tested within the Beta and Alpha channels before being promoted. The current version is Flatcar Linux {{site.stable-channel}}.</p>
       <p>We start by downloading the most recent disk image:</p>
       <pre>
 mkdir -p /var/lib/libvirt/images/container-linux
@@ -70,7 +70,7 @@ This will create a `container-linux1.qcow2` snapshot image. Any changes to `cont
 
 ### Ignition config
 
-The preferred way to configure a Container Linux machine is via Ignition.
+The preferred way to configure a Flatcar Linux machine is via Ignition.
 Unfortunately, libvirt does not have direct support for Ignition yet, so configuring it involves including qemu-specific xml.
 
 This configuration can be done in the following steps:
@@ -93,7 +93,7 @@ semanage fcontext -a -t virt_content_t "/var/lib/libvirt/container-linux/contain
 restorecon -R "/var/lib/libvirt/container-linux/container-linux1"
 ```
 
-A simple Container Linux config to add your ssh keys might look like the following:
+A simple Flatcar Linux config to add your ssh keys might look like the following:
 
 ```yaml container-linux-config
 storage:
@@ -191,7 +191,7 @@ Expiry Time          MAC address        Protocol  IP address                Host
 
 #### Static IP
 
-By default, Container Linux uses DHCP to get its network configuration. In this example the VM will be attached directly to the local network via a bridge on the host's virbr0 and the local network. To configure a static address add a [networkd unit][systemd-network] to the Container Linux config:
+By default, Flatcar Linux uses DHCP to get its network configuration. In this example the VM will be attached directly to the local network via a bridge on the host's virbr0 and the local network. To configure a static address add a [networkd unit][systemd-network] to the Flatcar Linux config:
 
 ```yaml container-linux-config
 passwd:
@@ -300,7 +300,7 @@ ssh container-linux1
 
 ## Using Flatcar Linux
 
-Now that you have a machine booted it is time to play around. Check out the [Container Linux Quickstart](quickstart.md) guide or dig into [more specific topics](https://coreos.com/docs).
+Now that you have a machine booted it is time to play around. Check out the [Flatcar Linux Quickstart](quickstart.md) guide or dig into [more specific topics](https://coreos.com/docs).
 
 [coreos-dev]: https://groups.google.com/forum/#!forum/coreos-dev
 [irc]: irc://irc.freenode.org:6667/#coreos

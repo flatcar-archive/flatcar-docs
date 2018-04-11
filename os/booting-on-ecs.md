@@ -1,12 +1,12 @@
 # Running Flatcar Linux with AWS EC2 Container Service
 
-[Amazon EC2 Container Service (ECS)](http://aws.amazon.com/ecs/) is a container management service which provides a set of APIs for scheduling container workloads across EC2 clusters. It supports Container Linux with Docker containers.
+[Amazon EC2 Container Service (ECS)](http://aws.amazon.com/ecs/) is a container management service which provides a set of APIs for scheduling container workloads across EC2 clusters. It supports Flatcar Linux with Docker containers.
 
-Your Container Linux machines communicate with ECS via an agent. The agent interacts with Docker to start new containers and gather information about running containers.
+Your Flatcar Linux machines communicate with ECS via an agent. The agent interacts with Docker to start new containers and gather information about running containers.
 
 ## Set up a new cluster
 
-When booting your [Container Linux Machines on EC2](booting-on-ec2.md), configure the ECS agent to be started via [Ignition][ignition-docs].
+When booting your [Flatcar Linux Machines on EC2](booting-on-ec2.md), configure the ECS agent to be started via [Ignition][ignition-docs].
 
 Be sure to change `ECS_CLUSTER` to the cluster name you've configured via the ECS CLI or leave it empty for the default. Here's a full config example:
 
@@ -54,9 +54,9 @@ systemd:
        WantedBy=multi-user.target
 ```
 
-The example above pulls the latest official Amazon ECS agent container from the Docker Hub when the machine starts. If you ever need to update the agent, it’s as simple as restarting the amazon-ecs-agent service or the Container Linux machine.
+The example above pulls the latest official Amazon ECS agent container from the Docker Hub when the machine starts. If you ever need to update the agent, it’s as simple as restarting the amazon-ecs-agent service or the Flatcar Linux machine.
 
-If you want to configure SSH keys in order to log in, mount disks or configure other options, see the [Container Linux Configs documentation][cl-configs].
+If you want to configure SSH keys in order to log in, mount disks or configure other options, see the [Flatcar Linux Configs documentation][cl-configs].
 
 [cl-configs]: provisioning.md
 [ignition-docs]: https://coreos.com/ignition/docs/latest

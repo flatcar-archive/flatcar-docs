@@ -8,20 +8,20 @@ The following instructions will walk you through setting up the `nova` tool with
 
 ## Choosing a Channel
 
-Container Linux is designed to be [updated automatically](https://coreos.com/why/#updates) with different schedules per channel. You can [disable this feature](update-strategies.md), although we don't recommend it. Read the [release notes](https://coreos.com/releases) for specific features and bug fixes.
+Flatcar Linux is designed to be [updated automatically](https://coreos.com/why/#updates) with different schedules per channel. You can [disable this feature](update-strategies.md), although we don't recommend it. Read the [release notes](https://coreos.com/releases) for specific features and bug fixes.
 
-The Stable channel should be used by production clusters. Versions of Container Linux are battle-tested within the Beta and Alpha channels before being promoted. The current version is Container Linux {{site.stable-channel}}.
+The Stable channel should be used by production clusters. Versions of Flatcar Linux are battle-tested within the Beta and Alpha channels before being promoted. The current version is Flatcar Linux {{site.stable-channel}}.
 
-The Beta channel consists of promoted Alpha releases. The current version is Container Linux {{site.beta-channel}}.
+The Beta channel consists of promoted Alpha releases. The current version is Flatcar Linux {{site.beta-channel}}.
 
-The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Container Linux {{site.alpha-channel}}.
+The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Flatcar Linux {{site.alpha-channel}}.
 
-Container Linux releases are automatically built and deployed on the AURO cloud, therefore it is best to launch your clusters with the following naming pattern: Container Linux _Channel_ _Version_. For example, the image name of the latest alpha release will be "Container Linux Alpha {{site.alpha-channel}}".
+Flatcar Linux releases are automatically built and deployed on the AURO cloud, therefore it is best to launch your clusters with the following naming pattern: Flatcar Linux _Channel_ _Version_. For example, the image name of the latest alpha release will be "Flatcar Linux Alpha {{site.alpha-channel}}".
 
 
 ### Cloud-Config
 
-Container Linux allows you to configure machine parameters, launch systemd units on startup and more via [cloud-config][cloud-config]. We're going to provide the `cloud-config` data via the `user-data` flag.
+Flatcar Linux allows you to configure machine parameters, launch systemd units on startup and more via [cloud-config][cloud-config]. We're going to provide the `cloud-config` data via the `user-data` flag.
 
 [cloud-config]: https://github.com/coreos/coreos-cloudinit/blob/master/Documentation/cloud-config.md
 
@@ -55,7 +55,7 @@ The `$private_ipv4` and `$public_ipv4` substitution variables are fully supporte
 
 ## Launch Cluster
 
-You will need to install `python-novaclient` which supplies the OpenStack CLI tools as well as a keypair to use in order to access your Container Linux cluster.
+You will need to install `python-novaclient` which supplies the OpenStack CLI tools as well as a keypair to use in order to access your Flatcar Linux cluster.
 
 ### Install OpenStack CLI tools
 
@@ -78,7 +78,7 @@ $ nova credentials
 
 ### Create Keypair
 
-You can import an existing public key by using the `nova keypair-add` command, however for this guide, we will be creating a new keypair and storing the private key for it locally and use it to access our Container Linux cluster.
+You can import an existing public key by using the `nova keypair-add` command, however for this guide, we will be creating a new keypair and storing the private key for it locally and use it to access our Flatcar Linux cluster.
 
 ```sh
 $ nova keypair-add coreos-key > coreos.pem
@@ -86,7 +86,7 @@ $ nova keypair-add coreos-key > coreos.pem
 
 ### Create Servers
 
-You should now be ready to launch the servers which will create your Container Linux cluster using the `nova` CLI command.
+You should now be ready to launch the servers which will create your Flatcar Linux cluster using the `nova` CLI command.
 
 <div id="AURO-create">
   <ul class="nav nav-tabs">
@@ -95,11 +95,11 @@ You should now be ready to launch the servers which will create your Container L
   </ul>
   <div class="tab-content coreos-docs-image-table">
     <div class="tab-pane" id="alpha-create">
-      <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Container Linux {{site.alpha-channel}}.</p>
+      <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Flatcar Linux {{site.alpha-channel}}.</p>
       <pre>nova boot --user-data ./cloud-config.yaml --image "CoreOS Alpha {{site.alpha-channel}}" --key-name coreos-key --flavor standard-1 --num-instances 3 --security-groups default coreos</pre>
     </div>
     <div class="tab-pane active" id="beta-create">
-      <p>The Beta channel consists of promoted Alpha releases. The current version is Container Linux {{site.beta-channel}}.</p>
+      <p>The Beta channel consists of promoted Alpha releases. The current version is Flatcar Linux {{site.beta-channel}}.</p>
       <pre>nova boot --user-data ./cloud-config.yaml --image "CoreOS Beta {{site.beta-channel}}" --key-name coreos-key --flavor standard-1 --num-instances 3 --security-groups default coreos</pre>
     </div>
   </div>
@@ -131,4 +131,4 @@ If you would like to create multiple clusters you'll need to generate and use a 
 
 ## Using Flatcar Linux
 
-Now that you have instances booted, it is time to play around. Check out the [Container Linux Quickstart](quickstart.md) guide or dig into [more specific topics](https://coreos.com/docs).
+Now that you have instances booted, it is time to play around. Check out the [Flatcar Linux Quickstart](quickstart.md) guide or dig into [more specific topics](https://coreos.com/docs).

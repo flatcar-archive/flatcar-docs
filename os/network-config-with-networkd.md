@@ -1,8 +1,8 @@
 # Network configuration with networkd
 
-Container Linux machines are preconfigured with [networking customized](notes-for-distributors.md) for each platform. You can write your own networkd units to replace or override the units created for each platform. This article covers a subset of networkd functionality. You can view the [full docs here](http://www.freedesktop.org/software/systemd/man/systemd-networkd.service.html).
+Flatcar Linux machines are preconfigured with [networking customized](notes-for-distributors.md) for each platform. You can write your own networkd units to replace or override the units created for each platform. This article covers a subset of networkd functionality. You can view the [full docs here](http://www.freedesktop.org/software/systemd/man/systemd-networkd.service.html).
 
-Drop a networkd unit in `/etc/systemd/network/` or inject a unit on boot via a Container Linux Config. Files placed manually on the filesystem will need to reload networkd afterwards with `sudo systemctl restart systemd-networkd`. Network units injected via a Container Linux Config will be written to the system before networkd is started, so there are no work-arounds needed.
+Drop a networkd unit in `/etc/systemd/network/` or inject a unit on boot via a Flatcar Linux Config. Files placed manually on the filesystem will need to reload networkd afterwards with `sudo systemctl restart systemd-networkd`. Network units injected via a Flatcar Linux Config will be written to the system before networkd is started, so there are no work-arounds needed.
 
 Let's take a look at two common situations: using a static IP and turning off DHCP.
 
@@ -25,9 +25,9 @@ Place the file in `/etc/systemd/network/`. To apply the configuration, run:
 sudo systemctl restart systemd-networkd
 ```
 
-### Container Linux Config
+### Flatcar Linux Config
 
-Setting up static networking in your Container Linux Config can be done by writing out the network unit. Be sure to modify the `[Match]` section with the name of your desired interface, and replace the IPs:
+Setting up static networking in your Flatcar Linux Config can be done by writing out the network unit. Be sure to modify the `[Match]` section with the name of your desired interface, and replace the IPs:
 
 ```yaml container-linux-config
 networkd:
@@ -98,7 +98,7 @@ Gateway=192.168.122.1
 Destination=172.16.0.0/24
 ```
 
-To specify the same route in a Container Linux Config, create the systemd network unit there instead:
+To specify the same route in a Flatcar Linux Config, create the systemd network unit there instead:
 
 ```yaml container-linux-config
 networkd:
@@ -128,7 +128,7 @@ Address=10.0.1.101/24
 Gateway=10.0.1.1
 ```
 
-To do the same thing through a Container Linux Config:
+To do the same thing through a Flatcar Linux Config:
 
 ```yaml container-linux-config
 networkd:
@@ -171,9 +171,9 @@ systemctl restart systemd-networkd
 journalctl -b -u systemd-networkd
 ```
 
-### Enable debugging through a Container Linux Config
+### Enable debugging through a Flatcar Linux Config
 
-Define a [Drop-In][drop-ins] in a [Container Linux Config][cl-configs]:
+Define a [Drop-In][drop-ins] in a [Flatcar Linux Config][cl-configs]:
 
 ```yaml container-linux-config
 systemd:
