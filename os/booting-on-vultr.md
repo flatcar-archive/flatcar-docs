@@ -5,7 +5,7 @@ These instructions will walk you through running a single Flatcar Linux node. Th
 * You have an account at [Vultr.com](https://www.vultr.com).
 * You have a public + private key combination generated. Here's a helpful guide if you need to generate these keys: [How to set up SSH keys](https://help.github.com/articles/generating-ssh-keys).
 
-The simplest option to boot up Flatcar Linux is to select the "CoreOS Stable" operating system from Vultr's default offerings. However, most deployments require a custom `cloud-config`, which can only be achieved in Vultr with an iPXE script. The remainder of this article describes this process.
+The simplest option to boot up Flatcar Linux is to select the "Flatcar Linux Stable" operating system from Vultr's default offerings. However, most deployments require a custom `cloud-config`, which can only be achieved in Vultr with an iPXE script. The remainder of this article describes this process.
 
 ## Cloud-config
 

@@ -84,7 +84,7 @@ If you click on it, you'll have access to a menu that quickly permits you to dep
 To create your instance:
 
 1. Fill The VM Name.
-2. Choose "CoreOS Stable 64bits SSH KEYPAIR with core user" on Template section.
+2. Choose "Flatcar Linux Stable 64bits SSH KEYPAIR with core user" on Template section.
 3. Choose your service offering, that will represent the power of your instance, the resources that it will get.
 4. Choose the incoming firewall rules that will be accepted (we recommend to open at least SSH, by default all ports are closed).
 5. Choose the authentication type. On Flatcar Linux this is a sshkeypair, choose to create on, or use an already existent one.
@@ -106,7 +106,7 @@ Finally with the IP address the sshkey, and the firewall rule, you will be able 
 
 ### Deploying instances using CloudMonkey on either basic or advanced networking zones
 
-The Ikoula Cloud offers a template "CoreOS Stable" which is available on every all of the different geographic zones (France, USA East, Singapore, Germany, Netherlands).
+The Ikoula Cloud offers a template "Flatcar Linux Stable" which is available on every all of the different geographic zones (France, USA East, Singapore, Germany, Netherlands).
 
 Consistent with the normal use of Flatcar Linux, the SSH connection to an instance deployed with this template is only possible with the user “core” and through SSH key authentication. You can then rely on official FAQs Flatcar Linux without encountering unexpected behavior.
 

@@ -16,7 +16,7 @@ The Beta channel consists of promoted Alpha releases. The current version is Fla
 
 The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Flatcar Linux {{site.alpha-channel}}.
 
-Flatcar Linux releases are automatically built and deployed on the VEXXHOST cloud, therefore it is best to launch your clusters with the following naming pattern: CoreOS _Channel_ _Version_. For example, the image name of the latest alpha release will be "CoreOS Alpha {{site.alpha-channel}}".
+Flatcar Linux releases are automatically built and deployed on the VEXXHOST cloud, therefore it is best to launch your clusters with the following naming pattern: CoreOS _Channel_ _Version_. For example, the image name of the latest alpha release will be "Flatcar Linux Alpha {{site.alpha-channel}}".
 
 
 ### Cloud-config
@@ -96,11 +96,11 @@ You should now be ready to launch the servers which will create your Flatcar Lin
   <div class="tab-content coreos-docs-image-table">
     <div class="tab-pane" id="alpha-create">
       <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Flatcar Linux {{site.alpha-channel}}.</p>
-      <pre>nova boot --user-data cloud-config.yaml --image "CoreOS Alpha {{site.alpha-channel}}" --key-name coreos-key --flavor nb.2G --num-instances 3 coreos</pre>
+      <pre>nova boot --user-data cloud-config.yaml --image "Flatcar Linux Alpha {{site.alpha-channel}}" --key-name coreos-key --flavor nb.2G --num-instances 3 coreos</pre>
     </div>
     <div class="tab-pane active" id="beta-create">
       <p>The Beta channel consists of promoted Alpha releases. The current version is Flatcar Linux {{site.beta-channel}}.</p>
-      <pre>nova boot --user-data cloud-config.yaml --image "CoreOS Beta {{site.beta-channel}}" --key-name coreos-key --flavor nb.2G --num-instances 3 coreos</pre>
+      <pre>nova boot --user-data cloud-config.yaml --image "Flatcar Linux Alpha {{site.beta-channel}}" --key-name coreos-key --flavor nb.2G --num-instances 3 coreos</pre>
     </div>
   </div>
 </div>

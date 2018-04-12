@@ -18,7 +18,7 @@ The cloud.ca Flatcar Linux image is built from the official stable release Cloud
   <div class="tab-content coreos-docs-image-table">
     <div class="tab-pane" id="alpha">
       <div class="channel-info">
-        <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Flatcar Linux {{site.alpha-channel}}. To use the Alpha channel on cloud.ca, select the "CoreOS Stable" template and update the cloud-config to [change the channel to alpha][switching-channels]:</p>
+        <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Flatcar Linux {{site.alpha-channel}}. To use the Alpha channel on cloud.ca, select the "Flatcar Linux Stable" template and update the cloud-config to [change the channel to alpha][switching-channels]:</p>
       </div>
 
 ```cloud-config
@@ -31,7 +31,7 @@ coreos:
     </div>
     <div class="tab-pane" id="beta">
       <div class="channel-info">
-        <p>The Beta channel consists of promoted Alpha releases. The current version is Flatcar Linux {{site.beta-channel}}. To use the Beta channel on cloud.ca, use the "CoreOS Stable" template and update the cloud-config to [change the channel to beta][switching-channels]: </p>
+        <p>The Beta channel consists of promoted Alpha releases. The current version is Flatcar Linux {{site.beta-channel}}. To use the Beta channel on cloud.ca, use the "Flatcar Linux Stable" template and update the cloud-config to [change the channel to beta][switching-channels]: </p>
       </div>
 
 ```cloud-config
@@ -57,7 +57,7 @@ coreos:
         <tbody>
           <tr>
             <td>Compute - East</td>
-            <td>CoreOS Stable</td>
+            <td>Flatcar Linux Stable</td>
             <td>f3d810d8-4e08-4ffb-afe3-6a71e3ce9062</td>
           </tr>
         </tbody>
@@ -148,7 +148,7 @@ Before deploying Flatcar Linux on cloud.ca, you need the following:
     <div class="caption">Environment instances inventory</div>
   </div>
 </div>
-2. Define the instance name, offering type and select the template "CoreOS Stable":
+2. Define the instance name, offering type and select the template "Flatcar Linux Stable":
 <div class="row">
   <div class="col-lg-8 col-md-10 col-sm-8 col-xs-12">
     <img src="img/cloudca-addinstance_step1.png" class="screenshot" />
