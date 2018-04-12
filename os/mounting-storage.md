@@ -1,6 +1,6 @@
 # Mounting storage
 
-Flatcar Linux Configs can be used to format and attach additional filesystems to Flatcar Linux nodes, whether such storage is provided by an underlying cloud platform, physical disk, SAN, or NAS system. This is done by specifying how partitions should be mounted in the config, and then using a _systemd mount unit_ to mount the partition. By [systemd convention](http://www.freedesktop.org/software/systemd/man/systemd.mount.html), mount unit names derive from the target mount point, with interior slashes replaced by dashes, and the `.mount` extension appended. A unit mounting onto `/var/www` is thus named `var-www.mount`.
+Container Linux Configs can be used to format and attach additional filesystems to Flatcar Linux nodes, whether such storage is provided by an underlying cloud platform, physical disk, SAN, or NAS system. This is done by specifying how partitions should be mounted in the config, and then using a _systemd mount unit_ to mount the partition. By [systemd convention](http://www.freedesktop.org/software/systemd/man/systemd.mount.html), mount unit names derive from the target mount point, with interior slashes replaced by dashes, and the `.mount` extension appended. A unit mounting onto `/var/www` is thus named `var-www.mount`.
 
 
 Mount units name the source filesystem and target mount point, and optionally the filesystem type. *Systemd* mounts filesystems defined in such units at boot time. The following example formats an [EC2 ephemeral disk](booting-on-ec2.md#instance-storage) and then mounts it at the node's `/media/ephemeral` directory. The mount unit is therefore named `media-ephemeral.mount`.
@@ -104,7 +104,7 @@ Note the declaration of `ConditionPathExists=!/var/lib/docker.btrfs`. Without th
 
 ## Mounting NFS exports
 
-This Flatcar Linux Config excerpt mounts an NFS export onto the Flatcar Linux node's `/var/www`.
+This Container Linux Config excerpt mounts an NFS export onto the Flatcar Linux node's `/var/www`.
 
 ```yaml container-linux-config
 systemd:

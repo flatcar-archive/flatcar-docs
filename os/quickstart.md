@@ -2,7 +2,7 @@
 
 If you don't have a Flatcar Linux machine running, check out the guides on [running Flatcar Linux][running-container-linux] on most cloud providers ([EC2][ec2-docs], [Rackspace][rackspace-docs], [GCE][gce-docs]), virtualization platforms ([Vagrant][vagrant-docs], [VMware][vmware-docs], [OpenStack][openstack-docs], [QEMU/KVM][qemu-docs]) and bare metal servers ([PXE][pxe-docs], [iPXE][ipxe-docs], [ISO][iso-docs], [Installer][install-docs]). With any of these guides you will have machines up and running in a few minutes.
 
-It's highly recommended that you set up a cluster of at least 3 machines &mdash; it's not as much fun on a single machine. If you don't want to break the bank, [Vagrant][vagrant-docs] allows you to run an entire cluster on your laptop. For a cluster to be properly bootstrapped, you have to provide ideally an [Ignition config][ignition] (generated from a [Flatcar Linux Config][cl-configs]), or possibly a cloud-config, via user-data, which is covered in each platform's guide.
+It's highly recommended that you set up a cluster of at least 3 machines &mdash; it's not as much fun on a single machine. If you don't want to break the bank, [Vagrant][vagrant-docs] allows you to run an entire cluster on your laptop. For a cluster to be properly bootstrapped, you have to provide ideally an [Ignition config][ignition] (generated from a [Container Linux Config][cl-configs]), or possibly a cloud-config, via user-data, which is covered in each platform's guide.
 
 Flatcar Linux gives you three essential tools: service discovery, container management and process management. Let's try each of them out.
 
@@ -40,9 +40,9 @@ CoreOS (beta)
 
 The first building block of Flatcar Linux is service discovery with **etcd** ([docs][etcd-docs]). Data stored in etcd is distributed across all of your machines running Flatcar Linux. For example, each of your app containers can announce itself to a proxy container, which would automatically know which machines should receive traffic. Building service discovery into your application allows you to add more machines and scale your services seamlessly.
 
-If you used an example [Flatcar Linux Config][cl-configs] or [cloud-config](https://coreos.com/os/docs/latest/cloud-config.html) from a guide linked in the first paragraph, etcd is automatically started on boot.
+If you used an example [Container Linux Config][cl-configs] or [cloud-config](https://coreos.com/os/docs/latest/cloud-config.html) from a guide linked in the first paragraph, etcd is automatically started on boot.
 
-A good starting point for a Flatcar Linux Config would be something like:
+A good starting point for a Container Linux Config would be something like:
 
 ```yaml container-linux-config
 etcd:
@@ -54,7 +54,7 @@ passwd:
         - ssh-rsa AAAA...
 ```
 
-In order to get the discovery token, visit [https://discovery.etcd.io/new](https://discovery.etcd.io/new) and you will receive a URL including your token. Paste the whole thing into your Flatcar Linux Config file.
+In order to get the discovery token, visit [https://discovery.etcd.io/new](https://discovery.etcd.io/new) and you will receive a URL including your token. Paste the whole thing into your Container Linux Config file.
 
 `etcdctl` is a command line interface to etcd that is preinstalled on Flatcar Linux. To set and retrieve a key from etcd you can use the following examples:
 

@@ -36,7 +36,7 @@ There are two predominant ways that a Flatcar Linux image can be easily customiz
 
 Use Ignition to handle platform specific configuration such as custom networking, running an agent on the machine, or injecting files onto disk. To do this, place an Ignition config at `/usr/share/oem/base/base.ign` and it will be prepended to the user provided config. In addition, any config placed at `/usr/share/oem/base/default.ign` will be executed if a user config is not found. On platforms that support cloud-config, use this feature to run coreos-cloudinit when no Ignition config is provided.
 
-Additionally, it is recommended that providers ensure that [coreos-metadata][coreos-metadata] and [ct][ct] have support for their platform. This will allow a nicer user experience, as coreos-metadata will be able to install users' ssh keys and users will be able to reference dynamic data in their Flatcar Linux Configs.
+Additionally, it is recommended that providers ensure that [coreos-metadata][coreos-metadata] and [ct][ct] have support for their platform. This will allow a nicer user experience, as coreos-metadata will be able to install users' ssh keys and users will be able to reference dynamic data in their Container Linux Configs.
 
 [ignition]: https://coreos.com/blog/introducing-ignition.html
 [ign-platforms]: https://github.com/coreos/ignition/blob/master/doc/supported-platforms.md
@@ -45,9 +45,9 @@ Additionally, it is recommended that providers ensure that [coreos-metadata][cor
 
 ### Cloud config
 
-A Flatcar Linux image can also be customized using [cloud-config](https://github.com/coreos/coreos-cloudinit/blob/master/Documentation/cloud-config.md). Users are recommended to instead use Flatcar Linux Configs (that are converted into Ignition configs with [ct][ct]), for reasons [outlined in the blog post that introduced Ignition][ignition].
+A Flatcar Linux image can also be customized using [cloud-config](https://github.com/coreos/coreos-cloudinit/blob/master/Documentation/cloud-config.md). Users are recommended to instead use Container Linux Configs (that are converted into Ignition configs with [ct][ct]), for reasons [outlined in the blog post that introduced Ignition][ignition].
 
-Providers that previously supported cloud-config should continue to do so, as not all users have switched over to Flatcar Linux Configs. New platforms do not need to support cloud-config.
+Providers that previously supported cloud-config should continue to do so, as not all users have switched over to Container Linux Configs. New platforms do not need to support cloud-config.
 
 Flatcar Linux will automatically parse and execute `/usr/share/oem/cloud-config.yml` if it exists.
 

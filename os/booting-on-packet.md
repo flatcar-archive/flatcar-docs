@@ -29,11 +29,11 @@ curl -X POST \
 https://api.packet.net/projects/<PROJECT_ID>/devices
 ```
 
-Double quotes in the `<USERDATA>` value must be escaped such that the request body is valid JSON. See the Flatcar Linux Config section below for more information about accepted forms of userdata.
+Double quotes in the `<USERDATA>` value must be escaped such that the request body is valid JSON. See the Container Linux Config section below for more information about accepted forms of userdata.
 
-## Flatcar Linux Configs
+## Container Linux Configs
 
-Flatcar Linux allows you to configure machine parameters, configure networking, launch systemd units on startup, and more via Flatcar Linux Configs. These configs are then transpiled into Ignition configs and given to booting machines. Head over to the [docs to learn about the supported features][cl-configs]. Note that Packet doesn't allow an instance's userdata to be modified after the instance has been launched. This isn't a problem since Ignition only runs on the first boot.
+Flatcar Linux allows you to configure machine parameters, configure networking, launch systemd units on startup, and more via Container Linux Configs. These configs are then transpiled into Ignition configs and given to booting machines. Head over to the [docs to learn about the supported features][cl-configs]. Note that Packet doesn't allow an instance's userdata to be modified after the instance has been launched. This isn't a problem since Ignition only runs on the first boot.
 
 You can provide a raw Ignition config to Flatcar Linux via Packet's userdata field.
 

@@ -37,9 +37,9 @@ ACTION=="add", SUBSYSTEM=="block", TAG+="systemd", ENV{SYSTEMD_WANTS}="device-at
 
 That rule means that udev will trigger `device-attach.service` systemd unit on any block device attachment. Now when we use this command `virsh attach-disk coreos /dev/VG/test vdc` on host machine, we should see `device has been attached` message in Flatcar Linux node's journal. This example should be similar to USB/SAS/SATA device attach.
 
-## Flatcar Linux Config example
+## Container Linux Config example
 
-To use the unit and udev rule with a Flatcar Linux Config, modify this example as needed:
+To use the unit and udev rule with a Container Linux Config, modify this example as needed:
 
 ```yaml container-linux-config
 storage:

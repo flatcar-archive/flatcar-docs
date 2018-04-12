@@ -103,9 +103,9 @@ systemctl restart systemd-journald
 dmesg | grep systemd-journald
 ```
 
-## Enable debugging via a Flatcar Linux Config
+## Enable debugging via a Container Linux Config
 
-Define a [Drop-In][drop-ins] in a [Flatcar Linux Config][ct-configs]:
+Define a [Drop-In][drop-ins] in a [Container Linux Config][ct-configs]:
 
 ```yaml container-linux-config
 systemd:

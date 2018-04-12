@@ -34,9 +34,9 @@ Test that it's working:
 docker -H tcp://127.0.0.1:2375 ps
 ```
 
-### Flatcar Linux Config
+### Container Linux Config
 
-To enable the remote API on every Flatcar Linux machine in a cluster, use a [Flatcar Linux Config][cl-configs]. We need to provide the new socket file and Docker's socket activation support will automatically start using the socket:
+To enable the remote API on every Flatcar Linux machine in a cluster, use a [Container Linux Config][cl-configs]. We need to provide the new socket file and Docker's socket activation support will automatically start using the socket:
 
 ```yaml container-linux-config
 systemd:
@@ -158,9 +158,9 @@ export DOCKER_HOST=tcp://server.example.com:2376 DOCKER_TLS_VERIFY=1
 docker images
 ```
 
-### Flatcar Linux Config
+### Container Linux Config
 
-A Flatcar Linux Config for Docker TLS authentication will look like:
+A Container Linux Config for Docker TLS authentication will look like:
 
 ```yaml container-linux-config
 storage:
@@ -245,9 +245,9 @@ docker ps
 journalctl -u docker
 ```
 
-### Flatcar Linux Config
+### Container Linux Config
 
-If you need to modify a flag across many machines, you can add the flag with a Flatcar Linux Config:
+If you need to modify a flag across many machines, you can add the flag with a Container Linux Config:
 
 ```yaml container-linux-config
 docker:
@@ -279,9 +279,9 @@ systemctl restart docker
 
 Proxy environment variables can also be set [system-wide][systemd-env-vars].
 
-### Flatcar Linux Config
+### Container Linux Config
 
-The easiest way to use this proxy on all of your machines is via a Flatcar Linux Config:
+The easiest way to use this proxy on all of your machines is via a Container Linux Config:
 
 ```yaml container-linux-config
 systemd:
@@ -317,9 +317,9 @@ systemctl daemon-reload
 systemctl restart docker
 ```
 
-### Flatcar Linux Config
+### Container Linux Config
 
-The easiest way to use these new ulimits on all of your machines is via a Flatcar Linux Config:
+The easiest way to use these new ulimits on all of your machines is via a Container Linux Config:
 
 ```yaml container-linux-configs
 systemd:

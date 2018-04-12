@@ -12,7 +12,7 @@ If you boot Flatcar Linux via PXE, the install script is already installed. By d
 coreos-install -d /dev/sda -i ignition.json
 ```
 
-`ignition.json` should include user information (especially an SSH key) generated from a [Flatcar Linux Config][clc-section], or you will not be able to log into your Flatcar Linux instance.
+`ignition.json` should include user information (especially an SSH key) generated from a [Container Linux Config][clc-section], or you will not be able to log into your Flatcar Linux instance.
 
 If you are installing on VMware, pass `-o vmware_raw` to install the VMware-specific image:
 
@@ -66,13 +66,13 @@ For reference here are the rest of the `coreos-install` options:
 -v          Super verbose, for debugging.
 ```
 
-## Flatcar Linux Configs
+## Container Linux Configs
 
-By default there isn't a password or any other way to log into a fresh Flatcar Linux system. The easiest way to configure accounts, add systemd units, and more is via Flatcar Linux Configs. Jump over to the [docs to learn about the supported features][cl-configs].
+By default there isn't a password or any other way to log into a fresh Flatcar Linux system. The easiest way to configure accounts, add systemd units, and more is via Container Linux Configs. Jump over to the [docs to learn about the supported features][cl-configs].
 
-After using the [Flatcar Linux Config Transpiler][ct] to produce an Ignition config, the installation script will process your `ignition.json` file specified with the `-i` flag and use it when the installation is booted.
+After using the [Container Linux Config Transpiler][ct] to produce an Ignition config, the installation script will process your `ignition.json` file specified with the `-i` flag and use it when the installation is booted.
 
-A Flatcar Linux Config that specifies an SSH key for the `core` user but doesn't use any other parameters looks like:
+A Container Linux Config that specifies an SSH key for the `core` user but doesn't use any other parameters looks like:
 
 ```yaml container-linux-config
 passwd:
@@ -91,7 +91,7 @@ To start the installation script with a reference to our Ignition config, run:
 coreos-install -d /dev/sda -C stable -i ~/ignition.json
 ```
 
-### Advanced Flatcar Linux Config example
+### Advanced Container Linux Config example
 
 This example will configure Flatcar Linux components: etcd and flannel. You have to substitute `<PEER_ADDRESS>` to your host's IP or DNS address.
 

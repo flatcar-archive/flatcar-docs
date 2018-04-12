@@ -14,7 +14,7 @@ It's important to note that updates are always downloaded to the passive partiti
 
 ## Reboot strategy options
 
-The reboot strategy can be set with a Flatcar Linux Config:
+The reboot strategy can be set with a Container Linux Config:
 
 ```yaml container-linux-config
 locksmith:
@@ -70,7 +70,7 @@ An easy solution to this problem is to use iPXE and reference images [directly f
 
 In case when you don't want to install updates onto the passive partition and avoid update process on failure reboot, you can disable `update-engine` service manually with `sudo systemctl stop update-engine` command (it will be enabled automatically next reboot).
 
-If you wish to disable automatic updates permanently, use can configure this with a Flatcar Linux Config. This example will stop `update-engine`, which executes the updates, and `locksmithd`, which coordinates reboots across the cluster:
+If you wish to disable automatic updates permanently, use can configure this with a Container Linux Config. This example will stop `update-engine`, which executes the updates, and `locksmithd`, which coordinates reboots across the cluster:
 
 ```yaml container-linux-config
 systemd:
@@ -114,7 +114,7 @@ Locksmith supports maintenance windows in addition to the reboot strategies ment
 
 Windows are defined by a start time and a length. In this example, the window is defined to be every Thursday between 04:00 and 05:00:
 
-Flatcar Linux Configs don't yet support maintenance windows, but will very soon.
+Container Linux Configs don't yet support maintenance windows, but will very soon.
 
 As an example, consider the following cloud config:
 

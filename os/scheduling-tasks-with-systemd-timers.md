@@ -39,9 +39,9 @@ You can also create timer with different name, i.e. `task.timer`. In this case y
 Unit=date.service
 ```
 
-## Flatcar Linux Config
+## Container Linux Config
 
-Here you'll find an example Flatcar Linux Config demonstrating how to install systemd timers:
+Here you'll find an example Container Linux Config demonstrating how to install systemd timers:
 
 ```yaml container-linux-config
 systemd:

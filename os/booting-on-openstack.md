@@ -72,13 +72,13 @@ $ glance image-create --name Container-Linux \
 
 Optionally add the `--visibility public` flag to make this image available outside of the configured OpenStack account tenant.
 
-## Flatcar Linux Configs
+## Container Linux Configs
 
-Flatcar Linux allows you to configure machine parameters, launch systemd units on startup and more via Flatcar Linux Configs. These configs are then transpiled into Ignition configs and given to booting machines. Jump over to the [docs to learn about the supported features][cl-configs]. We're going to provide our Flatcar Linux Config to OpenStack via the user-data flag. Our Flatcar Linux Config will also contain SSH keys that will be used to connect to the instance. In order for this to work your OpenStack cloud provider must support [config drive][config-drive] or the OpenStack metadata service.
+Flatcar Linux allows you to configure machine parameters, launch systemd units on startup and more via Container Linux Configs. These configs are then transpiled into Ignition configs and given to booting machines. Jump over to the [docs to learn about the supported features][cl-configs]. We're going to provide our Container Linux Config to OpenStack via the user-data flag. Our Container Linux Config will also contain SSH keys that will be used to connect to the instance. In order for this to work your OpenStack cloud provider must support [config drive][config-drive] or the OpenStack metadata service.
 
 [config-drive]: http://docs.openstack.org/user-guide/cli_config_drive.html
 
-A common Flatcar Linux Config for OpenStack looks like:
+A common Container Linux Config for OpenStack looks like:
 
 ```yaml container-linux-config:openstack-metadata
 etcd:
@@ -102,7 +102,7 @@ passwd:
         - ssh-rsa ABCD...
 ```
 
-The `{PRIVATE_IPV4}` and `{PUBLIC_IPV4}` substitution variables are fully supported in Flatcar Linux Configs on OpenStack deployments using the metadata service. Unfortunately systems relying on config drive are currently unsupported.
+The `{PRIVATE_IPV4}` and `{PUBLIC_IPV4}` substitution variables are fully supported in Container Linux Configs on OpenStack deployments using the metadata service. Unfortunately systems relying on config drive are currently unsupported.
 
 ## Launch cluster
 
@@ -167,7 +167,7 @@ core@10-0-0-3 ~ $
 
 ## Adding more machines
 
-Adding new instances to the cluster is as easy as launching more with the same Flatcar Linux Config. New instances will join the cluster assuming they can communicate with the others.
+Adding new instances to the cluster is as easy as launching more with the same Container Linux Config. New instances will join the cluster assuming they can communicate with the others.
 
 Example:
 
@@ -182,7 +182,7 @@ nova boot \
 
 ## Multiple clusters
 
-If you would like to create multiple clusters you'll need to generate and use a new discovery token. Change the token value on the etcd discovery parameter in the Flatcar Linux Config, and boot new instances.
+If you would like to create multiple clusters you'll need to generate and use a new discovery token. Change the token value on the etcd discovery parameter in the Container Linux Config, and boot new instances.
 
 ## Using Flatcar Linux
 

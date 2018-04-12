@@ -21,7 +21,7 @@ modprobe cpufreq_conservative
 echo "conservative" | tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor > /dev/null
 ```
 
-This can be configured with a [Flatcar Linux Config][cl-configs] as well:
+This can be configured with a [Container Linux Config][cl-configs] as well:
 
 ```yaml container-linux-config
 systemd:

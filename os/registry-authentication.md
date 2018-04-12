@@ -47,7 +47,7 @@ This command creates the file `$HOME/.docker/config.json`, formatted like the fo
 }
 ```
 
-On Flatcar Linux, this process can be automated by writing out the config file during system provisioning [with a Flatcar Linux Config][cl-configs]. Since the config is written to the `core` user's home directory, ensure that your systemd units run as that user, by adding, e.g., `User=core`.
+On Flatcar Linux, this process can be automated by writing out the config file during system provisioning [with a Container Linux Config][cl-configs]. Since the config is written to the `core` user's home directory, ensure that your systemd units run as that user, by adding, e.g., `User=core`.
 
 Docker also offers the ability to configure a credentials store, such as your operating system's keychain. This is outlined  in the [Docker login documentation][docker-login].
 
@@ -138,7 +138,7 @@ Now rkt will authenticate with `https://registry.example.io/v0/` using the provi
 
 For more information about rkt credentials, see the [rkt configuration docs][rkt-config].
 
-Just like with the Docker config, this file can be copied to `/etc/rkt/auth.d/registry.example.io.json` on a Flatcar Linux node during system provisioning with [a Flatcar Linux Config][cl-configs].
+Just like with the Docker config, this file can be copied to `/etc/rkt/auth.d/registry.example.io.json` on a Flatcar Linux node during system provisioning with [a Container Linux Config][cl-configs].
 
 ### Mesos
 
@@ -174,11 +174,11 @@ The archive secret is referenced via the `uris` field in a container specificati
 
 More thorough information about configuring Mesos registry authentication can be found on the ['Using a Private Docker Registry'][mesos-registry] documentation.
 
-## Copying the config file with a Flatcar Linux Config
+## Copying the config file with a Container Linux Config
 
-[Flatcar Linux Configs][cl-configs] can be used to provision a Flatcar Linux node on first boot. Here we will use it to copy registry authentication config files to their appropriate destination on disk. This provides immediate access to your private Docker Hub and Quay image repositories without the need for manual intervention. The same Flatcar Linux Config file can be used to copy registry auth configs onto an entire cluster of Flatcar Linux nodes.
+[Container Linux Configs][cl-configs] can be used to provision a Flatcar Linux node on first boot. Here we will use it to copy registry authentication config files to their appropriate destination on disk. This provides immediate access to your private Docker Hub and Quay image repositories without the need for manual intervention. The same Container Linux Config file can be used to copy registry auth configs onto an entire cluster of Flatcar Linux nodes.
 
-Here is an example of using a Flatcar Linux Config to write the .docker/config.json registry auth configuration file mentioned above to the appropriate path on the Flatcar Linux node:
+Here is an example of using a Container Linux Config to write the .docker/config.json registry auth configuration file mentioned above to the appropriate path on the Flatcar Linux node:
 
 ```yaml container-linux-config
 storage:
@@ -198,7 +198,7 @@ storage:
           }
 ```
 
-Flatcar Linux Configs can also download a file from a remote location and verify its integrity with a SHA512 hash:
+Container Linux Configs can also download a file from a remote location and verify its integrity with a SHA512 hash:
 
 ```yaml container-linux-config
 storage:
@@ -215,7 +215,7 @@ storage:
               sum: 0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef
 ```
 
-For details, check out the [Flatcar Linux Config examples][ct-examples].
+For details, check out the [Container Linux Config examples][ct-examples].
 
 [config-valid]: https://coreos.com/validate/
 [docker-hub-site]: https://hub.docker.com/

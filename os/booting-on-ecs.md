@@ -56,7 +56,7 @@ systemd:
 
 The example above pulls the latest official Amazon ECS agent container from the Docker Hub when the machine starts. If you ever need to update the agent, it’s as simple as restarting the amazon-ecs-agent service or the Flatcar Linux machine.
 
-If you want to configure SSH keys in order to log in, mount disks or configure other options, see the [Flatcar Linux Configs documentation][cl-configs].
+If you want to configure SSH keys in order to log in, mount disks or configure other options, see the [Container Linux Configs documentation][cl-configs].
 
 [cl-configs]: provisioning.md
 [ignition-docs]: https://coreos.com/ignition/docs/latest

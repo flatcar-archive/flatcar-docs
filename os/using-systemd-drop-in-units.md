@@ -54,7 +54,7 @@ And restart modified service if necessary (in our example we have changed only `
 systemctl restart fleet.service
 ```
 
-Here is how that could be implemented within a Flatcar Linux Config:
+Here is how that could be implemented within a Container Linux Config:
 
 ```containter-linux-config
 systemd:
@@ -90,7 +90,7 @@ Restart=always
 RestartSec=60s
 ```
 
-Flatcar Linux Config example:
+Container Linux Config example:
 
 ```yaml container-linux-config
 systemd:

@@ -70,9 +70,9 @@ The following command will create a single droplet. For more details, check out 
 [reboot-docs]: update-strategies.md
 [release-notes]: https://coreos.com/releases
 
-## Flatcar Linux Configs
+## Container Linux Configs
 
-Flatcar Linux allows you to configure machine parameters, configure networking, launch systemd units on startup, and more via Flatcar Linux Configs. These configs are then transpiled into Ignition configs and given to booting machines. Head over to the [docs to learn about the supported features][cl-configs]. Note that DigitalOcean doesn't allow an instance's userdata to be modified after the instance has been launched. This isn't a problem since Ignition only runs on the first boot.
+Flatcar Linux allows you to configure machine parameters, configure networking, launch systemd units on startup, and more via Container Linux Configs. These configs are then transpiled into Ignition configs and given to booting machines. Head over to the [docs to learn about the supported features][cl-configs]. Note that DigitalOcean doesn't allow an instance's userdata to be modified after the instance has been launched. This isn't a problem since Ignition only runs on the first boot.
 
 You can provide a raw Ignition config to Flatcar Linux via the DigitalOcean web console or [via the DigitalOcean API](#via-the-api).
 
@@ -99,7 +99,7 @@ etcd:
 
 ### Adding more machines
 
-To add more instances to the cluster, just launch more with the same Flatcar Linux Config. New instances will join the cluster regardless of region.
+To add more instances to the cluster, just launch more with the same Container Linux Config. New instances will join the cluster regardless of region.
 
 ## SSH to your droplets
 
@@ -189,7 +189,7 @@ For more details, check out [DigitalOcean's API documentation][do-api-docs].
 </div>
 5. Select your SSH keys.
 
-Note that DigitalOcean is not able to inject a root password into Flatcar Linux images like it does with other images. You'll need to add your keys via the web console or add keys or passwords via your Flatcar Linux Config in order to log in.
+Note that DigitalOcean is not able to inject a root password into Flatcar Linux images like it does with other images. You'll need to add your keys via the web console or add keys or passwords via your Container Linux Config in order to log in.
 
 ## Using Flatcar Linux
 

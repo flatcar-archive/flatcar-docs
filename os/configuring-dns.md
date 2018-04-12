@@ -6,7 +6,7 @@ By default, DNS resolution on Flatcar Linux is handled through `/etc/resolv.conf
 
 `systemd-resolved` includes a caching DNS resolver. To use it for DNS resolution and caching, you must enable it via [nsswitch.conf][nsswitch.conf] by adding `resolve` to the `hosts` section.
 
-Here is an example [Flatcar Linux Config][cl-configs] snippet to do that:
+Here is an example [Container Linux Config][cl-configs] snippet to do that:
 
 ```yaml container-linux-config
 storage:

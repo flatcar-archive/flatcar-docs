@@ -76,7 +76,7 @@ Filesystem     Type      Size  Used Avail Use% Mounted on
 
 The block device mounted at `/var/`, `/dev/sdXN`, is the correct filesystem type and has enough space for a 1GiB swapfile.
 
-## Adding swap with a Flatcar Linux Config
+## Adding swap with a Container Linux Config
 
 The following config sets up a 1GiB swapfile located at `/var/vm/swapfile1`.
 

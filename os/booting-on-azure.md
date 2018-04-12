@@ -34,11 +34,11 @@ The following command will create a single instance. For more details, check out
   </div>
 </div>
 
-## Flatcar Linux Config
+## Container Linux Config
 
-Flatcar Linux allows you to configure machine parameters, configure networking, launch systemd units on startup, and more via a Flatcar Linux Config. Head over to the [docs to learn how to use Flatcar Linux Configs][cl-configs]. Note that Microsoft Azure doesn't allow an instance's userdata to be modified after the instance has been launched. This isn't a problem since Ignition, the tool that consumes the userdata, only runs on the first boot.
+Flatcar Linux allows you to configure machine parameters, configure networking, launch systemd units on startup, and more via a Container Linux Config. Head over to the [docs to learn how to use Container Linux Configs][cl-configs]. Note that Microsoft Azure doesn't allow an instance's userdata to be modified after the instance has been launched. This isn't a problem since Ignition, the tool that consumes the userdata, only runs on the first boot.
 
-You can provide a raw Ignition config (produced from a Flatcar Linux Config) to Flatcar Linux [via the Microsoft Azure CLI][azurecli-heading].
+You can provide a raw Ignition config (produced from a Container Linux Config) to Flatcar Linux [via the Microsoft Azure CLI][azurecli-heading].
 
 As an example, this config will configure and start etcd:
 

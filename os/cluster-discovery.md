@@ -11,9 +11,9 @@ $ curl -w "\n" 'https://discovery.etcd.io/new?size=3'
 https://discovery.etcd.io/6a28e078895c5ec737174db2419bb2f3
 ```
 
-The discovery URL can be provided to each Flatcar Linux machine via [Flatcar Linux Configs](provisioning.md). The rest of this guide will explain what's happening behind the scenes, but if you're trying to get clustered as quickly as possible, all you need to do is provide a _fresh, unique_ discovery token in your config.
+The discovery URL can be provided to each Flatcar Linux machine via [Container Linux Configs](provisioning.md). The rest of this guide will explain what's happening behind the scenes, but if you're trying to get clustered as quickly as possible, all you need to do is provide a _fresh, unique_ discovery token in your config.
 
-Boot each one of the machines with identical Flatcar Linux Config and they should be automatically clustered:
+Boot each one of the machines with identical Container Linux Config and they should be automatically clustered:
 
 ```yaml container-linux-config:ec2
 etcd:
@@ -45,7 +45,7 @@ Starting a Flatcar Linux cluster requires one of the new machines to become the 
 
 There are a few interesting things happening during this process.
 
-First, each machine is configured with the same discovery URL and etcd figured out what to do. This allows you to load the same Flatcar Linux Config into an auto-scaling group and it will work whether it is the first or 30th machine in the group.
+First, each machine is configured with the same discovery URL and etcd figured out what to do. This allows you to load the same Container Linux Config into an auto-scaling group and it will work whether it is the first or 30th machine in the group.
 
 Second, machine 3 only needed to use one of the addresses stored in the discovery URL to connect to the cluster. Since etcd uses the Raft consensus algorithm, existing machines in the cluster already maintain a list of healthy members in order for the algorithm to function properly. This list is given to the new machine and it starts normal operations with each of the other cluster members.
 

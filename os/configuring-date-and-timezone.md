@@ -119,7 +119,7 @@ Then restart the network daemon:
 $ sudo systemctl restart systemd-networkd
 ```
 
-NTP time sources can be set in `timesyncd.conf` with a [Flatcar Linux Config][cl-configs] snippet like:
+NTP time sources can be set in `timesyncd.conf` with a [Container Linux Config][cl-configs] snippet like:
 
 ```yaml container-linux-config
 storage:
@@ -145,7 +145,7 @@ $ sudo systemctl enable ntpd
 $ sudo systemctl start ntpd
 ```
 
-or with this Flatcar Linux Config snippet:
+or with this Container Linux Config snippet:
 
 ```yaml container-linux-config
 systemd:
@@ -177,7 +177,7 @@ Then ask `ntpd` to reload its configuration:
 $ sudo systemctl reload ntpd
 ```
 
-Or, in a [Flatcar Linux Config][cl-configs]:
+Or, in a [Container Linux Config][cl-configs]:
 
 ```yaml container-linux-config
 storage:

@@ -5,7 +5,7 @@ This allows applications to treat remote storage devices as if they were local d
 iSCSI handles taking requests from clients and carrying them out on the remote SCSI devices.
 
 Flatcar Linux has integrated support for mounting devices.
-This guide covers iSCSI configuration manually or automatically with [Flatcar Linux Configs][cl-configs].
+This guide covers iSCSI configuration manually or automatically with [Container Linux Configs][cl-configs].
 
 ## Manual iSCSI configuration
 
@@ -82,7 +82,7 @@ $ systemctl enable iscsid
 
 To configure and start iSCSI automatically after a machine is provisioned, credentials need to be written to disk and the iSCSI service started.
 
-A Flatcar Linux Config will be used to write the file `/etc/iscsi/iscsid.conf` to disk:
+A Container Linux Config will be used to write the file `/etc/iscsi/iscsid.conf` to disk:
 
 #### /etc/iscsi/iscsid.conf
 <!-- TODO: It's inclear based on documentation what the actual first line of this doc snippet should be.
@@ -98,7 +98,7 @@ discovery.sendtargets.auth.username = my_username
 discovery.sendtargets.auth.password = my_secret_password
 ```
 
-### The Flatcar Linux Config
+### The Container Linux Config
 
 ```yaml container-linux-config
 systemd:

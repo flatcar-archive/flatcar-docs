@@ -114,13 +114,13 @@ Flatcar Linux is designed to be [updated automatically](https://coreos.com/why/#
 
 CloudFormation will launch a cluster of Flatcar Linux machines with a security and autoscaling group.
 
-## Flatcar Linux Configs
+## Container Linux Configs
 
-Flatcar Linux allows you to configure machine parameters, configure networking, launch systemd units on startup, and more via Flatcar Linux Configs. These configs are then transpiled into Ignition configs and given to booting machines. Head over to the [docs to learn about the supported features][cl-configs].
+Flatcar Linux allows you to configure machine parameters, configure networking, launch systemd units on startup, and more via Container Linux Configs. These configs are then transpiled into Ignition configs and given to booting machines. Head over to the [docs to learn about the supported features][cl-configs].
 
 You can provide a raw Ignition config to Flatcar Linux via the Amazon web console or [via the EC2 API][ec2-user-data].
 
-As an example, this Flatcar Linux Config will configure and start etcd:
+As an example, this Container Linux Config will configure and start etcd:
 
 ```yaml container-linux-config:ec2
 etcd:
@@ -144,7 +144,7 @@ etcd:
 
 ### Instance storage
 
-Ephemeral disks and additional EBS volumes attached to instances can be mounted with a `.mount` unit. Amazon's block storage devices are attached differently [depending on the instance type](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/InstanceStorage.html#InstanceStoreDeviceNames). Here's the Flatcar Linux Config to format and mount the first ephemeral disk, `xvdb`, on most instance types:
+Ephemeral disks and additional EBS volumes attached to instances can be mounted with a `.mount` unit. Amazon's block storage devices are attached differently [depending on the instance type](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/InstanceStorage.html#InstanceStoreDeviceNames). Here's the Container Linux Config to format and mount the first ephemeral disk, `xvdb`, on most instance types:
 
 ```yaml container-linux-config:ec2
 storage:
@@ -172,11 +172,11 @@ For more information about mounting storage, Amazon's [own documentation](http:/
 
 ### Adding more machines
 
-To add more instances to the cluster, just launch more with the same Flatcar Linux Config, the appropriate security group and the AMI for that region. New instances will join the cluster regardless of region if the security groups are configured correctly.
+To add more instances to the cluster, just launch more with the same Container Linux Config, the appropriate security group and the AMI for that region. New instances will join the cluster regardless of region if the security groups are configured correctly.
 
 ## SSH to your instances
 
-Flatcar Linux is set up to be a little more secure than other cloud images. By default, it uses the `core` user instead of `root` and doesn't use a password for authentication. You'll need to add an SSH key(s) via the AWS console or add keys/passwords via your Flatcar Linux Config in order to log in.
+Flatcar Linux is set up to be a little more secure than other cloud images. By default, it uses the `core` user instead of `root` and doesn't use a password for authentication. You'll need to add an SSH key(s) via the AWS console or add keys/passwords via your Container Linux Config in order to log in.
 
 To connect to an instance after it's created, run:
 

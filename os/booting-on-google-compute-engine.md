@@ -8,9 +8,9 @@ Before proceeding, you will need a GCE account ([GCE free trial ][free-trial]) a
 
 After installation, log into your account with `gcloud auth login` and enter your project ID when prompted.
 
-## Flatcar Linux Config
+## Container Linux Config
 
-Flatcar Linux allows you to configure machine parameters, configure networking, launch systemd units on startup, and more via Flatcar Linux Configs. These configs are then transpiled into Ignition configs and given to booting machines. Head over to the [docs to learn about the supported features][cl-configs].
+Flatcar Linux allows you to configure machine parameters, configure networking, launch systemd units on startup, and more via Container Linux Configs. These configs are then transpiled into Ignition configs and given to booting machines. Head over to the [docs to learn about the supported features][cl-configs].
 
 You can provide a raw Ignition config to Flatcar Linux via the Google Cloud console's metadata field `user-data` or via a flag using `gcloud`.
 
@@ -65,7 +65,7 @@ Create 3 instances from the image above using our Ignition from `example.ign`:
 
 ### Additional storage
 
-Additional disks attached to instances can be mounted with a `.mount` unit. Each disk can be accessed via `/dev/disk/by-id/google-<disk-name>`. Here's the Flatcar Linux Config to format and mount a disk called `database-backup`:
+Additional disks attached to instances can be mounted with a `.mount` unit. Each disk can be accessed via `/dev/disk/by-id/google-<disk-name>`. Here's the Container Linux Config to format and mount a disk called `database-backup`:
 
 ```yaml container-linux-config:gce
 storage:

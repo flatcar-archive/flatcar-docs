@@ -79,7 +79,7 @@ This unit file will run nginx Docker container and bind it to specific IP addres
 
 ### System wide environment variables
 
-You can define system wide environment variables using a [Flatcar Linux Config][cl-configs] as explained below:
+You can define system wide environment variables using a [Container Linux Config][cl-configs] as explained below:
 
 ```yaml container-linux-config
 storage:

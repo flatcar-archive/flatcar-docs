@@ -19,7 +19,7 @@ If you're developing locally but plan to run containers in production, it's best
 
 ### Configuring your laptop
 
-Start a single Flatcar Linux VM with the Docker remote socket enabled in the Flatcar Linux Config (CL Config). Here's what the CL Config looks like:
+Start a single Flatcar Linux VM with the Docker remote socket enabled in the Container Linux Config (CL Config). Here's what the CL Config looks like:
 
 ```yaml container-linux-config
 systemd:
