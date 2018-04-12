@@ -95,27 +95,27 @@ Flatcar Linux is designed to be [updated automatically](https://coreos.com/why/#
       <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Flatcar Linux {{site.alpha-channel}}.</p>
       <p>Rename the file to <code>config.rb</code> and modify a few lines:</p>
       <h4>config.rb</h4>
-      <pre># Size of the CoreOS cluster created by Vagrant
+      <pre># Size of the Flatcar Linux cluster created by Vagrant
 $num_instances=3</pre>
-      <pre># Official CoreOS channel from which updates should be downloaded
+      <pre># Official Flatcar Linux channel from which updates should be downloaded
 $update_channel='alpha'</pre>
     </div>
     <div class="tab-pane" id="beta-create">
       <p>The Beta channel consists of promoted Alpha releases. The current version is Flatcar Linux {{site.beta-channel}}.</p>
       <p>Rename the file to <code>config.rb</code> then uncomment and modify:</p>
       <h4>config.rb</h4>
-      <pre># Size of the CoreOS cluster created by Vagrant
+      <pre># Size of the Flatcar Linux cluster created by Vagrant
 $num_instances=3</pre>
-      <pre># Official CoreOS channel from which updates should be downloaded
+      <pre># Official Flatcar Linux channel from which updates should be downloaded
 $update_channel='beta'</pre>
     </div>
     <div class="tab-pane active" id="stable-create">
       <p>The Stable channel should be used by production clusters. Versions of Flatcar Linux are battle-tested within the Beta and Alpha channels before being promoted. The current version is Flatcar Linux {{site.stable-channel}}.</p>
       <p>Rename the file to <code>config.rb</code> then uncomment and modify:</p>
       <h4>config.rb</h4>
-      <pre># Size of the CoreOS cluster created by Vagrant
+      <pre># Size of the Flatcar Linux cluster created by Vagrant
 $num_instances=3</pre>
-      <pre># Official CoreOS channel from which updates should be downloaded
+      <pre># Official Flatcar Linux channel from which updates should be downloaded
 $update_channel='stable'</pre>
     </div>
   </div>
@@ -207,21 +207,21 @@ The `config.rb.sample` file contains a few useful settings about your Vagrant en
       <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Flatcar Linux {{site.alpha-channel}}.</p>
       <p>Rename the file to <code>config.rb</code> then uncomment and modify:</p>
       <h4>config.rb</h4>
-      <pre># Official CoreOS channel from which updates should be downloaded
+      <pre># Official Flatcar Linux channel from which updates should be downloaded
 $update_channel='alpha'</pre>
     </div>
     <div class="tab-pane" id="beta-single">
       <p>The Beta channel consists of promoted Alpha releases. The current version is Flatcar Linux {{site.beta-channel}}.</p>
       <p>Rename the file to <code>config.rb</code> then uncomment and modify:</p>
       <h4>config.rb</h4>
-      <pre># Official CoreOS channel from which updates should be downloaded
+      <pre># Official Flatcar Linux channel from which updates should be downloaded
 $update_channel='beta'</pre>
     </div>
     <div class="tab-pane active" id="stable-single">
       <p>The Stable channel should be used by production clusters. Versions of Flatcar Linux are battle-tested within the Beta and Alpha channels before being promoted. The current version is Flatcar Linux {{site.stable-channel}}.</p>
       <p>Rename the file to <code>config.rb</code> then uncomment and modify:</p>
       <h4>config.rb</h4>
-      <pre># Official CoreOS channel from which updates should be downloaded
+      <pre># Official Flatcar Linux channel from which updates should be downloaded
 $update_channel='stable'</pre>
     </div>
   </div>

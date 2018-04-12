@@ -2,8 +2,8 @@
 
 ## Finding all open pull requests and issues
 
-- [CoreOS Issues][issues]
-- [CoreOS Pull Requests][pullrequests]
+- [Flatcar Linux Issues][issues]
+- [Flatcar Linux Pull Requests][pullrequests]
 
 [issues]: https://github.com/issues?user=coreos
 [pullrequests]: https://github.com/pulls?user=coreos
@@ -205,6 +205,6 @@ e96281a6-d1af-4bde-9a0a-97b76e56dc57
 
 ### GPT UUID types
 
-- CoreOS Root: 5dfbf5f4-2848-4bac-aa5e-0d9a20b745a6
-- CoreOS Reserved: c95dc21a-df0e-4340-8d7b-26cbfa9a03e0
-- CoreOS Raid Containing Root: be9067b9-ea49-4f15-b4f6-f36f8c9e1818
+- Flatcar Linux Root: 5dfbf5f4-2848-4bac-aa5e-0d9a20b745a6
+- Flatcar Linux Reserved: c95dc21a-df0e-4340-8d7b-26cbfa9a03e0
+- Flatcar Linux Raid Containing Root: be9067b9-ea49-4f15-b4f6-f36f8c9e1818

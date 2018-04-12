@@ -22,7 +22,7 @@ Connect to a Flatcar Linux machine via SSH as the user `core`. For example, on A
 
 ```sh
 $ ssh -A core@an.ip.compute-1.amazonaws.com
-CoreOS (beta)
+Flatcar Linux (beta)
 ```
 
 The `-A` forwards your ssh-agent to the machine, which is needed for the fleet section of this guide.
@@ -33,7 +33,7 @@ If you're using Vagrant, you'll need to connect a bit differently:
 $ ssh-add ~/.vagrant.d/insecure_private_key
 Identity added: /Users/core/.vagrant.d/insecure_private_key (/Users/core/.vagrant.d/insecure_private_key)
 $ vagrant ssh core-01 -- -A
-CoreOS (beta)
+Flatcar Linux (beta)
 ```
 
 ## Service discovery with etcd

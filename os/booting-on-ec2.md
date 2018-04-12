@@ -1,6 +1,6 @@
 # Running Flatcar Linux on EC2
 
-The current AMIs for all Flatcar Linux channels and EC2 regions are listed below and updated frequently. Using CloudFormation is the easiest way to launch a cluster, but it is also possible to follow the manual steps at the end of the article. Questions can be directed to the CoreOS [IRC channel][irc] or [user mailing list][coreos-user].
+The current AMIs for all Flatcar Linux channels and EC2 regions are listed below and updated frequently. Using CloudFormation is the easiest way to launch a cluster, but it is also possible to follow the manual steps at the end of the article. Questions can be directed to the Flatcar Linux [IRC channel][irc] or [user mailing list][coreos-user].
 
 ## Choosing a channel
 
@@ -468,4 +468,4 @@ Now that you have a machine booted it is time to play around. Check out the [Fla
 [coreos-user]: https://groups.google.com/forum/#!forum/coreos-user
 [docker-docs]: https://docs.docker.io
 [etcd-docs]: https://github.com/coreos/etcd/tree/master/Documentation
-[irc]: irc://irc.freenode.org:6667/#coreos
+[irc]: irc://irc.freenode.org:6667/#flatcar

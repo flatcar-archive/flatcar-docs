@@ -49,7 +49,7 @@ systemd:
         ExecStart=/usr/bin/systemctl enable docker-tcp.socket
 ```
 
-This file is used to provision your local CoreOS machine on its first boot. This sets up and enables the Docker API, which is how you can use Docker on your laptop. The Docker CLI manages containers running within the VM, *not* on your personal operating system.
+This file is used to provision your local Flatcar Linux machine on its first boot. This sets up and enables the Docker API, which is how you can use Docker on your laptop. The Docker CLI manages containers running within the VM, *not* on your personal operating system.
 
 Using the CL Config Transpiler, or `ct`, ([download][ct-download]) convert the above yaml into an [Ignition][ignition-getting-started]. Alternatively, copy the contents of the Igntion tab in the above example. Once you have the Ignition configuration file, pass it to your provider ([complete list of supported Ignition platforms][ignition-supported]).
 
@@ -86,7 +86,7 @@ Once you have a small cluster up and running, you can install a Kubernetes on th
 
 ### Configuring the machines
 
-For more information on getting started with this architecture, see the CoreOS documentation on [supported platforms][coreos-supported]. These include [Amazon EC2][coreos-ec2], [Openstack][coreos-openstack], [Azure][coreos-azure], [Google Compute Platform][coreos-gce], [bare metal iPXE][coreos-bm], [Digital Ocean][coreos-do], and many more community supported platforms.
+For more information on getting started with this architecture, see the Flatcar Linux documentation on [supported platforms][coreos-supported]. These include [Amazon EC2][coreos-ec2], [Openstack][coreos-openstack], [Azure][coreos-azure], [Google Compute Platform][coreos-gce], [bare metal iPXE][coreos-bm], [Digital Ocean][coreos-do], and many more community supported platforms.
 
 Boot the desired number of machines with the same CL Config and discovery token. The CL Config specifies which services will be started on each machine.
 
@@ -153,8 +153,6 @@ This architecture allows you to boot any number of workers, from a single unit t
 You can easily provision the remaining (non-etcd) nodes with Kubernetes using the open source [Tectonic installer][tectonic-installer] to start running containerized app with your cluster.
 
 ## Production cluster with central services
-
-*[Tectonic from CoreOS][tectonic]* simplifies install and ongoing management of your Kubernetes cluster. Run up to 10 Flatcar Linux nodes for free. [Check it out][tectonic].
 
 <img class="img-center" src="img/prod.png" alt="Flatcar Linux cluster optimized for production environments"/>
 <div class="caption">Flatcar Linux cluster separated into central services and workers.</div>

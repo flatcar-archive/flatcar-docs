@@ -28,7 +28,7 @@ Flatcar Linux allows you to configure machine parameters, launch systemd units o
 
 You can provide raw cloud-config data to Flatcar Linux via the Exoscale portal or [via the Exoscale compute API](#via-the-api).
 
-In order to leverage Flatcar Linux unique automation attributes, a standard CoreOS cloud-config on Exoscale could be configured with:
+In order to leverage Flatcar Linux unique automation attributes, a standard Flatcar Linux cloud-config on Exoscale could be configured with:
 
 ```cloud-config
 #cloud-config

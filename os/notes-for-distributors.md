@@ -10,7 +10,7 @@ Each directory has a `version.txt` file containing version information for the f
 2. Parse `version.txt` to obtain the value of `COREOS_VERSION_ID`, for example `1576.1.0`.
 3. Download `https://alpha.release.core-os.net/amd64-usr/1576.1.0/coreos_production_openstack_image.img.bz2`.
 
-It is recommended that you also verify files using the [CoreOS Image Signing Key][signing-key]. The GPG signature for each image is a detached `.sig` file that must be passed to `gpg --verify`. For example:
+It is recommended that you also verify files using the [Flatcar Linux Image Signing Key][signing-key]. The GPG signature for each image is a detached `.sig` file that must be passed to `gpg --verify`. For example:
 
 ```sh
 wget https://alpha.release.core-os.net/amd64-usr/current/coreos_production_openstack_image.img.bz2

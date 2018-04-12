@@ -1,6 +1,6 @@
 # Community supported platforms
 
-The Flatcar Linux community has provided support for Flatcar Linux on a number of platforms beyond those [officially supported][official-support] by CoreOS.
+The Flatcar Linux community has provided support for Flatcar Linux on a number of platforms beyond those [officially supported][official-support] by Kinvolk.
 
 The platforms and providers listed below each provide support and documentation for running Flatcar Linux:
 

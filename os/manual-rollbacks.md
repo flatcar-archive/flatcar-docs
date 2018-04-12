@@ -35,10 +35,10 @@ $ cgpt show /dev/sda
                                   Type: Alias for linux-data
                                   UUID: 726E33FA-DFE9-45B2-B215-FB35CD9C2388
      4726784      131072       7  Label: "OEM-CONFIG"
-                                  Type: CoreOS reserved
+                                  Type: Flatcar Linux reserved
                                   UUID: 8F39CE8B-1FB3-4E7E-A784-0C53C8F40442
      4857856    37085151       9  Label: "ROOT"
-                                  Type: CoreOS auto-resize
+                                  Type: Flatcar Linux auto-resize
                                   UUID: D9A972BB-8084-4AB5-BA55-F8A3AFFAD70D
     41943007          32          Sec GPT table
     41943039           1          Sec GPT header

@@ -144,7 +144,7 @@ And if we attempt to connect to port 22 on our public IP, the connection is reje
 $ ssh core@[public IP]
 ssh: connect to host [public IP] port 22: Connection refused
 $ ssh -p 222 core@[public IP]
-Flatcar Linux by CoreOS stable (1353.8.0)
+Flatcar Linux by Kinvolk stable (1353.8.0)
 core@machine $
 ```
 

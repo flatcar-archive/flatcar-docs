@@ -18,21 +18,21 @@ Flatcar Linux is designed to be [updated automatically](https://coreos.com/why/#
       <div class="channel-info">
         <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Flatcar Linux {{site.alpha-channel}}.</p>
         <p>The following command can be used to determine the image IDs for Alpha:</p>
-        <pre>supernova production image-list | grep 'CoreOS (Alpha)'</pre>
+        <pre>supernova production image-list | grep 'Flatcar Linux (Alpha)'</pre>
       </div>
     </div>
     <div class="tab-pane" id="beta">
       <div class="channel-info">
         <p>The Beta channel consists of promoted Alpha releases. The current version is Flatcar Linux {{site.beta-channel}}.</p>
         <p>The following command can be used to determine the image IDs for Beta:</p>
-        <pre>supernova production image-list | grep 'CoreOS (Beta)'</pre>
+        <pre>supernova production image-list | grep 'Flatcar Linux (Beta)'</pre>
       </div>
     </div>
     <div class="tab-pane active" id="stable">
       <div class="channel-info">
         <p>The Stable channel should be used by production clusters. Versions of Flatcar Linux are battle-tested within the Beta and Alpha channels before being promoted. The current version is Flatcar Linux {{site.stable-channel}}.</p>
         <p>The following command can be used to determine the image IDs for Stable:</p>
-        <pre>supernova production image-list | grep 'CoreOS (Stable)'</pre>
+        <pre>supernova production image-list | grep 'Flatcar Linux (Stable)'</pre>
       </div>
     </div>
   </div>
@@ -177,7 +177,7 @@ You should now see the details of your new server in your terminal and it should
 | updated                | 2013-11-02T19:43:45Z                 |
 | hostId                 |                                      |
 | key_name               | coreos-key                           |
-| image                  | CoreOS                               |
+| image                  | Flatcar Linux                        |
 | OS-EXT-STS:task_state  | scheduling                           |
 | OS-EXT-STS:vm_state    | building                             |
 | flavor                 | 512MB Standard Instance              |
@@ -208,7 +208,7 @@ You can also launch servers with either the `alpha` and `beta` channel versions 
  2. Click on 'Servers'
  3. Click on 'Create Server'
  4. Choose server name and region
- 5. Click on 'Linux', then on 'CoreOS' and finally choose '(alpha)' or '(beta)' version
+ 5. Click on 'Linux', then on 'Flatcar Linux' and finally choose '(alpha)' or '(beta)' version
  6. Choose flavor and use 'Advanced Options' to select SSH Key -- if available
  7. Click on 'Create Server'
 

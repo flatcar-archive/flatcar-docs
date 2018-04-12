@@ -120,7 +120,7 @@ RSA key fingerprint is 99:a5:13:60:07:5d:ac:eb:4b:f2:cb:c9:b2:ab:d7:21.
 Are you sure you want to continue connecting (yes/no)? yes
 Warning: Permanently added '[IP]' (ED25519) to the list of known hosts.
 Enter passphrase for key '/home/user/.ssh/id_rsa':
-CoreOS stable (557.2.0)
+Flatcar Linux stable (557.2.0)
 core@localhost ~ $
 ```
 
