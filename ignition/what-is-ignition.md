@@ -26,9 +26,9 @@ The lack of variable substitution in Ignition has an added benefit of leveling t
 
 ### When is Ignition executed
 
-On boot, GRUB checks the EFI System Partition for a file at `coreos/first_boot` and sets `coreos.first_boot=detected` if found. The `coreos.first_boot` parameter is processed by a [systemd-generator] in the [initramfs] and if the parameter value is non-zero, the Ignition units are set as dependencies of `initrd.target`, causing Ignition to run. If the parameter is set to the special value `detected`, the `coreos/first_boot` file is deleted after Ignition runs successfully.
+On boot, GRUB checks the EFI System Partition for a file at `flatcar/first_boot` and sets `flatcar.first_boot=detected` if found. The `flatcar.first_boot` parameter is processed by a [systemd-generator] in the [initramfs] and if the parameter value is non-zero, the Ignition units are set as dependencies of `initrd.target`, causing Ignition to run. If the parameter is set to the special value `detected`, the `flatcar/first_boot` file is deleted after Ignition runs successfully.
 
-Note that [PXE][supported-platforms] deployments don't use GRUB to boot, so `coreos.first_boot=1` must be added to the boot arguments in order for Ignition to run. `detected` should not be specified so Ignition will not attempt to delete `coreos/first_boot`.
+Note that [PXE][supported-platforms] deployments don't use GRUB to boot, so `flatcar.first_boot=1` must be added to the boot arguments in order for Ignition to run. `detected` should not be specified so Ignition will not attempt to delete `flatcar/first_boot`.
 
 ## Providing Ignition a config
 
