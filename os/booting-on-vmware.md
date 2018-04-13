@@ -19,19 +19,19 @@ Flatcar Linux is designed to be [updated automatically](https://coreos.com/why/#
       <div class="channel-info">
         <p>The Stable channel should be used by production clusters. Versions of Flatcar Linux are battle-tested within the Beta and Alpha channels before being promoted. The current version is Flatcar Linux {{site.stable-channel}}.</p>
        </div>
-      <pre>curl -LO https://stable.release.core-os.net/amd64-usr/current/coreos_production_vmware_ova.ova</pre>
+      <pre>curl -LO https://stable.release.flatcar-linux.net/amd64-usr/current/flatcar_production_vmware_ova.ova</pre>
     </div>
     <div class="tab-pane" id="alpha">
       <div class="channel-info">
         <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Flatcar Linux {{site.alpha-channel}}.</p>
       </div>
-      <pre>curl -LO https://alpha.release.core-os.net/amd64-usr/current/coreos_production_vmware_ova.ova</pre>
+      <pre>curl -LO https://alpha.release.flatcar-linux.net/amd64-usr/current/flatcar_production_vmware_ova.ova</pre>
     </div>
     <div class="tab-pane" id="beta">
       <div class="channel-info">
         <p>The Beta channel consists of promoted Alpha releases. The current version is Flatcar Linux {{site.beta-channel}}.</p>
       </div>
-      <pre>curl -LO https://beta.release.core-os.net/amd64-usr/current/coreos_production_vmware_ova.ova</pre>
+      <pre>curl -LO https://beta.release.flatcar-linux.net/amd64-usr/current/flatcar_production_vmware_ova.ova</pre>
     </div>
   </div>
 </div>
@@ -162,14 +162,14 @@ Now you can login to the host at that IP using your SSH key, or the password set
 ssh core@10.0.1.81
 ```
 
-Alternatively, appending `coreos.autologin` to the kernel parameters at boot causes the console to accept the `core` user's login with no password. This is handy for debugging.
+Alternatively, appending `flatcar.autologin` to the kernel parameters at boot causes the console to accept the `core` user's login with no password. This is handy for debugging.
 
 ## Using Flatcar Linux
 
 Now that you have a machine booted, it's time to explore. Check out the [Flatcar Linux Quickstart][quickstart] guide, or dig into [more specific topics][docs].
 
 [quickstart]: quickstart.md
-[docs]: https://github.com/coreos/docs
+[docs]: https://github.com/flatcar-linux/docs
 [PXE]: booting-with-pxe.md
 [ISO]: booting-with-iso.md
 [install]: installing-to-disk.md

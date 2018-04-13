@@ -20,9 +20,9 @@ When configuring the Flatcar Linux iPXE boot script there are a few kernel optio
 - **root**: Use a local filesystem for root instead of one of two in-ram options above. The filesystem must be formatted (perhaps using Ignition) but may be completely blank; it will be initialized on boot. The filesystem may be specified by any of the usual ways including device, label, or UUID; e.g: `root=/dev/sda1`, `root=LABEL=ROOT` or `root=UUID=2c618316-d17a-4688-b43b-aa19d97ea821`.
 - **sshkey**: Add the given SSH public key to the `core` user's authorized_keys file. Replace the example key below with your own (it is usually in `~/.ssh/id_rsa.pub`)
 - **console**: Enable kernel output and a login prompt on a given tty. The default, `tty0`, generally maps to VGA. Can be used multiple times, e.g. `console=tty0 console=ttyS0`
-- **coreos.autologin**: Drop directly to a shell on a given console without prompting for a password. Useful for troubleshooting but use with caution. For any console that doesn't normally get a login prompt by default be sure to combine with the `console` option, e.g. `console=tty0 console=ttyS0 coreos.autologin=tty1 coreos.autologin=ttyS0`. Without any argument it enables access on all consoles. Note that for the VGA console the login prompts are on virtual terminals (`tty1`, `tty2`, etc), not the VGA console itself (`tty0`).
-- **coreos.first_boot=1**: Download an Ignition config and use it to provision your booted system. Ignition configs are generated from Container Linux Configs. See the [config transpiler documentation][cl-configs] for more information. If a local filesystem is used for the root partition, pass this parameter only on the first boot.
-- **coreos.config.url**: Download the Ignition config from the specified URL. `http`, `https`, `s3`, and `tftp` schemes are supported.
+- **flatcar.autologin**: Drop directly to a shell on a given console without prompting for a password. Useful for troubleshooting but use with caution. For any console that doesn't normally get a login prompt by default be sure to combine with the `console` option, e.g. `console=tty0 console=ttyS0 flatcar.autologin=tty1 flatcar.autologin=ttyS0`. Without any argument it enables access on all consoles. Note that for the VGA console the login prompts are on virtual terminals (`tty1`, `tty2`, etc), not the VGA console itself (`tty0`).
+- **flatcar.first_boot=1**: Download an Ignition config and use it to provision your booted system. Ignition configs are generated from Container Linux Configs. See the [config transpiler documentation][cl-configs] for more information. If a local filesystem is used for the root partition, pass this parameter only on the first boot.
+- **flatcar.config.url**: Download the Ignition config from the specified URL. `http`, `https`, `s3`, and `tftp` schemes are supported.
 
 ### Choose a Channel
 
@@ -43,9 +43,9 @@ Flatcar Linux is designed to be [updated automatically](https://coreos.com/why/#
       <pre>
 #!ipxe
 
-set base-url http://alpha.release.core-os.net/amd64-usr/current
-kernel ${base-url}/coreos_production_pxe.vmlinuz initrd=coreos_production_pxe_image.cpio.gz coreos.first_boot=1 coreos.config.url=https://example.com/pxe-config.ign
-initrd ${base-url}/coreos_production_pxe_image.cpio.gz
+set base-url http://alpha.release.flatcar-linux.net/amd64-usr/current
+kernel ${base-url}/flatcar_production_pxe.vmlinuz initrd=flatcar_production_pxe_image.cpio.gz flatcar.first_boot=1 flatcar.config.url=https://example.com/pxe-config.ign
+initrd ${base-url}/flatcar_production_pxe_image.cpio.gz
 boot</pre>
     </div>
     <div class="tab-pane" id="beta-create">
@@ -54,9 +54,9 @@ boot</pre>
       <pre>
 #!ipxe
 
-set base-url http://beta.release.core-os.net/amd64-usr/current
-kernel ${base-url}/coreos_production_pxe.vmlinuz initrd=coreos_production_pxe_image.cpio.gz coreos.first_boot=1 coreos.config.url=https://example.com/pxe-config.ign
-initrd ${base-url}/coreos_production_pxe_image.cpio.gz
+set base-url http://beta.release.flatcar-linux.net/amd64-usr/current
+kernel ${base-url}/flatcar_production_pxe.vmlinuz initrd=flatcar_production_pxe_image.cpio.gz flatcar.first_boot=1 flatcar.config.url=https://example.com/pxe-config.ign
+initrd ${base-url}/flatcar_production_pxe_image.cpio.gz
 boot</pre>
     </div>
     <div class="tab-pane active" id="stable-create">
@@ -65,9 +65,9 @@ boot</pre>
       <pre>
 #!ipxe
 
-set base-url http://stable.release.core-os.net/amd64-usr/current
-kernel ${base-url}/coreos_production_pxe.vmlinuz initrd=coreos_production_pxe_image.cpio.gz coreos.first_boot=1 coreos.config.url=https://example.com/pxe-config.ign
-initrd ${base-url}/coreos_production_pxe_image.cpio.gz
+set base-url http://stable.release.flatcar-linux.net/amd64-usr/current
+kernel ${base-url}/flatcar_production_pxe.vmlinuz initrd=flatcar_production_pxe_image.cpio.gz flatcar.first_boot=1 flatcar.config.url=https://example.com/pxe-config.ign
+initrd ${base-url}/flatcar_production_pxe_image.cpio.gz
 boot</pre>
     </div>
   </div>
@@ -97,7 +97,7 @@ Immediately iPXE should download your boot script URL and start grabbing the ima
 
 ```sh
 ${YOUR_BOOT_URL}... ok
-http://alpha.release.core-os.net/amd64-usr/current/coreos_production_pxe.vmlinuz... 98%
+http://alpha.release.core-os.net/amd64-usr/current/flatcar_production_pxe.vmlinuz... 98%
 ```
 
 After a few moments of downloading Flatcar Linux should boot normally.

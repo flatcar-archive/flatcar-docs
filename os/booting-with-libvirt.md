@@ -30,9 +30,9 @@ Flatcar Linux is designed to be [updated automatically](https://coreos.com/why/#
       <pre>
 mkdir -p /var/lib/libvirt/images/container-linux
 cd /var/lib/libvirt/images/container-linux
-wget https://alpha.release.core-os.net/amd64-usr/current/coreos_production_qemu_image.img.bz2{,.sig}
-gpg --verify coreos_production_qemu_image.img.bz2.sig
-bunzip2 coreos_production_qemu_image.img.bz2</pre>
+wget https://alpha.release.core-os.net/amd64-usr/current/flatcar_production_qemu_image.img.bz2{,.sig}
+gpg --verify flatcar_production_qemu_image.img.bz2.sig
+bunzip2 flatcar_production_qemu_image.img.bz2</pre>
     </div>
     <div class="tab-pane" id="beta-create">
       <p>The Beta channel consists of promoted Alpha releases. The current version is Flatcar Linux {{site.beta-channel}}.</p>
@@ -40,9 +40,9 @@ bunzip2 coreos_production_qemu_image.img.bz2</pre>
       <pre>
 mkdir -p /var/lib/libvirt/images/container-linux
 cd /var/lib/libvirt/images/container-linux
-wget https://beta.release.core-os.net/amd64-usr/current/coreos_production_qemu_image.img.bz2{,.sig}
-gpg --verify coreos_production_qemu_image.img.bz2.sig
-bunzip2 coreos_production_qemu_image.img.bz2</pre>
+wget https://beta.release.core-os.net/amd64-usr/current/flatcar_production_qemu_image.img.bz2{,.sig}
+gpg --verify flatcar_production_qemu_image.img.bz2.sig
+bunzip2 flatcar_production_qemu_image.img.bz2</pre>
     </div>
     <div class="tab-pane active" id="stable-create">
       <p>The Stable channel should be used by production clusters. Versions of Flatcar Linux are battle-tested within the Beta and Alpha channels before being promoted. The current version is Flatcar Linux {{site.stable-channel}}.</p>
@@ -50,9 +50,9 @@ bunzip2 coreos_production_qemu_image.img.bz2</pre>
       <pre>
 mkdir -p /var/lib/libvirt/images/container-linux
 cd /var/lib/libvirt/images/container-linux
-wget https://stable.release.core-os.net/amd64-usr/current/coreos_production_qemu_image.img.bz2{,.sig}
-gpg --verify coreos_production_qemu_image.img.bz2.sig
-bunzip2 coreos_production_qemu_image.img.bz2</pre>
+wget https://stable.release.core-os.net/amd64-usr/current/flatcar_production_qemu_image.img.bz2{,.sig}
+gpg --verify flatcar_production_qemu_image.img.bz2.sig
+bunzip2 flatcar_production_qemu_image.img.bz2</pre>
     </div>
   </div>
 </div>
@@ -63,10 +63,10 @@ Now create a qcow2 image snapshot using the command below:
 
 ```sh
 cd /var/lib/libvirt/images/container-linux
-qemu-img create -f qcow2 -b coreos_production_qemu_image.img container-linux1.qcow2
+qemu-img create -f qcow2 -b flatcar_production_qemu_image.img container-linux1.qcow2
 ```
 
-This will create a `container-linux1.qcow2` snapshot image. Any changes to `container-linux1.qcow2` will not be reflected in `coreos_production_qemu_image.img`. Making any changes to a base image (`coreos_production_qemu_image.img` in our example) will corrupt its snapshots.
+This will create a `container-linux1.qcow2` snapshot image. Any changes to `container-linux1.qcow2` will not be reflected in `flatcar_production_qemu_image.img`. Making any changes to a base image (`flatcar_production_qemu_image.img` in our example) will corrupt its snapshots.
 
 ### Ignition config
 
@@ -137,7 +137,7 @@ Next, modify the domain xml to reference the qemu-specific configuration needed:
   ...
   <qemu:commandline>
     <qemu:arg value="-fw_cfg"/>
-    <qemu:arg value="name=opt/com.coreos/config,file=/var/lib/libvirt/container-linux/container-linux1/provision.ign"/>
+    <qemu:arg value="name=opt/com.flatcar/config,file=/var/lib/libvirt/container-linux/container-linux1/provision.ign"/>
   </qemu:commandline>
 </domain>
 ```
@@ -153,7 +153,7 @@ xmlstarlet ed -P -L -s "//domain" -t elem -n "qemu:commandline" "${domain}"
 xmlstarlet ed -P -L -s "//domain/qemu:commandline" -t elem -n "qemu:arg" "${domain}"
 xmlstarlet ed -P -L -s "(//domain/qemu:commandline/qemu:arg)[1]" -t attr -n "value" -v "-fw_cfg" "${domain}"
 xmlstarlet ed -P -L -s "//domain/qemu:commandline" -t elem -n "qemu:arg" "${domain}"
-xmlstarlet ed -P -L -s "(//domain/qemu:commandline/qemu:arg)[2]" -t attr -n "value" -v "name=opt/com.coreos/config,file=${ignition_file}" "${domain}"
+xmlstarlet ed -P -L -s "(//domain/qemu:commandline/qemu:arg)[2]" -t attr -n "value" -v "name=opt/com.flatcar/config,file=${ignition_file}" "${domain}"
 ```
 
 Alternately, you can accomplish the same modification using sed:
@@ -163,7 +163,7 @@ domain=/var/lib/libvirt/container-linux/container-linux1/domain.xml
 ignition_file=/var/lib/libvirt/container-linux/container-linux1/provision.ign
 
 sed -i 's|type="kvm"|type="kvm" xmlns:qemu="http://libvirt.org/schemas/domain/qemu/1.0"|' "${domain}"
-sed -i "/<\/devices>/a <qemu:commandline>\n  <qemu:arg value='-fw_cfg'/>\n  <qemu:arg value='name=opt/com.coreos/config,file=${ignition_file}'/>\n</qemu:commandline>" "${domain}"
+sed -i "/<\/devices>/a <qemu:commandline>\n  <qemu:arg value='-fw_cfg'/>\n  <qemu:arg value='name=opt/com.flatcar/config,file=${ignition_file}'/>\n</qemu:commandline>" "${domain}"
 ```
 
 #### Define and start the machine
@@ -268,7 +268,7 @@ virt-install --connect qemu:///system --import \
   --print-xml > /var/lib/libvirt/container-linux/container-linux1/domain.xml
 
 sed -ie 's|type="kvm"|type="kvm" xmlns:qemu="http://libvirt.org/schemas/domain/qemu/1.0"|' "${domain}"
-sed -i "/<\/devices>/a <qemu:commandline>\n  <qemu:arg value='-fw_cfg'/>\n  <qemu:arg value='name=opt/com.coreos/config,file=${ignition_file}'/>\n</qemu:commandline>" "${domain}"
+sed -i "/<\/devices>/a <qemu:commandline>\n  <qemu:arg value='-fw_cfg'/>\n  <qemu:arg value='name=opt/com.flatcar/config,file=${ignition_file}'/>\n</qemu:commandline>" "${domain}"
 
 virsh define /var/lib/libvirt/container-linux/container-linux1/domain.xml
 virsh start container-linux1

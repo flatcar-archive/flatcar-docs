@@ -20,22 +20,22 @@ Flatcar Linux is designed to be [updated automatically](https://coreos.com/why/#
     <div class="tab-pane" id="alpha-create">
       <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Flatcar Linux {{site.alpha-channel}}.</p>
 <pre>
-$ wget https://alpha.release.core-os.net/amd64-usr/current/coreos_production_openstack_image.img.bz2
-$ bunzip2 coreos_production_openstack_image.img.bz2
+$ wget https://alpha.release.flatcar-linux.net/amd64-usr/current/flatcar_production_openstack_image.img.bz2
+$ bunzip2 flatcar_production_openstack_image.img.bz2
 </pre>
     </div>
     <div class="tab-pane" id="beta-create">
       <p>The Beta channel consists of promoted Alpha releases. The current version is Flatcar Linux {{site.beta-channel}}.</p>
 <pre>
-$ wget https://beta.release.core-os.net/amd64-usr/current/coreos_production_openstack_image.img.bz2
-$ bunzip2 coreos_production_openstack_image.img.bz2
+$ wget https://beta.release.flatcar-linux.net/amd64-usr/current/flatcar_production_openstack_image.img.bz2
+$ bunzip2 flatcar_production_openstack_image.img.bz2
 </pre>
     </div>
   <div class="tab-pane active" id="stable-create">
       <p>The Stable channel should be used by production clusters. Versions of Flatcar Linux are battle-tested within the Beta and Alpha channels before being promoted. The current version is Flatcar Linux {{site.stable-channel}}.</p>
 <pre>
-$ wget https://stable.release.core-os.net/amd64-usr/current/coreos_production_openstack_image.img.bz2
-$ bunzip2 coreos_production_openstack_image.img.bz2
+$ wget https://stable.release.flatcar-linux.net/amd64-usr/current/flatcar_production_openstack_image.img.bz2
+$ bunzip2 flatcar_production_openstack_image.img.bz2
 </pre>
     </div>
   </div>
@@ -47,7 +47,7 @@ Once the download completes, add the Flatcar Linux image into Glance:
 $ glance image-create --name Container-Linux \
   --container-format bare \
   --disk-format qcow2 \
-  --file coreos_production_openstack_image.img
+  --file flatcar_production_openstack_image.img
 +------------------+--------------------------------------+
 | Property         | Value                                |
 +------------------+--------------------------------------+
@@ -61,7 +61,7 @@ $ glance image-create --name Container-Linux \
 | is_public        | False                                |
 | min_disk         | 0                                    |
 | min_ram          | 0                                    |
-| name             | coreos                               |
+| name             | flatcar                               |
 | owner            | 8e662c811b184482adaa34c89a9c33ae     |
 | protected        | False                                |
 | size             | 363660800                            |
@@ -112,10 +112,10 @@ Boot the machines with the `nova` CLI, referencing the image ID from the import 
 nova boot \
 --user-data ./config.ign \
 --image cdf3874c-c27f-4816-bc8c-046b240e0edd \
---key-name coreos \
+--key-name flatcar \
 --flavor m1.medium \
 --min-count 3 \
---security-groups default,coreos
+--security-groups default,flatcar
 ```
 
 To use config drive you may need to add `--config-drive=true` to command above.
@@ -142,13 +142,13 @@ Your first Flatcar Linux cluster should now be running. The only thing left to d
 
 ```sh
 $ nova list
-+--------------------------------------+-----------------+--------+------------+-------------+-------------------+
-| ID                                   | Name            | Status | Task State | Power State | Networks          |
-+--------------------------------------+-----------------+--------+------------+-------------+-------------------+
-| a1df1d98-622f-4f3b-adef-cb32f3e2a94d | coreos-a1df1d98 | ACTIVE | None       | Running     | private=10.0.0.3  |
-| db13c6a7-a474-40ff-906e-2447cbf89440 | coreos-db13c6a7 | ACTIVE | None       | Running     | private=10.0.0.4  |
-| f70b739d-9ad8-4b0b-bb74-4d715205ff0b | coreos-f70b739d | ACTIVE | None       | Running     | private=10.0.0.5  |
-+--------------------------------------+-----------------+--------+------------+-------------+-------------------+
++--------------------------------------+-----------------+--------+------------+-------------+--------------------+
+| ID                                   | Name            | Status | Task State | Power State | Networks           |
++--------------------------------------+-----------------+--------+------------+-------------+--------------------+
+| a1df1d98-622f-4f3b-adef-cb32f3e2a94d | flatcar-a1df1d98 | ACTIVE | None       | Running     | private=10.0.0.3  |
+| db13c6a7-a474-40ff-906e-2447cbf89440 | flatcar-db13c6a7 | ACTIVE | None       | Running     | private=10.0.0.4  |
+| f70b739d-9ad8-4b0b-bb74-4d715205ff0b | flatcar-f70b739d | ACTIVE | None       | Running     | private=10.0.0.5  |
++--------------------------------------+-----------------+--------+------------+-------------+--------------------+
 ```
 
 Finally SSH into an instance, note that the user is `core`:
@@ -156,12 +156,6 @@ Finally SSH into an instance, note that the user is `core`:
 ```sh
 $ chmod 400 core.pem
 $ ssh -i core.pem core@10.0.0.3
-   ______                ____  _____
-  / ____/___  ________  / __ \/ ___/
- / /   / __ \/ ___/ _ \/ / / /\__ \
-/ /___/ /_/ / /  /  __/ /_/ /___/ /
-\____/\____/_/   \___/\____//____/
-
 core@10-0-0-3 ~ $
 ```
 
@@ -175,9 +169,9 @@ Example:
 nova boot \
 --user-data ./config.ign \
 --image cdf3874c-c27f-4816-bc8c-046b240e0edd \
---key-name coreos \
+--key-name flatcar \
 --flavor m1.medium \
---security-groups default,coreos
+--security-groups default,flatcar
 ```
 
 ## Multiple clusters

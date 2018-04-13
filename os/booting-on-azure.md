@@ -16,19 +16,19 @@ The following command will create a single instance. For more details, check out
     <div class="tab-pane" id="alpha">
       <div class="channel-info">
         <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Flatcar Linux {{site.alpha-channel}}.</p>
-        <pre>az vm create --name node-1 --resource-group group-1 --admin-username core --custom-data "$(cat config.ign)" --image CoreOS:CoreOS:Alpha:latest</pre>
+        <pre>az vm create --name node-1 --resource-group group-1 --admin-username core --custom-data "$(cat config.ign)" --image Flatcar:Flatcar:Alpha:latest</pre>
       </div>
     </div>
     <div class="tab-pane" id="beta">
       <div class="channel-info">
         <p>The Beta channel consists of promoted Alpha releases. The current version is Flatcar Linux {{site.beta-channel}}.</p>
-        <pre>az vm create --name node-1 --resource-group group-1 --admin-username core --custom-data "$(cat config.ign)" --image CoreOS:CoreOS:Beta:latest</pre>
+        <pre>az vm create --name node-1 --resource-group group-1 --admin-username core --custom-data "$(cat config.ign)" --image Flatcar:Flatcar:Beta:latest</pre>
       </div>
     </div>
     <div class="tab-pane active" id="stable">
       <div class="channel-info">
         <p>The Stable channel should be used by production clusters. Versions of Flatcar Linux are battle-tested within the Beta and Alpha channels before being promoted. The current version is Flatcar Linux {{site.stable-channel}}.</p>
-        <pre>az vm create --name node-1 --resource-group group-1 --admin-username core --custom-data "$(cat config.ign)" --image CoreOS:CoreOS:Stable:latest</pre>
+        <pre>az vm create --name node-1 --resource-group group-1 --admin-username core --custom-data "$(cat config.ign)" --image Flatcar:Flatcar:Stable:latest</pre>
       </div>
     </div>
   </div>
@@ -74,7 +74,7 @@ az group create --name group-1 --location <location>
 Now that you have a resource group, create an instance of Flatcar Linux Alpha inside it:
 
 ```sh
-az vm create --name node-1 --resource-group group-1 --admin-username core --custom-data "$(cat config.ign)" --image CoreOS:CoreOS:Alpha:latest
+az vm create --name node-1 --resource-group group-1 --admin-username core --custom-data "$(cat config.ign)" --image Flatcar:Flatcar:Alpha:latest
 ```
 
 ## Using Flatcar Linux

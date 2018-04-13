@@ -20,45 +20,45 @@ Flatcar Linux is designed to be [updated automatically](https://coreos.com/why/#
     <div class="tab-pane" id="alpha-create">
       <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Flatcar Linux {{site.alpha-channel}}.</p>
       <pre>
-$ wget -q https://alpha.release.core-os.net/amd64-usr/current/coreos_production_openstack_image.img.bz2
-$ bunzip2 coreos_production_openstack_image.img.bz2
-$ qemu-img convert -O raw coreos_production_openstack_image.img coreos_production_openstack_image.raw
-$ euca-bundle-image -i coreos_production_openstack_image.raw -r x86_64 -d /var/tmp
+$ wget -q https://alpha.release.flatcar-linux.net/amd64-usr/current/flatcar_production_openstack_image.img.bz2
+$ bunzip2 flatcar_production_openstack_image.img.bz2
+$ qemu-img convert -O raw flatcar_production_openstack_image.img flatcar_production_openstack_image.raw
+$ euca-bundle-image -i flatcar_production_openstack_image.raw -r x86_64 -d /var/tmp
 00% |====================================================================================================|   5.33 GB  59.60 MB/s Time: 0:01:35
-Wrote manifest bundle/coreos_production_openstack_image.raw.manifest.xml
-$ euca-upload-bundle -m /var/tmp/coreos_production_openstack_image.raw.manifest.xml -b coreos-production
-Uploaded coreos-production/coreos_production_openstack_image.raw.manifest.xml
-$ euca-register coreos-production/coreos_production_openstack_image.raw.manifest.xml --virtualization-type hvm --name "Flatcar Linux-Production"
+Wrote manifest bundle/flatcar_production_openstack_image.raw.manifest.xml
+$ euca-upload-bundle -m /var/tmp/flatcar_production_openstack_image.raw.manifest.xml -b coreos-production
+Uploaded flatcar-production/flatcar_production_openstack_image.raw.manifest.xml
+$ euca-register flatcar-production/flatcar_production_openstack_image.raw.manifest.xml --virtualization-type hvm --name "Flatcar Linux-Production"
 emi-E4A33D45
       </pre>
     </div>
     <div class="tab-pane" id="beta-create">
       <p>The Beta channel consists of promoted Alpha releases. The current version is Flatcar Linux {{site.beta-channel}}.</p>
       <pre>
-$ wget -q https://beta.release.core-os.net/amd64-usr/current/coreos_production_openstack_image.img.bz2
-$ bunzip2 coreos_production_openstack_image.img.bz2
-$ qemu-img convert -O raw coreos_production_openstack_image.img coreos_production_openstack_image.raw
-$ euca-bundle-image -i coreos_production_openstack_image.raw -r x86_64 -d /var/tmp
+$ wget -q https://beta.release.flatcar-linux.net/amd64-usr/current/flatcar_production_openstack_image.img.bz2
+$ bunzip2 flatcar_production_openstack_image.img.bz2
+$ qemu-img convert -O raw flatcar_production_openstack_image.img flatcar_production_openstack_image.raw
+$ euca-bundle-image -i flatcar_production_openstack_image.raw -r x86_64 -d /var/tmp
 00% |====================================================================================================|   5.33 GB  59.60 MB/s Time: 0:01:35
-Wrote manifest bundle/coreos_production_openstack_image.raw.manifest.xml
-$ euca-upload-bundle -m /var/tmp/coreos_production_openstack_image.raw.manifest.xml -b coreos-production
-Uploaded coreos-production/coreos_production_openstack_image.raw.manifest.xml
-$ euca-register coreos-production/coreos_production_openstack_image.raw.manifest.xml --virtualization-type hvm --name "Flatcar Linux-Production"
+Wrote manifest bundle/flatcar_production_openstack_image.raw.manifest.xml
+$ euca-upload-bundle -m /var/tmp/flatcar_production_openstack_image.raw.manifest.xml -b flatcar-production
+Uploaded flatcar-production/flatcar_production_openstack_image.raw.manifest.xml
+$ euca-register flatcar-production/flatcar_production_openstack_image.raw.manifest.xml --virtualization-type hvm --name "Flatcar Linux-Production"
 emi-E4A33D45
       </pre>
     </div>
     <div class="tab-pane active" id="stable-create">
       <p>The Stable channel should be used by production clusters. Versions of Flatcar Linux are battle-tested within the Beta and Alpha channels before being promoted. The current version is Flatcar Linux {{site.stable-channel}}.</p>
       <pre>
-$ wget -q https://stable.release.core-os.net/amd64-usr/current/coreos_production_openstack_image.img.bz2
-$ bunzip2 coreos_production_openstack_image.img.bz2
-$ qemu-img convert -O raw coreos_production_openstack_image.img coreos_production_openstack_image.raw
-$ euca-bundle-image -i coreos_production_openstack_image.raw -r x86_64 -d /var/tmp
+$ wget -q https://stable.release.flatcar-linux.net/amd64-usr/current/flatcar_production_openstack_image.img.bz2
+$ bunzip2 flatcar_production_openstack_image.img.bz2
+$ qemu-img convert -O raw flatcar_production_openstack_image.img flatcar_production_openstack_image.raw
+$ euca-bundle-image -i flatcar_production_openstack_image.raw -r x86_64 -d /var/tmp
 00% |====================================================================================================|   5.33 GB  59.60 MB/s Time: 0:01:35
-Wrote manifest bundle/coreos_production_openstack_image.raw.manifest.xml
-$ euca-upload-bundle -m /var/tmp/coreos_production_openstack_image.raw.manifest.xml -b coreos-production
-Uploaded coreos-production/coreos_production_openstack_image.raw.manifest.xml
-$ euca-register coreos-production/coreos_production_openstack_image.raw.manifest.xml --virtualization-type hvm --name "Flatcar Linux-Production"
+Wrote manifest bundle/flatcar_production_openstack_image.raw.manifest.xml
+$ euca-upload-bundle -m /var/tmp/flatcar_production_openstack_image.raw.manifest.xml -b flatcar-production
+Uploaded flatcar-production/flatcar_production_openstack_image.raw.manifest.xml
+$ euca-register flatcar-production/flatcar_production_openstack_image.raw.manifest.xml --virtualization-type hvm --name "Flatcar Linux-Production"
 emi-E4A33D45
       </pre>
     </div>
@@ -70,17 +70,17 @@ emi-E4A33D45
 Now generate the ssh key that will be injected into the image for the `core` user and boot it up!
 
 ```sh
-$ euca-create-keypair coreos > core.pem
-$ euca-run-instances emi-E4A33D45 -k coreos -t m1.medium -g default
+$ euca-create-keypair flatcar > core.pem
+$ euca-run-instances emi-E4A33D45 -k flatcar -t m1.medium -g default
 ...
 ```
 
 Your first Flatcar Linux instance should now be running. The only thing left to do is find the IP and SSH in.
 
 ```sh
-$ euca-describe-instances | grep coreos
+$ euca-describe-instances | grep flatcar
 RESERVATION     r-BCF44206      498025213678    group-1380012085
-INSTANCE        i-22444094      emi-E4A33D45    euca-10-0-1-61.cloud.home       euca-172-16-0-56.cloud.internal running coreos  0
+INSTANCE        i-22444094      emi-E4A33D45    euca-10-0-1-61.cloud.home       euca-172-16-0-56.cloud.internal running flatcar  0
                 m1.small        2013-10-02T05:32:44.096Z        one     eki-05573B4A    eri-EA7436D2            monitoring-enabled      10.0.1.61    172.16.0.56                     instance-store                                  paravirtualized         5046c208-fec1-4a6e-b079-e7cdf6a7db8f_one_1
 
 ```
@@ -90,12 +90,6 @@ Finally SSH into it, note that the user is `core`:
 ```sh
 $ chmod 400 core.pem
 $ ssh -i core.pem core@10.0.1.61
-   ______                ____  _____
-  / ____/___  ________  / __ \/ ___/
- / /   / __ \/ ___/ _ \/ / / /\__ \
-/ /___/ /_/ / /  /  __/ /_/ /___/ /
-\____/\____/_/   \___/\____//____/
-
 core@10-0-0-3 ~ $
 ```
 

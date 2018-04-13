@@ -6,12 +6,12 @@ These instructions will walk you through running Flatcar Linux on Oracle VM Virt
 
 There is a script that simplifies building the VDI image. It downloads a bare-metal image, verifies it with GPG, and converts that image to a VDI image.
 
-The script is located on [GitHub](https://github.com/coreos/scripts/blob/master/contrib/create-coreos-vdi). The running host must support VirtualBox tools.
+The script is located on [GitHub](https://github.com/flatcar-linux/scripts/blob/master/contrib/create-coreos-vdi). The running host must support VirtualBox tools.
 
 As first step, you must download the script and make it executable.
 
 ```sh
-wget https://raw.githubusercontent.com/coreos/scripts/master/contrib/create-coreos-vdi
+wget https://raw.githubusercontent.com/flatcar-linux/scripts/master/contrib/create-coreos-vdi
 chmod +x create-coreos-vdi
 ```
 
@@ -73,7 +73,7 @@ For more information on customization that can be done with cloud-config, head o
 You need a config-drive to configure at least one SSH key to access the virtual machine. If you are in hurry, you can create a basic config-drive with following steps:
 
 ```sh
-wget https://raw.github.com/coreos/scripts/master/contrib/create-basic-configdrive
+wget https://raw.github.com/flatcar-linux/scripts/master/contrib/create-basic-configdrive
 chmod +x create-basic-configdrive
 ./create-basic-configdrive -H my_vm01 -S ~/.ssh/id_rsa.pub
 ```

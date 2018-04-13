@@ -128,17 +128,17 @@ We're ready to create a keypair then boot a server with it.
 For this guide, I'm assuming you already have a public key you use for your Flatcar Linux servers. Note that only RSA keypairs are supported. Load the public key to Rackspace:
 
 ```sh
-supernova production keypair-add --pub-key ~/.ssh/coreos.pub coreos-key
+supernova production keypair-add --pub-key ~/.ssh/flatcar.pub flatcar-key
 ```
 
 Check you make sure the key is in your list by running `supernova production keypair-list`
 
 ```
-+------------+-------------------------------------------------+
-| Name       | Fingerprint                                     |
-+------------+-------------------------------------------------+
-| coreos-key | d0:6b:d8:3a:3e:6a:52:43:32:bc:01:ea:c2:0f:49:59 |
-+------------+-------------------------------------------------+
++------------+--------------------------------------------------+
+| Name       | Fingerprint                                      |
++------------+--------------------------------------------------+
+| flatcar-key | d0:6b:d8:3a:3e:6a:52:43:32:bc:01:ea:c2:0f:49:59 |
++------------+--------------------------------------------------+
 ```
 
 ### Boot a server
@@ -152,17 +152,17 @@ Check you make sure the key is in your list by running `supernova production key
   <div class="tab-content coreos-docs-image-table">
     <div class="tab-pane" id="alpha-create">
       <p>Boot a new Cloud Server with our new keypair and specify optional cloud-config data:</p>
-      <pre>supernova production boot --image &lt;image-id&gt; --flavor performance1-2 --key-name coreos-key --user-data ~/cloud_config.yml --config-drive true My_Container_Linux_Server</pre>
+      <pre>supernova production boot --image &lt;image-id&gt; --flavor performance1-2 --key-name flatcar-key --user-data ~/cloud_config.yml --config-drive true My_Flatcar_Server</pre>
       <p>Boot a new OnMetal Server with our new keypair and specify optional cloud-config data:</p>
-      <pre>supernova production boot --image &lt;image-id&gt; --flavor onmetal-compute1 --key-name coreos-key --user-data ~/cloud_config.yml --config-drive true My_Container_Linux_Server</pre>
+      <pre>supernova production boot --image &lt;image-id&gt; --flavor onmetal-compute1 --key-name flatcar-key --user-data ~/cloud_config.yml --config-drive true My_Flatcar_Server</pre>
     </div>
     <div class="tab-pane" id="beta-create">
       <p>Boot a new Cloud Server with our new keypair and specify optional cloud-config data:</p>
-      <pre>supernova production boot --image &lt;image-id&gt; --flavor performance1-2 --key-name coreos-key --user-data ~/cloud_config.yml --config-drive true My_Container_Linux_Server</pre>
+      <pre>supernova production boot --image &lt;image-id&gt; --flavor performance1-2 --key-name flatcar-key --user-data ~/cloud_config.yml --config-drive true My_Flatcar_Server</pre>
     </div>
     <div class="tab-pane active" id="stable-create">
       <p>Boot a new Cloud Server with our new keypair and specify optional cloud-config data:</p>
-      <pre>supernova production boot --image &lt;image-id&gt; --flavor performance1-2 --key-name coreos-key --user-data ~/cloud_config.yml --config-drive true My_Container_Linux_Server</pre>
+      <pre>supernova production boot --image &lt;image-id&gt; --flavor performance1-2 --key-name flatcar-key --user-data ~/cloud_config.yml --config-drive true My_Flatcar_Server</pre>
     </div>
   </div>
 </div>
@@ -176,14 +176,14 @@ You should now see the details of your new server in your terminal and it should
 | status                 | BUILD                                |
 | updated                | 2013-11-02T19:43:45Z                 |
 | hostId                 |                                      |
-| key_name               | coreos-key                           |
+| key_name               | flatcar-key                          |
 | image                  | Flatcar Linux                        |
 | OS-EXT-STS:task_state  | scheduling                           |
 | OS-EXT-STS:vm_state    | building                             |
 | flavor                 | 512MB Standard Instance              |
 | id                     | 82dbe66d-0762-4cba-a286-8c1af8431e47 |
 | user_id                | 3c55bca772ba4a4bb6a4eb5b25754738     |
-| name                   | My_Container_Linux_Server            |
+| name                   | My_Flatcar_Server                    |
 | adminPass              | mgNqEx7I9pQA                         |
 | tenant_id              | 833111                               |
 | created                | 2013-11-02T19:43:44Z                 |

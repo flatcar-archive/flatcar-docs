@@ -13,8 +13,8 @@ The latest Flatcar Linux ISOs can be downloaded from the image storage site:
       <div class="channel-info">
         <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Flatcar Linux {{site.alpha-channel}}.</p>
       </div>
-      <a href="https://alpha.release.core-os.net/amd64-usr/current/coreos_production_iso_image.iso" class="btn btn-primary">Download Alpha ISO</a>
-      <a href="https://alpha.release.core-os.net/amd64-usr/current/" class="btn btn-default">Browse Storage Site</a>
+      <a href="https://alpha.release.flatcar-linux.net/amd64-usr/current/flatcar_production_iso_image.iso" class="btn btn-primary">Download Alpha ISO</a>
+      <a href="https://alpha.release.flatcar-linux.net/amd64-usr/current/" class="btn btn-default">Browse Storage Site</a>
       <br/><br/>
       <p>All of the files necessary to verify the image can be found on the storage site.</p>
     </div>
@@ -22,8 +22,8 @@ The latest Flatcar Linux ISOs can be downloaded from the image storage site:
       <div class="channel-info">
         <p>The Beta channel consists of promoted Alpha releases. The current version is Flatcar Linux {{site.beta-channel}}.</p>
       </div>
-      <a href="https://beta.release.core-os.net/amd64-usr/current/coreos_production_iso_image.iso" class="btn btn-primary">Download Beta ISO</a>
-      <a href="https://beta.release.core-os.net/amd64-usr/current/" class="btn btn-default">Browse Storage Site</a>
+      <a href="https://beta.release.flatcar-linux.net/amd64-usr/current/flatcar_production_iso_image.iso" class="btn btn-primary">Download Beta ISO</a>
+      <a href="https://beta.release.flatcar-linux.net/amd64-usr/current/" class="btn btn-default">Browse Storage Site</a>
       <br/><br/>
       <p>All of the files necessary to verify the image can be found on the storage site.</p>
     </div>
@@ -31,8 +31,8 @@ The latest Flatcar Linux ISOs can be downloaded from the image storage site:
       <div class="channel-info">
         <p>The Stable channel should be used by production clusters. Versions of Flatcar Linux are battle-tested within the Beta and Alpha channels before being promoted. The current version is Flatcar Linux {{site.stable-channel}}.</p>
       </div>
-      <a href="https://stable.release.core-os.net/amd64-usr/current/coreos_production_iso_image.iso" class="btn btn-primary">Download Stable ISO</a>
-      <a href="https://stable.release.core-os.net/amd64-usr/current/" class="btn btn-default">Browse Storage Site</a>
+      <a href="https://stable.release.flatcar-linux.net/amd64-usr/current/flatcar_production_iso_image.iso" class="btn btn-primary">Download Stable ISO</a>
+      <a href="https://stable.release.flatcar-linux.net/amd64-usr/current/" class="btn btn-default">Browse Storage Site</a>
       <br/><br/>
       <p>All of the files necessary to verify the image can be found on the storage site.</p>
     </div>

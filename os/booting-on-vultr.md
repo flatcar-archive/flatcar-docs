@@ -23,7 +23,7 @@ ssh_authorized_keys:
   - ssh-rsa ...
 EOF
 
-sudo coreos-install -d /dev/vda -c cloud-config.yaml
+sudo flatcar-install -d /dev/vda -c cloud-config.yaml
 sudo reboot
 ```
 
@@ -53,9 +53,9 @@ Flatcar Linux is designed to be [updated automatically](https://coreos.com/why/#
 # Location of your shell script.
 set cloud-config-url http://example.com/cloud-config-bootstrap.sh
 
-set base-url https://alpha.release.core-os.net/amd64-usr/current
-kernel ${base-url}/coreos_production_pxe.vmlinuz cloud-config-url=${cloud-config-url}
-initrd ${base-url}/coreos_production_pxe_image.cpio.gz
+set base-url https://alpha.release.flatcar-linux.net/amd64-usr/current
+kernel ${base-url}/flatcar_production_pxe.vmlinuz cloud-config-url=${cloud-config-url}
+initrd ${base-url}/flatcar_production_pxe_image.cpio.gz
 boot</pre>
     </div>
     <div class="tab-pane" id="beta">
@@ -69,9 +69,9 @@ boot</pre>
 # Location of your shell script.
 set cloud-config-url http://example.com/cloud-config-bootstrap.sh
 
-set base-url https://beta.release.core-os.net/amd64-usr/current
-kernel ${base-url}/coreos_production_pxe.vmlinuz cloud-config-url=${cloud-config-url}
-initrd ${base-url}/coreos_production_pxe_image.cpio.gz
+set base-url https://beta.release.flatcar-linux.net/amd64-usr/current
+kernel ${base-url}/flatcar_production_pxe.vmlinuz cloud-config-url=${cloud-config-url}
+initrd ${base-url}/flatcar_production_pxe_image.cpio.gz
 boot</pre>
     </div>
     <div class="tab-pane active" id="stable">
@@ -85,9 +85,9 @@ boot</pre>
 # Location of your shell script.
 set cloud-config-url http://example.com/cloud-config-bootstrap.sh
 
-set base-url https://stable.release.core-os.net/amd64-usr/current
-kernel ${base-url}/coreos_production_pxe.vmlinuz cloud-config-url=${cloud-config-url}
-initrd ${base-url}/coreos_production_pxe_image.cpio.gz
+set base-url https://stable.release.flatcar-linux.net/amd64-usr/current
+kernel ${base-url}/flatcar_production_pxe.vmlinuz cloud-config-url=${cloud-config-url}
+initrd ${base-url}/flatcar_production_pxe_image.cpio.gz
 boot</pre>
     </div>
   </div>

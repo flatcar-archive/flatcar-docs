@@ -14,7 +14,7 @@ Even if you are not using Qemu itself the qemu-img tool is the easiest to use. I
 
 ```sh
 # Increase the disk size by 5GB
-qemu-img resize coreos_production_qemu_image.img +5G
+qemu-img resize flatcar_production_qemu_image.img +5G
 ```
 
 ## VMware
@@ -23,7 +23,7 @@ The interface available for resizing disks in VMware varies depending on the pro
 
 ```sh
 # Set the disk size to 20GB
-vmware-vdiskmanager -x 20Gb coreos_developer_vmware_insecure.vmx
+vmware-vdiskmanager -x 20Gb flatcar_developer_vmware_insecure.vmx
 ```
 
 [vmkb1004047]: http://kb.vmware.com/selfservice/microsites/search.do?language=en_US&cmd=displayKC&externalId=1004047
