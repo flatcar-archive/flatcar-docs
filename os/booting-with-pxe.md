@@ -22,24 +22,24 @@ When configuring the Flatcar Linux pxelinux.cfg there are a few kernel options t
 - **root**: Use a local filesystem for root instead of one of two in-ram options above. The filesystem must be formatted (perhaps using Ignition) but may be completely blank; it will be initialized on boot. The filesystem may be specified by any of the usual ways including device, label, or UUID; e.g: `root=/dev/sda1`, `root=LABEL=ROOT` or `root=UUID=2c618316-d17a-4688-b43b-aa19d97ea821`.
 - **sshkey**: Add the given SSH public key to the `core` user's authorized_keys file. Replace the example key below with your own (it is usually in `~/.ssh/id_rsa.pub`)
 - **console**: Enable kernel output and a login prompt on a given tty. The default, `tty0`, generally maps to VGA. Can be used multiple times, e.g. `console=tty0 console=ttyS0`
-- **coreos.autologin**: Drop directly to a shell on a given console without prompting for a password. Useful for troubleshooting but use with caution. For any console that doesn't normally get a login prompt by default be sure to combine with the `console` option, e.g. `console=tty0 console=ttyS0 coreos.autologin=tty1 coreos.autologin=ttyS0`. Without any argument it enables access on all consoles. Note that for the VGA console the login prompts are on virtual terminals (`tty1`, `tty2`, etc), not the VGA console itself (`tty0`).
-- **coreos.first_boot=1**: Download an Ignition config and use it to provision your booted system. Ignition configs are generated from Container Linux Configs. See the [config transpiler documentation][cl-configs] for more information. If a local filesystem is used for the root partition, pass this parameter only on the first boot.
-- **coreos.config.url**: Download the Ignition config from the specified URL. `http`, `https`, `s3`, and `tftp` schemes are supported.
+- **flatcar.autologin**: Drop directly to a shell on a given console without prompting for a password. Useful for troubleshooting but use with caution. For any console that doesn't normally get a login prompt by default be sure to combine with the `console` option, e.g. `console=tty0 console=ttyS0 flatcar.autologin=tty1 flatcar.autologin=ttyS0`. Without any argument it enables access on all consoles. Note that for the VGA console the login prompts are on virtual terminals (`tty1`, `tty2`, etc), not the VGA console itself (`tty0`).
+- **flatcar.first_boot=1**: Download an Ignition config and use it to provision your booted system. Ignition configs are generated from Container Linux Configs. See the [config transpiler documentation][cl-configs] for more information. If a local filesystem is used for the root partition, pass this parameter only on the first boot.
+- **flatcar.config.url**: Download the Ignition config from the specified URL. `http`, `https`, `s3`, and `tftp` schemes are supported.
 
 This is an example pxelinux.cfg file that assumes Flatcar Linux is the only option. You should be able to copy this verbatim into `/var/lib/tftpboot/pxelinux.cfg/default` after providing an Ignition config URL:
 
 ```sh
-default coreos
+default flatcar
 prompt 1
 timeout 15
 
 display boot.msg
 
-label coreos
+label flatcar
   menu default
-  kernel coreos_production_pxe.vmlinuz
-  initrd coreos_production_pxe_image.cpio.gz
-  append coreos.first_boot=1 coreos.config.url=https://example.com/pxe-config.ign
+  kernel flatcar_production_pxe.vmlinuz
+  initrd flatcar_production_pxe_image.cpio.gz
+  append flatcar.first_boot=1 flatcar.config.url=https://example.com/pxe-config.ign
 ```
 
 Here's a common config example which should be located at the URL from above:
@@ -73,43 +73,43 @@ PXE booted machines cannot currently update themselves when new versions are rel
     <div class="tab-pane" id="alpha-create">
       <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Flatcar Linux {{site.alpha-channel}}.</p>
       <p>In the config above you can see that a Kernel image and a initramfs file is needed. Download these two files into your tftp root.</p>
-      <p>The <code>coreos_production_pxe.vmlinuz.sig</code> and <code>coreos_production_pxe_image.cpio.gz.sig</code> files can be used to <a href="notes-for-distributors.md#importing-images">verify the downloaded files</a>.</p>
+      <p>The <code>flatcar_production_pxe.vmlinuz.sig</code> and <code>flatcar_production_pxe_image.cpio.gz.sig</code> files can be used to <a href="notes-for-distributors.md#importing-images">verify the downloaded files</a>.</p>
       <pre>
 cd /var/lib/tftpboot
-wget https://alpha.release.core-os.net/amd64-usr/current/coreos_production_pxe.vmlinuz
-wget https://alpha.release.core-os.net/amd64-usr/current/coreos_production_pxe.vmlinuz.sig
-wget https://alpha.release.core-os.net/amd64-usr/current/coreos_production_pxe_image.cpio.gz
-wget https://alpha.release.core-os.net/amd64-usr/current/coreos_production_pxe_image.cpio.gz.sig
-gpg --verify coreos_production_pxe.vmlinuz.sig
-gpg --verify coreos_production_pxe_image.cpio.gz.sig
+wget https://alpha.release.flatcar-linux.net/amd64-usr/current/flatcar_production_pxe.vmlinuz
+wget https://alpha.release.flatcar-linux.net/amd64-usr/current/flatcar_production_pxe.vmlinuz.sig
+wget https://alpha.release.flatcar-linux.net/amd64-usr/current/flatcar_production_pxe_image.cpio.gz
+wget https://alpha.release.flatcar-linux.net/amd64-usr/current/flatcar_production_pxe_image.cpio.gz.sig
+gpg --verify flatcar_production_pxe.vmlinuz.sig
+gpg --verify flatcar_production_pxe_image.cpio.gz.sig
       </pre>
     </div>
     <div class="tab-pane" id="beta-create">
       <p>The Beta channel consists of promoted Alpha releases. The current version is Flatcar Linux {{site.beta-channel}}.</p>
       <p>In the config above you can see that a Kernel image and a initramfs file is needed. Download these two files into your tftp root.</p>
-      <p>The <code>coreos_production_pxe.vmlinuz.sig</code> and <code>coreos_production_pxe_image.cpio.gz.sig</code> files can be used to <a href="notes-for-distributors.md#importing-images">verify the downloaded files</a>.</p>
+      <p>The <code>flatcar_production_pxe.vmlinuz.sig</code> and <code>flatcar_production_pxe_image.cpio.gz.sig</code> files can be used to <a href="notes-for-distributors.md#importing-images">verify the downloaded files</a>.</p>
       <pre>
 cd /var/lib/tftpboot
-wget https://beta.release.core-os.net/amd64-usr/current/coreos_production_pxe.vmlinuz
-wget https://beta.release.core-os.net/amd64-usr/current/coreos_production_pxe.vmlinuz.sig
-wget https://beta.release.core-os.net/amd64-usr/current/coreos_production_pxe_image.cpio.gz
-wget https://beta.release.core-os.net/amd64-usr/current/coreos_production_pxe_image.cpio.gz.sig
-gpg --verify coreos_production_pxe.vmlinuz.sig
-gpg --verify coreos_production_pxe_image.cpio.gz.sig
+wget https://beta.release.flatcar-linux.net/amd64-usr/current/flatcar_production_pxe.vmlinuz
+wget https://beta.release.flatcar-linux.net/amd64-usr/current/flatcar_production_pxe.vmlinuz.sig
+wget https://beta.release.flatcar-linux.net/amd64-usr/current/flatcar_production_pxe_image.cpio.gz
+wget https://beta.release.flatcar-linux.net/amd64-usr/current/flatcar_production_pxe_image.cpio.gz.sig
+gpg --verify flatcar_production_pxe.vmlinuz.sig
+gpg --verify flatcar_production_pxe_image.cpio.gz.sig
       </pre>
     </div>
     <div class="tab-pane active" id="stable-create">
       <p>The Stable channel should be used by production clusters. Versions of Flatcar Linux are battle-tested within the Beta and Alpha channels before being promoted. The current version is Flatcar Linux {{site.stable-channel}}.</p>
       <p>In the config above you can see that a Kernel image and a initramfs file is needed. Download these two files into your tftp root.</p>
-      <p>The <code>coreos_production_pxe.vmlinuz.sig</code> and <code>coreos_production_pxe_image.cpio.gz.sig</code> files can be used to <a href="notes-for-distributors.md#importing-images">verify the downloaded files</a>.</p>
+      <p>The <code>flatcar_production_pxe.vmlinuz.sig</code> and <code>flatcar_production_pxe_image.cpio.gz.sig</code> files can be used to <a href="notes-for-distributors.md#importing-images">verify the downloaded files</a>.</p>
       <pre>
 cd /var/lib/tftpboot
-wget https://stable.release.core-os.net/amd64-usr/current/coreos_production_pxe.vmlinuz
-wget https://stable.release.core-os.net/amd64-usr/current/coreos_production_pxe.vmlinuz.sig
-wget https://stable.release.core-os.net/amd64-usr/current/coreos_production_pxe_image.cpio.gz
-wget https://stable.release.core-os.net/amd64-usr/current/coreos_production_pxe_image.cpio.gz.sig
-gpg --verify coreos_production_pxe.vmlinuz.sig
-gpg --verify coreos_production_pxe_image.cpio.gz.sig
+wget https://stable.release.flatcar-linux.net/amd64-usr/current/flatcar_production_pxe.vmlinuz
+wget https://stable.release.flatcar-linux.net/amd64-usr/current/flatcar_production_pxe.vmlinuz.sig
+wget https://stable.release.flatcar-linux.net/amd64-usr/current/flatcar_production_pxe_image.cpio.gz
+wget https://stable.release.flatcar-linux.net/amd64-usr/current/flatcar_production_pxe_image.cpio.gz.sig
+gpg --verify flatcar_production_pxe.vmlinuz.sig
+gpg --verify flatcar_production_pxe_image.cpio.gz.sig
       </pre>
     </div>
   </div>
@@ -207,8 +207,8 @@ Add the `oem.cpio.gz` file to your PXE boot directory, then [append it][append-i
 
 ```
 ...
-initrd coreos_production_pxe_image.cpio.gz,oem.cpio.gz
-kernel coreos_production_pxe.vmlinuz coreos.first_boot=1
+initrd flatcar_production_pxe_image.cpio.gz,oem.cpio.gz
+kernel flatcar_production_pxe.vmlinuz flatcar.first_boot=1
 ...
 ```
 
@@ -223,6 +223,6 @@ Now that you have a machine booted it is time to play around. Check out the [Fla
 [ignition]: https://coreos.com/ignition/docs/latest
 [install-to-disk]: installing-to-disk.md
 [cl-configs]: provisioning.md
-[irc]: irc://irc.freenode.org:6667/#coreos
+[irc]: irc://irc.freenode.org:6667/#flatcar
 [oem]: notes-for-distributors.md#image-customization
 [qs]: quickstart.md

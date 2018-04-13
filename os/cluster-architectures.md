@@ -66,7 +66,7 @@ This avoids discrepancies between your development and production environments.
 
 There are several different options for testing Flatcar Linux locally:
 
-- [Flatcar Linux on QEMU][coreos-qemu] is a feature rich way of running Flatcar Linux locally, provisioned by Ignition configs like the one shown above.
+- [Flatcar Linux on QEMU][flatcar-qemu] is a feature rich way of running Flatcar Linux locally, provisioned by Ignition configs like the one shown above.
 - [Minikube][minikube] is used for local Kubernetes development. This does not use Flatcar Linux but is very fast to setup and is the easiest way to test-drive use Kubernetes.
 
 ## Small cluster
@@ -86,7 +86,7 @@ Once you have a small cluster up and running, you can install a Kubernetes on th
 
 ### Configuring the machines
 
-For more information on getting started with this architecture, see the Flatcar Linux documentation on [supported platforms][coreos-supported]. These include [Amazon EC2][coreos-ec2], [Openstack][coreos-openstack], [Azure][coreos-azure], [Google Compute Platform][coreos-gce], [bare metal iPXE][coreos-bm], [Digital Ocean][coreos-do], and many more community supported platforms.
+For more information on getting started with this architecture, see the Flatcar Linux documentation on [supported platforms][flatcar-supported]. These include [Amazon EC2][flatcar-ec2], [Openstack][flatcar-openstack], [Azure][flatcar-azure], [Google Compute Platform][flatcar-gce], [bare metal iPXE][flatcar-bm], [Digital Ocean][flatcar-do], and many more community supported platforms.
 
 Boot the desired number of machines with the same CL Config and discovery token. The CL Config specifies which services will be started on each machine.
 
@@ -167,7 +167,7 @@ For large clusters, it's recommended to set aside 3-5 machines to run central se
 
 Our central services machines will run services like etcd and Kubernetes controllers that support the rest of the cluster. etcd is configured with static networking and a peers list.
 
-[Flatcar Linux Support][coreos-managed] customers can also specify a [CoreUpdate][core-update] group ID which allows you to subscribe these machines to a different update channel, controlling updates separately from the worker machines.
+[Flatcar Linux Support][flatcar-managed] customers can also specify a [CoreUpdate][core-update] group ID which allows you to subscribe these machines to a different update channel, controlling updates separately from the worker machines.
 
 Here's an example CL Config for one of the central service machines. Be sure to generate a new discovery token with the initial size of your cluster:
 
@@ -210,7 +210,7 @@ You can easily provision the remaining (non-etcd) nodes with Kubernetes using th
 
 The worker roles will use DHCP and should be easy to add capacity or autoscaling.
 
-[Managed Linux][coreos-managed] customers can also specify a [CoreUpdate][core-update] group ID to use a different channel and control updates separately from the central machines.
+[Managed Linux][flatcar-managed] customers can also specify a [CoreUpdate][core-update] group ID to use a different channel and control updates separately from the central machines.
 
 Here's an example CL Config for a worker which specifies an update channel:
 
@@ -226,17 +226,17 @@ update:
 [ct-download]: https://github.com/coreos/container-linux-config-transpiler/releases
 [ignition-getting-started]: https://coreos.com/ignition/docs/latest/getting-started.html
 [ignition-supported]: https://coreos.com/ignition/docs/latest/supported-platforms.html
-[coreos-qemu]: https://coreos.com/os/docs/latest/booting-with-qemu.html
+[flatcar-qemu]: https://coreos.com/os/docs/latest/booting-with-qemu.html
 [minikube]: https://github.com/kubernetes/minikube
 [managed-linux]: https://coreos.com/products/managed-linux
 [core-update]: https://coreos.com/products/coreupdate
-[coreos-supported]: https://coreos.com/os/docs/latest#running-coreos
-[coreos-managed]: https://coreos.com/products/managed-linux
-[coreos-ec2]: https://coreos.com/os/docs/latest/booting-on-ec2.html
-[coreos-openstack]: https://coreos.com/os/docs/latest/booting-on-openstack.html
-[coreos-azure]: https://coreos.com/os/docs/latest/booting-on-azure.html
-[coreos-gce]: https://coreos.com/os/docs/latest/booting-on-google-compute-engine.html
-[coreos-bm]: https://coreos.com/matchbox/
-[coreos-do]: https://coreos.com/os/docs/latest/booting-on-digitalocean.html
+[flatcar-supported]: https://coreos.com/os/docs/latest#running-coreos
+[flatcar-managed]: https://coreos.com/products/managed-linux
+[flatcar-ec2]: https://coreos.com/os/docs/latest/booting-on-ec2.html
+[flatcar-openstack]: https://coreos.com/os/docs/latest/booting-on-openstack.html
+[flatcar-azure]: https://coreos.com/os/docs/latest/booting-on-azure.html
+[flatcar-gce]: https://coreos.com/os/docs/latest/booting-on-google-compute-engine.html
+[flatcar-bm]: https://coreos.com/matchbox/
+[flatcar-do]: https://coreos.com/os/docs/latest/booting-on-digitalocean.html
 [tectonic]: https://coreos.com/tectonic
 [tectonic-installer]: https://github.com/coreos/tectonic-installer#tectonic-installer 
