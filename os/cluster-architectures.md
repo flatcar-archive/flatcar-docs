@@ -82,7 +82,7 @@ For small clusters, between 3-9 machines, running etcd on all of the machines al
 
 Getting started is easy &mdash; a single CL Config can be used to provision all machines in your environment.
 
-Once you have a small cluster up and running, you can install a Kubernetes on the cluster. You can do this easily using the open source [Tectonic installer][tectonic-installer].
+Once you have a small cluster up and running, you can install a Kubernetes on the cluster. You can do this easily using [Typhoon][typhoon].
 
 ### Configuring the machines
 
@@ -103,7 +103,7 @@ When getting started with Flatcar Linux, it's common to frequently boot, reboot,
 
 You can now boot as many machines as you'd like as test workers that read from the etcd node. All the features of Locksmith and etcdctl will continue to work properly but will connect to the etcd node instead of using a local etcd instance. Since etcd isn't running on all of the machines you'll gain a little bit of extra CPU and RAM to play with.
 
-You can easily provision the remaining (non-etcd) nodes with Kubernetes using the open source [Tectonic installer][tectonic-installer] to start running containerized app with your cluster.
+You can easily provision the remaining (non-etcd) nodes with Kubernetes using [Typhoon][typhoon] to start running containerized app with your cluster.
 
 Once this environment is set up, it's ready to be tested. Destroy a machine, and watch Kubernetes reschedule the units, max out the CPU, and rebuild your setup automatically.
 
@@ -149,8 +149,6 @@ networkd:
 ### Configuration for worker role
 
 This architecture allows you to boot any number of workers, from a single unit to a large cluster designed for load testing. The notable configuration difference for this role is specifying that applications like Kubernetes should use our etcd proxy instead of starting etcd server locally.
-
-You can easily provision the remaining (non-etcd) nodes with Kubernetes using the open source [Tectonic installer][tectonic-installer] to start running containerized app with your cluster.
 
 ## Production cluster with central services
 
@@ -206,8 +204,6 @@ networkd:
 
 ### Configuration for worker role
 
-You can easily provision the remaining (non-etcd) nodes with Kubernetes using the open source [Tectonic installer][tectonic-installer] to start running containerized app with your cluster.
-
 The worker roles will use DHCP and should be easy to add capacity or autoscaling.
 
 [Managed Linux][flatcar-managed] customers can also specify a [CoreUpdate][core-update] group ID to use a different channel and control updates separately from the central machines.
@@ -238,5 +234,4 @@ update:
 [flatcar-gce]: https://coreos.com/os/docs/latest/booting-on-google-compute-engine.html
 [flatcar-bm]: https://coreos.com/matchbox/
 [flatcar-do]: https://coreos.com/os/docs/latest/booting-on-digitalocean.html
-[tectonic]: https://coreos.com/tectonic
-[tectonic-installer]: https://github.com/coreos/tectonic-installer#tectonic-installer 
+[typhoon]: https://github.com/poseidon/typhoon
