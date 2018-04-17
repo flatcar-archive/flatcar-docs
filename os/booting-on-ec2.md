@@ -1,10 +1,10 @@
 # Running Flatcar Linux on EC2
 
-The current AMIs for all Flatcar Linux channels and EC2 regions are listed below and updated frequently. Using CloudFormation is the easiest way to launch a cluster, but it is also possible to follow the manual steps at the end of the article. Questions can be directed to the Flatcar Linux [IRC channel][irc] or [user mailing list][coreos-user].
+The current AMIs for all Flatcar Linux channels and EC2 regions are listed below and updated frequently. Using CloudFormation is the easiest way to launch a cluster, but it is also possible to follow the manual steps at the end of the article. Questions can be directed to the Flatcar Linux [IRC channel][irc] or [user mailing list][flatcar-user].
 
 ## Choosing a channel
 
-Flatcar Linux is designed to be [updated automatically](https://coreos.com/why/#updates) with different schedules per channel. You can [disable this feature](update-strategies.md), although we don't recommend it. Read the [release notes](https://coreos.com/releases) for specific features and bug fixes.
+Flatcar Linux is designed to be updated automatically with different schedules per channel. You can [disable this feature](update-strategies.md), although we don't recommend it. Read the [release notes](https://flatcar-linux.org/releases) for specific features and bug fixes.
 
 <div id="ec2-images">
   <ul class="nav nav-tabs">
@@ -184,7 +184,7 @@ To connect to an instance after it's created, run:
 ssh core@<ip address>
 ```
 
-Optionally, you may want to [configure your ssh-agent](https://github.com/coreos/fleet/blob/master/Documentation/using-the-client.md#remote-fleet-access) to more easily run [fleet commands](../fleet/launching-containers-fleet.md).
+Optionally, you may want to [configure your ssh-agent](https://github.com/flatcar-linux/fleet/blob/master/Documentation/using-the-client.md#remote-fleet-access) to more easily run [fleet commands](../fleet/launching-containers-fleet.md).
 
 ## Multiple clusters
 If you would like to create multiple clusters you will need to change the "Stack Name". You can find the direct [template file on S3](https://s3.amazonaws.com/coreos.com/dist/aws/coreos-stable-hvm.template).
@@ -207,7 +207,7 @@ First we need to create a security group to allow Flatcar Linux instances to com
 
 1. Go to the [security group][sg] page in the EC2 console.
 2. Click "Create Security Group"
-    * Name: coreos-testing
+    * Name: flatcar-testing
     * Description: Flatcar Linux instances
     * VPC: No VPC
     * Click: "Yes, Create"
@@ -219,7 +219,7 @@ First we need to create a security group to allow Flatcar Linux instances to com
 5. Add two security group rules for etcd communication
     * Create a new rule: `Custom TCP rule`
     * Port range: 2379
-    * Source: type "coreos-testing" until your security group auto-completes. Should be something like "sg-8d4feabc"
+    * Source: type "flatcar-testing" until your security group auto-completes. Should be something like "sg-8d4feabc"
     * Click: "Add Rule"
     * Repeat this process for port range 2380, 4001 and 7001 as well
 6. Click "Apply Rule Changes"
@@ -300,7 +300,7 @@ First we need to create a security group to allow Flatcar Linux instances to com
         <li>
           Choose one or more of your existing Security Groups
           <ul>
-            <li>"coreos-testing" as above.</li>
+            <li>"flatcar-testing" as above.</li>
             <li>"Continue"</li>
           </ul>
         </li>
@@ -374,7 +374,7 @@ First we need to create a security group to allow Flatcar Linux instances to com
         <li>
           Choose one or more of your existing Security Groups
           <ul>
-            <li>"coreos-testing" as above.</li>
+            <li>"flatcar-testing" as above.</li>
             <li>"Continue"</li>
           </ul>
         </li>
@@ -448,7 +448,7 @@ First we need to create a security group to allow Flatcar Linux instances to com
         <li>
           Choose one or more of your existing Security Groups
           <ul>
-            <li>"coreos-testing" as above.</li>
+            <li>"flatcar-testing" as above.</li>
             <li>"Continue"</li>
           </ul>
         </li>
@@ -462,10 +462,10 @@ First we need to create a security group to allow Flatcar Linux instances to com
 
 ## Using Flatcar Linux
 
-Now that you have a machine booted it is time to play around. Check out the [Flatcar Linux Quickstart](quickstart.md) guide or dig into [more specific topics](https://coreos.com/docs).
+Now that you have a machine booted it is time to play around. Check out the [Flatcar Linux Quickstart](quickstart.md) guide or dig into [more specific topics](https://docs.flatcar-linux.org).
 
 
-[coreos-user]: https://groups.google.com/forum/#!forum/coreos-user
+[flatcar-user]: https://groups.google.com/forum/#!forum/flatcar-linux-user
 [docker-docs]: https://docs.docker.io
-[etcd-docs]: https://github.com/coreos/etcd/tree/master/Documentation
+[etcd-docs]: https://github.com/flatcar-linux/etcd/tree/master/Documentation
 [irc]: irc://irc.freenode.org:6667/#flatcar

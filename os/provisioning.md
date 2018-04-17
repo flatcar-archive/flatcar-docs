@@ -130,16 +130,16 @@ For a [number of reasons][vs], coreos-cloudinit has been deprecated in favor of 
 Now that the basics of Container Linux Configs have been covered, a good next step is to read through the [examples][examples] and start experimenting. The [troubleshooting guide][troubleshooting] is a good reference for debugging issues.
 
 [clc]: https://github.com/coreos/container-linux-config-transpiler/blob/master/doc/configuration.md
-[cloudinit]: https://github.com/coreos/coreos-cloudinit
+[cloudinit]: https://github.com/flatcar-linux/coreos-cloudinit
 [ct]: https://github.com/coreos/container-linux-config-transpiler/blob/master/doc/overview.md
 [download-ct]: https://github.com/coreos/container-linux-config-transpiler/releases
-[etcd]: https://github.com/coreos/etcd
+[etcd]: https://github.com/flatcar-linux/etcd
 [examples]: https://github.com/coreos/container-linux-config-transpiler/blob/master/doc/examples.md
 [flannel]: https://github.com/coreos/flannel
-[locksmith]: https://github.com/coreos/locksmith
+[locksmith]: https://github.com/flatcar-linux/locksmith
 [matchbox]: https://github.com/coreos/matchbox
 [metadata]: ../ignition/metadata.md
 [migrating]: migrating-to-clcs.md
 [rkt]: https://github.com/rkt/rkt
-[troubleshooting]: https://github.com/coreos/ignition/blob/master/doc/getting-started.md#troubleshooting
+[troubleshooting]: https://github.com/flatcar-linux/ignition/blob/master/doc/getting-started.md#troubleshooting
 [vs]: ../ignition/what-is-ignition.md#ignition-vs-coreos-cloudinit

@@ -59,7 +59,7 @@ passwd:
 
 ### Choose a channel
 
-Flatcar Linux is designed to be [updated automatically](https://coreos.com/why/#updates) with different schedules per channel. You can [disable this feature](update-strategies.md), although we don't recommend it. Read the [release notes](https://coreos.com/releases) for specific features and bug fixes.
+Flatcar Linux is designed to be updated automatically with different schedules per channel. You can [disable this feature](update-strategies.md), although we don't recommend it. Read the [release notes](https://flatcar-linux.org/releases) for specific features and bug fixes.
 
 PXE booted machines cannot currently update themselves when new versions are released to a channel. To update to the latest version of Flatcar Linux download/verify these files again and reboot.
 
@@ -117,7 +117,7 @@ gpg --verify flatcar_production_pxe_image.cpio.gz.sig
 
 ## Booting the box
 
-After setting up the PXE server as outlined above you can start the target machine in PXE boot mode. The machine should grab the image from the server and boot into Flatcar Linux. If something goes wrong you can direct questions to the [IRC channel][irc] or [mailing list][coreos-user].
+After setting up the PXE server as outlined above you can start the target machine in PXE boot mode. The machine should grab the image from the server and boot into Flatcar Linux. If something goes wrong you can direct questions to the [IRC channel][irc] or [mailing list][flatcar-user].
 
 ```sh
 This is localhost.unknown_domain (Linux x86_64 3.10.10+) 19:53:36
@@ -218,8 +218,8 @@ Now that you have a machine booted it is time to play around. Check out the [Fla
 
 
 [append-initrd]: http://www.syslinux.org/wiki/index.php?title=SYSLINUX#INITRD_initrd_file
-[coreos-user]: https://groups.google.com/forum/#!forum/coreos-user
-[docs]: https://coreos.com/docs
+[flatcar-user]: https://groups.google.com/forum/#!forum/flatcar-linux-user
+[docs]: https://docs.flatcar-linux.org
 [ignition]: https://coreos.com/ignition/docs/latest
 [install-to-disk]: installing-to-disk.md
 [cl-configs]: provisioning.md

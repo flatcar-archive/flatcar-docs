@@ -57,7 +57,7 @@ Third, if you specified `?size=3` upon discovery URL creation, any other machine
 
 [Do not use the public discovery service to reconfigure a running etcd cluster.][etcd-reconf-no-disc] The public discovery service is a convenience for bootstrapping new clusters, especially on cloud providers with dynamic IP assignment, but is not designed for the later case when the cluster is running and member IPs are known.
 
-To promote proxy members or join new members into an existing etcd cluster, configure static discovery and add members. The [etcd cluster reconfiguration guide][etcd-reconf-on-coreos] details the steps for performing this reconfiguration on Flatcar Linux systems that were originally deployed with public discovery. The more general [etcd cluster reconfiguration document][etcd-reconf] explains the operations for removing and adding cluster members in a cluster already configured with static discovery.
+To promote proxy members or join new members into an existing etcd cluster, configure static discovery and add members. The [etcd cluster reconfiguration guide][etcd-reconf-on-flatcar] details the steps for performing this reconfiguration on Flatcar Linux systems that were originally deployed with public discovery. The more general [etcd cluster reconfiguration document][etcd-reconf] explains the operations for removing and adding cluster members in a cluster already configured with static discovery.
 
 ### Stale tokens
 
@@ -131,8 +131,8 @@ The public discovery service is just an etcd cluster made available to the publi
 
 Since etcd is designed to this type of leader election, it was an obvious choice to use it for everyone's initial leader election. This means that it's easy to run your own etcd cluster for this purpose.
 
-If you're interested in how discovery API works behind the scenes in etcd, read about [etcd clustering](https://github.com/coreos/etcd/blob/master/Documentation/op-guide/clustering.md).
+If you're interested in how discovery API works behind the scenes in etcd, read about [etcd clustering](https://github.com/flatcar-linux/etcd/blob/master/Documentation/op-guide/clustering.md).
 
-[etcd-reconf]: https://github.com/coreos/etcd/blob/master/Documentation/op-guide/runtime-configuration.md
-[etcd-reconf-no-disc]: https://github.com/coreos/etcd/blob/master/Documentation/op-guide/runtime-reconf-design.md#do-not-use-public-discovery-service-for-runtime-reconfiguration
-[etcd-reconf-on-coreos]: ../etcd/etcd-live-cluster-reconfiguration.md
+[etcd-reconf]: https://github.com/flatcar-linux/etcd/blob/master/Documentation/op-guide/runtime-configuration.md
+[etcd-reconf-no-disc]: https://github.com/flatcar-linux/etcd/blob/master/Documentation/op-guide/runtime-reconf-design.md#do-not-use-public-discovery-service-for-runtime-reconfiguration
+[etcd-reconf-on-flatcar]: ../etcd/etcd-live-cluster-reconfiguration.md

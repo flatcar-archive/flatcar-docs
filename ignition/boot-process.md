@@ -22,7 +22,7 @@ If the `flatcar.first_boot` kernel parameter is provided and non-zero, Ignition 
 
 ### Ignition
 
-When Ignition runs on Flatcar Linux, it reads the Linux command line, looking for `coreos.oem.id`. Ignition uses this identifier to determine where to read the user-provided configuration and which provider-specific configuration to combine with the user's. This provider-specific configuration performs basic machine setup, and may include enabling `flatcar-metadata-sshkeys@.service` (covered in more detail below).
+When Ignition runs on Flatcar Linux, it reads the Linux command line, looking for `flatcar.oem.id`. Ignition uses this identifier to determine where to read the user-provided configuration and which provider-specific configuration to combine with the user's. This provider-specific configuration performs basic machine setup, and may include enabling `flatcar-metadata-sshkeys@.service` (covered in more detail below).
 
 After Ignition runs successfully, if `flatcar.first_boot` was set to the special value `detected`, Ignition mounts the EFI System Partition and deletes the `flatcar/first_boot` file.
 

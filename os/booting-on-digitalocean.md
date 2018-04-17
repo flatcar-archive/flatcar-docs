@@ -16,13 +16,13 @@ The following command will create a single droplet. For more details, check out 
     <div class="tab-pane" id="alpha">
       <div class="channel-info">
         <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Flatcar Linux {{site.alpha-channel}}.</p>
-        <a href="https://cloud.digitalocean.com/droplets/new?image=coreos-alpha" class="btn btn-default">Launch Flatcar Linux Droplet</a><br/><br/>
+        <a href="https://cloud.digitalocean.com/droplets/new?image=flatcar-alpha" class="btn btn-default">Launch Flatcar Linux Droplet</a><br/><br/>
         <p>Launch via DigitalOcean API by specifying <code>$REGION</code>, <code>$SIZE</code> and <code>$SSH_KEY_ID</code>:</p>
         <pre>curl --request POST "https://api.digitalocean.com/v2/droplets" \
      --header "Content-Type: application/json" \
      --header "Authorization: Bearer $TOKEN" \
      --data '{"region":"'"${REGION}"'",
-        "image":"coreos-alpha",
+        "image":"flatcar-alpha",
         "size":"'"$SIZE"'",
         "user_data": "'"$(cat ~/config.ign)"'",
         "ssh_keys":["'"$SSH_KEY_ID"'"],
@@ -32,13 +32,13 @@ The following command will create a single droplet. For more details, check out 
     <div class="tab-pane" id="beta">
       <div class="channel-info">
         <p>The Beta channel consists of promoted Alpha releases. The current version is Flatcar Linux {{site.beta-channel}}.</p>
-        <a href="https://cloud.digitalocean.com/droplets/new?image=coreos-beta" class="btn btn-default">Launch Flatcar Linux Droplet</a><br/><br/>
+        <a href="https://cloud.digitalocean.com/droplets/new?image=flatcar-beta" class="btn btn-default">Launch Flatcar Linux Droplet</a><br/><br/>
         <p>Launch via DigitalOcean API by specifying <code>$REGION</code>, <code>$SIZE</code> and <code>$SSH_KEY_ID</code>:</p>
         <pre>curl --request POST "https://api.digitalocean.com/v2/droplets" \
      --header "Content-Type: application/json" \
      --header "Authorization: Bearer $TOKEN" \
      --data '{"region":"'"${REGION}"'",
-        "image":"coreos-beta",
+        "image":"flatcar-beta",
         "size":"'"$SIZE"'",
         "user_data": "'"$(cat ~/config.ign)"'",
         "ssh_keys":["'"$SSH_KEY_ID"'"],
@@ -49,13 +49,13 @@ The following command will create a single droplet. For more details, check out 
       <div class="channel-info">
         <div class="channel-info">
         <p>The Stable channel should be used by production clusters. Versions of Flatcar Linux are battle-tested within the Beta and Alpha channels before being promoted. The current version is Flatcar Linux {{site.stable-channel}}.</p>
-        <a href="https://cloud.digitalocean.com/droplets/new?image=coreos-stable" class="btn btn-default">Launch Flatcar Linux Droplet</a><br/><br/>
+        <a href="https://cloud.digitalocean.com/droplets/new?image=flatcar-stable" class="btn btn-default">Launch Flatcar Linux Droplet</a><br/><br/>
         <p>Launch via DigitalOcean API by specifying <code>$REGION</code>, <code>$SIZE</code> and <code>$SSH_KEY_ID</code>:</p>
         <pre>curl --request POST "https://api.digitalocean.com/v2/droplets" \
      --header "Content-Type: application/json" \
      --header "Authorization: Bearer $TOKEN" \
      --data '{"region":"'"${REGION}"'",
-        "image":"coreos-stable",
+        "image":"flatcar-stable",
         "size":"'"$SIZE"'",
         "user_data": "'"$(cat ~/config.ign)"'",
         "ssh_keys":["'"$SSH_KEY_ID"'"],
@@ -66,9 +66,8 @@ The following command will create a single droplet. For more details, check out 
   </div>
 </div>
 
-[update-docs]: https://coreos.com/why/#updates
 [reboot-docs]: update-strategies.md
-[release-notes]: https://coreos.com/releases
+[release-notes]: https://flatcar-linux.org/releases
 
 ## Container Linux Configs
 
@@ -111,7 +110,7 @@ To connect to a droplet after it's created, run:
 ssh core@<ip address>
 ```
 
-Optionally, you may want to [configure your ssh-agent](https://github.com/coreos/fleet/blob/master/Documentation/using-the-client.md#remote-fleet-access) to more easily run [fleet commands](../fleet/launching-containers-fleet.md).
+Optionally, you may want to [configure your ssh-agent](https://github.com/flatcar-linux/fleet/blob/master/Documentation/using-the-client.md#remote-fleet-access) to more easily run [fleet commands](../fleet/launching-containers-fleet.md).
 
 ## Launching droplets
 
@@ -146,7 +145,7 @@ curl --request POST "https://api.digitalocean.com/v2/droplets" \
      --header "Authorization: Bearer $TOKEN" \
      --data '{
       "region":"nyc3",
-      "image":"coreos-stable",
+      "image":"flatcar-stable",
       "size":"512mb",
       "name":"core-1",
       "private_networking":true,
@@ -165,7 +164,7 @@ For more details, check out [DigitalOcean's API documentation][do-api-docs].
 
 ### Via the web console
 
-1. Open the ["new droplet"](https://cloud.digitalocean.com/droplets/new?image=coreos-stable) page in the web console.
+1. Open the ["new droplet"](https://cloud.digitalocean.com/droplets/new?image=flatcar-stable) page in the web console.
 2. Give the machine a hostname, select the size, and choose a region.
 <div class="row">
   <div class="col-lg-8 col-md-10 col-sm-8 col-xs-12 co-m-screenshot">
@@ -196,4 +195,4 @@ Note that DigitalOcean is not able to inject a root password into Flatcar Linux 
 Now that you have a machine booted it is time to play around. Check out the [Flatcar Linux Quickstart][quick-start] guide or dig into [more specific topics][docs].
 
 [quick-start]: quickstart.md
-[docs]: https://coreos.com/docs
+[docs]: https://docs.flatcar-linux.org

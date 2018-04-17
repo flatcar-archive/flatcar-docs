@@ -78,4 +78,4 @@ ExecStart=/usr/bin/bash -c 'echo "CUSTOM_EC2_IPV4_PUBLIC=$(curl\
 ```
 
 
-[metadata-readme]: https://github.com/coreos/coreos-metadata/blob/master/README.md
+[metadata-readme]: https://github.com/flatcar-linux/coreos-metadata/blob/master/README.md

@@ -2,9 +2,9 @@
 
 These are the instructions for building Flatcar Linux itself. By the end of the guide you will build a developer image that you can run under KVM and have tools for making changes to the code.
 
-Flatcar Linux is an open source project. All of the source for Flatcar Linux is available on [github][github-coreos]. If you find issues with these docs or the code please send a pull request.
+Flatcar Linux is an open source project. All of the source for Flatcar Linux is available on [github][github-flatcar]. If you find issues with these docs or the code please send a pull request.
 
-Direct questions and suggestions to the [IRC channel][irc] or [mailing list][coreos-dev].
+Direct questions and suggestions to the [IRC channel][irc] or [mailing list][flatcar-dev].
 
 ## Getting started
 
@@ -31,13 +31,13 @@ git config --global user.name "Your Name"
 
 ### Using Cork
 
-The `cork` utility, included in the CoreOS [mantle](https://github.com/coreos/mantle) project, is used to create and work with an SDK chroot.
+The `cork` utility, included in the Flatcar Linux [mantle](https://github.com/flatcar-linux/mantle) project, is used to create and work with an SDK chroot.
 
 First, download the cork utility and verify it with the signature:
 
 ```sh
-curl -L -o cork https://github.com/coreos/mantle/releases/download/v0.7.0/cork-0.7.0-amd64
-curl -L -o cork.sig https://github.com/coreos/mantle/releases/download/v0.7.0/cork-0.7.0-amd64.sig
+curl -L -o cork https://github.com/flatcar-linux/mantle/releases/download/v0.7.0/cork-0.7.0-amd64
+curl -L -o cork.sig https://github.com/flatcar-linux/mantle/releases/download/v0.7.0/cork-0.7.0-amd64.sig
 gpg --receive-keys 9CEB8FE6B4F1E9E752F61C82CDDE268EBB729EC7
 gpg --verify cork.sig cork
 ```
@@ -67,8 +67,8 @@ You may want to add the `PATH` export to your shell profile (e.g. `.bashrc`).
 Next, use the cork utility to create a project directory. This will hold all of your git repos and the SDK chroot. A few gigabytes of space will be necessary.
 
 ```sh
-mkdir coreos-sdk
-cd coreos-sdk
+mkdir flatcar-sdk
+cd flatcar-sdk
 cork create
 cork enter
 ```
@@ -198,11 +198,11 @@ We've compiled a [list of tips and tricks][sdktips] that can make working with t
 
 
 [android-repo-git]: https://source.android.com/source/developing.html
-[coreos-dev]: https://groups.google.com/forum/#!forum/coreos-dev
+[flatcar-dev]: https://groups.google.com/forum/#!forum/flatcar-linux-dev
 [devimages]: sdk-building-development-images.md
-[github-coreos]: https://github.com/coreos/
-[irc]: irc://irc.freenode.org:6667/#coreos
-[mantle]: https://github.com/coreos/mantle
+[github-flatcar]: https://github.com/flatcar-linux/
+[irc]: irc://irc.freenode.org:6667/#flatcar
+[mantle]: https://github.com/flatcar-linux/mantle
 [prodimages]: sdk-building-production-images.md
 [repo-blog]: http://google-opensource.blogspot.com/2008/11/gerrit-and-repo-android-source.html
 [sdktips]: sdk-tips-and-tricks.md

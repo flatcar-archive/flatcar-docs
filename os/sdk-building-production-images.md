@@ -6,7 +6,7 @@ This document still contains useful pointers, but the details are not necessaril
 
 ## Introduction
 
-In general the automated process should always be used but in a pinch putting together a release manually may be necessary. All release information is tracked in the [manifest][coreos-manifest] git repository which is usually organized like so:
+In general the automated process should always be used but in a pinch putting together a release manually may be necessary. All release information is tracked in the [manifest][flatcar-manifest] git repository which is usually organized like so:
 
  * build-109.xml (previous release manifest)
  * build-115.xml (current release manifest)
@@ -15,7 +15,7 @@ In general the automated process should always be used but in a pinch putting to
  * default.xml -> master.xml
  * release.xml -> build-115.xml
 
-[coreos-manifest]: https://github.com/coreos/manifest
+[flatcar-manifest]: https://github.com/flatcar-linux/manifest
 
 ## Tagging releases
 
@@ -64,17 +64,17 @@ The generated production image is bootable as-is by qemu but for a larger ROOT p
 
 ## Pushing updates into CoreUpdate
 
-The automated build host does not have access to production signing keys so the final signing and push to roller must be done elsewhere. The `coreos_production_update.zip` archive provides the tools required to do this so a full SDK setup is not required. This does require gsutil to be installed and configured. An update payload signed by the insecure development keys is generated automatically as `coreos_production_update.gz` and `coreos_production_update.meta`. If needed the raw filesystem image used to generate the payload is `coreos_production_update.bin.bz2`. As an example, to publish the insecurely signed payload:
+The automated build host does not have access to production signing keys so the final signing and push to roller must be done elsewhere. The `flatcar_production_update.zip` archive provides the tools required to do this so a full SDK setup is not required. This does require gsutil to be installed and configured. An update payload signed by the insecure development keys is generated automatically as `flatcar_production_update.gz` and `flatcar_production_update.meta`. If needed the raw filesystem image used to generate the payload is `flatcar_production_update.bin.bz2`. As an example, to publish the insecurely signed payload:
 
 ```sh
 URL=gs://builds.release.core-os.net/alpha/amd64-usr/321.0.0
 cd $(mktemp -d)
-gsutil -m cp $URL/coreos_production_update* ./
-gpg --verify coreos_production_update.zip.sig
-gpg --verify coreos_production_update.gz.sig
-gpg --verify coreos_production_update.meta.sig
-unzip coreos_production_update.zip
- ./core_roller_upload --user <you>@coreos.com --api_key <yourkey>
+gsutil -m cp $URL/flatcar_production_update* ./
+gpg --verify flatcar_production_update.zip.sig
+gpg --verify flatcar_production_update.gz.sig
+gpg --verify flatcar_production_update.meta.sig
+unzip flatcar_production_update.zip
+ ./core_roller_upload --user <you>@flatcar-linux.org --api_key <yourkey>
 ```
 
 Note: prefixing the command with a space will avoid recording your API key in your bash history if `$HISTCONTROL` is `ignorespace` or `ignoreboth`.

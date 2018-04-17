@@ -26,7 +26,7 @@ When configuring the Flatcar Linux iPXE boot script there are a few kernel optio
 
 ### Choose a Channel
 
-Flatcar Linux is designed to be [updated automatically](https://coreos.com/why/#updates) with different schedules per channel. You can [disable this feature](update-strategies.md), although we don't recommend it. Read the [release notes](https://coreos.com/releases) for specific features and bug fixes.
+Flatcar Linux is designed to be updated automatically with different schedules per channel. You can [disable this feature](update-strategies.md), although we don't recommend it. Read the [release notes](https://flatcar-linux.org/releases) for specific features and bug fixes.
 
 ### Setting up the Boot Script
 
@@ -118,7 +118,7 @@ Similar to the [OEM partition][oem] in Flatcar Linux disk images, iPXE images ca
 
 ## Using Flatcar Linux
 
-Now that you have a machine booted it is time to play around. Check out the [Flatcar Linux Quickstart](quickstart.md) guide or dig into [more specific topics](https://coreos.com/docs).
+Now that you have a machine booted it is time to play around. Check out the [Flatcar Linux Quickstart](quickstart.md) guide or dig into [more specific topics](https://docs.flatcar-linux.org).
 
 [cl-configs]: provisioning.md
 [ignition]: https://coreos.com/ignition/docs/latest

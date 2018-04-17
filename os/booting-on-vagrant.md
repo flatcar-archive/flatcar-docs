@@ -2,7 +2,7 @@
 
 Running Flatcar Linux with Vagrant is one way to bring up a single machine or virtualize an entire cluster on your laptop. Since the true power of Flatcar Linux can be seen with a cluster, we're going to concentrate on that. Instructions for a single machine can be found [towards the end](#single-machine) of the guide.
 
-You can direct questions to the [IRC channel][irc] or [mailing list][coreos-dev].
+You can direct questions to the [IRC channel][irc] or [mailing list][flatcar-dev].
 
 ## Install Vagrant and VirtualBox
 
@@ -36,7 +36,7 @@ Our cluster will use an etcd [discovery URL](cluster-discovery.md) to bootstrap 
 ```cloud-config
 #cloud-config
 
-coreos:
+flatcar:
   etcd2:
     # generate a new token for each unique cluster from https://discovery.etcd.io/new?size=3
     # specify the initial size of your cluster with ?size=X
@@ -76,13 +76,13 @@ Your Vagrantfile should copy your cloud-config file to `/var/lib/coreos-vagrant/
 
 If you need to update your cloud-config later on, run `vagrant reload --provision` to reboot your VM and apply the new file.
 
-[cloud-config-docs]: https://github.com/coreos/coreos-cloudinit/blob/master/Documentation/cloud-config.md
+[cloud-config-docs]: https://github.com/flatcar-linux/coreos-cloudinit/blob/master/Documentation/cloud-config.md
 
 ### Start up Flatcar Linux
 
 The `config.rb.sample` file contains a few useful settings about your Vagrant environment and most importantly, how many machines you'd like in your cluster.
 
-Flatcar Linux is designed to be [updated automatically](https://coreos.com/why/#updates) with different schedules per channel. Select the channel you'd like to use for this cluster below. Read the [release notes](https://coreos.com/releases) for specific features and bug fixes.
+Flatcar Linux is designed to be updated automatically with different schedules per channel. Select the channel you'd like to use for this cluster below. Read the [release notes](https://flatcar-linux.org/releases) for specific features and bug fixes.
 
 <div id="vagrant-create">
   <ul class="nav nav-tabs">
@@ -170,7 +170,7 @@ This cloud-config starts etcd and fleet when the machine is booted:
 ```cloud-config
 #cloud-config
 
-coreos:
+flatcar:
   etcd2:
     # generate a new token for each unique cluster from https://discovery.etcd.io/new?size=3
     # specify the initial size of your cluster with ?size=X
@@ -265,20 +265,20 @@ After a 'vagrant reload' you will be prompted for your local machine password.
 Flatcar Linux is a rolling release distribution and versions that are out of date will automatically update. If you want to start from the most up to date version you will need to make sure that you have the latest box file of Flatcar Linux. You can do this using `vagrant box update` - or, simply remove the old box file and Vagrant will download the latest one the next time you `vagrant up`.
 
 ```sh
-vagrant box remove coreos-alpha vmware_fusion
-vagrant box remove coreos-alpha virtualbox
+vagrant box remove flatcar-alpha vmware_fusion
+vagrant box remove flatcar-alpha virtualbox
 ```
 
 If you'd like to download the box separately, you can download the URL contained in the Vagrantfile and add it manually:
 
 ```sh
-vagrant box add coreos-alpha <path-to-box-file>
+vagrant box add flatcar-alpha <path-to-box-file>
 ```
 
 ## Using Flatcar Linux
 
-Now that you have a machine booted it is time to play around. Check out the [Flatcar Linux Quickstart](quickstart.md) guide, learn about [Flatcar Linux clustering with Vagrant](https://coreos.com/blog/coreos-clustering-with-vagrant/), or dig into [more specific topics](https://coreos.com/docs).
+Now that you have a machine booted it is time to play around. Check out the [Flatcar Linux Quickstart](quickstart.md) guide, learn about [Flatcar Linux clustering with Vagrant](https://coreos.com/blog/coreos-clustering-with-vagrant/), or dig into [more specific topics](https://docs.flatcar-linux.org).
 
 
-[coreos-dev]: https://groups.google.com/forum/#!forum/coreos-dev
-[irc]: irc://irc.freenode.org:6667/#coreos
+[flatcar-dev]: https://groups.google.com/forum/#!forum/flatcar-linux-dev
+[irc]: irc://irc.freenode.org:6667/#flatcar

@@ -67,5 +67,5 @@ Flatcar Linux implements SELinux, but currently does not enforce SELinux protect
 
 
 [sshd-guide]: customizing-sshd.md
-[etcd-sec-guide]: https://github.com/coreos/etcd/blob/v3.2.11/Documentation/op-guide/security.md
+[etcd-sec-guide]: https://github.com/flatcar-linux/etcd/blob/v3.2.11/Documentation/op-guide/security.md
 [selinux-guide]: selinux.md

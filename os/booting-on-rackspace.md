@@ -5,7 +5,7 @@ These instructions will walk you through running Flatcar Linux on the Rackspace 
 
 ## Choosing a channel
 
-Flatcar Linux is designed to be [updated automatically](https://coreos.com/why/#updates) with different schedules per channel. You can [disable this feature](update-strategies.md), although we don't recommend it. Read the [release notes](https://coreos.com/releases) for specific features and bug fixes.
+Flatcar Linux is designed to be updated automatically with different schedules per channel. You can [disable this feature](update-strategies.md), although we don't recommend it. Read the [release notes](https://flatcar-linux.org/releases) for specific features and bug fixes.
 
 <div id="rax-images">
   <ul class="nav nav-tabs">
@@ -49,7 +49,7 @@ The most common Rackspace cloud-config looks like:
 ```cloud-config
 #cloud-config
 
-coreos:
+flatcar:
   etcd2:
     # generate a new token for each unique cluster from https://discovery.etcd.io/new?size=3
     # specify the initial size of your cluster with ?size=X
@@ -70,7 +70,7 @@ coreos:
 
 The `$private_ipv4` and `$public_ipv4` substitution variables are fully supported in cloud-config on Rackspace.
 
-[cloud-config-docs]: https://github.com/coreos/coreos-cloudinit/blob/master/Documentation/cloud-config.md
+[cloud-config-docs]: https://github.com/flatcar-linux/coreos-cloudinit/blob/master/Documentation/cloud-config.md
 
 ### Mount data disk
 
@@ -78,7 +78,7 @@ Certain server flavors have separate system and data disks. To utilize the data 
 
 ```cloud-config
 #cloud-config
-coreos:
+flatcar:
   units:
     - name: media-data.mount
       command: start
@@ -215,4 +215,4 @@ You can also launch servers with either the `alpha` and `beta` channel versions 
 
 ## Using Flatcar Linux
 
-Now that you have a machine booted it is time to play around. Check out the [Flatcar Linux Quickstart](quickstart.md) guide or dig into [more specific topics](https://coreos.com/docs).
+Now that you have a machine booted it is time to play around. Check out the [Flatcar Linux Quickstart](quickstart.md) guide or dig into [more specific topics](https://docs.flatcar-linux.org).

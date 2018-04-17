@@ -31,4 +31,4 @@ The platforms and providers listed below each provide support and documentation 
 [vagrant]: booting-on-vagrant.md
 [virtualbox]: booting-on-virtualbox.md
 [vmware]: booting-on-vmware.md
-[official-support]: https://coreos.com/os/docs/latest/
+[official-support]: https://docs.flatcar-linux.org/

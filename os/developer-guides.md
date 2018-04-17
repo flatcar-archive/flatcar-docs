@@ -17,4 +17,4 @@ Most users will never have to build Flatcar Linux from source or modify it in an
 [mod-cl]: sdk-modifying-coreos.md
 [dev-images]: sdk-building-development-images.md
 [kernel-modules]: kernel-modules.md
-[mantle-utils]: https://github.com/coreos/mantle/blob/master/README.md#kola
+[mantle-utils]: https://github.com/flatcar-linux/mantle/blob/master/README.md#kola

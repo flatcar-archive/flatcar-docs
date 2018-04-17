@@ -124,9 +124,9 @@ Guestinfo configuration set via the VMware API or with `vmtoolsd` from within th
 
 ### Defining the Ignition config in Guestinfo
 
-If the `guestinfo.coreos.config.data` property is set, Ignition will apply the referenced config on first boot.
+If the `guestinfo.flatcar.config.data` property is set, Ignition will apply the referenced config on first boot.
 
-The Ignition config is prepared for the guestinfo facility in one of two encoding types, specified in the `guestinfo.coreos.config.data.encoding` variable:
+The Ignition config is prepared for the guestinfo facility in one of two encoding types, specified in the `guestinfo.flatcar.config.data.encoding` variable:
 
 |    Encoding    |                        Command                        |
 |:---------------|:------------------------------------------------------|
@@ -136,8 +136,8 @@ The Ignition config is prepared for the guestinfo facility in one of two encodin
 #### Example
 
 ```
-guestinfo.coreos.config.data = "ewogICJpZ25pdGlvbiI6IHsgInZlcnNpb24iOiAiMi4wLjAiIH0KfQo="
-guestinfo.coreos.config.data.encoding = "base64"
+guestinfo.flatcar.config.data = "ewogICJpZ25pdGlvbiI6IHsgInZlcnNpb24iOiAiMi4wLjAiIH0KfQo="
+guestinfo.flatcar.config.data.encoding = "base64"
 ```
 
 This example will be decoded into:
@@ -169,7 +169,7 @@ Alternatively, appending `flatcar.autologin` to the kernel parameters at boot ca
 Now that you have a machine booted, it's time to explore. Check out the [Flatcar Linux Quickstart][quickstart] guide, or dig into [more specific topics][docs].
 
 [quickstart]: quickstart.md
-[docs]: https://github.com/flatcar-linux/docs
+[docs]: https://docs.flatcar-linux.org
 [PXE]: booting-with-pxe.md
 [ISO]: booting-with-iso.md
 [install]: installing-to-disk.md

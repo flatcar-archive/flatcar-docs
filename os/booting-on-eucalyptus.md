@@ -8,7 +8,7 @@ These steps will download the Flatcar Linux image, uncompress it, convert it fro
 
 ### Choosing a channel
 
-Flatcar Linux is designed to be [updated automatically](https://coreos.com/why/#updates) with different schedules per channel. You can [disable this feature](update-strategies.md), although we don't recommend it. Read the [release notes](https://coreos.com/releases) for specific features and bug fixes.
+Flatcar Linux is designed to be updated automatically with different schedules per channel. You can [disable this feature](update-strategies.md), although we don't recommend it. Read the [release notes](https://flatcar-linux.org/releases) for specific features and bug fixes.
 
 <div id="eucalyptus-create">
   <ul class="nav nav-tabs">
@@ -26,7 +26,7 @@ $ qemu-img convert -O raw flatcar_production_openstack_image.img flatcar_product
 $ euca-bundle-image -i flatcar_production_openstack_image.raw -r x86_64 -d /var/tmp
 00% |====================================================================================================|   5.33 GB  59.60 MB/s Time: 0:01:35
 Wrote manifest bundle/flatcar_production_openstack_image.raw.manifest.xml
-$ euca-upload-bundle -m /var/tmp/flatcar_production_openstack_image.raw.manifest.xml -b coreos-production
+$ euca-upload-bundle -m /var/tmp/flatcar_production_openstack_image.raw.manifest.xml -b flatcar-production
 Uploaded flatcar-production/flatcar_production_openstack_image.raw.manifest.xml
 $ euca-register flatcar-production/flatcar_production_openstack_image.raw.manifest.xml --virtualization-type hvm --name "Flatcar Linux-Production"
 emi-E4A33D45
@@ -95,4 +95,4 @@ core@10-0-0-3 ~ $
 
 ## Using Flatcar Linux
 
-Now that you have a machine booted it is time to play around. Check out the [Flatcar Linux Quickstart](quickstart.md) guide or dig into [more specific topics](https://coreos.com/docs).
+Now that you have a machine booted it is time to play around. Check out the [Flatcar Linux Quickstart](quickstart.md) guide or dig into [more specific topics](https://docs.flatcar-linux.org).

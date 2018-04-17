@@ -83,10 +83,9 @@ Now that you have a machine booted it is time to play around. Check out the [Fla
 
 
 [azurecli-heading]: #via-the-microsoft-azure-cli
-[docs]: https://coreos.com/docs
+[docs]: https://docs.flatcar-linux.org
 [quickstart]: quickstart.md
 [reboot-docs]: update-strategies.md
-[release-notes]: https://coreos.com/releases
-[update-docs]: https://coreos.com/why/#updates
+[release-notes]: https://flatcar-linux.org/releases
 [azure-cli]: https://docs.microsoft.com/en-us/cli/azure/overview
 [cl-configs]: provisioning.md

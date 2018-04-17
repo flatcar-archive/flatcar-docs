@@ -90,15 +90,15 @@ $ systemctl status systemd-timesyncd ntpd
 Unless you have a highly reliable and precise time server pool, use your cloud provider's NTP source, or, on bare metal, the default Flatcar Linux NTP servers:
 
 ```
-0.coreos.pool.ntp.org
-1.coreos.pool.ntp.org
-2.coreos.pool.ntp.org
-3.coreos.pool.ntp.org
+0.flatcar.pool.ntp.org
+1.flatcar.pool.ntp.org
+2.flatcar.pool.ntp.org
+3.flatcar.pool.ntp.org
 ```
 
 ### Changing NTP time sources
 
-`Systemd-timesyncd` can discover NTP servers from DHCP, individual [network][systemd.network] configs, the file [`timesyncd.conf`][timesyncd.conf], or the default `*.coreos.pool.ntp.org` pool.
+`Systemd-timesyncd` can discover NTP servers from DHCP, individual [network][systemd.network] configs, the file [`timesyncd.conf`][timesyncd.conf], or the default `*.flatcar.pool.ntp.org` pool.
 
 The default behavior uses NTP servers provided by DHCP. To disable this, write a configuration listing your preferred NTP servers into the file `/etc/systemd/network/50-dhcp-no-ntp.conf`:
 

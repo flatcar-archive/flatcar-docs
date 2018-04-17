@@ -2,16 +2,15 @@
 
 ## Choosing a channel
 
-Flatcar Linux is designed to be [updated automatically][update-docs] with different schedules per channel. You can [disable this feature][reboot-docs], although we don't recommend it. Read the [release notes][release-notes] for specific features and bug fixes.
+Flatcar Linux is designed to be updated automatically with different schedules per channel. You can [disable this feature][reboot-docs], although we don't recommend it. Read the [release notes][release-notes] for specific features and bug fixes.
 
 The Exoscale Flatcar Linux image is built officially and each instance deployment is a unique fresh instance. By default, only the stable channel is deployed on Exoscale, you can easily [switch to Beta or Alpha channel][switching-channels].
 
 
-[update-docs]: https://coreos.com/why/#updates
 [reboot-docs]: update-strategies.md
 [switching-channels]: switching-channels.md
-[release-notes]: https://coreos.com/releases
-[cloud-config-docs]: https://github.com/coreos/coreos-cloudinit/blob/master/Documentation/cloud-config.md
+[release-notes]: https://flatcar-linux.org/releases
+[cloud-config-docs]: https://github.com/flatcar-linux/coreos-cloudinit/blob/master/Documentation/cloud-config.md
 
 ## Security groups
 
@@ -33,7 +32,7 @@ In order to leverage Flatcar Linux unique automation attributes, a standard Flat
 ```cloud-config
 #cloud-config
 
-coreos:
+flatcar:
   etcd2:
     # generate a new token for each unique cluster from https://discovery.etcd.io/new?size=3
     # specify the initial size of your cluster with ?size=X
@@ -80,7 +79,7 @@ To log in to a Flatcar Linux instance after it's created click on its IP address
 ssh core@<ip address>
 ```
 
-Optionally, you may want to [configure your ssh-agent](https://github.com/coreos/fleet/blob/master/Documentation/using-the-client.md#remote-fleet-access) to more easily run [fleet commands](../fleet/launching-containers-fleet.md).
+Optionally, you may want to [configure your ssh-agent](https://github.com/flatcar-linux/fleet/blob/master/Documentation/using-the-client.md#remote-fleet-access) to more easily run [fleet commands](../fleet/launching-containers-fleet.md).
 
 ## Launching instances
 
@@ -145,4 +144,4 @@ Unlike other Exoscale images where the root password is randomly set at startup,
 Now that you have a machine booted it is time to play around. Check out the [Flatcar Linux Quickstart][quick-start] guide or dig into [more specific topics][docs].
 
 [quick-start]: quickstart.md
-[docs]: https://coreos.com/docs
+[docs]: https://docs.flatcar-linux.org

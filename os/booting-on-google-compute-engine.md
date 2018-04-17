@@ -4,7 +4,7 @@ Before proceeding, you will need a GCE account ([GCE free trial ][free-trial]) a
 
 [gce-advanced-os]: http://developers.google.com/compute/docs/transition-v1#customkernelbinaries
 [gcloud-documentation]: https://cloud.google.com/sdk/
-[free-trial]: https://cloud.google.com/free-trial/?utm_source=coreos&utm_medium=partners&utm_campaign=partner-free-trial
+[free-trial]: https://cloud.google.com/free-trial/?utm_source=flatcar&utm_medium=partners&utm_campaign=partner-free-trial
 
 After installation, log into your account with `gcloud auth login` and enter your project ID when prompted.
 
@@ -37,7 +37,7 @@ etcd:
 
 ## Choosing a channel
 
-Flatcar Linux is designed to be [updated automatically](https://coreos.com/why/#updates) with different schedules per channel. You can [disable this feature](update-strategies.md), although we don't recommend it. Read the [release notes](https://coreos.com/releases) for specific features and bug fixes.
+Flatcar Linux is designed to be updated automatically with different schedules per channel. You can [disable this feature](update-strategies.md), although we don't recommend it. Read the [release notes](https://flatcar-linux.org/releases) for specific features and bug fixes.
 
 Create 3 instances from the image above using our Ignition from `example.ign`:
 
@@ -106,4 +106,4 @@ Users other than `core`, which are set up by the GCE account manager, may not be
 
 ## Using Flatcar Linux
 
-Now that you have a machine booted it is time to play around. Check out the [Flatcar Linux Quickstart](quickstart.md) guide or dig into [more specific topics](https://coreos.com/docs).
+Now that you have a machine booted it is time to play around. Check out the [Flatcar Linux Quickstart](quickstart.md) guide or dig into [more specific topics](https://docs.flatcar-linux.org).

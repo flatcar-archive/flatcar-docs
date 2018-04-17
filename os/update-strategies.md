@@ -120,7 +120,7 @@ As an example, consider the following cloud config:
 
 ```cloud-config
 #cloud-config
-coreos:
+flatcar:
   update:
     reboot-strategy: "reboot"
   locksmith:
@@ -133,5 +133,5 @@ This will configure a Flatcar Linux machine to follow the `reboot` strategy, and
 For more information about the supported syntax, refer to the [Locksmith documentation][reboot-windows].
 
 [rollback]: manual-rollbacks.md
-[reboot-windows]: https://github.com/coreos/locksmith#reboot-windows
+[reboot-windows]: https://github.com/flatcar-linux/locksmith#reboot-windows
 [systemd-env-vars]: https://coreos.com/os/docs/latest/using-environment-variables-in-systemd-units.html#system-wide-environment-variables

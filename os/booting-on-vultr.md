@@ -27,13 +27,13 @@ sudo flatcar-install -d /dev/vda -c cloud-config.yaml
 sudo reboot
 ```
 
-Please be sure to check out [Using Cloud-Config](https://github.com/coreos/coreos-cloudinit/blob/master/Documentation/cloud-config.md).
+Please be sure to check out [Using Cloud-Config](https://github.com/flatcar-linux/coreos-cloudinit/blob/master/Documentation/cloud-config.md).
 
-You must add to your ssh public key to your `cloud-config`'s [ssh authorized keys](https://github.com/coreos/coreos-cloudinit/blob/master/Documentation/cloud-config.md#ssh_authorized_keys) so you'll be able to log in.
+You must add to your ssh public key to your `cloud-config`'s [ssh authorized keys](https://github.com/flatcar-linux/coreos-cloudinit/blob/master/Documentation/cloud-config.md#ssh_authorized_keys) so you'll be able to log in.
 
 ## Choosing a channel
 
-Flatcar Linux is designed to be [updated automatically](https://coreos.com/why/#updates) with different schedules per channel. You can [disable this feature](update-strategies.md), although we don't recommend it. Read the [release notes](https://coreos.com/releases) for specific features and bug fixes.
+Flatcar Linux is designed to be updated automatically with different schedules per channel. You can [disable this feature](update-strategies.md), although we don't recommend it. Read the [release notes](https://flatcar-linux.org/releases) for specific features and bug fixes.
 
 <div id="vultr-images">
   <ul class="nav nav-tabs">
@@ -126,4 +126,4 @@ core@localhost ~ $
 
 ## Using Flatcar Linux
 
-Check out the [Flatcar Linux Quickstart](quickstart.md) guide or dig into [more specific topics](https://coreos.com/docs).
+Check out the [Flatcar Linux Quickstart](quickstart.md) guide or dig into [more specific topics](https://docs.flatcar-linux.org).
