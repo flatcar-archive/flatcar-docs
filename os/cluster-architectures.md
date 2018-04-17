@@ -206,8 +206,6 @@ networkd:
 
 The worker roles will use DHCP and should be easy to add capacity or autoscaling.
 
-[Managed Linux][flatcar-managed] customers can also specify a [CoreUpdate][core-update] group ID to use a different channel and control updates separately from the central machines.
-
 Here's an example CL Config for a worker which specifies an update channel:
 
 ```yaml container-linux-config

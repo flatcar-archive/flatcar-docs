@@ -2,7 +2,7 @@
 
 ## Choosing a channel
 
-Flatcar Linux is designed to be [updated automatically][update-docs] with different schedules per channel. You can [disable this feature][reboot-docs], although we don't recommend it. Read the [release notes][release-notes] for specific features and bug fixes.
+Flatcar Linux is designed to be updated automatically with different schedules per channel. You can [disable this feature][reboot-docs], although we don't recommend it. Read the [release notes][release-notes] for specific features and bug fixes.
 
 The following command will create a single droplet. For more details, check out [Launching via the API](#via-the-api).
 

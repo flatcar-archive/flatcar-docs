@@ -2,7 +2,7 @@
 
 ## Choosing a channel
 
-Flatcar Linux is designed to be [updated automatically][update-docs] with different schedules per channel. This feature can be [disabled][reboot-docs], although it is not recommended. The [release notes][release-notes] contain information about specific features and bug fixes.
+Flatcar Linux is designed to be updated automatically with different schedules per channel. This feature can be [disabled][reboot-docs], although it is not recommended. The [release notes][release-notes] contain information about specific features and bug fixes.
 
 The following command will create a single instance. For more details, check out [Launching via the Microsoft Azure CLI][azurecli-heading].
 

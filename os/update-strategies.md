@@ -1,6 +1,6 @@
 # Reboot strategies on updates
 
-The overarching goal of Flatcar Linux is to secure the Internet's backend infrastructure. We believe that [automatically updating](https://coreos.com/why/#updates) the operating system is one of the best tools to achieve this goal.
+The overarching goal of Flatcar Linux is to secure the Internet's backend infrastructure. We believe that automatically updating the operating system is one of the best tools to achieve this goal.
 
 We realize that each Flatcar Linux cluster has a unique tolerance for risk and the operational needs of your applications are complex. In order to meet everyone's needs, there are three update strategies that we have developed based on feedback during our alpha period.
 
