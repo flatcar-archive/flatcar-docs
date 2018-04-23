@@ -1,3 +1,5 @@
+stable-channel = 'test'
+
 # Running Flatcar Linux on DigitalOcean
 
 ## Choosing a channel
@@ -7,13 +9,19 @@ Flatcar Linux is designed to be updated automatically with different schedules p
 The following command will create a single droplet. For more details, check out [Launching via the API](#via-the-api).
 
 <div id="do-images">
-  <ul class="nav nav-tabs">
-    <li class="active"><a href="#stable" data-toggle="tab">Stable Channel</a></li>
-    <li><a href="#beta" data-toggle="tab">Beta Channel</a></li>
-    <li><a href="#alpha" data-toggle="tab">Alpha Channel</a></li>
+  <ul class="nav nav-tabs" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link" href="#stable" role="tab" data-toggle="tab">Stable Channel</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#beta" role="tab" data-toggle="tab">Beta Channel</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link active" href="#alpha" role="tab" data-toggle="tab">Alpha Channel</a>
+    </li>
   </ul>
   <div class="tab-content coreos-docs-image-table">
-    <div class="tab-pane" id="alpha">
+    <div role="tabpanel" class="tab-pane active" id="alpha">
       <div class="channel-info">
         <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Flatcar Linux {{site.alpha-channel}}.</p>
         <a href="https://cloud.digitalocean.com/droplets/new?image=flatcar-alpha" class="btn btn-default">Launch Flatcar Linux Droplet</a><br/><br/>
@@ -29,7 +37,7 @@ The following command will create a single droplet. For more details, check out 
         "name":"core-1"}'</pre>
       </div>
     </div>
-    <div class="tab-pane" id="beta">
+    <div role="tabpanel" class="tab-pane" id="beta">
       <div class="channel-info">
         <p>The Beta channel consists of promoted Alpha releases. The current version is Flatcar Linux {{site.beta-channel}}.</p>
         <a href="https://cloud.digitalocean.com/droplets/new?image=flatcar-beta" class="btn btn-default">Launch Flatcar Linux Droplet</a><br/><br/>
@@ -45,10 +53,10 @@ The following command will create a single droplet. For more details, check out 
         "name":"core-1"}'</pre>
       </div>
     </div>
-    <div class="tab-pane active" id="stable">
+    <div role="tabpanel" class="tab-pane" id="stable">
       <div class="channel-info">
-        <div class="channel-info">
-        <p>The Stable channel should be used by production clusters. Versions of Flatcar Linux are battle-tested within the Beta and Alpha channels before being promoted. The current version is Flatcar Linux {{site.stable-channel}}.</p>
+        <p>The Stable channel should be used by production clusters. Versions of Flatcar Linux are battle-tested within the Beta and Alpha channels before being promoted.
+        The current version is Flatcar Linux {{ meta.stable-channel }}.</p>
         <a href="https://cloud.digitalocean.com/droplets/new?image=flatcar-stable" class="btn btn-default">Launch Flatcar Linux Droplet</a><br/><br/>
         <p>Launch via DigitalOcean API by specifying <code>$REGION</code>, <code>$SIZE</code> and <code>$SSH_KEY_ID</code>:</p>
         <pre>curl --request POST "https://api.digitalocean.com/v2/droplets" \
@@ -60,7 +68,6 @@ The following command will create a single droplet. For more details, check out 
         "user_data": "'"$(cat ~/config.ign)"'",
         "ssh_keys":["'"$SSH_KEY_ID"'"],
         "name":"core-1"}'</pre>
-      </div>
       </div>
     </div>
   </div>
@@ -77,7 +84,7 @@ You can provide a raw Ignition config to Flatcar Linux via the DigitalOcean web 
 
 As an example, this config will configure and start etcd:
 
-```yaml container-linux-config:digitalocean
+```yaml
 etcd:
   # All options get passed as command line flags to etcd.
   # Any information inside curly braces comes from the machine at boot time.
