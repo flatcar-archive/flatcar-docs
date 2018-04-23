@@ -1,0 +1,9 @@
+[submodule "container-linux-config-transpiler"]
+	path = container-linux-config-transpiler
+	url = git@github.com:kinvolk/container-linux-config-transpiler.git
+[submodule "matchbox"]
+	path = matchbox
+	url = git@github.com:kinvolk/matchbox.git
+[submodule "rkt"]
+	path = rkt
+	url = git@github.com:kinvolk/rkt.git
