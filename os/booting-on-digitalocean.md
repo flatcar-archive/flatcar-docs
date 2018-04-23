@@ -77,7 +77,7 @@ You can provide a raw Ignition config to Flatcar Linux via the DigitalOcean web 
 
 As an example, this config will configure and start etcd:
 
-```yaml container-linux-config:digitalocean
+```yaml
 etcd:
   # All options get passed as command line flags to etcd.
   # Any information inside curly braces comes from the machine at boot time.

@@ -44,7 +44,7 @@ If you used an example [Container Linux Config][cl-configs] or [cloud-config](ht
 
 A good starting point for a Container Linux Config would be something like:
 
-```yaml container-linux-config
+```yaml
 etcd:
   discovery: https://discovery.etcd.io/<token>
 passwd:
