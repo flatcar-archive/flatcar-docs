@@ -1,8 +1,8 @@
 # Reboot strategies on updates
 
-The overarching goal of Container Linux is to secure the Internet's backend infrastructure. We believe that [automatically updating](https://coreos.com/why/#updates) the operating system is one of the best tools to achieve this goal.
+The overarching goal of Flatcar Linux is to secure the Internet's backend infrastructure. We believe that automatically updating the operating system is one of the best tools to achieve this goal.
 
-We realize that each Container Linux cluster has a unique tolerance for risk and the operational needs of your applications are complex. In order to meet everyone's needs, there are three update strategies that we have developed based on feedback during our alpha period.
+We realize that each Flatcar Linux cluster has a unique tolerance for risk and the operational needs of your applications are complex. In order to meet everyone's needs, there are three update strategies that we have developed based on feedback during our alpha period.
 
 It's important to note that updates are always downloaded to the passive partition when they become available. A reboot is the last step of the update, where the active and passive partitions are swapped ([rollback instructions][rollback]). These strategies control how that reboot occurs:
 
@@ -62,9 +62,9 @@ The `off` strategy is also straightforward. The update will be installed onto th
 
 ## Updating PXE/iPXE machines
 
-PXE/iPXE machines download a new copy of Container Linux every time they are started thus are dependent on the version of Container Linux they are served. If you don't automatically load new Container Linux images into your PXE/iPXE server, your machines will never have new features or security updates.
+PXE/iPXE machines download a new copy of Flatcar Linux every time they are started thus are dependent on the version of Flatcar Linux they are served. If you don't automatically load new Flatcar Linux images into your PXE/iPXE server, your machines will never have new features or security updates.
 
-An easy solution to this problem is to use iPXE and reference images [directly from the Container Linux storage site](booting-with-ipxe.md#setting-up-ipxe-boot-script). The `alpha` URL is automatically pointed to the new version of Container Linux as it is released.
+An easy solution to this problem is to use iPXE and reference images [directly from the Flatcar Linux storage site](booting-with-ipxe.md#setting-up-ipxe-boot-script). The `alpha` URL is automatically pointed to the new version of Flatcar Linux as it is released.
 
 ## Disable Automatic Updates Daemon
 
@@ -83,7 +83,7 @@ systemd:
 
 ## Updating behind a proxy
 
-Public Internet access is required to contact CoreUpdate and download new versions of Container Linux. If direct access is not available the `update-engine` service may be configured to use a HTTP or SOCKS proxy using curl-compatible environment variables, such as `HTTPS_PROXY` or `ALL_PROXY`.
+Public Internet access is required to contact CoreUpdate and download new versions of Flatcar Linux. If direct access is not available the `update-engine` service may be configured to use a HTTP or SOCKS proxy using curl-compatible environment variables, such as `HTTPS_PROXY` or `ALL_PROXY`.
 See [curl's documentation](http://curl.haxx.se/docs/manpage.html#ALLPROXY) for details.
 
 ```yaml container-linux-config
@@ -120,7 +120,7 @@ As an example, consider the following cloud config:
 
 ```cloud-config
 #cloud-config
-coreos:
+flatcar:
   update:
     reboot-strategy: "reboot"
   locksmith:
@@ -128,10 +128,10 @@ coreos:
     window-length: 1h
 ```
 
-This will configure a Container Linux machine to follow the `reboot` strategy, and thus when an update is ready it will simply reboot instead of attempting to grab a lock in etcd. This machine however has also been configured to only reboot between 04:00 and 05:00 on Thursdays, so if an update occurs outside of this window the machine will then wait until it is inside of this window to reboot.
+This will configure a Flatcar Linux machine to follow the `reboot` strategy, and thus when an update is ready it will simply reboot instead of attempting to grab a lock in etcd. This machine however has also been configured to only reboot between 04:00 and 05:00 on Thursdays, so if an update occurs outside of this window the machine will then wait until it is inside of this window to reboot.
 
 For more information about the supported syntax, refer to the [Locksmith documentation][reboot-windows].
 
 [rollback]: manual-rollbacks.md
-[reboot-windows]: https://github.com/coreos/locksmith#reboot-windows
+[reboot-windows]: https://github.com/flatcar-linux/locksmith#reboot-windows
 [systemd-env-vars]: https://coreos.com/os/docs/latest/using-environment-variables-in-systemd-units.html#system-wide-environment-variables

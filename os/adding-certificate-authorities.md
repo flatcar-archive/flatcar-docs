@@ -1,6 +1,6 @@
 # Custom certificate authorities
 
-CoreOS Container Linux supports custom Certificate Authorities (CAs) in addition to the default list of trusted CAs. Adding your own CA allows you to:
+Flatcar Linux supports custom Certificate Authorities (CAs) in addition to the default list of trusted CAs. Adding your own CA allows you to:
 
 - Use a corporate wildcard certificate
 - Use your own CA to communicate with an installation of CoreUpdate
@@ -15,4 +15,4 @@ The setup process for any of these use-cases is the same:
 
 [Generate Self-Signed Certificates](generate-self-signed-certificates.md)
 
-[etcd Security Model](https://github.com/coreos/etcd/blob/master/Documentation/op-guide/security.md)
+[etcd Security Model](https://github.com/flatcar-linux/etcd/blob/master/Documentation/op-guide/security.md)

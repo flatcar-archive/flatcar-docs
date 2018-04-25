@@ -1,26 +1,18 @@
 # Community supported platforms
 
-The Container Linux community has provided support for Container Linux on a number of platforms beyond those [officially supported][official-support] by CoreOS.
+The Flatcar Linux community has provided support for Flatcar Linux on a number of platforms beyond those [officially supported][official-support] by Kinvolk.
 
-The platforms and providers listed below each provide support and documentation for running Container Linux:
+The platforms and providers listed below each provide support and documentation for running Flatcar Linux:
 
 ## Cloud providers
 
-* [AURO Cloud][auro]
-* [Brightbox Cloud][brightbox]
-* [cloud.ca][cloud-ca]
 * [Exoscale][exoscale]
-* [Ikoula][ikoula]
-* [NIFTY Cloud][nifty]
 * [Packet][packet]
 * [Rackspace Cloud][rackspace]
-* [RimuHosting LaunchtimeVPS][rimuhosting]
-* [VEXXHOST Cloud][vexxhost]
 * [Vultr VPS][vultr]
 
 ## Other providers
 
-* [CloudStack][cloudstack]
 * [Eucalyptus][eucalyptus]
 * [libvirt][libvirt]
 * [OpenStack][openstack]
@@ -29,22 +21,14 @@ The platforms and providers listed below each provide support and documentation 
 * [VMware][vmware]
 
 
-[auro]: booting-on-auro.md
-[brightbox]: booting-on-brightbox.md
-[cloud-ca]: booting-on-cloudca.md
 [exoscale]: booting-on-exoscale.md
-[ikoula]: booting-on-ikoula.md
-[nifty]: booting-on-niftycloud.md
 [openstack]: booting-on-openstack.md
 [packet]: booting-on-packet.md
 [rackspace]: booting-on-rackspace.md
-[rimuhosting]: booting-on-launchtimevps.md
-[vexxhost]: booting-on-vexxhost.md
 [vultr]: booting-on-vultr.md
-[cloudstack]: booting-on-cloudstack.md
 [eucalyptus]: booting-on-eucalyptus.md
 [libvirt]: booting-with-libvirt.md
 [vagrant]: booting-on-vagrant.md
 [virtualbox]: booting-on-virtualbox.md
 [vmware]: booting-on-vmware.md
-[official-support]: https://coreos.com/os/docs/latest/
+[official-support]: https://docs.flatcar-linux.org/

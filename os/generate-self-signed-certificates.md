@@ -1,6 +1,6 @@
 # Generate self-signed certificates
 
-If you build Container Linux cluster on top of public networks it is recommended to enable encryption for Container Linux services to prevent traffic interception and man-in-the-middle attacks. For these purposes you have to use Certificate Authority (CA), private keys and certificates signed by CA. Let's use [cfssl][cfssl] and walk through the whole process to create all these components.
+If you build Flatcar Linux cluster on top of public networks it is recommended to enable encryption for Flatcar Linux services to prevent traffic interception and man-in-the-middle attacks. For these purposes you have to use Certificate Authority (CA), private keys and certificates signed by CA. Let's use [cfssl][cfssl] and walk through the whole process to create all these components.
 
 **NOTE:** We will use basic procedure here. If your configuration requires advanced security options, please refer to official [cfssl][cfssl] documentation.
 
@@ -29,7 +29,7 @@ cfssl print-defaults config > ca-config.json
 cfssl print-defaults csr > ca-csr.json
 ```
 
-### Certificate types which are used inside Container Linux
+### Certificate types which are used inside Flatcar Linux
 
 * **client certificate** is used to authenticate client by server. For example `etcdctl`, `etcd proxy`, `fleetctl` or `docker` clients.
 * **server certificate** is used by server and verified by client for server identity. For example `docker` server or `kube-apiserver`.
@@ -289,7 +289,7 @@ openssl x509 -in client.pem -text -noout
 For another examples, check out these documents:
 
 [Custom Certificate Authorities](adding-certificate-authorities.md)
-[etcd Security Model](https://github.com/coreos/etcd/blob/master/Documentation/op-guide/security.md)
+[etcd Security Model](https://github.com/flatcar-linux/etcd/blob/master/Documentation/op-guide/security.md)
 
 [cfssl]: https://github.com/cloudflare/cfssl
 [cfssl-bin]: https://pkg.cfssl.org

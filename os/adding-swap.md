@@ -1,8 +1,8 @@
-# Adding swap in CoreOS Container Linux
+# Adding swap in Flatcar Linux
 
 Swap is the process of moving pages of memory to a designated part of the hard disk, freeing up space when needed. Swap can be used to alleviate problems with low-memory environments.
 
-By default Container Linux does not include a partition for swap, however one can configure their system to have swap, either by including a dedicated partition for it or creating a swapfile.
+By default Flatcar Linux does not include a partition for swap, however one can configure their system to have swap, either by including a dedicated partition for it or creating a swapfile.
 
 ## Managing swap with systemd
 

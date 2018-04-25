@@ -1,13 +1,13 @@
-# Running CoreOS Container Linux on libvirt
+# Running Flatcar Linux on libvirt
 
-This guide explains how to run Container Linux with libvirt using the QEMU driver. The libvirt configuration
+This guide explains how to run Flatcar Linux with libvirt using the QEMU driver. The libvirt configuration
 file can be used (for example) with `virsh` or `virt-manager`. The guide assumes
 that you already have a running libvirt setup and `virt-install` tool. If you
 don’t have that, other solutions are most likely easier.
 
-You can direct questions to the [IRC channel][irc] or [mailing list][coreos-dev].
+You can direct questions to the [IRC channel][irc] or [mailing list][flatcar-dev].
 
-## Download the CoreOS Container Linux image
+## Download the Flatcar Linux image
 
 In this guide, the example virtual machine we are creating is called container-linux1 and
 all files are stored in `/var/lib/libvirt/images/container-linux`. This is not a requirement — feel free
@@ -15,7 +15,7 @@ to substitute that path if you use another one.
 
 ### Choosing a channel
 
-Container Linux is designed to be [updated automatically](https://coreos.com/why/#updates) with different schedules per channel. You can [disable this feature](update-strategies.md), although we don't recommend it. Read the [release notes](https://coreos.com/releases) for specific features and bug fixes.
+Flatcar Linux is designed to be updated automatically with different schedules per channel. You can [disable this feature](update-strategies.md), although we don't recommend it. Read the [release notes](https://flatcar-linux.org/releases) for specific features and bug fixes.
 
 <div id="libvirt-create">
   <ul class="nav nav-tabs">
@@ -25,34 +25,34 @@ Container Linux is designed to be [updated automatically](https://coreos.com/why
   </ul>
   <div class="tab-content coreos-docs-image-table">
     <div class="tab-pane" id="alpha-create">
-      <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Container Linux {{site.alpha-channel}}.</p>
+      <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Flatcar Linux {{site.alpha-channel}}.</p>
       <p>We start by downloading the most recent disk image:</p>
       <pre>
 mkdir -p /var/lib/libvirt/images/container-linux
 cd /var/lib/libvirt/images/container-linux
-wget https://alpha.release.core-os.net/amd64-usr/current/coreos_production_qemu_image.img.bz2{,.sig}
-gpg --verify coreos_production_qemu_image.img.bz2.sig
-bunzip2 coreos_production_qemu_image.img.bz2</pre>
+wget https://alpha.release.core-os.net/amd64-usr/current/flatcar_production_qemu_image.img.bz2{,.sig}
+gpg --verify flatcar_production_qemu_image.img.bz2.sig
+bunzip2 flatcar_production_qemu_image.img.bz2</pre>
     </div>
     <div class="tab-pane" id="beta-create">
-      <p>The Beta channel consists of promoted Alpha releases. The current version is Container Linux {{site.beta-channel}}.</p>
+      <p>The Beta channel consists of promoted Alpha releases. The current version is Flatcar Linux {{site.beta-channel}}.</p>
       <p>We start by downloading the most recent disk image:</p>
       <pre>
 mkdir -p /var/lib/libvirt/images/container-linux
 cd /var/lib/libvirt/images/container-linux
-wget https://beta.release.core-os.net/amd64-usr/current/coreos_production_qemu_image.img.bz2{,.sig}
-gpg --verify coreos_production_qemu_image.img.bz2.sig
-bunzip2 coreos_production_qemu_image.img.bz2</pre>
+wget https://beta.release.core-os.net/amd64-usr/current/flatcar_production_qemu_image.img.bz2{,.sig}
+gpg --verify flatcar_production_qemu_image.img.bz2.sig
+bunzip2 flatcar_production_qemu_image.img.bz2</pre>
     </div>
     <div class="tab-pane active" id="stable-create">
-      <p>The Stable channel should be used by production clusters. Versions of Container Linux are battle-tested within the Beta and Alpha channels before being promoted. The current version is Container Linux {{site.stable-channel}}.</p>
+      <p>The Stable channel should be used by production clusters. Versions of Flatcar Linux are battle-tested within the Beta and Alpha channels before being promoted. The current version is Flatcar Linux {{site.stable-channel}}.</p>
       <p>We start by downloading the most recent disk image:</p>
       <pre>
 mkdir -p /var/lib/libvirt/images/container-linux
 cd /var/lib/libvirt/images/container-linux
-wget https://stable.release.core-os.net/amd64-usr/current/coreos_production_qemu_image.img.bz2{,.sig}
-gpg --verify coreos_production_qemu_image.img.bz2.sig
-bunzip2 coreos_production_qemu_image.img.bz2</pre>
+wget https://stable.release.core-os.net/amd64-usr/current/flatcar_production_qemu_image.img.bz2{,.sig}
+gpg --verify flatcar_production_qemu_image.img.bz2.sig
+bunzip2 flatcar_production_qemu_image.img.bz2</pre>
     </div>
   </div>
 </div>
@@ -63,14 +63,14 @@ Now create a qcow2 image snapshot using the command below:
 
 ```sh
 cd /var/lib/libvirt/images/container-linux
-qemu-img create -f qcow2 -b coreos_production_qemu_image.img container-linux1.qcow2
+qemu-img create -f qcow2 -b flatcar_production_qemu_image.img container-linux1.qcow2
 ```
 
-This will create a `container-linux1.qcow2` snapshot image. Any changes to `container-linux1.qcow2` will not be reflected in `coreos_production_qemu_image.img`. Making any changes to a base image (`coreos_production_qemu_image.img` in our example) will corrupt its snapshots.
+This will create a `container-linux1.qcow2` snapshot image. Any changes to `container-linux1.qcow2` will not be reflected in `flatcar_production_qemu_image.img`. Making any changes to a base image (`flatcar_production_qemu_image.img` in our example) will corrupt its snapshots.
 
 ### Ignition config
 
-The preferred way to configure a Container Linux machine is via Ignition.
+The preferred way to configure a Flatcar Linux machine is via Ignition.
 Unfortunately, libvirt does not have direct support for Ignition yet, so configuring it involves including qemu-specific xml.
 
 This configuration can be done in the following steps:
@@ -93,7 +93,7 @@ semanage fcontext -a -t virt_content_t "/var/lib/libvirt/container-linux/contain
 restorecon -R "/var/lib/libvirt/container-linux/container-linux1"
 ```
 
-A simple Container Linux config to add your ssh keys might look like the following:
+A simple Flatcar Linux config to add your ssh keys might look like the following:
 
 ```yaml container-linux-config
 storage:
@@ -137,7 +137,7 @@ Next, modify the domain xml to reference the qemu-specific configuration needed:
   ...
   <qemu:commandline>
     <qemu:arg value="-fw_cfg"/>
-    <qemu:arg value="name=opt/com.coreos/config,file=/var/lib/libvirt/container-linux/container-linux1/provision.ign"/>
+    <qemu:arg value="name=opt/com.flatcar/config,file=/var/lib/libvirt/container-linux/container-linux1/provision.ign"/>
   </qemu:commandline>
 </domain>
 ```
@@ -153,7 +153,7 @@ xmlstarlet ed -P -L -s "//domain" -t elem -n "qemu:commandline" "${domain}"
 xmlstarlet ed -P -L -s "//domain/qemu:commandline" -t elem -n "qemu:arg" "${domain}"
 xmlstarlet ed -P -L -s "(//domain/qemu:commandline/qemu:arg)[1]" -t attr -n "value" -v "-fw_cfg" "${domain}"
 xmlstarlet ed -P -L -s "//domain/qemu:commandline" -t elem -n "qemu:arg" "${domain}"
-xmlstarlet ed -P -L -s "(//domain/qemu:commandline/qemu:arg)[2]" -t attr -n "value" -v "name=opt/com.coreos/config,file=${ignition_file}" "${domain}"
+xmlstarlet ed -P -L -s "(//domain/qemu:commandline/qemu:arg)[2]" -t attr -n "value" -v "name=opt/com.flatcar/config,file=${ignition_file}" "${domain}"
 ```
 
 Alternately, you can accomplish the same modification using sed:
@@ -163,7 +163,7 @@ domain=/var/lib/libvirt/container-linux/container-linux1/domain.xml
 ignition_file=/var/lib/libvirt/container-linux/container-linux1/provision.ign
 
 sed -i 's|type="kvm"|type="kvm" xmlns:qemu="http://libvirt.org/schemas/domain/qemu/1.0"|' "${domain}"
-sed -i "/<\/devices>/a <qemu:commandline>\n  <qemu:arg value='-fw_cfg'/>\n  <qemu:arg value='name=opt/com.coreos/config,file=${ignition_file}'/>\n</qemu:commandline>" "${domain}"
+sed -i "/<\/devices>/a <qemu:commandline>\n  <qemu:arg value='-fw_cfg'/>\n  <qemu:arg value='name=opt/com.flatcar/config,file=${ignition_file}'/>\n</qemu:commandline>" "${domain}"
 ```
 
 #### Define and start the machine
@@ -191,7 +191,7 @@ Expiry Time          MAC address        Protocol  IP address                Host
 
 #### Static IP
 
-By default, Container Linux uses DHCP to get its network configuration. In this example the VM will be attached directly to the local network via a bridge on the host's virbr0 and the local network. To configure a static address add a [networkd unit][systemd-network] to the Container Linux config:
+By default, Flatcar Linux uses DHCP to get its network configuration. In this example the VM will be attached directly to the local network via a bridge on the host's virbr0 and the local network. To configure a static address add a [networkd unit][systemd-network] to the Flatcar Linux config:
 
 ```yaml container-linux-config
 passwd:
@@ -268,7 +268,7 @@ virt-install --connect qemu:///system --import \
   --print-xml > /var/lib/libvirt/container-linux/container-linux1/domain.xml
 
 sed -ie 's|type="kvm"|type="kvm" xmlns:qemu="http://libvirt.org/schemas/domain/qemu/1.0"|' "${domain}"
-sed -i "/<\/devices>/a <qemu:commandline>\n  <qemu:arg value='-fw_cfg'/>\n  <qemu:arg value='name=opt/com.coreos/config,file=${ignition_file}'/>\n</qemu:commandline>" "${domain}"
+sed -i "/<\/devices>/a <qemu:commandline>\n  <qemu:arg value='-fw_cfg'/>\n  <qemu:arg value='name=opt/com.flatcar/config,file=${ignition_file}'/>\n</qemu:commandline>" "${domain}"
 
 virsh define /var/lib/libvirt/container-linux/container-linux1/domain.xml
 virsh start container-linux1
@@ -298,9 +298,9 @@ Now you can log in to the virtual machine with:
 ssh container-linux1
 ```
 
-## Using CoreOS Container Linux
+## Using Flatcar Linux
 
-Now that you have a machine booted it is time to play around. Check out the [Container Linux Quickstart](quickstart.md) guide or dig into [more specific topics](https://coreos.com/docs).
+Now that you have a machine booted it is time to play around. Check out the [Flatcar Linux Quickstart](quickstart.md) guide or dig into [more specific topics](https://docs.flatcar-linux.org).
 
-[coreos-dev]: https://groups.google.com/forum/#!forum/coreos-dev
-[irc]: irc://irc.freenode.org:6667/#coreos
+[flatcar-dev]: https://groups.google.com/forum/#!forum/flatcar-linux-dev
+[irc]: irc://irc.freenode.org:6667/#flatcar

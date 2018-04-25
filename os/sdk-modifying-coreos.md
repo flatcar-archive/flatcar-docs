@@ -1,14 +1,14 @@
-# CoreOS Container Linux developer SDK guide
+# Flatcar Linux developer SDK guide
 
-These are the instructions for building Container Linux itself. By the end of the guide you will build a developer image that you can run under KVM and have tools for making changes to the code.
+These are the instructions for building Flatcar Linux itself. By the end of the guide you will build a developer image that you can run under KVM and have tools for making changes to the code.
 
-Container Linux is an open source project. All of the source for Container Linux is available on [github][github-coreos]. If you find issues with these docs or the code please send a pull request.
+Flatcar Linux is an open source project. All of the source for Flatcar Linux is available on [github][github-flatcar]. If you find issues with these docs or the code please send a pull request.
 
-Direct questions and suggestions to the [IRC channel][irc] or [mailing list][coreos-dev].
+Direct questions and suggestions to the [IRC channel][irc] or [mailing list][flatcar-dev].
 
 ## Getting started
 
-Let's get set up with an SDK chroot and build a bootable image of Container Linux. The SDK chroot has a full toolchain and isolates the build process from quirks and differences between host OSes. The SDK must be run on an x86-64 Linux machine, the distro should not matter (Ubuntu, Fedora, etc).
+Let's get set up with an SDK chroot and build a bootable image of Flatcar Linux. The SDK chroot has a full toolchain and isolates the build process from quirks and differences between host OSes. The SDK must be run on an x86-64 Linux machine, the distro should not matter (Ubuntu, Fedora, etc).
 
 ### Prerequisites
 
@@ -31,13 +31,13 @@ git config --global user.name "Your Name"
 
 ### Using Cork
 
-The `cork` utility, included in the CoreOS [mantle](https://github.com/coreos/mantle) project, is used to create and work with an SDK chroot.
+The `cork` utility, included in the Flatcar Linux [mantle](https://github.com/flatcar-linux/mantle) project, is used to create and work with an SDK chroot.
 
 First, download the cork utility and verify it with the signature:
 
 ```sh
-curl -L -o cork https://github.com/coreos/mantle/releases/download/v0.7.0/cork-0.7.0-amd64
-curl -L -o cork.sig https://github.com/coreos/mantle/releases/download/v0.7.0/cork-0.7.0-amd64.sig
+curl -L -o cork https://github.com/flatcar-linux/mantle/releases/download/v0.7.0/cork-0.7.0-amd64
+curl -L -o cork.sig https://github.com/flatcar-linux/mantle/releases/download/v0.7.0/cork-0.7.0-amd64.sig
 gpg --receive-keys 9CEB8FE6B4F1E9E752F61C82CDDE268EBB729EC7
 gpg --verify cork.sig cork
 ```
@@ -67,8 +67,8 @@ You may want to add the `PATH` export to your shell profile (e.g. `.bashrc`).
 Next, use the cork utility to create a project directory. This will hold all of your git repos and the SDK chroot. A few gigabytes of space will be necessary.
 
 ```sh
-mkdir coreos-sdk
-cd coreos-sdk
+mkdir flatcar-sdk
+cd flatcar-sdk
 cork create
 cork enter
 ```
@@ -80,11 +80,11 @@ To use the SDK chroot in the future, run `cork enter` from the above directory.
 
 ### Using QEMU for cross-compiling
 
-The Container Linux initramfs is generated with the `dracut` tool. `Dracut` assumes it is running on the target system, and produces output only for that CPU architecture. In order to create initramfs files for other architectures, `dracut` is executed under QEMU's user mode emulation of the target CPU via the host system's binfmt support.
+The Flatcar Linux initramfs is generated with the `dracut` tool. `Dracut` assumes it is running on the target system, and produces output only for that CPU architecture. In order to create initramfs files for other architectures, `dracut` is executed under QEMU's user mode emulation of the target CPU via the host system's binfmt support.
 
 #### Configuring QEMU for 64 bit ARM binaries
 
-Note that "64 bit ARM" is known by two short forms: `aarch64` (as seen in the configuration file for QEMU), and `arm64` (as seen in how Container Linux and many other distributions refer to the architecture).
+Note that "64 bit ARM" is known by two short forms: `aarch64` (as seen in the configuration file for QEMU), and `arm64` (as seen in how Flatcar Linux and many other distributions refer to the architecture).
 
 The QEMU binary, `/usr/bin/qemu-aarch64-static` is not expected to be on the host workstation. It will be inside the `arm64-usr` build chroot entered before running `dracut`.
 
@@ -143,7 +143,7 @@ Build all of the target binary packages:
 ./build_packages
 ```
 
-#### Render the CoreOS Container Linux image
+#### Render the Flatcar Linux image
 
 Build an image based on the binary packages built above, including development tools:
 
@@ -161,7 +161,7 @@ Once you build an image you can launch it with KVM (instructions will print out 
 
 ### git and repo
 
-Container Linux is managed by `repo`, a tool built for the Android project that makes managing a large number of git repositories easier. From the repo announcement blog:
+Flatcar Linux is managed by `repo`, a tool built for the Android project that makes managing a large number of git repositories easier. From the repo announcement blog:
 
 > The repo tool uses an XML-based manifest file describing where the upstream
 > repositories are, and how to merge them into a single working checkout. repo
@@ -175,7 +175,7 @@ You can find the full manual for repo by visiting [android.com - Developing][and
 
 ### Updating repo manifests
 
-The repo manifest for Container Linux lives in a git repository in
+The repo manifest for Flatcar Linux lives in a git repository in
 `.repo/manifests`. If you need to update the manifest edit `default.xml`
 in this directory.
 
@@ -198,11 +198,11 @@ We've compiled a [list of tips and tricks][sdktips] that can make working with t
 
 
 [android-repo-git]: https://source.android.com/source/developing.html
-[coreos-dev]: https://groups.google.com/forum/#!forum/coreos-dev
+[flatcar-dev]: https://groups.google.com/forum/#!forum/flatcar-linux-dev
 [devimages]: sdk-building-development-images.md
-[github-coreos]: https://github.com/coreos/
-[irc]: irc://irc.freenode.org:6667/#coreos
-[mantle]: https://github.com/coreos/mantle
+[github-flatcar]: https://github.com/flatcar-linux/
+[irc]: irc://irc.freenode.org:6667/#flatcar
+[mantle]: https://github.com/flatcar-linux/mantle
 [prodimages]: sdk-building-production-images.md
 [repo-blog]: http://google-opensource.blogspot.com/2008/11/gerrit-and-repo-android-source.html
 [sdktips]: sdk-tips-and-tricks.md

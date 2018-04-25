@@ -1,84 +1,88 @@
-# Running CoreOS Container Linux on DigitalOcean
+# Running Flatcar Linux on DigitalOcean
 
 ## Choosing a channel
 
-Container Linux is designed to be [updated automatically][update-docs] with different schedules per channel. You can [disable this feature][reboot-docs], although we don't recommend it. Read the [release notes][release-notes] for specific features and bug fixes.
+Flatcar Linux is designed to be updated automatically with different schedules per channel. You can [disable this feature][reboot-docs], although we don't recommend it. Read the [release notes][release-notes] for specific features and bug fixes.
 
 The following command will create a single droplet. For more details, check out [Launching via the API](#via-the-api).
 
 <div id="do-images">
-  <ul class="nav nav-tabs">
-    <li class="active"><a href="#stable" data-toggle="tab">Stable Channel</a></li>
-    <li><a href="#beta" data-toggle="tab">Beta Channel</a></li>
-    <li><a href="#alpha" data-toggle="tab">Alpha Channel</a></li>
+  <ul class="nav nav-tabs" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link" href="#stable" role="tab" data-toggle="tab">Stable Channel</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#beta" role="tab" data-toggle="tab">Beta Channel</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link active" href="#alpha" role="tab" data-toggle="tab">Alpha Channel</a>
+    </li>
   </ul>
   <div class="tab-content coreos-docs-image-table">
-    <div class="tab-pane" id="alpha">
+    <div role="tabpanel" class="tab-pane active" id="alpha">
       <div class="channel-info">
-        <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Container Linux {{site.alpha-channel}}.</p>
-        <a href="https://cloud.digitalocean.com/droplets/new?image=coreos-alpha" class="btn btn-default">Launch Container Linux Droplet</a><br/><br/>
+        <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Flatcar Linux {{site.alpha-channel}}.</p>
+        <a href="https://cloud.digitalocean.com/droplets/new?image=flatcar-alpha" class="btn btn-default">Launch Flatcar Linux Droplet</a><br/><br/>
         <p>Launch via DigitalOcean API by specifying <code>$REGION</code>, <code>$SIZE</code> and <code>$SSH_KEY_ID</code>:</p>
         <pre>curl --request POST "https://api.digitalocean.com/v2/droplets" \
      --header "Content-Type: application/json" \
      --header "Authorization: Bearer $TOKEN" \
      --data '{"region":"'"${REGION}"'",
-        "image":"coreos-alpha",
+        "image":"flatcar-alpha",
         "size":"'"$SIZE"'",
         "user_data": "'"$(cat ~/config.ign)"'",
         "ssh_keys":["'"$SSH_KEY_ID"'"],
         "name":"core-1"}'</pre>
       </div>
     </div>
-    <div class="tab-pane" id="beta">
+    <div role="tabpanel" class="tab-pane" id="beta">
       <div class="channel-info">
-        <p>The Beta channel consists of promoted Alpha releases. The current version is Container Linux {{site.beta-channel}}.</p>
-        <a href="https://cloud.digitalocean.com/droplets/new?image=coreos-beta" class="btn btn-default">Launch Container Linux Droplet</a><br/><br/>
+        <p>The Beta channel consists of promoted Alpha releases. The current version is Flatcar Linux {{site.beta-channel}}.</p>
+        <a href="https://cloud.digitalocean.com/droplets/new?image=flatcar-beta" class="btn btn-default">Launch Flatcar Linux Droplet</a><br/><br/>
         <p>Launch via DigitalOcean API by specifying <code>$REGION</code>, <code>$SIZE</code> and <code>$SSH_KEY_ID</code>:</p>
         <pre>curl --request POST "https://api.digitalocean.com/v2/droplets" \
      --header "Content-Type: application/json" \
      --header "Authorization: Bearer $TOKEN" \
      --data '{"region":"'"${REGION}"'",
-        "image":"coreos-beta",
+        "image":"flatcar-beta",
         "size":"'"$SIZE"'",
         "user_data": "'"$(cat ~/config.ign)"'",
         "ssh_keys":["'"$SSH_KEY_ID"'"],
         "name":"core-1"}'</pre>
       </div>
     </div>
-    <div class="tab-pane active" id="stable">
+    <div role="tabpanel" class="tab-pane" id="stable">
       <div class="channel-info">
-        <div class="channel-info">
-        <p>The Stable channel should be used by production clusters. Versions of Container Linux are battle-tested within the Beta and Alpha channels before being promoted. The current version is Container Linux {{site.stable-channel}}.</p>
-        <a href="https://cloud.digitalocean.com/droplets/new?image=coreos-stable" class="btn btn-default">Launch Container Linux Droplet</a><br/><br/>
+        <p>The Stable channel should be used by production clusters. Versions of Flatcar Linux are battle-tested within the Beta and Alpha channels before being promoted.
+        The current version is Flatcar Linux {{ meta.stable-channel }}.</p>
+        <a href="https://cloud.digitalocean.com/droplets/new?image=flatcar-stable" class="btn btn-default">Launch Flatcar Linux Droplet</a><br/><br/>
         <p>Launch via DigitalOcean API by specifying <code>$REGION</code>, <code>$SIZE</code> and <code>$SSH_KEY_ID</code>:</p>
         <pre>curl --request POST "https://api.digitalocean.com/v2/droplets" \
      --header "Content-Type: application/json" \
      --header "Authorization: Bearer $TOKEN" \
      --data '{"region":"'"${REGION}"'",
-        "image":"coreos-stable",
+        "image":"flatcar-stable",
         "size":"'"$SIZE"'",
         "user_data": "'"$(cat ~/config.ign)"'",
         "ssh_keys":["'"$SSH_KEY_ID"'"],
         "name":"core-1"}'</pre>
-      </div>
       </div>
     </div>
   </div>
 </div>
 
-[update-docs]: https://coreos.com/why/#updates
 [reboot-docs]: update-strategies.md
-[release-notes]: https://coreos.com/releases
+[release-notes]: https://flatcar-linux.org/releases
 
 ## Container Linux Configs
 
-Container Linux allows you to configure machine parameters, configure networking, launch systemd units on startup, and more via Container Linux Configs. These configs are then transpiled into Ignition configs and given to booting machines. Head over to the [docs to learn about the supported features][cl-configs]. Note that DigitalOcean doesn't allow an instance's userdata to be modified after the instance has been launched. This isn't a problem since Ignition only runs on the first boot.
+Flatcar Linux allows you to configure machine parameters, configure networking, launch systemd units on startup, and more via Container Linux Configs. These configs are then transpiled into Ignition configs and given to booting machines. Head over to the [docs to learn about the supported features][cl-configs]. Note that DigitalOcean doesn't allow an instance's userdata to be modified after the instance has been launched. This isn't a problem since Ignition only runs on the first boot.
 
-You can provide a raw Ignition config to Container Linux via the DigitalOcean web console or [via the DigitalOcean API](#via-the-api).
+You can provide a raw Ignition config to Flatcar Linux via the DigitalOcean web console or [via the DigitalOcean API](#via-the-api).
 
 As an example, this config will configure and start etcd:
 
-```yaml container-linux-config:digitalocean
+```yaml
 etcd:
   # All options get passed as command line flags to etcd.
   # Any information inside curly braces comes from the machine at boot time.
@@ -103,7 +107,7 @@ To add more instances to the cluster, just launch more with the same Container L
 
 ## SSH to your droplets
 
-Container Linux is set up to be a little more secure than other DigitalOcean images. By default, it uses the core user instead of root and doesn't use a password for authentication. You'll need to add an SSH key(s) via the web console or add keys/passwords via your Ignition config in order to log in.
+Flatcar Linux is set up to be a little more secure than other DigitalOcean images. By default, it uses the core user instead of root and doesn't use a password for authentication. You'll need to add an SSH key(s) via the web console or add keys/passwords via your Ignition config in order to log in.
 
 To connect to a droplet after it's created, run:
 
@@ -111,7 +115,7 @@ To connect to a droplet after it's created, run:
 ssh core@<ip address>
 ```
 
-Optionally, you may want to [configure your ssh-agent](https://github.com/coreos/fleet/blob/master/Documentation/using-the-client.md#remote-fleet-access) to more easily run [fleet commands](../fleet/launching-containers-fleet.md).
+Optionally, you may want to [configure your ssh-agent](https://github.com/flatcar-linux/fleet/blob/master/Documentation/using-the-client.md#remote-fleet-access) to more easily run [fleet commands](../fleet/launching-containers-fleet.md).
 
 ## Launching droplets
 
@@ -138,7 +142,7 @@ read SSH_KEY_ID
 # Enter your SSH key ID
 ```
 
-Create a 512MB droplet with private networking in NYC3 from the Container Linux Stable image:
+Create a 512MB droplet with private networking in NYC3 from the Flatcar Linux Stable image:
 
 ```sh
 curl --request POST "https://api.digitalocean.com/v2/droplets" \
@@ -146,7 +150,7 @@ curl --request POST "https://api.digitalocean.com/v2/droplets" \
      --header "Authorization: Bearer $TOKEN" \
      --data '{
       "region":"nyc3",
-      "image":"coreos-stable",
+      "image":"flatcar-stable",
       "size":"512mb",
       "name":"core-1",
       "private_networking":true,
@@ -165,7 +169,7 @@ For more details, check out [DigitalOcean's API documentation][do-api-docs].
 
 ### Via the web console
 
-1. Open the ["new droplet"](https://cloud.digitalocean.com/droplets/new?image=coreos-stable) page in the web console.
+1. Open the ["new droplet"](https://cloud.digitalocean.com/droplets/new?image=flatcar-stable) page in the web console.
 2. Give the machine a hostname, select the size, and choose a region.
 <div class="row">
   <div class="col-lg-8 col-md-10 col-sm-8 col-xs-12 co-m-screenshot">
@@ -180,20 +184,20 @@ For more details, check out [DigitalOcean's API documentation][do-api-docs].
     <div class="co-m-screenshot-caption">Droplet settings for networking and Ignition</div>
   </div>
 </div>
-4. Choose your [preferred channel](#choosing-a-channel) of Container Linux.
+4. Choose your [preferred channel](#choosing-a-channel) of Flatcar Linux.
 <div class="row">
   <div class="col-lg-8 col-md-10 col-sm-8 col-xs-12 co-m-screenshot">
     <img src="img/image.png" />
-    <div class="co-m-screenshot-caption">Choosing a Container Linux channel</div>
+    <div class="co-m-screenshot-caption">Choosing a Flatcar Linux channel</div>
   </div>
 </div>
 5. Select your SSH keys.
 
-Note that DigitalOcean is not able to inject a root password into Container Linux images like it does with other images. You'll need to add your keys via the web console or add keys or passwords via your Container Linux Config in order to log in.
+Note that DigitalOcean is not able to inject a root password into Flatcar Linux images like it does with other images. You'll need to add your keys via the web console or add keys or passwords via your Container Linux Config in order to log in.
 
-## Using CoreOS Container Linux
+## Using Flatcar Linux
 
-Now that you have a machine booted it is time to play around. Check out the [Container Linux Quickstart][quick-start] guide or dig into [more specific topics][docs].
+Now that you have a machine booted it is time to play around. Check out the [Flatcar Linux Quickstart][quick-start] guide or dig into [more specific topics][docs].
 
 [quick-start]: quickstart.md
-[docs]: https://coreos.com/docs
+[docs]: https://docs.flatcar-linux.org

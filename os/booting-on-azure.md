@@ -1,8 +1,8 @@
-# Running CoreOS Container Linux on Microsoft Azure
+# Running Flatcar Linux on Microsoft Azure
 
 ## Choosing a channel
 
-Container Linux is designed to be [updated automatically][update-docs] with different schedules per channel. This feature can be [disabled][reboot-docs], although it is not recommended. The [release notes][release-notes] contain information about specific features and bug fixes.
+Flatcar Linux is designed to be updated automatically with different schedules per channel. This feature can be [disabled][reboot-docs], although it is not recommended. The [release notes][release-notes] contain information about specific features and bug fixes.
 
 The following command will create a single instance. For more details, check out [Launching via the Microsoft Azure CLI][azurecli-heading].
 
@@ -15,20 +15,20 @@ The following command will create a single instance. For more details, check out
   <div class="tab-content coreos-docs-image-table">
     <div class="tab-pane" id="alpha">
       <div class="channel-info">
-        <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Container Linux {{site.alpha-channel}}.</p>
-        <pre>az vm create --name node-1 --resource-group group-1 --admin-username core --custom-data "$(cat config.ign)" --image CoreOS:CoreOS:Alpha:latest</pre>
+        <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Flatcar Linux {{site.alpha-channel}}.</p>
+        <pre>az vm create --name node-1 --resource-group group-1 --admin-username core --custom-data "$(cat config.ign)" --image Flatcar:Flatcar:Alpha:latest</pre>
       </div>
     </div>
     <div class="tab-pane" id="beta">
       <div class="channel-info">
-        <p>The Beta channel consists of promoted Alpha releases. The current version is Container Linux {{site.beta-channel}}.</p>
-        <pre>az vm create --name node-1 --resource-group group-1 --admin-username core --custom-data "$(cat config.ign)" --image CoreOS:CoreOS:Beta:latest</pre>
+        <p>The Beta channel consists of promoted Alpha releases. The current version is Flatcar Linux {{site.beta-channel}}.</p>
+        <pre>az vm create --name node-1 --resource-group group-1 --admin-username core --custom-data "$(cat config.ign)" --image Flatcar:Flatcar:Beta:latest</pre>
       </div>
     </div>
     <div class="tab-pane active" id="stable">
       <div class="channel-info">
-        <p>The Stable channel should be used by production clusters. Versions of Container Linux are battle-tested within the Beta and Alpha channels before being promoted. The current version is Container Linux {{site.stable-channel}}.</p>
-        <pre>az vm create --name node-1 --resource-group group-1 --admin-username core --custom-data "$(cat config.ign)" --image CoreOS:CoreOS:Stable:latest</pre>
+        <p>The Stable channel should be used by production clusters. Versions of Flatcar Linux are battle-tested within the Beta and Alpha channels before being promoted. The current version is Flatcar Linux {{site.stable-channel}}.</p>
+        <pre>az vm create --name node-1 --resource-group group-1 --admin-username core --custom-data "$(cat config.ign)" --image Flatcar:Flatcar:Stable:latest</pre>
       </div>
     </div>
   </div>
@@ -36,9 +36,9 @@ The following command will create a single instance. For more details, check out
 
 ## Container Linux Config
 
-Container Linux allows you to configure machine parameters, configure networking, launch systemd units on startup, and more via a Container Linux Config. Head over to the [docs to learn how to use Container Linux Configs][cl-configs]. Note that Microsoft Azure doesn't allow an instance's userdata to be modified after the instance has been launched. This isn't a problem since Ignition, the tool that consumes the userdata, only runs on the first boot.
+Flatcar Linux allows you to configure machine parameters, configure networking, launch systemd units on startup, and more via a Container Linux Config. Head over to the [docs to learn how to use Container Linux Configs][cl-configs]. Note that Microsoft Azure doesn't allow an instance's userdata to be modified after the instance has been launched. This isn't a problem since Ignition, the tool that consumes the userdata, only runs on the first boot.
 
-You can provide a raw Ignition config (produced from a Container Linux Config) to Container Linux [via the Microsoft Azure CLI][azurecli-heading].
+You can provide a raw Ignition config (produced from a Container Linux Config) to Flatcar Linux [via the Microsoft Azure CLI][azurecli-heading].
 
 As an example, this config will configure and start etcd:
 
@@ -71,22 +71,21 @@ Instances on Microsoft Azure must be created within a resource group. Create a n
 az group create --name group-1 --location <location>
 ```
 
-Now that you have a resource group, create an instance of Container Linux Alpha inside it:
+Now that you have a resource group, create an instance of Flatcar Linux Alpha inside it:
 
 ```sh
-az vm create --name node-1 --resource-group group-1 --admin-username core --custom-data "$(cat config.ign)" --image CoreOS:CoreOS:Alpha:latest
+az vm create --name node-1 --resource-group group-1 --admin-username core --custom-data "$(cat config.ign)" --image Flatcar:Flatcar:Alpha:latest
 ```
 
-## Using CoreOS Container Linux
+## Using Flatcar Linux
 
-Now that you have a machine booted it is time to play around. Check out the [Container Linux quickstart guide][quickstart] or dig into [more specific topics][docs].
+Now that you have a machine booted it is time to play around. Check out the [Flatcar Linux quickstart guide][quickstart] or dig into [more specific topics][docs].
 
 
 [azurecli-heading]: #via-the-microsoft-azure-cli
-[docs]: https://coreos.com/docs
+[docs]: https://docs.flatcar-linux.org
 [quickstart]: quickstart.md
 [reboot-docs]: update-strategies.md
-[release-notes]: https://coreos.com/releases
-[update-docs]: https://coreos.com/why/#updates
+[release-notes]: https://flatcar-linux.org/releases
 [azure-cli]: https://docs.microsoft.com/en-us/cli/azure/overview
 [cl-configs]: provisioning.md

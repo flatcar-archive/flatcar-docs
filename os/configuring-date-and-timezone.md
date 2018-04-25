@@ -1,6 +1,6 @@
 # Configuring date and time zone
 
-By default, Container Linux machines keep time in the Coordinated Universal Time (UTC) zone and synchronize their clocks with the Network Time Protocol (NTP). This page contains information about customizing those defaults, explains the change in NTP client daemons in recent Container Linux versions, and offers advice on best practices for timekeeping in Container Linux clusters.
+By default, Flatcar Linux machines keep time in the Coordinated Universal Time (UTC) zone and synchronize their clocks with the Network Time Protocol (NTP). This page contains information about customizing those defaults, explains the change in NTP client daemons in recent Flatcar Linux versions, and offers advice on best practices for timekeeping in Flatcar Linux clusters.
 
 ## Viewing and changing time and date
 
@@ -20,7 +20,7 @@ NTP synchronized: yes
 
 ### Recommended: UTC time
 
-To avoid time zone confusion and the complexities of adjusting clocks for daylight saving time (or not) in accordance with regional custom, we recommend that all machines in Container Linux clusters use UTC. This is the default time zone. To reset a machine to this default:
+To avoid time zone confusion and the complexities of adjusting clocks for daylight saving time (or not) in accordance with regional custom, we recommend that all machines in Flatcar Linux clusters use UTC. This is the default time zone. To reset a machine to this default:
 
 ```
 $ sudo timedatectl set-timezone UTC
@@ -66,7 +66,7 @@ NTP synchronized: yes
 
 ## Time synchronization
 
-Container Linux clusters use NTP to synchronize the clocks of member nodes, and all machines start an NTP client at boot. Container Linux versions later than [681.0.0][681.0.0] use [`systemd-timesyncd(8)`][systemd-timesyncd] as the default NTP client. Earlier versions used [`ntpd(8)`][ntp.org]. Use `systemctl` to check which service is running:
+Flatcar Linux clusters use NTP to synchronize the clocks of member nodes, and all machines start an NTP client at boot. Flatcar Linux versions later than [681.0.0][681.0.0] use [`systemd-timesyncd(8)`][systemd-timesyncd] as the default NTP client. Earlier versions used [`ntpd(8)`][ntp.org]. Use `systemctl` to check which service is running:
 
 ```
 $ systemctl status systemd-timesyncd ntpd
@@ -87,18 +87,18 @@ $ systemctl status systemd-timesyncd ntpd
 
 ### Recommended NTP sources
 
-Unless you have a highly reliable and precise time server pool, use your cloud provider's NTP source, or, on bare metal, the default Container Linux NTP servers:
+Unless you have a highly reliable and precise time server pool, use your cloud provider's NTP source, or, on bare metal, the default Flatcar Linux NTP servers:
 
 ```
-0.coreos.pool.ntp.org
-1.coreos.pool.ntp.org
-2.coreos.pool.ntp.org
-3.coreos.pool.ntp.org
+0.flatcar.pool.ntp.org
+1.flatcar.pool.ntp.org
+2.flatcar.pool.ntp.org
+3.flatcar.pool.ntp.org
 ```
 
 ### Changing NTP time sources
 
-`Systemd-timesyncd` can discover NTP servers from DHCP, individual [network][systemd.network] configs, the file [`timesyncd.conf`][timesyncd.conf], or the default `*.coreos.pool.ntp.org` pool.
+`Systemd-timesyncd` can discover NTP servers from DHCP, individual [network][systemd.network] configs, the file [`timesyncd.conf`][timesyncd.conf], or the default `*.flatcar.pool.ntp.org` pool.
 
 The default behavior uses NTP servers provided by DHCP. To disable this, write a configuration listing your preferred NTP servers into the file `/etc/systemd/network/50-dhcp-no-ntp.conf`:
 
@@ -136,7 +136,7 @@ storage:
 
 ## Switching from timesyncd to ntpd
 
-On Container Linux 681.0.0 or later, you can switch from `systemd-timesyncd` back to `ntpd` with the following commands:
+On Flatcar Linux 681.0.0 or later, you can switch from `systemd-timesyncd` back to `ntpd` with the following commands:
 
 ```
 $ sudo systemctl stop systemd-timesyncd

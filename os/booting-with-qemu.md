@@ -1,8 +1,8 @@
-# Running CoreOS Container Linux on QEMU
+# Running Flatcar Linux on QEMU
 
-These instructions will bring up a single Container Linux instance under QEMU, the small Swiss Army knife of virtual machine and CPU emulators. If you need to do more such as [configuring networks][qemunet] differently refer to the [QEMU Wiki][qemuwiki] and [User Documentation][qemudoc].
+These instructions will bring up a single Flatcar Linux instance under QEMU, the small Swiss Army knife of virtual machine and CPU emulators. If you need to do more such as [configuring networks][qemunet] differently refer to the [QEMU Wiki][qemuwiki] and [User Documentation][qemudoc].
 
-You can direct questions to the [IRC channel][irc] or [mailing list][coreos-dev].
+You can direct questions to the [IRC channel][irc] or [mailing list][flatcar-dev].
 
 [qemunet]: http://wiki.qemu.org/Documentation/Networking
 [qemuwiki]: http://wiki.qemu.org/Manual
@@ -55,13 +55,13 @@ emerge -av app-emulation/qemu
 [qemugen]: http://wiki.gentoo.org/wiki/QEMU
 
 
-## Startup CoreOS Container Linux
+## Startup Flatcar Linux
 
-Once QEMU is installed you can download and start the latest Container Linux image.
+Once QEMU is installed you can download and start the latest Flatcar Linux image.
 
 ### Choosing a channel
 
-Container Linux is designed to be [updated automatically](https://coreos.com/why/#updates) with different schedules per channel. You can [disable this feature](update-strategies.md), although we don't recommend it. Read the [release notes](https://coreos.com/releases) for specific features and bug fixes.
+Flatcar Linux is designed to be updated automatically with different schedules per channel. You can [disable this feature](update-strategies.md), although we don't recommend it. Read the [release notes](https://flatcar-linux.org/releases) for specific features and bug fixes.
 
 <div id="qemu-images">
   <ul class="nav nav-tabs">
@@ -72,51 +72,51 @@ Container Linux is designed to be [updated automatically](https://coreos.com/why
   <div class="tab-content coreos-docs-image-table">
     <div class="tab-pane active" id="stable">
       <div class="channel-info">
-        <p>The Stable channel should be used by production clusters. Versions of Container Linux are battle-tested within the Beta and Alpha channels before being promoted. The current version is Container Linux {{site.stable-channel}}.</p>
+        <p>The Stable channel should be used by production clusters. Versions of Flatcar Linux are battle-tested within the Beta and Alpha channels before being promoted. The current version is Flatcar Linux {{site.stable-channel}}.</p>
        </div>
       <p>There are two files you need: the disk image (provided in qcow2
       format) and the wrapper shell script to start QEMU.</p>
-      <pre>mkdir coreos; cd coreos
-wget https://stable.release.core-os.net/amd64-usr/current/coreos_production_qemu.sh
-wget https://stable.release.core-os.net/amd64-usr/current/coreos_production_qemu.sh.sig
-wget https://stable.release.core-os.net/amd64-usr/current/coreos_production_qemu_image.img.bz2
-wget https://stable.release.core-os.net/amd64-usr/current/coreos_production_qemu_image.img.bz2.sig
-gpg --verify coreos_production_qemu.sh.sig
-gpg --verify coreos_production_qemu_image.img.bz2.sig
-bzip2 -d coreos_production_qemu_image.img.bz2
-chmod +x coreos_production_qemu.sh</pre>
+      <pre>mkdir flatcar; cd flatcar
+wget https://stable.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu.sh
+wget https://stable.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu.sh.sig
+wget https://stable.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu_image.img.bz2
+wget https://stable.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu_image.img.bz2.sig
+gpg --verify flatcar_production_qemu.sh.sig
+gpg --verify flatcar_production_qemu_image.img.bz2.sig
+bzip2 -d flatcar_production_qemu_image.img.bz2
+chmod +x flatcar_production_qemu.sh</pre>
     </div>
     <div class="tab-pane" id="alpha">
       <div class="channel-info">
-        <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Container Linux {{site.alpha-channel}}.</p>
+        <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Flatcar Linux {{site.alpha-channel}}.</p>
       </div>
       <p>There are two files you need: the disk image (provided in qcow2
       format) and the wrapper shell script to start QEMU.</p>
-      <pre>mkdir coreos; cd coreos
-wget https://alpha.release.core-os.net/amd64-usr/current/coreos_production_qemu.sh
-wget https://alpha.release.core-os.net/amd64-usr/current/coreos_production_qemu.sh.sig
-wget https://alpha.release.core-os.net/amd64-usr/current/coreos_production_qemu_image.img.bz2
-wget https://alpha.release.core-os.net/amd64-usr/current/coreos_production_qemu_image.img.bz2.sig
-gpg --verify coreos_production_qemu.sh.sig
-gpg --verify coreos_production_qemu_image.img.bz2.sig
-bzip2 -d coreos_production_qemu_image.img.bz2
-chmod +x coreos_production_qemu.sh</pre>
+      <pre>mkdir flatcar; cd flatcar
+wget https://alpha.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu.sh
+wget https://alpha.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu.sh.sig
+wget https://alpha.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu_image.img.bz2
+wget https://alpha.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu_image.img.bz2.sig
+gpg --verify flatcar_production_qemu.sh.sig
+gpg --verify flatcar_production_qemu_image.img.bz2.sig
+bzip2 -d flatcar_production_qemu_image.img.bz2
+chmod +x flatcar_production_qemu.sh</pre>
     </div>
     <div class="tab-pane" id="beta">
       <div class="channel-info">
-        <p>The Beta channel consists of promoted Alpha releases. The current version is Container Linux {{site.beta-channel}}.</p>
+        <p>The Beta channel consists of promoted Alpha releases. The current version is Flatcar Linux {{site.beta-channel}}.</p>
       </div>
       <p>There are two files you need: the disk image (provided in qcow2
       format) and the wrapper shell script to start QEMU.</p>
-      <pre>mkdir coreos; cd coreos
-wget https://beta.release.core-os.net/amd64-usr/current/coreos_production_qemu.sh
-wget https://beta.release.core-os.net/amd64-usr/current/coreos_production_qemu.sh.sig
-wget https://beta.release.core-os.net/amd64-usr/current/coreos_production_qemu_image.img.bz2
-wget https://beta.release.core-os.net/amd64-usr/current/coreos_production_qemu_image.img.bz2.sig
-gpg --verify coreos_production_qemu.sh.sig
-gpg --verify coreos_production_qemu_image.img.bz2.sig
-bzip2 -d coreos_production_qemu_image.img.bz2
-chmod +x coreos_production_qemu.sh</pre>
+      <pre>mkdir flatcar; cd flatcar
+wget https://beta.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu.sh
+wget https://beta.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu.sh.sig
+wget https://beta.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu_image.img.bz2
+wget https://beta.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu_image.img.bz2.sig
+gpg --verify flatcar_production_qemu.sh.sig
+gpg --verify flatcar_production_qemu_image.img.bz2.sig
+bzip2 -d flatcar_production_qemu_image.img.bz2
+chmod +x flatcar_production_qemu.sh</pre>
     </div>
   </div>
 </div>
@@ -124,7 +124,7 @@ chmod +x coreos_production_qemu.sh</pre>
 Starting is as simple as:
 
 ```sh
-./coreos_production_qemu.sh -nographic
+./flatcar_production_qemu.sh -nographic
 ```
 
 ### SSH keys
@@ -132,10 +132,10 @@ Starting is as simple as:
 In order to log in to the virtual machine you will need to use ssh keys. If you don't already have a ssh key pair you can generate one simply by running the command `ssh-keygen`. The wrapper script will automatically look for public keys in ssh-agent if available and at the default locations `~/.ssh/id_dsa.pub` or `~/.ssh/id_rsa.pub`. If you need to provide an alternate location use the -a option:
 
 ```sh
-./coreos_production_qemu.sh -a ~/.ssh/authorized_keys -- -nographic
+./flatcar_production_qemu.sh -a ~/.ssh/authorized_keys -- -nographic
 ```
 
-Note: Options such as `-a` for the wrapper script must be specified before any options for QEMU. To make the separation between the two explicit you can use `--` but that isn't required. See `./coreos_production_qemu.sh -h` for details.
+Note: Options such as `-a` for the wrapper script must be specified before any options for QEMU. To make the separation between the two explicit you can use `--` but that isn't required. See `./flatcar_production_qemu.sh -h` for details.
 
 Once the virtual machine has started you can log in via SSH:
 
@@ -148,7 +148,7 @@ ssh -l core -p 2222 localhost
 To simplify this and avoid potential host key errors in the future add the following to `~/.ssh/config`:
 
 ```sh
-Host coreos
+Host flatcar
 HostName localhost
 Port 2222
 User core
@@ -159,24 +159,24 @@ UserKnownHostsFile /dev/null
 Now you can log in to the virtual machine with:
 
 ```sh
-ssh coreos
+ssh flatcar
 ```
 
 ### Container Linux Configs
 
-Container Linux allows you to configure machine parameters, configure networking, launch systemd units on startup, and more via Container Linux Configs. These configs are then transpiled into Ignition configs and given to booting machines. Head over to the [docs to learn about the supported features][cl-configs]. An Ignition config can be passed to the virtual machine using the QEMU Firmware Configuration Device. The wrapper script provides a method for doing so:
+Flatcar Linux allows you to configure machine parameters, configure networking, launch systemd units on startup, and more via Container Linux Configs. These configs are then transpiled into Ignition configs and given to booting machines. Head over to the [docs to learn about the supported features][cl-configs]. An Ignition config can be passed to the virtual machine using the QEMU Firmware Configuration Device. The wrapper script provides a method for doing so:
 
 ```sh
-./coreos_production_qemu.sh -i config.ign -- -nographic
+./flatcar_production_qemu.sh -i config.ign -- -nographic
 ```
 
 This will pass the contents of `config.ign` through to Ignition, which runs in the virtual machine.
 
 [cl-configs]: provisioning.md
 
-## Using CoreOS Container Linux
+## Using Flatcar Linux
 
-Now that you have a machine booted it is time to play around. Check out the [Container Linux Quickstart](quickstart.md) guide or dig into [more specific topics](https://coreos.com/docs).
+Now that you have a machine booted it is time to play around. Check out the [Flatcar Linux Quickstart](quickstart.md) guide or dig into [more specific topics](https://docs.flatcar-linux.org).
 
-[coreos-dev]: https://groups.google.com/forum/#!forum/coreos-dev
-[irc]: irc://irc.freenode.org:6667/#coreos
+[flatcar-dev]: https://groups.google.com/forum/#!forum/flatcar-linux-dev
+[irc]: irc://irc.freenode.org:6667/#flatcar
