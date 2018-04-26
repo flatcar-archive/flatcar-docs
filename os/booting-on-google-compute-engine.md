@@ -16,7 +16,7 @@ You can provide a raw Ignition config to Flatcar Linux via the Google Cloud cons
 
 As an example, this config will configure and start etcd:
 
-```yaml container-linux-config:gce
+```yaml
 etcd:
   # All options get passed as command line flags to etcd.
   # Any information inside curly braces comes from the machine at boot time.
@@ -67,7 +67,7 @@ Create 3 instances from the image above using our Ignition from `example.ign`:
 
 Additional disks attached to instances can be mounted with a `.mount` unit. Each disk can be accessed via `/dev/disk/by-id/google-<disk-name>`. Here's the Container Linux Config to format and mount a disk called `database-backup`:
 
-```yaml container-linux-config:gce
+```yaml
 storage:
   filesystems:
     - mount:

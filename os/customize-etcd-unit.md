@@ -8,7 +8,7 @@ etcd supports client certificates as a way to provide secure communication betwe
 
 Please follow the [instruction](generate-self-signed-certificates.md) to know how to create self-signed certificates and private keys.
 
-```yaml container-linux-config
+```yaml
 etcd:
   # More settings are needed here for a functioning etcd daemon
   ca_file:        /path/to/CA.pem

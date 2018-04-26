@@ -44,7 +44,7 @@ label flatcar
 
 Here's a common config example which should be located at the URL from above:
 
-```yaml container-linux-config
+```yaml
 systemd:
   units:
     - name: etcd2.service
@@ -147,7 +147,7 @@ If you plan on using Docker we recommend using a local ext4 filesystem with over
 
 For example, to setup an ext4 root filesystem on `/dev/sda`:
 
-```yaml container-linux-config
+```yaml
 storage:
   disks:
   - device: /dev/sda
@@ -166,7 +166,7 @@ And add `root=/dev/sda1` or `root=LABEL=ROOT` to the kernel options as documente
 
 Similarly, to setup a btrfs root filesystem on `/dev/sda`:
 
-```yaml container-linux-config
+```yaml
 storage:
   disks:
   - device: /dev/sda

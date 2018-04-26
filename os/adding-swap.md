@@ -80,7 +80,7 @@ The block device mounted at `/var/`, `/dev/sdXN`, is the correct filesystem type
 
 The following config sets up a 1GiB swapfile located at `/var/vm/swapfile1`.
 
-```yaml container-linux-config
+```yaml
 storage:
   files:
   - path: /etc/sysctl.d/80-swappiness.conf

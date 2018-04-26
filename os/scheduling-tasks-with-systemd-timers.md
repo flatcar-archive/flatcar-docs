@@ -43,7 +43,7 @@ Unit=date.service
 
 Here you'll find an example Container Linux Config demonstrating how to install systemd timers:
 
-```yaml container-linux-config
+```yaml
 systemd:
   units:
     - name: date.service

@@ -16,7 +16,7 @@ To place the root filesystem on a RAID array:
 This Container Linux Config creates partitions on `/dev/vdb` and `/dev/vdc` that fill each disk, creates a RAID array named `root_array` from those partitions, and finally creates the root filesystem on the array. To prevent inadvertent booting from the [original root filesystem](https://coreos.com/os/docs/latest/sdk-disk-partitions.html#partition-table), `/dev/vda9` is reformatted with a blank ext4 filesystem labeled `unused`.
 
 **Warning: This will erase both `/dev/vdb` and `/dev/vdc`.**
-```yaml container-linux-config
+```yaml
 storage:
   disks:
     - device: /dev/vdb

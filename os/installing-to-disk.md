@@ -74,7 +74,7 @@ After using the [Container Linux Config Transpiler][ct] to produce an Ignition c
 
 A Container Linux Config that specifies an SSH key for the `core` user but doesn't use any other parameters looks like:
 
-```yaml container-linux-config
+```yaml
 passwd:
   users:
     - name: core
@@ -95,7 +95,7 @@ coreos-install -d /dev/sda -C stable -i ~/ignition.json
 
 This example will configure Flatcar Linux components: etcd and flannel. You have to substitute `<PEER_ADDRESS>` to your host's IP or DNS address.
 
-```yaml container-linux-config
+```yaml
 passwd:
   users:
     - name: core

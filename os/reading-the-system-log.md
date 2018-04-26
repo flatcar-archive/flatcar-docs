@@ -107,7 +107,7 @@ dmesg | grep systemd-journald
 
 Define a [Drop-In][drop-ins] in a [Container Linux Config][ct-configs]:
 
-```yaml container-linux-config
+```yaml
 systemd:
   units:
     - name: systemd-journald.service

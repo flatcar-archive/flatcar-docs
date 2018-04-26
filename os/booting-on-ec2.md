@@ -122,7 +122,7 @@ You can provide a raw Ignition config to Flatcar Linux via the Amazon web consol
 
 As an example, this Container Linux Config will configure and start etcd:
 
-```yaml container-linux-config:ec2
+```yaml
 etcd:
   # All options get passed as command line flags to etcd.
   # Any information inside curly braces comes from the machine at boot time.
@@ -146,7 +146,7 @@ etcd:
 
 Ephemeral disks and additional EBS volumes attached to instances can be mounted with a `.mount` unit. Amazon's block storage devices are attached differently [depending on the instance type](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/InstanceStorage.html#InstanceStoreDeviceNames). Here's the Container Linux Config to format and mount the first ephemeral disk, `xvdb`, on most instance types:
 
-```yaml container-linux-config:ec2
+```yaml
 storage:
   filesystems:
     - mount:
@@ -257,7 +257,7 @@ First we need to create a security group to allow Flatcar Linux instances to com
         </li>
         <li>
           Use <a href="provisioning.md">ct</a> to convert the following configuration into an Ignition config, and back in the EC2 dashboard, paste it into the "User Data" field.
-          ```yaml container-linux-config:ec2
+          ```yaml
           etcd:
             # All options get passed as command line flags to etcd.
             # Any information inside curly braces comes from the machine at boot time.
@@ -331,7 +331,7 @@ First we need to create a security group to allow Flatcar Linux instances to com
         </li>
         <li>
           Use <a href="provisioning.md">ct</a> to convert the following configuration into an Ignition config, and back in the EC2 dashboard, paste it into the "User Data" field.
-          ```yaml container-linux-config:ec2
+          ```yaml
           etcd:
             # All options get passed as command line flags to etcd.
             # Any information inside curly braces comes from the machine at boot time.
@@ -405,7 +405,7 @@ First we need to create a security group to allow Flatcar Linux instances to com
         </li>
         <li>
           Use <a href="provisioning.md">ct</a> to convert the following configuration into an Ignition config, and back in the EC2 dashboard, paste it into the "User Data" field.
-          ```yaml container-linux-config:ec2
+          ```yaml
           etcd:
             # All options get passed as command line flags to etcd.
             # Any information inside curly braces comes from the machine at boot time.

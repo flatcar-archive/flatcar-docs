@@ -79,7 +79,7 @@ You can provide a raw Ignition config to Flatcar Linux via VMware's [Guestinfo i
 
 As an example, this config will start etcd:
 
-```yaml container-linux-config
+```yaml
 etcd:
   # All options get passed as command line flags to etcd.
   # Any information inside curly braces comes from the machine at boot time.

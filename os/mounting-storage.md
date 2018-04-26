@@ -5,7 +5,7 @@ Container Linux Configs can be used to format and attach additional filesystems 
 
 Mount units name the source filesystem and target mount point, and optionally the filesystem type. *Systemd* mounts filesystems defined in such units at boot time. The following example formats an [EC2 ephemeral disk](booting-on-ec2.md#instance-storage) and then mounts it at the node's `/media/ephemeral` directory. The mount unit is therefore named `media-ephemeral.mount`.
 
-```yaml container-linux-config
+```yaml
 storage:
   filesystems:
     - name: ephemeral1
@@ -34,7 +34,7 @@ Docker containers can be very large and debugging a build process makes it easy 
 
 We're going to format a device as ext4 and then mount it to `/var/lib/docker`, where Docker stores images. Be sure to hardcode the correct device or look for a device by label:
 
-```yaml container-linux-config
+```yaml
 storage:
   filesystems:
     - name: ephemeral1
@@ -71,7 +71,7 @@ Flatcar Linux uses ext4 + overlayfs to provide a layered filesystem for the root
 
 In this example, we are going to mount a new 25GB btrfs volume file to `/var/lib/docker`. One can verify that Docker is using the btrfs storage driver once the Docker service has started by executing `sudo docker info`. We recommend allocating **no more than 85%** of the available disk space for a btrfs filesystem as journald will also require space on the host filesystem.
 
-```yaml container-linux-config
+```yaml
 systemd:
   units:
     - name: format-var-lib-docker.service
@@ -106,7 +106,7 @@ Note the declaration of `ConditionPathExists=!/var/lib/docker.btrfs`. Without th
 
 This Container Linux Config excerpt mounts an NFS export onto the Flatcar Linux node's `/var/www`.
 
-```yaml container-linux-config
+```yaml
 systemd:
   units:
     - name: var-www.mount
