@@ -17,7 +17,7 @@ Provisioning                                            | Cloud Providers
 Bare Metal                                              | Community Platforms
 --------------                                          | -------------
 [Using Matchbox][matchbox]                              | These [platforms and providers][platforms-providers] offer support and
-[Booting with iPXE][ipxe]                               | documentation for running Container Linux.
+[Booting with iPXE][ipxe]                               | documentation for running Flatcar Linux.
 [Booting with PXE][pxe]                                 |
 [Installing to Disk][install-to-disk]                   |
 [Booting from ISO][boot-iso]                            |
@@ -32,7 +32,7 @@ Creating Clusters                                               | Customizing Cl
 [Cluster architectures][cluster-architectures]                  | [Using networkd to customize networking][networkd-customize]
 [Update strategies][update-strategies]                          | [Using systemd drop-in units][systemd-drop-in]
 [Clustering machines][clustering-machines]                      | [Using environment variables in systemd units][environment-variables-systemd]
-[Verify Container Linux Images with GPG][verify-container-linux]| [Configuring DNS][dns]
+[Verify Flatcar Linux Images with GPG][verify-container-linux]  | [Configuring DNS][dns]
                                                                 | [Configuring date & timezone][date-timezone]
                                                                 | [Adding users][users]
                                                                 | [Kernel modules / sysctl parameters][parameters]
@@ -51,15 +51,15 @@ Scaling Clusters                                                | Managing Clust
 Securing Clusters                                               | Debugging Clusters
 --------------                                                  | --------------
 [Customizing the SSH daemon][ssh-daemon]                        | [Install debugging tools][debugging-tools]
-[Configuring SSSD on Container Linux][sssd-container-linux]     | [Working with btrfs][btrfs]
-[Hardening a Container Linux machine][hardening-container-linux]| [Reading the system log][system-log]
+[Configuring SSSD on Flatcar Linux][sssd-container-linux]       | [Working with btrfs][btrfs]
+[Hardening a Flatcar Linux machine][hardening-container-linux]  | [Reading the system log][system-log]
 [Trusted Computing Hardware Requirements][hardware-requirements]| [Collecting crash logs][crash-log]
-[Adding Cert Authorities][cert-authorities]                     | [Manual Container Linux rollbacks][container-linux-rollbacks]
+[Adding Cert Authorities][cert-authorities]                     | [Manual Flatcar Linux rollbacks][container-linux-rollbacks]
 [Using SELinux][selinux]                                        |
 
 
 ### Container Runtimes
-Container Linux supports all of the popular methods for running containers, and you can choose to interact with the containers at a low-level, or use a higher level orchestration framework. Listed below are your options from the highest level abstraction down to the lowest level, the container runtime.
+Flatcar Linux supports all of the popular methods for running containers, and you can choose to interact with the containers at a low-level, or use a higher level orchestration framework. Listed below are your options from the highest level abstraction down to the lowest level, the container runtime.
 
 Docker                                              | rkt
 --------------                                      | --------------
@@ -68,7 +68,7 @@ Docker                                              | rkt
 
 
 ### Reference
-APIs and troubleshooting guides for working with Container Linux.
+APIs and troubleshooting guides for working with Flatcar Linux.
 
 [Developer guides][developer-guides]
 
