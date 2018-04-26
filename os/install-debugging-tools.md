@@ -34,7 +34,7 @@ Pulling repository index.example.com/debug
 
 You can also specify this in a Container Linux Config:
 
-```yaml container-linux-config
+```yaml
 storage:
   files:
     - path: /home/core/.toolboxrc

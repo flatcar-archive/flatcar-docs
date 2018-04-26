@@ -95,7 +95,7 @@ restorecon -R "/var/lib/libvirt/container-linux/container-linux1"
 
 A simple Flatcar Linux config to add your ssh keys might look like the following:
 
-```yaml container-linux-config
+```yaml
 storage:
   files:
   - path: /etc/hostname
@@ -193,7 +193,7 @@ Expiry Time          MAC address        Protocol  IP address                Host
 
 By default, Flatcar Linux uses DHCP to get its network configuration. In this example the VM will be attached directly to the local network via a bridge on the host's virbr0 and the local network. To configure a static address add a [networkd unit][systemd-network] to the Flatcar Linux config:
 
-```yaml container-linux-config
+```yaml
 passwd:
   users:
   - name: core

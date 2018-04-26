@@ -81,7 +81,7 @@ This unit file will run nginx Docker container and bind it to specific IP addres
 
 You can define system wide environment variables using a [Container Linux Config][cl-configs] as explained below:
 
-```yaml container-linux-config
+```yaml
 storage:
   files:
     - path: /etc/systemd/system.conf.d/10-default-env.conf

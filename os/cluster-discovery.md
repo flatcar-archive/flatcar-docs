@@ -15,7 +15,7 @@ The discovery URL can be provided to each Flatcar Linux machine via [Container L
 
 Boot each one of the machines with identical Container Linux Config and they should be automatically clustered:
 
-```yaml container-linux-config:ec2
+```yaml
 etcd:
   # generate a new token for each unique cluster from https://discovery.etcd.io/new?size=3
   # specify the initial size of your cluster with ?size=X

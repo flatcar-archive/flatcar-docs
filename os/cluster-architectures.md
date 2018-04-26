@@ -21,7 +21,7 @@ If you're developing locally but plan to run containers in production, it's best
 
 Start a single Flatcar Linux VM with the Docker remote socket enabled in the Container Linux Config (CL Config). Here's what the CL Config looks like:
 
-```yaml container-linux-config
+```yaml
 systemd:
   units:
     - name: docker-tcp.socket
@@ -115,7 +115,7 @@ The networkd unit is typically used for bare metal installations that require st
 
 Here's the CL Config for the etcd machine:
 
-```yaml container-linux-config
+```yaml
 etcd:
   version: 3.1.5
   name: "etcdserver"
@@ -169,7 +169,7 @@ Our central services machines will run services like etcd and Kubernetes control
 
 Here's an example CL Config for one of the central service machines. Be sure to generate a new discovery token with the initial size of your cluster:
 
-```yaml container-linux-config
+```yaml
 etcd:
   version: 3.0.15
   # generate a new token for each unique cluster from https://discovery.etcd.io/new?size=3
@@ -208,7 +208,7 @@ The worker roles will use DHCP and should be easy to add capacity or autoscaling
 
 Here's an example CL Config for a worker which specifies an update channel:
 
-```yaml container-linux-config
+```yaml
 update:
   # CoreUpdate group ID for "Production Central Services"
   # Use "stable", "beta", or "alpha" for non-subscribers.

@@ -6,7 +6,7 @@ This document describes the reconfiguration and recovery of an etcd cluster runn
 
 When a [Container Linux Config][cl-configs] is used for configuring an etcd member on a Container Linux node, it compiles a special `/etc/systemd/system/etcd-member.service.d/20-clct-etcd-member.conf` [drop-in unit file][drop-in]. For example:
 
-```yaml container-linux-config
+```yaml
 etcd:
   name: demo-etcd-1
   listen_client_urls: http://10.240.0.1:2379,http://0.0.0.0:4001
@@ -61,7 +61,7 @@ Changing the size of an etcd cluster is as simple as adding a new member, and us
 
 3. Use the information from the output of the `etcdctl member add` command and provision a new Container Linux host with the following Container Linux Config:
 
-    ```yaml container-linux-config
+    ```yaml
     etcd:
       name: node4
       listen_client_urls: http://10.240.0.4:2379,http://0.0.0.0:4001
@@ -89,7 +89,7 @@ An etcd member node might fail for several reasons: out of disk space, an incorr
 
 Consider a scenario where a member is failed in a three-member cluster. The cluster is still running and has maintained [quorum][majority].  The example assumes [a Container Linux Config][cl-configs] is used with the following default options:
 
-```yaml container-linux-config
+```yaml
 etcd:
   name: demo-etcd-1
   listen_client_urls: http://10.240.0.1:2379,http://0.0.0.0:4001
@@ -142,7 +142,7 @@ cluster is healthy
 
 4. Modify the existing systemd drop-in, `/etc/systemd/system/etcd-member.service.d/20-clct-etcd-member.conf` by replacing the node data with the appropriate information from the output of the `etcdctl member add` command executed in the last step.
 
-    ```yaml container-linux-config
+    ```yaml
     etcd:
       name: demo-etcd-2
       listen_client_urls: http://10.240.0.2:2379,http://0.0.0.0:4001

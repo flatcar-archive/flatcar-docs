@@ -9,7 +9,7 @@ As a practical example, when a client fails to connect by not completing the TCP
 In this example we will disable logins for the `root` user, only allow login for the `core` user and disable password based authentication. For more details on what sections can be added to `/etc/ssh/sshd_config` see the [OpenSSH manual][openssh-manual].
 If you're interested in additional security options, Mozilla provides a well-commented example of a [hardened configuration][mozilla-ssh-rec].
 
-```yaml container-linux-config
+```yaml
 storage:
   files:
     - path: /etc/ssh/sshd_config
@@ -31,7 +31,7 @@ storage:
 
 Flatcar Linux ships with socket-activated SSH daemon by default. The configuration for this can be found at `/usr/lib/systemd/system/sshd.socket`. We're going to override some of the default settings for this in the Container Linux Config provided at boot:
 
-```yaml container-linux-config
+```yaml
 systemd:
   units:
     - name: sshd.socket
@@ -51,7 +51,7 @@ It may be desirable to disable socket-activation for sshd to ensure it will reli
 
 To configure sshd on Flatcar Linux without socket activation, a Container Linux Config file similar to the following may be used:
 
-```yaml container-linux-config
+```yaml
 systemd:
   units:
   - name: sshd.service

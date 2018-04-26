@@ -10,7 +10,7 @@ When booting your [Flatcar Linux Machines on EC2](booting-on-ec2.md), configure 
 
 Be sure to change `ECS_CLUSTER` to the cluster name you've configured via the ECS CLI or leave it empty for the default. Here's a full config example:
 
-```yaml container-linux-config:ec2
+```yaml
 systemd:
  units:
    - name: amazon-ecs-agent.service
