@@ -34,12 +34,12 @@ Flatcar Linux is designed to be updated automatically with different schedules p
           <td rowspan="2">{{ region.name }}</td>
           <td class="dashed"><a href="http://aws.amazon.com/amazon-linux-ami/instance-type-matrix/">PV</a></td>
           <td class="dashed"><a href="https://console.{{ region_domain }}/ec2/home?region={{ region.name }}#launchAmi={{ region.pv }}">{{ region.pv }}</a></td>
-          <td class="dashed"><a href="https://console.{{ region_domain }}/cloudformation/home?region={{ region.name }}#cstack=sn%7ECoreOS-alpha%7Cturl%7Ehttps%3A%2F%2Fs3.amazonaws.com%2Fcoreos.com%2Fdist%2Faws%2Fcoreos-alpha-pv.template" target="_blank"><img src="https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png" alt="Launch Stack"/></a></td>
+          <td class="dashed"><a href="https://console.{{ region_domain }}/cloudformation/home?region={{ region.name }}#cstack=sn%7EFlatcar-alpha%7Cturl%7Ehttps:%2F%2Fflatcar-prod-ami-import-eu-central-1.s3.amazonaws.com%2Fdist%2Faws%2Fflatcar-alpha-pv.template" target="_blank"><img src="https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png" alt="Launch Stack"/></a></td>
         </tr>
         <tr>
           <td class="rowspan-padding"><a href="http://aws.amazon.com/amazon-linux-ami/instance-type-matrix/">HVM</a></td>
           <td><a href="https://console.{{ region_domain }}/ec2/home?region={{ region.name }}#launchAmi={{ region.hvm }}">{{ region.hvm }}</a></td>
-          <td><a href="https://console.{{ region_domain }}/cloudformation/home?region={{ region.name }}#cstack=sn%7ECoreOS-alpha%7Cturl%7Ehttps%3A%2F%2Fs3.amazonaws.com%2Fcoreos.com%2Fdist%2Faws%2Fcoreos-alpha-hvm.template" target="_blank"><img src="https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png" alt="Launch Stack"/></a></td>
+          <td><a href="https://console.{{ region_domain }}/cloudformation/home?region={{ region.name }}#cstack=sn%7EFlatcar-alpha%7Cturl%7Ehttps:%2F%2Fflatcar-prod-ami-import-eu-central-1.s3.amazonaws.com%2Fdist%2Faws%2Fflatcar-alpha-hvm.template" target="_blank"><img src="https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png" alt="Launch Stack"/></a></td>
         </tr>
         {% endfor %}
         </tbody>
@@ -66,12 +66,12 @@ Flatcar Linux is designed to be updated automatically with different schedules p
           <td rowspan="2">{{ region.name }}</td>
           <td class="dashed"><a href="http://aws.amazon.com/amazon-linux-ami/instance-type-matrix/">PV</a></td>
           <td class="dashed"><a href="https://console.{{ region_domain }}/ec2/home?region={{ region.name }}#launchAmi={{ region.pv }}">{{ region.pv }}</a></td>
-          <td class="dashed"><a href="https://console.{{ region_domain }}/cloudformation/home?region={{ region.name }}#cstack=sn%7ECoreOS-beta%7Cturl%7Ehttps%3A%2F%2Fs3.amazonaws.com%2Fcoreos.com%2Fdist%2Faws%2Fcoreos-beta-pv.template" target="_blank"><img src="https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png" alt="Launch Stack"/></a></td>
+          <td class="dashed"><a href="https://console.{{ region_domain }}/cloudformation/home?region={{ region.name }}#cstack=sn%7EFlatcar-beta%7Cturl%7Ehttps:%2F%2Fflatcar-prod-ami-import-eu-central-1.s3.amazonaws.com%2Fdist%2Faws%2Fflatcar-beta-pv.template" target="_blank"><img src="https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png" alt="Launch Stack"/></a></td>
         </tr>
         <tr>
           <td class="rowspan-padding"><a href="http://aws.amazon.com/amazon-linux-ami/instance-type-matrix/">HVM</a></td>
           <td><a href="https://console.{{ region_domain }}/ec2/home?region={{ region.name }}#launchAmi={{ region.hvm }}">{{ region.hvm }}</a></td>
-          <td><a href="https://console.{{ region_domain }}/cloudformation/home?region={{ region.name }}#cstack=sn%7ECoreOS-beta%7Cturl%7Ehttps%3A%2F%2Fs3.amazonaws.com%2Fcoreos.com%2Fdist%2Faws%2Fcoreos-beta-hvm.template" target="_blank"><img src="https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png" alt="Launch Stack"/></a></td>
+          <td><a href="https://console.{{ region_domain }}/cloudformation/home?region={{ region.name }}#cstack=sn%7EFlatcar-beta%7Cturl%7Ehttps:%2F%2Fflatcar-prod-ami-import-eu-central-1.s3.amazonaws.com%2Fdist%2Faws%2Fflatcar-beta-hvm.template" target="_blank"><img src="https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png" alt="Launch Stack"/></a></td>
         </tr>
         {% endfor %}
         </tbody>
@@ -98,12 +98,12 @@ Flatcar Linux is designed to be updated automatically with different schedules p
           <td rowspan="2">{{ region.name }}</td>
           <td class="dashed"><a href="http://aws.amazon.com/amazon-linux-ami/instance-type-matrix/">PV</a></td>
           <td class="dashed"><a href="https://console.{{ region_domain }}/ec2/home?region={{ region.name }}#launchAmi={{ region.pv }}">{{ region.pv }}</a></td>
-          <td class="dashed"><a href="https://console.{{ region_domain }}/cloudformation/home?region={{ region.name }}#cstack=sn%7ECoreOS-stable%7Cturl%7Ehttps%3A%2F%2Fs3.amazonaws.com%2Fcoreos.com%2Fdist%2Faws%2Fcoreos-stable-pv.template" target="_blank"><img src="https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png" alt="Launch Stack"/></a></td>
+          <td class="dashed"><a href="https://console.{{ region_domain }}/cloudformation/home?region={{ region.name }}#cstack=sn%7EFlatcar-stable%7Cturl%7Ehttps:%2F%2Fflatcar-prod-ami-import-eu-central-1.s3.amazonaws.com%2Fdist%2Faws%2Fflatcar-stable-pv.template" target="_blank"><img src="https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png" alt="Launch Stack"/></a></td>
         </tr>
         <tr>
           <td class="rowspan-padding"><a href="http://aws.amazon.com/amazon-linux-ami/instance-type-matrix/">HVM</a></td>
           <td><a href="https://console.{{ region_domain }}/ec2/home?region={{ region.name }}#launchAmi={{ region.hvm }}">{{ region.hvm }}</a></td>
-          <td><a href="https://console.{{ region_domain }}/cloudformation/home?region={{ region.name }}#cstack=sn%7ECoreOS-stable%7Cturl%7Ehttps%3A%2F%2Fs3.amazonaws.com%2Fcoreos.com%2Fdist%2Faws%2Fcoreos-stable-hvm.template" target="_blank"><img src="https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png" alt="Launch Stack"/></a></td>
+          <td><a href="https://console.{{ region_domain }}/cloudformation/home?region={{ region.name }}#cstack=sn%7EFlatcar-stable%7Cturl%7Ehttps:%2F%2Fflatcar-prod-ami-import-eu-central-1.s3.amazonaws.com%2Fdist%2Faws%2Fflatcar-stable-hvm.template" target="_blank"><img src="https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png" alt="Launch Stack"/></a></td>
         </tr>
         {% endfor %}
         </tbody>
