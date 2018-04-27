@@ -458,6 +458,28 @@ First we need to create a security group to allow Flatcar Linux instances to com
   </div>
 </div>
 
+## Installation from a VMDK image
+
+One of the possible ways of installation is to import the generated VMDK Flatcar image as a snapshot. The image file will be in `https://${CHANNEL}.release.flatcar-linux.net/amd64-usr/${VERSION}/flatcar_production_ami_vmdk_image.vmdk.bz2`.
+Make sure you download the signature (it's available in `https://${CHANNEL}.release.flatcar-linux.net/amd64-usr/${VERSION}/flatcar_production_ami_vmdk_image.vmdk.bz2.sig`) and check it before proceeding.
+
+```
+$ wget https://alpha.release.flatcar-linux.net/amd64-usr/current/flatcar_production_ami_vmdk_image.vmdk.bz2
+$ wget https://alpha.release.flatcar-linux.net/amd64-usr/current/flatcar_production_ami_vmdk_image.vmdk.bz2.sig
+$ gpg --verify flatcar_production_ami_vmdk_image.vmdk.bz2.sig
+gpg: assuming signed data in 'flatcar_production_ami_vmdk_image.vmdk.bz2'
+gpg: Signature made Thu 15 Mar 2018 10:27:57 AM CET
+gpg:                using RSA key A621F1DA96C93C639506832D603443A1D0FC498C
+gpg: Good signature from "Flatcar Buildbot (Official Builds) <buildbot@flatcar-linux.org>" [ultimate]
+```
+
+Then, follow the instructions in [Importing a Disk as a Snapshot Using VM Import/Export](https://docs.aws.amazon.com/vm-import/latest/userguide/vmimport-import-snapshot.html). You'll need to upload the uncompressed vmdk file to S3.
+
+After the snapshot is imported, you can go to "Snapshots" in the EC2 dashboard, and generate an AMI image from it.
+To make it work, use `/dev/sda2` as the "Root device name" and you probably want to select "Hardware-assisted virtualization" as "Virtualization type".
+
+In the future we'll upload AMIs directly during the build process so this will be much easier.
+
 ## Using Flatcar Linux
 
 Now that you have a machine booted it is time to play around. Check out the [Flatcar Linux Quickstart](quickstart.md) guide or dig into [more specific topics](https://docs.flatcar-linux.org).

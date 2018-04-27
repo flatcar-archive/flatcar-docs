@@ -6,118 +6,85 @@ You can direct questions to the [IRC channel][irc] or [mailing list][flatcar-dev
 
 ## Install Vagrant and VirtualBox
 
-Vagrant is a simple-to-use command line virtual machine manager. There are install packages available for Windows, Linux and OS X. Find the latest installer on the [Vagrant downloads page][vagrant]. Be sure to get version 1.6.3 or greater.
+Vagrant is a simple-to-use command line virtual machine manager. There are install packages available for Windows, Linux and OS X. Find the latest installer on the [Vagrant downloads page][vagrant]. Be sure to get version 2.0.4 or greater, to be able to detect Flatcar images correctly.
 
 [vagrant]: http://www.vagrantup.com/downloads.html
 
 Vagrant can use either the free VirtualBox provider or the commercial VMware provider. Instructions for both are below. For the VirtualBox provider, version 4.3.10 or greater is required.
 
-## Clone Vagrant repo
+## Install Flatcar Linux
 
-Now that you have Vagrant installed you can bring up a Flatcar Linux instance.
+You can import the flatcar box and boot it with Vagrant.
+You'll find it in `https://${CHANNEL}.release.flatcar-linux.net/amd64-usr/${VERSION}/flatcar_production_vagrant.box`.
+Make sure you download the signature (it's available in `https://${CHANNEL}.release.flatcar-linux.net/amd64-usr/${VERSION}/flatcar_production_vagrant.box.sig`) and check it before proceeding.
 
-The following commands will clone a repository that contains the Flatcar Linux Vagrantfile. This file tells Vagrant where it can find the latest disk image of Flatcar Linux. Vagrant will download the image the first time you attempt to start the VM.
+For example, to get the latest alpha:
 
-```sh
-git clone https://github.com/coreos/coreos-vagrant.git
-cd coreos-vagrant
+```
+$ wget https://alpha.release.flatcar-linux.net/amd64-usr/current/flatcar_production_vagrant.box
+$ wget https://alpha.release.flatcar-linux.net/amd64-usr/current/flatcar_production_vagrant.box.sig
+$ gpg --verify flatcar_production_vagrant.box.sig
+gpg: assuming signed data in 'flatcar_production_vagrant.box'
+gpg: Signature made Thu 15 Mar 2018 10:29:23 AM CET
+gpg:                using RSA key A621F1DA96C93C639506832D603443A1D0FC498C
+gpg: Good signature from "Flatcar Buildbot (Official Builds) <buildbot@flatcar-linux.org>" [ultimate]
+$ vagrant box add flatcar flatcar_production_vagrant.box
+==> box: Box file was not detected as metadata. Adding it directly...
+==> box: Adding box 'flatcar' (v0) for provider:
+    box: Unpacking necessary files from: file:///tmp/flatcar_production_vagrant.box
+==> box: Successfully added box 'flatcar' (v0) for 'virtualbox'!
+$ vagrant init flatcar
+A `Vagrantfile` has been placed in this directory. You are now
+ready to `vagrant up` your first virtual environment! Please read
+the comments in the Vagrantfile as well as documentation on
+`vagrantup.com` for more information on using Vagrant.
+$ vagrant up
+Bringing machine 'default' up with 'virtualbox' provider...
+==> default: Importing base box 'flatcar'...
+==> default: Matching MAC address for NAT networking...
+==> default: Setting the name of the VM: vagrant_default_1520510346048_14823
+==> default: Clearing any previously set network interfaces...
+==> default: Preparing network interfaces based on configuration...
+    default: Adapter 1: nat
+==> default: Forwarding ports...
+    default: 22 (guest) => 2222 (host) (adapter 1)
+==> default: Running 'pre-boot' VM customizations...
+==> default: Booting VM...
+==> default: Waiting for machine to boot. This may take a few minutes...
+    default: SSH address: 127.0.0.1:2222
+    default: SSH username: core
+    default: SSH auth method: private key
+==> default: Machine booted and ready!
+$ vagrant ssh
+Last login: Thu Mar 15 17:02:25 UTC 2018 from 10.0.2.2 on ssh
+Flatcar Linux by Kinvolk alpha (1702.1.0)
+core@localhost ~ $
 ```
 
 ## Starting a cluster
 
-To start our cluster, we need to provide some config parameters in cloud-config format via the `user-data` file and set the number of machines in the cluster in `config.rb`.
+You can configure your Vagrant machine by having a `Vagrantfile` example file:
 
-### Cloud-config
+```
+ENV["TERM"] = "xterm-256color"
+ENV["LC_ALL"] = "en_US.UTF-8"
 
-Flatcar Linux allows you to configure machine parameters, launch systemd units on start-up and more via cloud-config. Jump over to the [docs to learn about the supported features][cloud-config-docs]. You can provide cloud-config data to your Flatcar Linux Vagrant VM by editing the `user-data` file inside of the cloned directory. A sample file `user-data.sample` exists as a base and must be renamed to `user-data` for it to be processed.
+Vagrant.require_version '>= 2.0.4'
 
-Our cluster will use an etcd [discovery URL](cluster-discovery.md) to bootstrap the cluster of machines and elect an initial etcd leader. Be sure to replace `<token>` with your own URL from [https://discovery.etcd.io/new](https://discovery.etcd.io/new):
-
-```cloud-config
-#cloud-config
-
-flatcar:
-  etcd2:
-    # generate a new token for each unique cluster from https://discovery.etcd.io/new?size=3
-    # specify the initial size of your cluster with ?size=X
-    # WARNING: replace each time you 'vagrant destroy'
-    discovery: https://discovery.etcd.io/<token>
-    # multi-region and multi-cloud deployments need to use $public_ipv4
-    advertise-client-urls: http://$private_ipv4:2379,http://$private_ipv4:4001
-    initial-advertise-peer-urls: http://$private_ipv4:2380
-    # listen on both the official ports and the legacy ports
-    # legacy ports can be omitted if your application doesn't depend on them
-    listen-client-urls: http://0.0.0.0:2379,http://0.0.0.0:4001
-    listen-peer-urls: http://$private_ipv4:2380
-  flannel:
-    interface: $public_ipv4
-  units:
-    - name: etcd2.service
-      command: start
-    - name: flanneld.service
-      drop-ins:
-      - name: 50-network-config.conf
-        content: |
-          [Service]
-          ExecStartPre=/usr/bin/etcdctl set /coreos.com/network/config '{ "Network": "10.1.0.0/16" }'
-      # command: start
-      # Uncomment the line above if you want to use flannel in your installation.
+Vagrant.configure('2') do |config|
+  config.ssh.username = 'core'
+  config.ssh.insert_key = true
+  config.vm.synced_folder '.', '/vagrant', disabled: true
+  config.vm.provider :virtualbox do |v|
+    v.check_guest_additions = false
+    v.functional_vboxsf = false
+    v.cpus = 2
+    v.memory = 2048
+  end
+end
 ```
 
-The `$private_ipv4` and `$public_ipv4` substitution variables are fully supported in cloud-config on Vagrant. They will map to the first statically defined private and public networks defined in the Vagrantfile.
-
-There is no need to add an SSH key since Vagrant will automatically generate and use its own SSH key. Any keys added will be overwritten.
-
-Your Vagrantfile should copy your cloud-config file to `/var/lib/coreos-vagrant/vagrantfile-user-data`. The provided Vagrantfile is already configured to do this. `cloudinit` reads `vagrantfile-user-data` on every boot and uses it to create the machine's user-data file.
-
-If you need to update your cloud-config later on, run `vagrant reload --provision` to reboot your VM and apply the new file.
-
-[cloud-config-docs]: https://github.com/flatcar-linux/coreos-cloudinit/blob/master/Documentation/cloud-config.md
-
-### Start up Flatcar Linux
-
-The `config.rb.sample` file contains a few useful settings about your Vagrant environment and most importantly, how many machines you'd like in your cluster.
-
-Flatcar Linux is designed to be updated automatically with different schedules per channel. Select the channel you'd like to use for this cluster below. Read the [release notes](https://flatcar-linux.org/releases) for specific features and bug fixes.
-
-<div id="vagrant-create">
-  <ul class="nav nav-tabs">
-    <li class="active"><a href="#stable-create" data-toggle="tab">Stable Channel</a></li>
-    <li><a href="#beta-create" data-toggle="tab">Beta Channel</a></li>
-    <li><a href="#alpha-create" data-toggle="tab">Alpha Channel</a></li>
-  </ul>
-  <div class="tab-content coreos-docs-image-table">
-    <div class="tab-pane" id="alpha-create">
-      <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Flatcar Linux {{site.alpha-channel}}.</p>
-      <p>Rename the file to <code>config.rb</code> and modify a few lines:</p>
-      <h4>config.rb</h4>
-      <pre># Size of the Flatcar Linux cluster created by Vagrant
-$num_instances=3</pre>
-      <pre># Official Flatcar Linux channel from which updates should be downloaded
-$update_channel='alpha'</pre>
-    </div>
-    <div class="tab-pane" id="beta-create">
-      <p>The Beta channel consists of promoted Alpha releases. The current version is Flatcar Linux {{site.beta-channel}}.</p>
-      <p>Rename the file to <code>config.rb</code> then uncomment and modify:</p>
-      <h4>config.rb</h4>
-      <pre># Size of the Flatcar Linux cluster created by Vagrant
-$num_instances=3</pre>
-      <pre># Official Flatcar Linux channel from which updates should be downloaded
-$update_channel='beta'</pre>
-    </div>
-    <div class="tab-pane active" id="stable-create">
-      <p>The Stable channel should be used by production clusters. Versions of Flatcar Linux are battle-tested within the Beta and Alpha channels before being promoted. The current version is Flatcar Linux {{site.stable-channel}}.</p>
-      <p>Rename the file to <code>config.rb</code> then uncomment and modify:</p>
-      <h4>config.rb</h4>
-      <pre># Size of the Flatcar Linux cluster created by Vagrant
-$num_instances=3</pre>
-      <pre># Official Flatcar Linux channel from which updates should be downloaded
-$update_channel='stable'</pre>
-    </div>
-  </div>
-</div>
-
-#### Start machines using Vagrant's default VirtualBox provider
+### Start machines using Vagrant's default VirtualBox provider
 
 Start the machine(s):
 
@@ -146,7 +113,7 @@ Connect to one of the machines:
 vagrant ssh core-01 -- -A
 ```
 
-#### Start machines using Vagrant's VMware provider
+### Start machines using Vagrant's VMware provider
 
 If you have purchased the [VMware Vagrant provider](http://www.vagrantup.com/vmware), run the following commands:
 
@@ -158,68 +125,6 @@ vagrant ssh core-01 -- -A
 ## Single machine
 
 To start a single machine, we need to provide some config parameters in cloud-config format via the `user-data` file.
-
-### Cloud-config
-
-This cloud-config starts etcd when the machine is booted:
-
-```cloud-config
-#cloud-config
-
-flatcar:
-  etcd2:
-    # generate a new token for each unique cluster from https://discovery.etcd.io/new?size=3
-    # specify the initial size of your cluster with ?size=X
-    # WARNING: replace each time you 'vagrant destroy'
-    discovery: https://discovery.etcd.io/<token>
-    # multi-region and multi-cloud deployments need to use $public_ipv4
-    advertise-client-urls: http://$private_ipv4:2379,http://$private_ipv4:4001
-    initial-advertise-peer-urls: http://$private_ipv4:2380
-    # listen on both the official ports and the legacy ports
-    # legacy ports can be omitted if your application doesn't depend on them
-    listen-client-urls: http://0.0.0.0:2379,http://0.0.0.0:4001
-    listen-peer-urls: http://$private_ipv4:2380
-  units:
-    - name: etcd2.service
-      command: start
-```
-
-### Start up Flatcar Linux
-
-The `config.rb.sample` file contains a few useful settings about your Vagrant environment. We're going to set the Flatcar Linux channel that we'd like the machine to track.
-
-<div id="vagrant-single">
-  <ul class="nav nav-tabs">
-    <li class="active"><a href="#stable-single" data-toggle="tab">Stable Channel</a></li>
-    <li><a href="#beta-single" data-toggle="tab">Beta Channel</a></li>
-    <li><a href="#alpha-single" data-toggle="tab">Alpha Channel</a></li>
-  </ul>
-  <div class="tab-content coreos-docs-image-table">
-    <div class="tab-pane" id="alpha-single">
-      <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Flatcar Linux {{site.alpha-channel}}.</p>
-      <p>Rename the file to <code>config.rb</code> then uncomment and modify:</p>
-      <h4>config.rb</h4>
-      <pre># Official Flatcar Linux channel from which updates should be downloaded
-$update_channel='alpha'</pre>
-    </div>
-    <div class="tab-pane" id="beta-single">
-      <p>The Beta channel consists of promoted Alpha releases. The current version is Flatcar Linux {{site.beta-channel}}.</p>
-      <p>Rename the file to <code>config.rb</code> then uncomment and modify:</p>
-      <h4>config.rb</h4>
-      <pre># Official Flatcar Linux channel from which updates should be downloaded
-$update_channel='beta'</pre>
-    </div>
-    <div class="tab-pane active" id="stable-single">
-      <p>The Stable channel should be used by production clusters. Versions of Flatcar Linux are battle-tested within the Beta and Alpha channels before being promoted. The current version is Flatcar Linux {{site.stable-channel}}.</p>
-      <p>Rename the file to <code>config.rb</code> then uncomment and modify:</p>
-      <h4>config.rb</h4>
-      <pre># Official Flatcar Linux channel from which updates should be downloaded
-$update_channel='stable'</pre>
-    </div>
-  </div>
-</div>
-
-#### Start machine using Vagrant's default VirtualBox provider
 
 Start the machine:
 
@@ -233,7 +138,7 @@ Connect to the machine:
 vagrant ssh core-01 -- -A
 ```
 
-#### Start machine using Vagrant's VMware provider
+### Start machine using Vagrant's VMware provider
 
 If you have purchased the [VMware Vagrant provider](http://www.vagrantup.com/vmware), run the following commands:
 

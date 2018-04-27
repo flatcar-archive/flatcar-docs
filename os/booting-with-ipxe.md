@@ -97,7 +97,7 @@ Immediately iPXE should download your boot script URL and start grabbing the ima
 
 ```sh
 ${YOUR_BOOT_URL}... ok
-http://alpha.release.core-os.net/amd64-usr/current/flatcar_production_pxe.vmlinuz... 98%
+http://alpha.release.flatcar-linux.net/amd64-usr/current/flatcar_production_pxe.vmlinuz... 98%
 ```
 
 After a few moments of downloading Flatcar Linux should boot normally.
