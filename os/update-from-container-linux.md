@@ -1,6 +1,6 @@
 # Updating from Container Linux
 
-If you already have Countainer Linux clusters and can't or don't want to freshly install Flatcar Linux, you can 
+If you already have Countainer Linux clusters and can't or don't want to freshly install Flatcar Linux, you can update to Flatcar Linux directly from Container Linux by performing the following steps.
 
 ## Getting the public update key
 
