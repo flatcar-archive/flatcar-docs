@@ -4,7 +4,7 @@ Flatcar Linux automates machine provisioning with a specialized system for apply
 
 ## Container Linux Config
 
-Flatcar Linux admins define these configurations in a format called the [Container Linux Config][clc], which is specific to Flatcar Linux, structured as YAML, and intended to be human-readable. The Container Linux Config has features devoted to configuring Flatcar Linux services such as [etcd][etcd], [rkt][rkt], Docker, [flannel][flannel], and [locksmith][locksmith]. The defining feature of the config is that it cannot be sent directly to a Flatcar Linux provisioning target. Instead, it is first validated and transformed into a machine-readable and wire-efficient form.
+Flatcar Linux admins define these configurations in a format called the [Container Linux Config][clc], which was originally designed for Container Linux, but works perfectly well with Flatcar Linux. Container Linux Configs are structured as YAML, and intended to be human-readable. The Container Linux Config has features devoted to configuring Flatcar Linux services such as [etcd][etcd], [rkt][rkt], Docker, [flannel][flannel], and [locksmith][locksmith]. **The defining feature of the config is that it cannot be sent directly to a Flatcar Linux provisioning target**. Instead, it is first validated and transformed into a machine-readable and wire-efficient form.
 
 The following examples demonstrate the simplicity of the Container Linux Config format.
 
