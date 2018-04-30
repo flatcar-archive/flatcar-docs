@@ -22,7 +22,7 @@ flatcar-install -d /dev/sda -i ignition.json -o vmware_raw
 
 ## Choose a channel
 
-Flatcar Linux is designed to be [updated automatically](https://coreos.com/why/#updates) with different schedules per channel. You can [disable this feature](update-strategies.md), although we don't recommend it. Read the [release notes](https://coreos.com/releases) for specific features and bug fixes.
+Flatcar Linux is designed to be [updated automatically](https://coreos.com/why/#updates) with different schedules per channel. You can [disable this feature](update-strategies.md), although we don't recommend it. Read the [release notes](https://flatcar-linux.org/releases) for specific features and bug fixes.
 
 <div id="install">
   <ul class="nav nav-tabs">
