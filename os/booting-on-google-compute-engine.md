@@ -29,7 +29,7 @@ Follow the [Importing Boot Disk Images to Compute Engine](https://cloud.google.c
 
 ## Upgrade from Container Linux
 
-You can also upgrade from an existing Container Linux system. See also [Update from Container Linux](./flatcar-update-from-container-linux.md).
+You can also [upgrade from an existing Container Linux system](./update-from-container-linux.md).
 
 ## Container Linux Config
 
