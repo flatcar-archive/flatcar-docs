@@ -4,12 +4,12 @@
 
 There is a simple installer that will destroy everything on the given target disk and install Flatcar Linux. Essentially it downloads an image, verifies it with gpg, and then copies it bit for bit to disk. An installation requires at least 8 GB of usable space on the device.
 
-The script is self-contained and located [on GitHub here][coreos-install] and can be run from any Linux distribution. You cannot normally install Flatcar Linux to the same device that is currently booted. However, the [Flatcar Linux ISO][coreos-iso] or any Linux liveCD will allow Flatcar Linux to install to a non-active device.
+The script is self-contained and located [on GitHub here][flatcar-install] and can be run from any Linux distribution. You cannot normally install Flatcar Linux to the same device that is currently booted. However, the [Flatcar Linux ISO][coreos-iso] or any Linux liveCD will allow Flatcar Linux to install to a non-active device.
 
 If you boot Flatcar Linux via PXE, the install script is already installed. By default the install script will attempt to install the same version and channel that was PXE-booted:
 
 ```sh
-coreos-install -d /dev/sda -i ignition.json
+flatcar-install -d /dev/sda -i ignition.json
 ```
 
 `ignition.json` should include user information (especially an SSH key) generated from a [Container Linux Config][clc-section], or you will not be able to log into your Flatcar Linux instance.
@@ -17,7 +17,7 @@ coreos-install -d /dev/sda -i ignition.json
 If you are installing on VMware, pass `-o vmware_raw` to install the VMware-specific image:
 
 ```sh
-coreos-install -d /dev/sda -i ignition.json -o vmware_raw
+flatcar-install -d /dev/sda -i ignition.json -o vmware_raw
 ```
 
 ## Choose a channel
@@ -34,22 +34,22 @@ Flatcar Linux is designed to be [updated automatically](https://coreos.com/why/#
     <div class="tab-pane" id="alpha-create">
       <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Flatcar Linux {{site.alpha-channel}}.</p>
       <p>If you want to ensure you are installing the latest alpha version, use the <code>-C</code> option:</p>
-      <pre>coreos-install -d /dev/sda -C alpha</pre>
+      <pre>flatcar-install -d /dev/sda -C alpha</pre>
     </div>
     <div class="tab-pane" id="beta-create">
       <p>The Beta channel consists of promoted Alpha releases. The current version is Flatcar Linux {{site.beta-channel}}.</p>
       <p>If you want to ensure you are installing the latest beta version, use the <code>-C</code> option:</p>
-      <pre>coreos-install -d /dev/sda -C beta</pre>
+      <pre>flatcar-install -d /dev/sda -C beta</pre>
     </div>
     <div class="tab-pane active" id="stable-create">
       <p>The Stable channel should be used by production clusters. Versions of Flatcar Linux are battle-tested within the Beta and Alpha channels before being promoted. The current version is Flatcar Linux {{site.stable-channel}}.</p>
       <p>If you want to ensure you are installing the latest stable version, use the <code>-C</code> option:</p>
-      <pre>coreos-install -d /dev/sda -C stable</pre>
+      <pre>flatcar-install -d /dev/sda -C stable</pre>
     </div>
   </div>
 </div>
 
-For reference here are the rest of the `coreos-install` options:
+For reference here are the rest of the `flatcar-install` options:
 
 ```
 -d DEVICE   Install Flatcar Linux to the given device.
@@ -88,7 +88,7 @@ Note: The `{PRIVATE_IPV4}` and `{PUBLIC_IPV4}` substitution variables referenced
 To start the installation script with a reference to our Ignition config, run:
 
 ```
-coreos-install -d /dev/sda -C stable -i ~/ignition.json
+flatcar-install -d /dev/sda -C stable -i ~/ignition.json
 ```
 
 ### Advanced Container Linux Config example
@@ -130,6 +130,6 @@ Now that you have a machine booted it is time to play around. Check out the [Fla
 [docs-root]: https://github.com/coreos/docs
 [coreos-iso]: booting-with-iso.md
 [clc-section]: #container-linux-configs
-[coreos-install]: https://raw.github.com/coreos/init/master/bin/coreos-install
+[flatcar-install]: https://raw.githubusercontent.com/flatcar-linux/init/flatcar-master/bin/flatcar-install
 [cl-configs]: provisioning.md
 [ct]: https://github.com/coreos/container-linux-config-transpiler/blob/master/doc/overview.md
