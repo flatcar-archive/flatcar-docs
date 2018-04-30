@@ -134,4 +134,4 @@ If the mount fails, dependent units will not start.
 
 ## Further reading
 
-Check the [`systemd mount` docs](http://www.freedesktop.org/software/systemd/man/systemd.mount.html) to learn about the available options. Examples specific to [EC2](booting-on-ec2.md#instance-storage), [Google Compute Engine](booting-on-google-compute-engine.md#additional-storage) and [Rackspace Cloud](booting-on-rackspace.md#mount-data-disk) can be used as a starting point.
+Check the [`systemd mount` docs](http://www.freedesktop.org/software/systemd/man/systemd.mount.html) to learn about the available options. Examples specific to [EC2](booting-on-ec2.md#instance-storage), [Google Compute Engine](booting-on-google-compute-engine.md#additional-storage) can be used as a starting point.

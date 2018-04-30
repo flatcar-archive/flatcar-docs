@@ -49,14 +49,10 @@ flatcar:
     # legacy ports can be omitted if your application doesn't depend on them
     listen-client-urls: http://0.0.0.0:2379,http://0.0.0.0:4001
     listen-peer-urls: http://$private_ipv4:2380
-  fleet:
-    public-ip: $public_ipv4
   flannel:
     interface: $public_ipv4
   units:
     - name: etcd2.service
-      command: start
-    - name: fleet.service
       command: start
     - name: flanneld.service
       drop-ins:
@@ -165,7 +161,7 @@ To start a single machine, we need to provide some config parameters in cloud-co
 
 ### Cloud-config
 
-This cloud-config starts etcd and fleet when the machine is booted:
+This cloud-config starts etcd when the machine is booted:
 
 ```cloud-config
 #cloud-config
@@ -183,12 +179,8 @@ flatcar:
     # legacy ports can be omitted if your application doesn't depend on them
     listen-client-urls: http://0.0.0.0:2379,http://0.0.0.0:4001
     listen-peer-urls: http://$private_ipv4:2380
-  fleet:
-      public-ip: $public_ipv4
   units:
     - name: etcd2.service
-      command: start
-    - name: fleet.service
       command: start
 ```
 

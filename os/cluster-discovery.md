@@ -135,4 +135,4 @@ If you're interested in how discovery API works behind the scenes in etcd, read 
 
 [etcd-reconf]: https://github.com/flatcar-linux/etcd/blob/master/Documentation/op-guide/runtime-configuration.md
 [etcd-reconf-no-disc]: https://github.com/flatcar-linux/etcd/blob/master/Documentation/op-guide/runtime-reconf-design.md#do-not-use-public-discovery-service-for-runtime-reconfiguration
-[etcd-reconf-on-flatcar]: ../etcd/etcd-live-cluster-reconfiguration.md
+[etcd-reconf-on-flatcar]: https://github.com/coreos/docs/blob/master/etcd/etcd-live-cluster-reconfiguration.md
