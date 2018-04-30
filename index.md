@@ -82,7 +82,7 @@ APIs and troubleshooting guides for working with Flatcar Linux.
 [config-dynamic-data]: container-linux-config-transpiler/doc/dynamic-data.md
 [config-examples]: container-linux-config-transpiler/doc/examples.md
 [config-spec]: container-linux-config-transpiler/doc/configuration.md
-[matchbox]: matchbox/README.md
+[matchbox]: https://github.com/coreos/matchbox/blob/master/README.md
 [ipxe]: os/booting-with-ipxe.md
 [pxe]: os/booting-with-pxe.md
 [install-to-disk]: os/installing-to-disk.md
