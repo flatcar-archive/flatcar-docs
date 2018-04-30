@@ -8,6 +8,29 @@ Before proceeding, you will need a GCE account ([GCE free trial ][free-trial]) a
 
 After installation, log into your account with `gcloud auth login` and enter your project ID when prompted.
 
+## Installation from a tarball
+
+One of the possible ways of installation is to import a pre-built tarball. The image file will be in `https://${CHANNEL}.release.flatcar-linux.net/amd64-usr/${VERSION}/flatcar_production_gce.tar.gz`.
+Make sure you download the signature (it's available in `https://${CHANNEL}.release.flatcar-linux.net/amd64-usr/${VERSION}/flatcar_production_gce.tar.gz.sig`) and check it before proceeding.
+
+For example, to get the latest alpha:
+
+```
+$ wget https://alpha.release.flatcar-linux.net/amd64-usr/current/flatcar_production_gce.tar.gz
+$ wget https://alpha.release.flatcar-linux.net/amd64-usr/current/flatcar_production_gce.tar.gz.sig
+$ gpg --verify flatcar_production_gce.tar.gz.sig
+gpg: assuming signed data in 'flatcar_production_gce.tar.gz'
+gpg: Signature made Thu 15 Mar 2018 10:28:25 AM CET
+gpg:                using RSA key A621F1DA96C93C639506832D603443A1D0FC498C
+gpg: Good signature from "Flatcar Buildbot (Official Builds) <buildbot@flatcar-linux.org>" [ultimate]
+```
+
+Follow the [Importing Boot Disk Images to Compute Engine](https://cloud.google.com/compute/docs/images/import-existing-image#import_image) guide to learn how to import the image and start instances with it.
+
+## Upgrade from Container Linux
+
+You can also upgrade from an existing Container Linux system. See also [Update from Container Linux](./flatcar-update-from-container-linux.md).
+
 ## Container Linux Config
 
 Flatcar Linux allows you to configure machine parameters, configure networking, launch systemd units on startup, and more via Container Linux Configs. These configs are then transpiled into Ignition configs and given to booting machines. Head over to the [docs to learn about the supported features][cl-configs].
