@@ -127,7 +127,7 @@ systemd:
 Now that you have a machine booted it is time to play around. Check out the [Flatcar Linux Quickstart][quickstart] guide or dig into [more specific topics][docs-root].
 
 [quickstart]: quickstart.md
-[docs-root]: https://github.com/coreos/docs
+[docs-root]: https://docs.flatcar-linux.org
 [coreos-iso]: booting-with-iso.md
 [clc-section]: #container-linux-configs
 [flatcar-install]: https://raw.githubusercontent.com/flatcar-linux/init/flatcar-master/bin/flatcar-install
