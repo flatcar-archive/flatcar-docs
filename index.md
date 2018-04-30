@@ -14,10 +14,10 @@ Provisioning                                            | Cloud Providers
 [CL Config Examples][config-examples]                   | [Microsoft Azure][azure]
 [CL Config Spec][config-spec]                           | [QEMU][qemu]
 
-Bare Metal                                              | Community Platforms
+Bare Metal                                              | Upgrading from Container Linux
 --------------                                          | -------------
-[Using Matchbox][matchbox]                              | These [platforms and providers][platforms-providers] offer support and
-[Booting with iPXE][ipxe]                               | documentation for running Flatcar Linux.
+[Using Matchbox][matchbox]                              | [Update from Container Linux][update-from-container-linux] directly.
+[Booting with iPXE][ipxe]                               | 
 [Booting with PXE][pxe]                                 |
 [Installing to Disk][install-to-disk]                   |
 [Booting from ISO][boot-iso]                            |
@@ -37,16 +37,16 @@ Creating Clusters                                               | Customizing Cl
                                                                 | [Adding users][users]
                                                                 | [Kernel modules / sysctl parameters][parameters]
 
-Scaling Clusters                                                | Managing Clusters
---------------                                                  | -------------
-[Adding disk space][disk-space]                                 | [Registry authentication][registry-authentication]
-[Mounting storage][mounting-storage]                            | [iSCSI configuration][iscsi]
-[Power management][power-management]                            | [Adding swap][swap]
-                                                                | [Amazon EC2 Container Service][ec2-container-service]
-                                                                | [Using systemd to manage Docker containers][manage-docker-containers]
-                                                                | [Using systemd and udev rules][udev-rules]
-                                                                | [Switching release channels][release-channels]
-                                                                | [Scheduling tasks with systemd][tasks-with-systemd]
+Managing Clusters                                                      | Scaling Clusters                    
+-------------                                                          | --------------                      
+[Registry authentication][registry-authentication]                     | [Adding disk space][disk-space]     
+[iSCSI configuration][iscsi]                                           | [Mounting storage][mounting-storage]
+[Adding swap][swap]                                                    | [Power management][power-management]
+[Amazon EC2 Container Service][ec2-container-service]                  |                                     
+[Using systemd to manage Docker containers][manage-docker-containers]  |                                     
+[Using systemd and udev rules][udev-rules]                             |                                     
+[Switching release channels][release-channels]                         |                                     
+[Scheduling tasks with systemd][tasks-with-systemd]                    |                                     
 
 Securing Clusters                                               | Debugging Clusters
 --------------                                                  | --------------
@@ -88,7 +88,7 @@ APIs and troubleshooting guides for working with Flatcar Linux.
 [install-to-disk]: os/installing-to-disk.md
 [boot-iso]: os/booting-with-iso.md
 [filesystem-placement]: os/root-filesystem-placement.md
-[platforms-providers]: os/community-platforms.md
+[update-from-container-linux]: os/update-from-container-linux.md
 [ec2]: os/booting-on-ec2.md
 [digital-ocean]: os/booting-on-digitalocean.md
 [gce]: os/booting-on-google-compute-engine.md
@@ -129,7 +129,7 @@ APIs and troubleshooting guides for working with Flatcar Linux.
 [container-linux-rollbacks]: os/manual-rollbacks.md
 [docker]: os/getting-started-with-docker.md
 [customizing-docker]: os/customizing-docker.md
-[rkt]: rkt/Documentation/getting-started-guide.md
+[rkt]: https://github.com/rkt/rkt/blob/v1.29.0/Documentation/getting-started-guide.md
 [developer-guides]: os/developer-guides.md
 [integrations]: os/integrations.md
 [migrating-from-cloud-config]: os/migrating-to-clcs.md
