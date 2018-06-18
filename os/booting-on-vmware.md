@@ -142,7 +142,7 @@ guestinfo.flatcar.config.data.encoding = "base64"
 
 This example will be decoded into:
 
-```json ignition-config
+```json
 {
   "ignition": { "version": "2.0.0" }
 }
