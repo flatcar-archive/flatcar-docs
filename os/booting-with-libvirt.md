@@ -30,7 +30,7 @@ Flatcar Linux is designed to be updated automatically with different schedules p
       <pre>
 mkdir -p /var/lib/libvirt/images/container-linux
 cd /var/lib/libvirt/images/container-linux
-wget https://alpha.release.core-os.net/amd64-usr/current/flatcar_production_qemu_image.img.bz2{,.sig}
+wget https://alpha.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu_image.img.bz2{,.sig}
 gpg --verify flatcar_production_qemu_image.img.bz2.sig
 bunzip2 flatcar_production_qemu_image.img.bz2</pre>
     </div>
@@ -40,7 +40,7 @@ bunzip2 flatcar_production_qemu_image.img.bz2</pre>
       <pre>
 mkdir -p /var/lib/libvirt/images/container-linux
 cd /var/lib/libvirt/images/container-linux
-wget https://beta.release.core-os.net/amd64-usr/current/flatcar_production_qemu_image.img.bz2{,.sig}
+wget https://beta.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu_image.img.bz2{,.sig}
 gpg --verify flatcar_production_qemu_image.img.bz2.sig
 bunzip2 flatcar_production_qemu_image.img.bz2</pre>
     </div>
@@ -50,7 +50,7 @@ bunzip2 flatcar_production_qemu_image.img.bz2</pre>
       <pre>
 mkdir -p /var/lib/libvirt/images/container-linux
 cd /var/lib/libvirt/images/container-linux
-wget https://stable.release.core-os.net/amd64-usr/current/flatcar_production_qemu_image.img.bz2{,.sig}
+wget https://stable.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu_image.img.bz2{,.sig}
 gpg --verify flatcar_production_qemu_image.img.bz2.sig
 bunzip2 flatcar_production_qemu_image.img.bz2</pre>
     </div>
