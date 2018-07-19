@@ -32,6 +32,8 @@ Then, you need to edit `/usr/share/coreos/release` and replace the value of `COR
 COREOS_RELEASE_VERSION=0.0.0
 ```
 
+**NOTE:** In bare metal installations, the path where `user_data` is expected changes from `/var/lib/coreos-install/user_data` to `/var/lib/flatcar-install/user-data`. Make sure you place your `user_data` in the new path.
+
 After that, restart the update service so it rescans the edited configuration and initiates an update.
 The system will reboot into Flatcar Linux:
 
