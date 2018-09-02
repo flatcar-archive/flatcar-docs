@@ -78,33 +78,6 @@ cork enter
 
 To use the SDK chroot in the future, run `cork enter` from the above directory.
 
-### Using QEMU for cross-compiling
-
-The Flatcar Linux initramfs is generated with the `dracut` tool. `Dracut` assumes it is running on the target system, and produces output only for that CPU architecture. In order to create initramfs files for other architectures, `dracut` is executed under QEMU's user mode emulation of the target CPU via the host system's binfmt support.
-
-#### Configuring QEMU for 64 bit ARM binaries
-
-Note that "64 bit ARM" is known by two short forms: `aarch64` (as seen in the configuration file for QEMU), and `arm64` (as seen in how Flatcar Linux and many other distributions refer to the architecture).
-
-The QEMU binary, `/usr/bin/qemu-aarch64-static` is not expected to be on the host workstation. It will be inside the `arm64-usr` build chroot entered before running `dracut`.
-
-##### Configuring Debian based systems
-
-For Debian, Ubuntu, and other Debian based systems installing the following packages will configure the host system such that QEMU will be the runtime for 64 bit ARM binaries:
-
-    sudo apt-get install binfmt-support qemu-user-static
-
-##### Configuring other systemd based systems
-
-The cork utility can setup QEMU binfmt support on systemd based systems:
-
-```sh
-cork setup
-systemctl restart systemd-binfmt.service
-```
-
-This will install the configuration file `/etc/binfmt.d/qemu-aarch64.conf`, which controls how binaries for a given architecture are handled.
-
 ### Building an image
 
 After entering the chroot via `cork` for the first time, you should set user `core`'s password:
@@ -117,6 +90,8 @@ This is the password you will use to log into the console of images built and la
 
 #### Selecting the architecture to build
 
+`amd64-usr` is the only target supported by Flatcar.
+
 ##### 64 bit AMD: The amd64-usr target
 
 The `--board` option can be set to one of a few known target architectures, or system "boards", to build for a given CPU.
@@ -125,14 +100,6 @@ To create a root filesystem for the `amd64-usr` target beneath the directory `/b
 
 ```sh
 ./setup_board --default --board=amd64-usr
-```
-
-##### 64 bit ARM: The arm64-usr target
-
-Similarly, use `arm64-usr` for the cross-compiled ARM target. If switching between different targets in a single SDK, you can add the `--board=` option to the subsequent `build_packages`, `build_image`, and other similar commands to select the given target architecture and path.
-
-```sh
-./setup_board --default --board=arm64-usr
 ```
 
 #### Compile and link system binaries
