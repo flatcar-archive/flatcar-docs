@@ -23,7 +23,7 @@ gmerge coreos-base/update_engine
 If you want to test that an image you built can successfully upgrade a running VM you can use devserver. To specify the version to upgrade to you can use the `--image` argument. This should be a newer build than the VM is currently running, otherwise devserver will answer "no update" to any requests. Here is an example using the default value:
 
 ```sh
-start_devserver --image ../build/images/amd64-usr/latest/coreos_developer_image.bin
+start_devserver --image ../build/images/amd64-usr/latest/flatcar_developer_image.bin
 ```
 
 On the target VM ensure that the `SERVER` setting in `/etc/coreos/update.conf` points to your workstation, for example:

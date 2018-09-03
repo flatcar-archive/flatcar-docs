@@ -180,11 +180,6 @@ etcd:
   initial_advertise_peer_urls: http://10.0.0.101:2380
   listen_client_urls: http://0.0.0.0:2379
   listen_peer_urls: http://10.0.0.101:2380
-update:
-  # CoreUpdate group ID for "Production Central Services"
-  # Use "stable", "beta", or "alpha" for non-subscribers.
-  group: 9e98ecae-4623-48c1-9679-423549c44da6
-  server: https://customer.update.core-os.net/v1/update/
 systemd:
   units:
     - name: etcd-member.service
@@ -200,21 +195,6 @@ networkd:
         DNS=1.2.3.4
         Address=10.0.0.101/24
         Gateway=10.0.0.1
-```
-
-### Configuration for worker role
-
-The worker roles will use DHCP and should be easy to add capacity or autoscaling.
-
-Here's an example CL Config for a worker which specifies an update channel:
-
-```yaml
-update:
-  # CoreUpdate group ID for "Production Central Services"
-  # Use "stable", "beta", or "alpha" for non-subscribers.
-  group: 9e98ecae-4623-48c1-9679-423549c44da6
-  # Non-subscribers should use server: "https://public.update.core-os.net/v1/update/"
-  server: https://customer.update.core-os.net/v1/update/
 ```
 
 [ct-download]: https://github.com/coreos/container-linux-config-transpiler/releases
