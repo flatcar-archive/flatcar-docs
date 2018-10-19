@@ -43,7 +43,7 @@ Read system configuration files to determine the URL of the development containe
 ```sh
 . /usr/share/coreos/release
 . /usr/share/coreos/update.conf
-url="http://${GROUP:-stable}.release.core-os.net/$COREOS_RELEASE_BOARD/$COREOS_RELEASE_VERSION/coreos_developer_container.bin.bz2"
+url="http://${GROUP:-stable}.release.flatcar-linux.net/$COREOS_RELEASE_BOARD/$COREOS_RELEASE_VERSION/flatcar_developer_container.bin.bz2"
 ```
 
 Download, decompress, and verify the development container image.
@@ -51,7 +51,7 @@ Download, decompress, and verify the development container image.
 ```sh
 gpg2 --recv-keys 04127D0BFABEC8871FFB2CCE50E0885593D2DCB4  # Fetch the buildbot key if neccesary.
 curl -L "$url" |
-    tee >(bzip2 -d > coreos_developer_container.bin) |
+    tee >(bzip2 -d > flatcar_developer_container.bin) |
     gpg2 --verify <(curl -Ls "$url.sig") -
 ```
 
@@ -60,7 +60,7 @@ Start the development container with the host's writable modules directory mount
 ```sh
 sudo systemd-nspawn \
     --bind=/lib/modules \
-    --image=coreos_developer_container.bin
+    --image=flatcar_developer_container.bin
 ```
 
 Now, inside the container, fetch the Flatcar Linux package definitions, then download and prepare the Linux kernel source for building external modules.

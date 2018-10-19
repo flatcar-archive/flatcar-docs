@@ -99,7 +99,7 @@ coreos:
   update:
     reboot-strategy: "etcd-lock"
     group:           "stable"
-    server:          "https://public.update.core-os.net/v1/update/"
+    server:          "https://public.update.flatcar-linux.net/v1/update/"
 ```
 
 In the update section in a Container Linux Config the group and server can be configured, but the reboot-strategy option has been moved under the locksmith section.
@@ -107,7 +107,7 @@ In the update section in a Container Linux Config the group and server can be co
 ```yaml
 update:
   group:  "stable"
-  server: "https://public.update.core-os.net/v1/update/"
+  server: "https://public.update.flatcar-linux.net/v1/update/"
 ```
 
 ### units

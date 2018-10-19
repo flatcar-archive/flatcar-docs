@@ -62,23 +62,6 @@ Note: Add `COREOS_OFFICIAL=1` here if you are making a real release. That will c
 
 The generated production image is bootable as-is by qemu but for a larger ROOT partition or VMware images use `image_to_vm.sh` as described in the final output of `build_image`.
 
-## Pushing updates into CoreUpdate
-
-The automated build host does not have access to production signing keys so the final signing and push to roller must be done elsewhere. The `flatcar_production_update.zip` archive provides the tools required to do this so a full SDK setup is not required. This does require gsutil to be installed and configured. An update payload signed by the insecure development keys is generated automatically as `flatcar_production_update.gz` and `flatcar_production_update.meta`. If needed the raw filesystem image used to generate the payload is `flatcar_production_update.bin.bz2`. As an example, to publish the insecurely signed payload:
-
-```sh
-URL=gs://builds.release.core-os.net/alpha/amd64-usr/321.0.0
-cd $(mktemp -d)
-gsutil -m cp $URL/flatcar_production_update* ./
-gpg --verify flatcar_production_update.zip.sig
-gpg --verify flatcar_production_update.gz.sig
-gpg --verify flatcar_production_update.meta.sig
-unzip flatcar_production_update.zip
- ./core_roller_upload --user <you>@flatcar-linux.org --api_key <yourkey>
-```
-
-Note: prefixing the command with a space will avoid recording your API key in your bash history if `$HISTCONTROL` is `ignorespace` or `ignoreboth`.
-
 ## Tips and Tricks
 
 We've compiled a [list of tips and tricks](sdk-tips-and-tricks.md) that can make working with the SDK a bit easier.
