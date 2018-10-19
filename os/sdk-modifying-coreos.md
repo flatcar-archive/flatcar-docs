@@ -36,8 +36,8 @@ The `cork` utility, included in the Flatcar Linux [mantle](https://github.com/fl
 First, download the cork utility and verify it with the signature:
 
 ```sh
-curl -L -o cork https://github.com/flatcar-linux/mantle/releases/download/v0.7.0/cork-0.7.0-amd64
-curl -L -o cork.sig https://github.com/flatcar-linux/mantle/releases/download/v0.7.0/cork-0.7.0-amd64.sig
+curl -L -o cork https://github.com/flatcar-linux/mantle/releases/download/v0.11.0/cork-0.11.0-amd64
+curl -L -o cork.sig https://github.com/flatcar-linux/mantle/releases/download/v0.11.0/cork-0.11.0-amd64.sig
 gpg --receive-keys 9CEB8FE6B4F1E9E752F61C82CDDE268EBB729EC7
 gpg --verify cork.sig cork
 ```
@@ -69,7 +69,7 @@ Next, use the cork utility to create a project directory. This will hold all of 
 ```sh
 mkdir flatcar-sdk
 cd flatcar-sdk
-cork create
+cork create --manifest-branch=flatcar-master --manifest-url=https://github.com/flatcar-linux/manifest
 cork enter
 ```
 
