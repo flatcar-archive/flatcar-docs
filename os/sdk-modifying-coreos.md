@@ -112,10 +112,10 @@ Build all of the target binary packages:
 
 #### Render the Flatcar Linux image
 
-Build an image based on the binary packages built above, including development tools:
+Build an image based on the binary packages built above:
 
 ```sh
-./build_image dev
+./build_image
 ```
 
 After `build_image` completes, it prints commands for converting the raw bin into a bootable virtual machine. Run the `image_to_vm.sh` command.
@@ -153,7 +153,7 @@ mind when making changes, the origin git repository should not have a
 
 ## Building images
 
-There are separate workflows for building [production images][prodimages] and [development images][devimages].
+There are separate workflows for building [production images][prodimages].
 
 ## Tips and tricks
 
@@ -166,7 +166,6 @@ We've compiled a [list of tips and tricks][sdktips] that can make working with t
 
 [android-repo-git]: https://source.android.com/source/developing.html
 [flatcar-dev]: https://groups.google.com/forum/#!forum/flatcar-linux-dev
-[devimages]: sdk-building-development-images.md
 [github-flatcar]: https://github.com/flatcar-linux/
 [irc]: irc://irc.freenode.org:6667/#flatcar
 [mantle]: https://github.com/flatcar-linux/mantle
