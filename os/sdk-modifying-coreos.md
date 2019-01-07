@@ -36,20 +36,20 @@ The `cork` utility, included in the Flatcar Linux [mantle](https://github.com/fl
 First, download the cork utility and verify it with the signature:
 
 ```sh
-curl -L -o cork https://github.com/flatcar-linux/mantle/releases/download/v0.11.0/cork-0.11.0-amd64
-curl -L -o cork.sig https://github.com/flatcar-linux/mantle/releases/download/v0.11.0/cork-0.11.0-amd64.sig
-gpg --receive-keys 9CEB8FE6B4F1E9E752F61C82CDDE268EBB729EC7
+curl -L -o cork https://github.com/flatcar-linux/mantle/releases/download/v0.11.2/cork-0.11.2-amd64
+curl -L -o cork.sig https://github.com/flatcar-linux/mantle/releases/download/v0.11.2/cork-0.11.2-amd64.sig
+gpg --receive-keys 84C8E771C0DF83DFBFCAAAF03ADA89DEC2507883
 gpg --verify cork.sig cork
 ```
 
 The `gpg --verify` command should output something like this:
 
 ```
-gpg: Signature made Thu 31 Aug 2017 02:47:22 PM PDT
-gpg:                using RSA key 9CEB8FE6B4F1E9E752F61C82CDDE268EBB729EC7
-gpg: Good signature from "CoreOS Application Signing Key <security@coreos.com>" [unknown]
-Primary key fingerprint: 18AD 5014 C99E F7E3 BA5F  6CE9 50BD D3E0 FC8A 365E
-     Subkey fingerprint: 9CEB 8FE6 B4F1 E9E7 52F6  1C82 CDDE 268E BB72 9EC7
+gpg: Signature made Mon 07 Jan 2019 14:51:50 CET
+gpg:                using RSA key 84C8E771C0DF83DFBFCAAAF03ADA89DEC2507883
+gpg: Good signature from "Flatcar Application Signing Key <buildbot@flatcar-linux.org>" [unknown]
+Primary key fingerprint: C1C0 B82A 2F75 90B2 E369  822B E52F 0DB3 9145 3C45
+     Subkey fingerprint: 84C8 E771 C0DF 83DF BFCA  AAF0 3ADA 89DE C250 7883
 ```
 
 Then proceed with the installation of the cork binary to a location on your path:
