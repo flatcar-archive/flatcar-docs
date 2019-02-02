@@ -2,17 +2,17 @@
 
 ## Create a writable overlay
 
-The kernel modules directory `/lib/modules` is read-only on Flatcar Linux. A writable overlay can be mounted over it to allow installing new modules.
+The kernel modules directory `/usr/lib64/modules` is read-only on Flatcar Linux. A writable overlay can be mounted over it to allow installing new modules.
 
 ```sh
 modules=/opt/modules  # Adjust this writable storage location as needed.
 sudo mkdir -p "$modules" "$modules.wd"
 sudo mount \
-    -o "lowerdir=/lib/modules,upperdir=$modules,workdir=$modules.wd" \
-    -t overlay overlay /lib/modules
+    -o "lowerdir=/usr/lib64/modules,upperdir=$modules,workdir=$modules.wd" \
+    -t overlay overlay /usr/lib64/modules
 ```
 
-The following systemd unit can be written to `/etc/systemd/system/lib-modules.mount`.
+The following systemd unit can be written to `/etc/systemd/system/usr-lib64-modules.mount`.
 
 ```ini
 [Unit]
@@ -23,8 +23,8 @@ ConditionPathExists=/opt/modules
 [Mount]
 Type=overlay
 What=overlay
-Where=/lib/modules
-Options=lowerdir=/lib/modules,upperdir=/opt/modules,workdir=/opt/modules.wd
+Where=/usr/lib64/modules
+Options=lowerdir=/usr/lib64/modules,upperdir=/opt/modules,workdir=/opt/modules.wd
 
 [Install]
 WantedBy=local-fs.target
@@ -33,7 +33,7 @@ WantedBy=local-fs.target
 Enable the unit so this overlay is mounted automatically on boot.
 
 ```sh
-sudo systemctl enable lib-modules.mount
+sudo systemctl enable usr-lib64-modules.mount
 ```
 
 ## Prepare a Flatcar Linux development container
@@ -59,7 +59,7 @@ Start the development container with the host's writable modules directory mount
 
 ```sh
 sudo systemd-nspawn \
-    --bind=/lib/modules \
+    --bind=/usr/lib64/modules \
     --image=flatcar_developer_container.bin
 ```
 
@@ -74,7 +74,7 @@ make -C /usr/src/linux modules_prepare
 
 ## Build and install kernel modules
 
-At this point, upstream projects' instructions for building their out-of-tree modules should work in the Flatcar Linux development container. New kernel modules should be installed into `/lib/modules`, which is bind-mounted from the host, so they will be available on future boots without using the container again.
+At this point, upstream projects' instructions for building their out-of-tree modules should work in the Flatcar Linux development container. New kernel modules should be installed into `/usr/lib64/modules`, which is bind-mounted from the host, so they will be available on future boots without using the container again.
 
 In case the installation step didn't update the module dependency files automatically, running the following command will ensure commands like `modprobe` function correctly with the new modules.
 
