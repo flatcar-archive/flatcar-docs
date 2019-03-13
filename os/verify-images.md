@@ -10,7 +10,7 @@ Kinvolk publishes new Flatcar Linux images for each release across a variety of 
 After downloading your image, you should verify it with `gpg` tool. First, download the image signing key:
 
 ```sh
-curl -O https://flatcar-linux.org/security/image-signing-key/Flatcar_Image_Signing_Key.asc
+curl -L -O https://flatcar-linux.org/security/image-signing-key/Flatcar_Image_Signing_Key.asc
 ```
 
 Next, import the public key and verify that the ID matches the website: [Flatcar Image Signing Key][signing-key]
@@ -27,8 +27,8 @@ gpg: depth: 0  valid:   2  signed:   0  trust: 0-, 0q, 0n, 0m, 0f, 2u
 Now we're ready to download an image and it's signature, ending in .sig. We're using the QEMU image in this example:
 
 ```sh
-curl -O https://stable.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu_image.img.bz2
-curl -O https://stable.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu_image.img.bz2.sig
+curl -L -O https://stable.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu_image.img.bz2
+curl -L -O https://stable.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu_image.img.bz2.sig
 ```
 
 Verify image with `gpg` tool:
