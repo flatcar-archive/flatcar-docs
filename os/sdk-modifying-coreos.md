@@ -69,7 +69,7 @@ Next, use the cork utility to create a project directory. This will hold all of 
 ```sh
 mkdir flatcar-sdk
 cd flatcar-sdk
-cork create --manifest-branch=flatcar-master --manifest-url=https://github.com/flatcar-linux/manifest
+cork create
 cork enter
 ```
 
