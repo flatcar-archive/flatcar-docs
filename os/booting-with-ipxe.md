@@ -35,6 +35,7 @@ Flatcar Linux is designed to be updated automatically with different schedules p
     <li class="active"><a href="#stable-create" data-toggle="tab">Stable Channel</a></li>
     <li><a href="#beta-create" data-toggle="tab">Beta Channel</a></li>
     <li><a href="#alpha-create" data-toggle="tab">Alpha Channel</a></li>
+    <li><a href="#edge-create" data-toggle="tab">Edge Channel</a></li>
   </ul>
   <div class="tab-content coreos-docs-image-table">
     <div class="tab-pane" id="alpha-create">
@@ -55,6 +56,17 @@ boot</pre>
 #!ipxe
 
 set base-url http://beta.release.flatcar-linux.net/amd64-usr/current
+kernel ${base-url}/flatcar_production_pxe.vmlinuz initrd=flatcar_production_pxe_image.cpio.gz flatcar.first_boot=1 flatcar.config.url=https://example.com/pxe-config.ign
+initrd ${base-url}/flatcar_production_pxe_image.cpio.gz
+boot</pre>
+    </div>
+    <div class="tab-pane" id="edge-create">
+      <p>The Edge channel includes bleeding-edge features with the newest versions of the Linux kernel, systemd and other core packages. Can be highly unstable. The current version is Flatcar Linux {{site.edge-channel}}.</p>
+      <p>iPXE downloads a boot script from a publicly available URL. You will need to host this URL somewhere public and replace the example SSH key with your own. You can also run a <a href="https://github.com/kelseyhightower/coreos-ipxe-server">custom iPXE server</a>.</p>
+      <pre>
+#!ipxe
+
+set base-url http://edge.release.flatcar-linux.net/amd64-usr/current
 kernel ${base-url}/flatcar_production_pxe.vmlinuz initrd=flatcar_production_pxe_image.cpio.gz flatcar.first_boot=1 flatcar.config.url=https://example.com/pxe-config.ign
 initrd ${base-url}/flatcar_production_pxe_image.cpio.gz
 boot</pre>

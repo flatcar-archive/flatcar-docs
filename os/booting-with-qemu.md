@@ -68,6 +68,7 @@ Flatcar Linux is designed to be updated automatically with different schedules p
     <li class="active"><a href="#stable" data-toggle="tab">Stable Channel</a></li>
     <li><a href="#beta" data-toggle="tab">Beta Channel</a></li>
     <li><a href="#alpha" data-toggle="tab">Alpha Channel</a></li>
+    <li><a href="#edge" data-toggle="tab">Edge Channel</a></li>
   </ul>
   <div class="tab-content coreos-docs-image-table">
     <div class="tab-pane active" id="stable">
@@ -113,6 +114,22 @@ wget https://beta.release.flatcar-linux.net/amd64-usr/current/flatcar_production
 wget https://beta.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu.sh.sig
 wget https://beta.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu_image.img.bz2
 wget https://beta.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu_image.img.bz2.sig
+gpg --verify flatcar_production_qemu.sh.sig
+gpg --verify flatcar_production_qemu_image.img.bz2.sig
+bzip2 -d flatcar_production_qemu_image.img.bz2
+chmod +x flatcar_production_qemu.sh</pre>
+    </div>
+    <div class="tab-pane" id="edge">
+      <div class="channel-info">
+        <p>The Edge channel includes bleeding-edge features with the newest versions of the Linux kernel, systemd and other core packages. Can be highly unstable. The current version is Flatcar Linux {{site.edge-channel}}.</p>
+      </div>
+      <p>There are two files you need: the disk image (provided in qcow2
+      format) and the wrapper shell script to start QEMU.</p>
+      <pre>mkdir flatcar; cd flatcar
+wget https://edge.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu.sh
+wget https://edge.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu.sh.sig
+wget https://edge.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu_image.img.bz2
+wget https://edge.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu_image.img.bz2.sig
 gpg --verify flatcar_production_qemu.sh.sig
 gpg --verify flatcar_production_qemu_image.img.bz2.sig
 bzip2 -d flatcar_production_qemu_image.img.bz2
