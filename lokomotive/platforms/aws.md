@@ -29,7 +29,7 @@ tar xzf terraform-provider-ct-v0.3.1-linux-amd64.tar.gz
 mv terraform-provider-ct-v0.3.1-linux-amd64/terraform-provider-ct ~/.terraform.d/plugins/terraform-provider-ct_v0.3.1
 ```
 
-Read [concepts](/architecture/concepts/) to learn about Terraform, modules, and organizing resources. Change to your infrastructure repository (e.g. `infra`).
+Read [concepts](/docs/architecture/concepts.md) to learn about Terraform, modules, and organizing resources. Change to your infrastructure repository (e.g. `infra`).
 
 ```
 cd infra/clusters
@@ -88,7 +88,7 @@ Additional configuration options are described in the `aws` provider [docs](http
 
 ## Cluster
 
-Define a Kubernetes cluster using the module `aws/container-linux/kubernetes`.
+Define a Kubernetes cluster using the module [aws/container-linux/kubernetes](https://github.com/kinvolk/lokomotive-kubernetes-private/tree/master/aws/container-linux/kubernetes).
 
 ```tf
 module "aws-tempest" {
