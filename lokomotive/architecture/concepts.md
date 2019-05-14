@@ -24,7 +24,7 @@ Terraform config files declare *resources* that Terraform should manage. Resourc
 
 ```tf
 # Declare an instance
-resource "google_compute_instance" "pet" {
+resource "aws_instance" "pet" {
   # ...
 }
 ```
@@ -38,29 +38,29 @@ $ terraform apply
 Apply complete! Resources: 4 added, 0 changed, 0 destroyed.
 ```
 
-With Typhoon, you'll be able to manage clusters with Terraform.
+With Lokomotive, you'll be able to manage clusters with Terraform.
 
 ### Modules
 
-Terraform [modules](https://www.terraform.io/docs/modules/usage.html) allow a collection of resources to be configured and managed together. Typhoon provides a Kubernetes cluster Terraform *module* for each [supported](/#modules) platform and operating system.
+Terraform [modules](https://www.terraform.io/docs/modules/usage.html) allow a collection of resources to be configured and managed together. Lokomotive provides a Kubernetes cluster Terraform *module* for each [supported](/#modules) platform and operating system.
 
 Clusters are declared in Terraform by referencing the module.
 
 ```tf
-module "google-cloud-yavin" {
-  source = "git::https://github.com/poseidon/typhoon//google-cloud/container-linux/kubernetes"
-  cluster_name = "yavin"
+module "aws-tempest" {
+  source = "git::https://github.com/kinvolk/lokomotive-kubernetes//aws/container-linux/kubernetes"
+  cluster_name = "tempest"
   ...
 }
 ```
 
 ### Versioning
 
-Modules are updated regularly, set the version to a [release tag](https://github.com/poseidon/typhoon/releases) or [commit](https://github.com/poseidon/typhoon/commits/master) hash.
+Modules are updated regularly, set the version to a [release tag](https://github.com/kinvolk/lokomotive-kubernetes/releases) or [commit](https://github.com/kinvolk/lokomotive-kubernetes/commits/master) hash.
 
 ```tf
 ...
-source = "git:https://github.com/poseidon/typhoon//google-cloud/container-linux/kubernetes?ref=hash"
+source = "git:https://github.com/kinvolk/lokomotive-kubernetes//aws/container-linux/kubernetes?ref=hash"
 ```
 
 Module versioning ensures `terraform get --update` only fetches the desired version, so plan and apply don't change cluster resources, unless the version is altered.
@@ -113,4 +113,3 @@ terraform {
   }
 }
 ```
-
