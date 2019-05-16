@@ -8,24 +8,49 @@ Before proceeding, you will need a GCE account ([GCE free trial ][free-trial]) a
 
 After installation, log into your account with `gcloud auth login` and enter your project ID when prompted.
 
-## Installation from a tarball
+## Uploading an Image
 
-One of the possible ways of installation is to import a pre-built tarball. The image file will be in `https://${CHANNEL}.release.flatcar-linux.net/amd64-usr/${VERSION}/flatcar_production_gce.tar.gz`.
-Make sure you download the signature (it's available in `https://${CHANNEL}.release.flatcar-linux.net/amd64-usr/${VERSION}/flatcar_production_gce.tar.gz.sig`) and check it before proceeding.
+Official Flatcar Linux images are not available on Google Cloud at the moment. However, you can run Flatcar Linux today by uploading an image to your account.
 
-For example, to get the latest alpha:
-
-```
-$ wget https://alpha.release.flatcar-linux.net/amd64-usr/current/flatcar_production_gce.tar.gz
-$ wget https://alpha.release.flatcar-linux.net/amd64-usr/current/flatcar_production_gce.tar.gz.sig
-$ gpg --verify flatcar_production_gce.tar.gz.sig
-gpg: assuming signed data in 'flatcar_production_gce.tar.gz'
-gpg: Signature made Thu 15 Mar 2018 10:28:25 AM CET
-gpg:                using RSA key A621F1DA96C93C639506832D603443A1D0FC498C
-gpg: Good signature from "Flatcar Buildbot (Official Builds) <buildbot@flatcar-linux.org>" [ultimate]
+To do so, run the following command:
+```sh
+docker run -it quay.io/kinvolk/google-cloud-flatcar-image-upload \
+  --bucket-name <bucket name> \
+  --project-id <project id>
 ```
 
-Follow the [Importing Boot Disk Images to Compute Engine](https://cloud.google.com/compute/docs/images/import-existing-image#import_image) guide to learn how to import the image and start instances with it.
+Where:
+
+- `<bucket name>` should be a valid [bucket][bucket] name.
+- `<project id>` should be your project ID.
+
+During execution, the script will ask you to log into your Google account and then create all necessary resources for
+uploading an image. It will then download the requested Flatcar Linux image and upload it to the Google Cloud.
+
+To see all available options, run:
+```sh
+docker run -it quay.io/kinvolk/google-cloud-flatcar-image-upload --help
+
+Usage: /usr/local/bin/upload_images.sh [OPTION...]
+
+ Required arguments:
+  -b, --bucket-name Name of GCP bucket for storing images.
+  -p, --project-id  ID of the project for creating bucket.
+
+ Optional arguments:
+  -c, --channel     Flatcar Linux release channel. Defaults to 'stable'.
+  -v, --version     Flatcar Linux version. Defaults to 'current'.
+  -i, --image-name  Image name, which will be used later in Lokomotive configuration. Defaults to 'flatcar-<channel>'.
+
+ Optional flags:
+   -f, --force-reupload If used, image will be uploaded even if it already exist in the bucket.
+   -F, --force-recreate If user, if compute image already exist, it will be removed and recreated.
+```
+
+The Dockerfile for the `quay.io/kinvolk/google-cloud-flatcar-image-upload` image is managed [here][google-cloud-flatcar-image-upload].
+
+[bucket]: https://cloud.google.com/storage/docs/key-terms#bucket-names
+[google-cloud-flatcar-image-upload]: https://github.com/kinvolk/flatcar-cloud-image-uploader/blob/master/google-cloud-flatcar-image-upload
 
 ## Upgrade from Container Linux
 
