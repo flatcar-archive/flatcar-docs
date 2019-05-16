@@ -56,6 +56,7 @@ Securing Clusters                                               | Debugging Clus
 [Trusted Computing Hardware Requirements][hardware-requirements]| [Collecting crash logs][crash-log]
 [Adding Cert Authorities][cert-authorities]                     | [Manual Flatcar Linux rollbacks][container-linux-rollbacks]
 [Using SELinux][selinux]                                        |
+[Disabling SMT][disabling-smt]                                    |
 
 
 ### Container Runtimes
@@ -122,6 +123,7 @@ APIs and troubleshooting guides for working with Flatcar Linux.
 [hardware-requirements]: os/trusted-computing-hardware-requirements.md
 [cert-authorities]: os/adding-certificate-authorities.md
 [selinux]: os/selinux.md
+[disabling-smt]: os/disabling-smt.md
 [debugging-tools]: os/install-debugging-tools.md
 [btrfs]: os/btrfs-troubleshooting.md
 [system-log]: os/reading-the-system-log.md
