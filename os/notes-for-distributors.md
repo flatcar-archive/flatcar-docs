@@ -2,7 +2,7 @@
 
 ## Importing images
 
-Images of Flatcar Linux alpha releases are hosted at [`https://alpha.release.flatcar-linux.net/amd64-usr/`][alpha-bucket]. There are directories for releases by version as well as `current` with a copy of the latest version. Similarly, beta releases can be found at [`https://beta.release.flatcar-linux.net/amd64-usr/`][beta-bucket] and stable releases at [`https://stable.release.flatcar-linux.net/amd64-usr/`][stable-bucket].
+Images of Flatcar Linux alpha releases are hosted at [`https://alpha.release.flatcar-linux.net/amd64-usr/`][alpha-bucket]. There are directories for releases by version as well as `current` with a copy of the latest version. Similarly, beta releases can be found at [`https://beta.release.flatcar-linux.net/amd64-usr/`][beta-bucket], edge releases at [`https://edge.release.flatcar-linux.net/amd64-usr/`][edge-bucket], and stable releases at [`https://stable.release.flatcar-linux.net/amd64-usr/`][stable-bucket].
 
 Each directory has a `version.txt` file containing version information for the files in that directory. If you are importing images for use inside your environment it is recommended that you fetch `version.txt` from the `current` directory and use its contents to compute the path to the other artifacts. For example, to download the alpha OpenStack version of Flatcar Linux:
 
@@ -22,6 +22,7 @@ The signing key is rotated annually. We will announce upcoming rotations of the 
 
 [alpha-bucket]: https://alpha.release.flatcar-linux.net/amd64-usr/
 [beta-bucket]: https://beta.release.flatcar-linux.net/amd64-usr/
+[edge-bucket]: https://edge.release.flatcar-linux.net/amd64-usr/
 [stable-bucket]: https://stable.release.flatcar-linux.net/amd64-usr/
 [signing-key]: https://coreos.com/security/image-signing-key
 [flatcar-user]: https://groups.google.com/forum/#!forum/flatcar-linux-user
