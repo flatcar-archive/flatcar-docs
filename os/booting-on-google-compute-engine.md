@@ -8,6 +8,40 @@ Before proceeding, you will need a GCE account ([GCE free trial ][free-trial]) a
 
 After installation, log into your account with `gcloud auth login` and enter your project ID when prompted.
 
+## Choosing a channel
+
+Flatcar Linux is designed to be updated automatically with different schedules per channel. You can [disable this feature](update-strategies.md), although we don't recommend it. Read the [release notes](https://flatcar-linux.org/releases) for specific features and bug fixes.
+
+Create 3 instances from the image above using our Ignition from `example.ign`:
+
+<div id="gce-create">
+  <ul class="nav nav-tabs">
+    <li class="active"><a href="#stable-create" data-toggle="tab">Stable Channel</a></li>
+    <li><a href="#beta-create" data-toggle="tab">Beta Channel</a></li>
+    <li><a href="#alpha-create" data-toggle="tab">Alpha Channel</a></li>
+    <li><a href="#edge-create" data-toggle="tab">Edge Channel</a></li>
+  </ul>
+  <div class="tab-content coreos-docs-image-table">
+    <div class="tab-pane active" id="stable-create">
+      <p>The Stable channel should be used by production clusters. Versions of Flatcar Linux are battle-tested within the Beta and Alpha channels before being promoted. The current version is Flatcar Linux {{site.stable-channel}}.</p>
+      <pre>gcloud compute instances create flatcar1 flatcar2 flatcar3 --image-project flatcar-cloud --image-family flatcar-stable --zone us-central1-a --machine-type n1-standard-1 --metadata-from-file user-data=config.ign</pre>
+    </div>
+    <div class="tab-pane" id="beta-create">
+      <p>The Beta channel consists of promoted Alpha releases. The current version is Flatcar Linux {{site.beta-channel}}.</p>
+      <pre>gcloud compute instances create flatcar1 flatcar2 flatcar3 --image-project flatcar-cloud --image-family flatcar-beta --zone us-central1-a --machine-type n1-standard-1 --metadata-from-file user-data=config.ign</pre>
+    </div>
+    <div class="tab-pane" id="alpha-create">
+      <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Flatcar Linux {{site.alpha-channel}}.</p>
+      <pre>gcloud compute instances create flatcar1 flatcar2 flatcar3 --image-project flatcar-cloud --image-family flatcar-alpha --zone us-central1-a --machine-type n1-standard-1 --metadata-from-file user-data=config.ign</pre>
+    </div>
+    <div class="tab-pane" id="edge-create">
+      <p>The Edge channel includes bleeding-edge features with the newest versions of the Linux kernel, systemd
+      and other core packages. Can be highly unstable. The current version is Flatcar Linux {{site.edge-channel}}.</p>
+      <pre>gcloud compute instances create flatcar1 flatcar2 flatcar3 --image-project flatcar-cloud --image-family flatcar-edge --zone us-central1-a --machine-type n1-standard-1 --metadata-from-file user-data=config.ign</pre>
+    </div>
+  </div>
+</div>
+
 ## Uploading an Image
 
 Official Flatcar Linux images are not available on Google Cloud at the moment. However, you can run Flatcar Linux today by uploading an image to your account.
@@ -82,40 +116,6 @@ etcd:
 ```
 
 [cl-configs]: provisioning.md
-
-## Choosing a channel
-
-Flatcar Linux is designed to be updated automatically with different schedules per channel. You can [disable this feature](update-strategies.md), although we don't recommend it. Read the [release notes](https://flatcar-linux.org/releases) for specific features and bug fixes.
-
-Create 3 instances from the image above using our Ignition from `example.ign`:
-
-<div id="gce-create">
-  <ul class="nav nav-tabs">
-    <li class="active"><a href="#stable-create" data-toggle="tab">Stable Channel</a></li>
-    <li><a href="#beta-create" data-toggle="tab">Beta Channel</a></li>
-    <li><a href="#alpha-create" data-toggle="tab">Alpha Channel</a></li>
-    <li><a href="#edge-create" data-toggle="tab">Edge Channel</a></li>
-  </ul>
-  <div class="tab-content coreos-docs-image-table">
-    <div class="tab-pane active" id="stable-create">
-      <p>The Stable channel should be used by production clusters. Versions of Flatcar Linux are battle-tested within the Beta and Alpha channels before being promoted. The current version is Flatcar Linux {{site.stable-channel}}.</p>
-      <pre>gcloud compute instances create flatcar1 flatcar2 flatcar3 --image-project flatcar-cloud --image-family flatcar-stable --zone us-central1-a --machine-type n1-standard-1 --metadata-from-file user-data=config.ign</pre>
-    </div>
-    <div class="tab-pane" id="beta-create">
-      <p>The Beta channel consists of promoted Alpha releases. The current version is Flatcar Linux {{site.beta-channel}}.</p>
-      <pre>gcloud compute instances create flatcar1 flatcar2 flatcar3 --image-project flatcar-cloud --image-family flatcar-beta --zone us-central1-a --machine-type n1-standard-1 --metadata-from-file user-data=config.ign</pre>
-    </div>
-    <div class="tab-pane" id="alpha-create">
-      <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Flatcar Linux {{site.alpha-channel}}.</p>
-      <pre>gcloud compute instances create flatcar1 flatcar2 flatcar3 --image-project flatcar-cloud --image-family flatcar-alpha --zone us-central1-a --machine-type n1-standard-1 --metadata-from-file user-data=config.ign</pre>
-    </div>
-    <div class="tab-pane" id="edge-create">
-      <p>The Edge channel includes bleeding-edge features with the newest versions of the Linux kernel, systemd
-      and other core packages. Can be highly unstable. The current version is Flatcar Linux {{site.edge-channel}}.</p>
-      <pre>gcloud compute instances create flatcar1 flatcar2 flatcar3 --image-project flatcar-cloud --image-family flatcar-edge --zone us-central1-a --machine-type n1-standard-1 --metadata-from-file user-data=config.ign</pre>
-    </div>
-  </div>
-</div>
 
 ### Additional storage
 
