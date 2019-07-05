@@ -8,24 +8,83 @@ Before proceeding, you will need a GCE account ([GCE free trial ][free-trial]) a
 
 After installation, log into your account with `gcloud auth login` and enter your project ID when prompted.
 
-## Installation from a tarball
+## Choosing a channel
 
-One of the possible ways of installation is to import a pre-built tarball. The image file will be in `https://${CHANNEL}.release.flatcar-linux.net/amd64-usr/${VERSION}/flatcar_production_gce.tar.gz`.
-Make sure you download the signature (it's available in `https://${CHANNEL}.release.flatcar-linux.net/amd64-usr/${VERSION}/flatcar_production_gce.tar.gz.sig`) and check it before proceeding.
+Flatcar Linux is designed to be updated automatically with different schedules per channel. You can [disable this feature](update-strategies.md), although we don't recommend it. Read the [release notes](https://flatcar-linux.org/releases) for specific features and bug fixes.
 
-For example, to get the latest alpha:
+Create 3 instances from the image above using our Ignition from `example.ign`:
 
+<div id="gce-create">
+  <ul class="nav nav-tabs">
+    <li class="active"><a href="#stable-create" data-toggle="tab">Stable Channel</a></li>
+    <li><a href="#beta-create" data-toggle="tab">Beta Channel</a></li>
+    <li><a href="#alpha-create" data-toggle="tab">Alpha Channel</a></li>
+    <li><a href="#edge-create" data-toggle="tab">Edge Channel</a></li>
+  </ul>
+  <div class="tab-content coreos-docs-image-table">
+    <div class="tab-pane active" id="stable-create">
+      <p>The Stable channel should be used by production clusters. Versions of Flatcar Linux are battle-tested within the Beta and Alpha channels before being promoted. The current version is Flatcar Linux {{site.stable-channel}}.</p>
+      <pre>gcloud compute instances create flatcar1 flatcar2 flatcar3 --image-project flatcar-cloud --image-family flatcar-stable --zone us-central1-a --machine-type n1-standard-1 --metadata-from-file user-data=config.ign</pre>
+    </div>
+    <div class="tab-pane" id="beta-create">
+      <p>The Beta channel consists of promoted Alpha releases. The current version is Flatcar Linux {{site.beta-channel}}.</p>
+      <pre>gcloud compute instances create flatcar1 flatcar2 flatcar3 --image-project flatcar-cloud --image-family flatcar-beta --zone us-central1-a --machine-type n1-standard-1 --metadata-from-file user-data=config.ign</pre>
+    </div>
+    <div class="tab-pane" id="alpha-create">
+      <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Flatcar Linux {{site.alpha-channel}}.</p>
+      <pre>gcloud compute instances create flatcar1 flatcar2 flatcar3 --image-project flatcar-cloud --image-family flatcar-alpha --zone us-central1-a --machine-type n1-standard-1 --metadata-from-file user-data=config.ign</pre>
+    </div>
+    <div class="tab-pane" id="edge-create">
+      <p>The Edge channel includes bleeding-edge features with the newest versions of the Linux kernel, systemd
+      and other core packages. Can be highly unstable. The current version is Flatcar Linux {{site.edge-channel}}.</p>
+      <pre>gcloud compute instances create flatcar1 flatcar2 flatcar3 --image-project flatcar-cloud --image-family flatcar-edge --zone us-central1-a --machine-type n1-standard-1 --metadata-from-file user-data=config.ign</pre>
+    </div>
+  </div>
+</div>
+
+## Uploading an Image
+
+Official Flatcar Linux images are not available on Google Cloud at the moment. However, you can run Flatcar Linux today by uploading an image to your account.
+
+To do so, run the following command:
+```sh
+docker run -it quay.io/kinvolk/google-cloud-flatcar-image-upload \
+  --bucket-name <bucket name> \
+  --project-id <project id>
 ```
-$ wget https://alpha.release.flatcar-linux.net/amd64-usr/current/flatcar_production_gce.tar.gz
-$ wget https://alpha.release.flatcar-linux.net/amd64-usr/current/flatcar_production_gce.tar.gz.sig
-$ gpg --verify flatcar_production_gce.tar.gz.sig
-gpg: assuming signed data in 'flatcar_production_gce.tar.gz'
-gpg: Signature made Thu 15 Mar 2018 10:28:25 AM CET
-gpg:                using RSA key A621F1DA96C93C639506832D603443A1D0FC498C
-gpg: Good signature from "Flatcar Buildbot (Official Builds) <buildbot@flatcar-linux.org>" [ultimate]
+
+Where:
+
+- `<bucket name>` should be a valid [bucket][bucket] name.
+- `<project id>` should be your project ID.
+
+During execution, the script will ask you to log into your Google account and then create all necessary resources for
+uploading an image. It will then download the requested Flatcar Linux image and upload it to the Google Cloud.
+
+To see all available options, run:
+```sh
+docker run -it quay.io/kinvolk/google-cloud-flatcar-image-upload --help
+
+Usage: /usr/local/bin/upload_images.sh [OPTION...]
+
+ Required arguments:
+  -b, --bucket-name Name of GCP bucket for storing images.
+  -p, --project-id  ID of the project for creating bucket.
+
+ Optional arguments:
+  -c, --channel     Flatcar Linux release channel. Defaults to 'stable'.
+  -v, --version     Flatcar Linux version. Defaults to 'current'.
+  -i, --image-name  Image name, which will be used later in Lokomotive configuration. Defaults to 'flatcar-<channel>'.
+
+ Optional flags:
+   -f, --force-reupload If used, image will be uploaded even if it already exist in the bucket.
+   -F, --force-recreate If user, if compute image already exist, it will be removed and recreated.
 ```
 
-Follow the [Importing Boot Disk Images to Compute Engine](https://cloud.google.com/compute/docs/images/import-existing-image#import_image) guide to learn how to import the image and start instances with it.
+The Dockerfile for the `quay.io/kinvolk/google-cloud-flatcar-image-upload` image is managed [here][google-cloud-flatcar-image-upload].
+
+[bucket]: https://cloud.google.com/storage/docs/key-terms#bucket-names
+[google-cloud-flatcar-image-upload]: https://github.com/kinvolk/flatcar-cloud-image-uploader/blob/master/google-cloud-flatcar-image-upload
 
 ## Upgrade from Container Linux
 
@@ -57,34 +116,6 @@ etcd:
 ```
 
 [cl-configs]: provisioning.md
-
-## Choosing a channel
-
-Flatcar Linux is designed to be updated automatically with different schedules per channel. You can [disable this feature](update-strategies.md), although we don't recommend it. Read the [release notes](https://flatcar-linux.org/releases) for specific features and bug fixes.
-
-Create 3 instances from the image above using our Ignition from `example.ign`:
-
-<div id="gce-create">
-  <ul class="nav nav-tabs">
-    <li class="active"><a href="#stable-create" data-toggle="tab">Stable Channel</a></li>
-    <li><a href="#beta-create" data-toggle="tab">Beta Channel</a></li>
-    <li><a href="#alpha-create" data-toggle="tab">Alpha Channel</a></li>
-  </ul>
-  <div class="tab-content coreos-docs-image-table">
-    <div class="tab-pane" id="alpha-create">
-      <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Flatcar Linux {{site.alpha-channel}}.</p>
-      <pre>gcloud compute instances create core1 core2 core3 --image-project coreos-cloud --image-family coreos-alpha --zone us-central1-a --machine-type n1-standard-1 --metadata-from-file user-data=config.ign</pre>
-    </div>
-    <div class="tab-pane" id="beta-create">
-      <p>The Beta channel consists of promoted Alpha releases. The current version is Flatcar Linux {{site.beta-channel}}.</p>
-      <pre>gcloud compute instances create core1 core2 core3 --image-project coreos-cloud --image-family coreos-beta --zone us-central1-a --machine-type n1-standard-1 --metadata-from-file user-data=config.ign</pre>
-    </div>
-    <div class="tab-pane active" id="stable-create">
-      <p>The Stable channel should be used by production clusters. Versions of Flatcar Linux are battle-tested within the Beta and Alpha channels before being promoted. The current version is Flatcar Linux {{site.stable-channel}}.</p>
-      <pre>gcloud compute instances create core1 core2 core3 --image-project coreos-cloud --image-family coreos-stable --zone us-central1-a --machine-type n1-standard-1 --metadata-from-file user-data=config.ign</pre>
-    </div>
-  </div>
-</div>
 
 ### Additional storage
 
