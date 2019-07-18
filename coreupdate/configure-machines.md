@@ -82,7 +82,7 @@ $ update_engine_client -check_for_update
 
 ### Force update in foreground
 
-If you want to see what's going on behind the scenes, you can watch the ouput in the foreground:
+If you want to see what's going on behind the scenes, you can watch the output in the foreground:
 
 ```
 $ update_engine_client -update

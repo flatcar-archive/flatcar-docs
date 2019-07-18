@@ -18,7 +18,7 @@ Next, import the public key and verify that the ID matches the website: [Flatcar
 
 ```sh
 gpg --import --keyid-format LONG Flatcar_Image_Signing_Key.asc
-gpg: key 50E0885593D2DCB4: public key "Flatcar Buildbot (Offical Builds) <buildbot@flatcar-linux.org>" imported
+gpg: key 50E0885593D2DCB4: public key "Flatcar Buildbot (Official Builds) <buildbot@flatcar-linux.org>" imported
 gpg: Total number processed: 1
 gpg:               imported: 1  (RSA: 1)
 gpg: 3 marginal(s) needed, 1 complete(s) needed, PGP trust model
@@ -37,7 +37,7 @@ Verify image with `gpg` tool:
 ```sh
 gpg --verify flatcar_production_qemu_image.img.bz2.sig
 gpg: Signature made Tue Jun 23 09:39:04 2015 CEST using RSA key ID E5676EFC
-gpg: Good signature from "Flatcar Buildbot (Offical Builds) <buildbot@flatcar-linux.org>"
+gpg: Good signature from "Flatcar Buildbot (Official Builds) <buildbot@flatcar-linux.org>"
 ```
 
 The `Good signature` message indicates that the file signature is valid. Go launch some machines now that we've successfully verified that this Flatcar Linux image isn't corrupt, that it was authored by Kinvolk, and wasn't tampered with in transit.

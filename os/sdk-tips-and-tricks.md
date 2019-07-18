@@ -76,7 +76,7 @@ To quickly test your new package(s), use the following commands:
 ~/trunk/src/scripts $ # Manually unmerge a package in the chroot
 ~/trunk/src/scripts $ emerge-amd64-usr --unmerge packagename
 ~/trunk/src/scripts $ # Remove a binary from the cache
-~/trunk/src/scripts $ sudo rm /build/amd64-usr/packages/catagory/packagename-version.tbz2
+~/trunk/src/scripts $ sudo rm /build/amd64-usr/packages/category/packagename-version.tbz2
 ```
 
 To recreate the chroot prior to a clean rebuild, exit the chroot and run:

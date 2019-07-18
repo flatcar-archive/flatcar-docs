@@ -13,7 +13,7 @@ The recommended way to authenticate container manager software with [quay.io][qu
 
 ![Quay Robot settings][quay-bot-img]
 
-Quay robots provide config files for Kubernetes, Docker, Mesos, and rkt, along with intructions for using each. Find this information in the **Robot Accounts** tab under your Quay user settings. For more information, see the [Quay robot documentation][quay-robot].
+Quay robots provide config files for Kubernetes, Docker, Mesos, and rkt, along with instructions for using each. Find this information in the **Robot Accounts** tab under your Quay user settings. For more information, see the [Quay robot documentation][quay-robot].
 
 ## Manual registry auth setup
 

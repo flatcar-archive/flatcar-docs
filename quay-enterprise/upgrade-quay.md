@@ -8,7 +8,7 @@ If you are upgrading from a version of Quay Enterprise older than 2.0.0, you **m
 
 ## Upgrading Note
 
-We **highly** recommend performing upgrades during a scheduled maintainence window, as it will require taking the existing cluster down temporarily. We are working to remove this restriction in a future release.
+We **highly** recommend performing upgrades during a scheduled maintenance window, as it will require taking the existing cluster down temporarily. We are working to remove this restriction in a future release.
 
 ## The upgrade process
 

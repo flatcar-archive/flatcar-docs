@@ -53,7 +53,7 @@ The latest Flatcar Linux ISOs can be downloaded from the image storage site:
 
 1. UEFI boot is not currently supported. Boot the system in BIOS compatibility mode.
 2. There is no straightforward way to provide an [Ignition config][cl-configs].
-3. A mininum of 2 GB of RAM is required to boot Flatcar Linux via ISO.
+3. A minimum of 2 GB of RAM is required to boot Flatcar Linux via ISO.
 
 ## Install to disk
 

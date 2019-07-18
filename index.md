@@ -25,7 +25,7 @@ Bare Metal                                              | Upgrading from Contain
 
 
 ### Working with Clusters
-Follow these guides to connect your machines together as a cluster. Configure machine paramaters, create users, inject multiple SSH keys, and more with Container Linux Config.
+Follow these guides to connect your machines together as a cluster. Configure machine parameters, create users, inject multiple SSH keys, and more with Container Linux Config.
 
 Creating Clusters                                               | Customizing Clusters
 --------------                                                  | -------------
