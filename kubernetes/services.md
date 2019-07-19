@@ -14,7 +14,7 @@ A core design feature of Kubernetes is a routable IP address for every service a
 
 Google learned this lesson the hard way over their decade of experience deploying this type of infrastructure. Kubernetes empowers you to avoid these mistakes before years of cruft, complexity and technical debt build up.
 
-While this design decision complicates the networking configuraton slightly, your operations team can set up and configure [flannel][flannel], which is an open-source project designed by CoreOS to enable this type of routing for Kubernetes.
+While this design decision complicates the networking configuration slightly, your operations team can set up and configure [flannel][flannel], which is an open-source project designed by CoreOS to enable this type of routing for Kubernetes.
 
 <a href="img/service.svg">
   <img src="img/service.svg" alt="Kubernetes Service" class="img-center" />

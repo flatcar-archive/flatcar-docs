@@ -1,6 +1,6 @@
 # Configure machines for Quay Enterprise
 
-Quay Enterprise allows you to create user accounts and teams, or groups, of those users that mirror your existing org chart. A special type of user, a robot account, is designed to be used programatically by deployment systems and other pieces of software. Robot accounts are usually configured with read-only access to a repository.
+Quay Enterprise allows you to create user accounts and teams, or groups, of those users that mirror your existing org chart. A special type of user, a robot account, is designed to be used programmatically by deployment systems and other pieces of software. Robot accounts are usually configured with read-only access to a repository.
 
 This guide we will assume you have the DNS record `registry.example.com` configured to point to your Quay Enterprise installation.
 

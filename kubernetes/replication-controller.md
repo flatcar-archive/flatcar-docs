@@ -65,7 +65,7 @@ If your application requires all traffic to shift to the new version at the same
 
 First, the service has a more specific label query that includes the version of the software running, such as `app=webapp, env=prod, version=1`. Instead of modifying the desired count of each replication controller, the version 2 controller is configured to support the same amount of load as version 1.
 
-After all of the pods are started (and warmed if needed), the label query of the service is modifed to include version 2 instead of version 1. All traffic has now been shifted towards the new version.
+After all of the pods are started (and warmed if needed), the label query of the service is modified to include version 2 instead of version 1. All traffic has now been shifted towards the new version.
 
 An advantage of this strategy is that failing back to the old version is a simple label query modification. The elegance and flexibility of Kubernetes labels shows here. Once version 2 is confirmed to be stable, the old replication controller and pods can be terminated.
 
@@ -79,7 +79,7 @@ Substantial efficiency gains are experienced as the software logic gets smarter 
 
 The pod handling rules in the replication controller act a little differently than other cluster software. A few common scenarios are covered below:
 
-1. When the pod template of a replication controller is updated but the replica count isn't modified, new pods will use the latest template, but existing pods won't be updated. This prevents unnecessary churn for your application. If this functionality is desired, pods can programatically be terminated via API and new pods will be started based on the updated template.
+1. When the pod template of a replication controller is updated but the replica count isn't modified, new pods will use the latest template, but existing pods won't be updated. This prevents unnecessary churn for your application. If this functionality is desired, pods can programmatically be terminated via API and new pods will be started based on the updated template.
 
 2. When a replication controller is deleted, the pods matching its label query aren't terminated. There are two reasons for this: First, the pods may still be in active rotation for a service. Second, another replication controller may have an overlapping label query and will continue to utilize the pods.
 

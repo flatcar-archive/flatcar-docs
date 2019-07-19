@@ -2,7 +2,7 @@
 
 These instructions will walk you through booting Flatcar Linux via iPXE on real or virtual hardware. By default, this will run Flatcar Linux completely out of RAM. Flatcar Linux can also be [installed to disk](installing-to-disk.md).
 
-A mininum of 3 GB of RAM is required to boot Flatcar Linux via PXE.
+A minimum of 3 GB of RAM is required to boot Flatcar Linux via PXE.
 
 ## Configuring iPXE
 

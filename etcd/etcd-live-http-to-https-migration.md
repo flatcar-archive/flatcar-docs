@@ -140,7 +140,7 @@ $ etcdctl member list
 $ etcdctl cluster-health
 ```
 
-If the cluster members report as expected, we can move on to configuring the local etcd proxy, if neeeded, then invoking the last of the printed command lines on a cluster member.
+If the cluster members report as expected, we can move on to configuring the local etcd proxy, if needed, then invoking the last of the printed command lines on a cluster member.
 
 ### etcd proxy
 

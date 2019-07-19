@@ -31,7 +31,7 @@ Next, download each of the following files to your workstation, placing them alo
 
 Quay Enterprise has native Kubernetes integrations. These integrations require Service Account to have access to Kubernetes API. When Kubernetes RBAC is enabled (Tectonic  v1.4 and later), Role Based Access Control policy manifests also have to be deployed.
 
-Kubernetes API has minor changes between versions 1.4 and 1.5, Download appropiate versions of Role Based Access Control (RBAC) Policies.
+Kubernetes API has minor changes between versions 1.4 and 1.5, Download appropriate versions of Role Based Access Control (RBAC) Policies.
 
 ### Tectonic v1.6.x RBAC Policies 
 
