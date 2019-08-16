@@ -148,7 +148,7 @@ Next, modify the domain xml to reference the qemu-specific configuration needed:
   ...
   <qemu:commandline>
     <qemu:arg value="-fw_cfg"/>
-    <qemu:arg value="name=opt/com.flatcar/config,file=/var/lib/libvirt/flatcar-linux/flatcar-linux1/provision.ign"/>
+    <qemu:arg value="name=opt/org.flatcar-linux/config,file=/var/lib/libvirt/flatcar-linux/flatcar-linux1/provision.ign"/>
   </qemu:commandline>
 </domain>
 ```
@@ -164,7 +164,7 @@ xmlstarlet ed -P -L -s "//domain" -t elem -n "qemu:commandline" "${domain}"
 xmlstarlet ed -P -L -s "//domain/qemu:commandline" -t elem -n "qemu:arg" "${domain}"
 xmlstarlet ed -P -L -s "(//domain/qemu:commandline/qemu:arg)[1]" -t attr -n "value" -v "-fw_cfg" "${domain}"
 xmlstarlet ed -P -L -s "//domain/qemu:commandline" -t elem -n "qemu:arg" "${domain}"
-xmlstarlet ed -P -L -s "(//domain/qemu:commandline/qemu:arg)[2]" -t attr -n "value" -v "name=opt/com.flatcar/config,file=${ignition_file}" "${domain}"
+xmlstarlet ed -P -L -s "(//domain/qemu:commandline/qemu:arg)[2]" -t attr -n "value" -v "name=opt/org.flatcar-linux/config,file=${ignition_file}" "${domain}"
 ```
 
 Alternately, you can accomplish the same modification using sed:
@@ -174,7 +174,7 @@ domain=/var/lib/libvirt/flatcar-linux/flatcar-linux1/domain.xml
 ignition_file=/var/lib/libvirt/flatcar-linux/flatcar-linux1/provision.ign
 
 sed -i 's|type="kvm"|type="kvm" xmlns:qemu="http://libvirt.org/schemas/domain/qemu/1.0"|' "${domain}"
-sed -i "/<\/devices>/a <qemu:commandline>\n  <qemu:arg value='-fw_cfg'/>\n  <qemu:arg value='name=opt/com.flatcar/config,file=${ignition_file}'/>\n</qemu:commandline>" "${domain}"
+sed -i "/<\/devices>/a <qemu:commandline>\n  <qemu:arg value='-fw_cfg'/>\n  <qemu:arg value='name=opt/org.flatcar-linux/config,file=${ignition_file}'/>\n</qemu:commandline>" "${domain}"
 ```
 
 #### Define and start the machine
@@ -279,7 +279,7 @@ virt-install --connect qemu:///system --import \
   --print-xml > /var/lib/libvirt/flatcar-linux/flatcar-linux1/domain.xml
 
 sed -ie 's|type="kvm"|type="kvm" xmlns:qemu="http://libvirt.org/schemas/domain/qemu/1.0"|' "${domain}"
-sed -i "/<\/devices>/a <qemu:commandline>\n  <qemu:arg value='-fw_cfg'/>\n  <qemu:arg value='name=opt/com.flatcar/config,file=${ignition_file}'/>\n</qemu:commandline>" "${domain}"
+sed -i "/<\/devices>/a <qemu:commandline>\n  <qemu:arg value='-fw_cfg'/>\n  <qemu:arg value='name=opt/org.flatcar-linux/config,file=${ignition_file}'/>\n</qemu:commandline>" "${domain}"
 
 virsh define /var/lib/libvirt/flatcar-linux/flatcar-linux1/domain.xml
 virsh start flatcar-linux1
