@@ -82,7 +82,7 @@ To quickly test your new package(s), use the following commands:
 To recreate the chroot prior to a clean rebuild, exit the chroot and run:
 
 ```sh
-~/coreos-sdk $ cork create --replace
+~/flatcar-sdk $ cork create --replace
 ```
 
 To include the new package as a dependency of Flatcar Linux, add the package to the end of the `RDEPEND` environment variable in `coreos-base/coreos/coreos-0.0.1.ebuild` then increment the revision of Flatcar Linux by renaming the softlink (e.g.):
@@ -109,6 +109,21 @@ References:
 [Gentoo Development Guide]: http://devmanual.gentoo.org/
 [Package Manager Specification]: https://wiki.gentoo.org/wiki/Package_Manager_Specification
 
+
+## Creating SDK with different options
+
+To create SDK from a non-default manifest branch, for example, `new-sdk`:
+
+```
+~/flatcar-sdk $ cork create --manifest-branch=new-sdk
+```
+
+To create SDK with a non-default SDK version, for example, `2229.0.0`:
+
+
+```
+~/flatcar-sdk $ cork create --sdk-version=2229.0.0
+```
 
 ## Caching git https passwords
 
