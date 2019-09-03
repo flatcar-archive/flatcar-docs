@@ -22,7 +22,7 @@ When configuring the Flatcar Linux iPXE boot script there are a few kernel optio
 - **console**: Enable kernel output and a login prompt on a given tty. The default, `tty0`, generally maps to VGA. Can be used multiple times, e.g. `console=tty0 console=ttyS0`
 - **flatcar.autologin**: Drop directly to a shell on a given console without prompting for a password. Useful for troubleshooting but use with caution. For any console that doesn't normally get a login prompt by default be sure to combine with the `console` option, e.g. `console=tty0 console=ttyS0 flatcar.autologin=tty1 flatcar.autologin=ttyS0`. Without any argument it enables access on all consoles. Note that for the VGA console the login prompts are on virtual terminals (`tty1`, `tty2`, etc), not the VGA console itself (`tty0`).
 - **flatcar.first_boot=1**: Download an Ignition config and use it to provision your booted system. Ignition configs are generated from Container Linux Configs. See the [config transpiler documentation][cl-configs] for more information. If a local filesystem is used for the root partition, pass this parameter only on the first boot.
-- **flatcar.config.url**: Download the Ignition config from the specified URL. `http`, `https`, `s3`, and `tftp` schemes are supported.
+- **ignition.config.url**: Download the Ignition config from the specified URL. `http`, `https`, `s3`, and `tftp` schemes are supported.
 
 ### Choose a Channel
 
@@ -45,7 +45,7 @@ Flatcar Linux is designed to be updated automatically with different schedules p
 #!ipxe
 
 set base-url http://alpha.release.flatcar-linux.net/amd64-usr/current
-kernel ${base-url}/flatcar_production_pxe.vmlinuz initrd=flatcar_production_pxe_image.cpio.gz flatcar.first_boot=1 flatcar.config.url=https://example.com/pxe-config.ign
+kernel ${base-url}/flatcar_production_pxe.vmlinuz initrd=flatcar_production_pxe_image.cpio.gz flatcar.first_boot=1 ignition.config.url=https://example.com/pxe-config.ign
 initrd ${base-url}/flatcar_production_pxe_image.cpio.gz
 boot</pre>
     </div>
@@ -56,7 +56,7 @@ boot</pre>
 #!ipxe
 
 set base-url http://beta.release.flatcar-linux.net/amd64-usr/current
-kernel ${base-url}/flatcar_production_pxe.vmlinuz initrd=flatcar_production_pxe_image.cpio.gz flatcar.first_boot=1 flatcar.config.url=https://example.com/pxe-config.ign
+kernel ${base-url}/flatcar_production_pxe.vmlinuz initrd=flatcar_production_pxe_image.cpio.gz flatcar.first_boot=1 ignition.config.url=https://example.com/pxe-config.ign
 initrd ${base-url}/flatcar_production_pxe_image.cpio.gz
 boot</pre>
     </div>
@@ -67,7 +67,7 @@ boot</pre>
 #!ipxe
 
 set base-url http://edge.release.flatcar-linux.net/amd64-usr/current
-kernel ${base-url}/flatcar_production_pxe.vmlinuz initrd=flatcar_production_pxe_image.cpio.gz flatcar.first_boot=1 flatcar.config.url=https://example.com/pxe-config.ign
+kernel ${base-url}/flatcar_production_pxe.vmlinuz initrd=flatcar_production_pxe_image.cpio.gz flatcar.first_boot=1 ignition.config.url=https://example.com/pxe-config.ign
 initrd ${base-url}/flatcar_production_pxe_image.cpio.gz
 boot</pre>
     </div>
@@ -78,7 +78,7 @@ boot</pre>
 #!ipxe
 
 set base-url http://stable.release.flatcar-linux.net/amd64-usr/current
-kernel ${base-url}/flatcar_production_pxe.vmlinuz initrd=flatcar_production_pxe_image.cpio.gz flatcar.first_boot=1 flatcar.config.url=https://example.com/pxe-config.ign
+kernel ${base-url}/flatcar_production_pxe.vmlinuz initrd=flatcar_production_pxe_image.cpio.gz flatcar.first_boot=1 ignition.config.url=https://example.com/pxe-config.ign
 initrd ${base-url}/flatcar_production_pxe_image.cpio.gz
 boot</pre>
     </div>
