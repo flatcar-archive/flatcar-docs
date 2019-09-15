@@ -96,7 +96,7 @@ $ sudo cp /etc/coreos/update.conf /etc/flatcar/
 Change the `SERVER` field in `/etc/flatcar/update.conf`:
 
 ```
-SERVER=https://public.update.core-os.net/v1/update/
+SERVER=https://public.update.flatcar-linux.net/v1/update/
 ```
 
 Bind-mount the release file:

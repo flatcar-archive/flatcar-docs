@@ -1,6 +1,6 @@
 # Using the client
 
-`updateservicectl` lets you control and test the Container Linux update service. Subcommands let you manage applications, users, groups, packages and write a very simple client that gets its state via environment variables.
+`updateservicectl` lets you control and test the Flatcar Linux update service. Subcommands let you manage applications, users, groups, packages and write a very simple client that gets its state via environment variables.
 
 ## Administrative flags
 
@@ -34,7 +34,7 @@ There are two tools to test out the update service: `instance fake` and `watch`.
 
 ### Fake instances
 
-This example will start 132 fake instances pinging the update service every 1 to 50 seconds against the Container Linux application's UUID and put them in the beta group starting at version 1.0.0.
+This example will start 132 fake instances pinging the update service every 1 to 50 seconds against the Flatcar Linux application's UUID and put them in the beta group starting at version 1.0.0.
 
 ```
 updateservicectl instance fake \
@@ -74,12 +74,12 @@ Applications have three pieces of data: a universal unique identifier (UUID), a 
 
 ### Add an application
 
-Create an application called Container Linux using its UUID along with a nice description.
+Create an application called Flatcar Linux using its UUID along with a nice description.
 
 ```
 updateservicectl app create \
 	--app-id=e96281a6-d1af-4bde-9a0a-97b76e56dc57 \
-	--label="Container Linux" \
+	--label="Flatcar Linux" \
 	--description="Linux for Servers"
 ```
 
@@ -140,7 +140,7 @@ Instances get their updates by giving the service a combination of their group a
 
 ### Creating a group
 
-Create a group for the Container Linux application pointing at the master channel called testing. This group might be used in your test environment.
+Create a group for the Flatcar Linux application pointing at the master channel called testing. This group might be used in your test environment.
 
 ```
 updateservicectl group create \
@@ -210,7 +210,7 @@ updateservicectl admin-user delete user@coreos.net
 
 CoreUpdate supports synchronizing certain data with other "upstream" CoreUpdate instances.
 
-By default hosted instances of CoreUpdate periodically synchronize with the public instance of CoreUpdate over the internet. This automatically updates your instance's Container Linux application packages and channel versions.
+By default hosted instances of CoreUpdate periodically synchronize with the public instance of CoreUpdate over the internet. This automatically updates your instance's Flatcar Linux application packages and channel versions.
 
 Since on-premises instances of CoreUpdate cannot access the internet [synchronization must be done manually](https://github.com/coreos/updateservicectl/blob/master/Documentation/sync-packages.md). If you decide to enable internet access for your on-premises instance, you can manage upstreams using these commands.
 
@@ -224,8 +224,8 @@ updateservicectl upstream list
 
 ```
 updateservicectl upstream create \
-	--label="Public Container Linux" \
-	--url="https://public.update.core-os.net"
+	--label="Public Flatcar Linux" \
+	--url="https://public.update.flatcar-linux.net"
 ```
 
 ### Delete upstream
