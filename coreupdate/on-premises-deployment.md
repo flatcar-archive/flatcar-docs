@@ -4,13 +4,13 @@ An on-premises deployment of CoreUpdate is a self-administered instance that can
 
 ## Accessing the CoreUpdate container
 
-After signing up you will receive a `.dockercfg` file containing your credentials to the `quay.io/coreos/coreupdate` repository. Save this file to your Container Linux machine in `/home/core/.dockercfg` and `/root/.dockercfg`. You should now be able to execute `docker pull quay.io/coreos/coreupdate` to download the container.
+After signing up you will receive a `.dockercfg` file containing your credentials to the `quay.io/coreos/coreupdate` repository. Save this file to your Flatcar Linux machine in `/home/core/.dockercfg` and `/root/.dockercfg`. You should now be able to execute `docker pull quay.io/coreos/coreupdate` to download the container.
 
 ## Database server
 
 CoreUpdate requires an instance of a Postgres database server. You can use an existing instance if you have one, or use [the official Postgres docker image](https://registry.hub.docker.com/_/postgres/).
 
-Postgres can be run on Container Linux with a systemd unit file similar to this one:
+Postgres can be run on Flatcar Linux with a systemd unit file similar to this one:
 
 ```ini
 [Service]
@@ -188,12 +188,12 @@ Create the first control panel user:
 updateservicectl --server=http://localhost:8000 --user=admin --key=<previously-generated-key> admin-user create google.apps.email@example.com
 ```
 
-#### Create the "Container Linux" application
+#### Create the "Flatcar Linux" application
 
-To sync the "Container Linux" application it must exist and have the same application id as the public CoreUpdate instance. NOTE: the application id must match exactly what is listed here:
+To sync the "Flatcar Linux" application it must exist and have the same application id as the public CoreUpdate instance. NOTE: the application id must match exactly what is listed here:
 
 ```bash
-updateservicectl --server=http://localhost:8000 --user=admin --key=<previously-generated-key> app create --label="Container Linux" --app-id=e96281a6-d1af-4bde-9a0a-97b76e56dc57
+updateservicectl --server=http://localhost:8000 --user=admin --key=<previously-generated-key> app create --label="Flatcar Linux" --app-id=e96281a6-d1af-4bde-9a0a-97b76e56dc57
 ```
 
 This step needs to be repeated for the CoreOS ARM application:
@@ -204,11 +204,11 @@ updateservicectl --server=http://localhost:8000 --user=admin --key=<previously-g
 
 #### Sync public upstream 
 
-Create a `Public CoreOS` upstream:
+Create a `Public Flatcar Linux` upstream:
 
 ```bash
-updateservicectl upstream create --label="Public CoreOS" \
---url="https://public.update.core-os.net"
+updateservicectl upstream create --label="Public Flatcar Linux" \
+--url="https://public.update.flatcar-linux.net"
 ```
 
 Perform initial upstream sync: 
@@ -235,7 +235,7 @@ The two updateservicectl commands you would need are:
 updateservicectl package download
 ```
 
-This runs against the upstream instance (usually https://public.update.core-os.net). It downloads the actual binary packages to the computer from which you run the command.
+This runs against the upstream instance (usually https://public.update.flatcar-linux.net). It downloads the actual binary packages to the computer from which you run the command.
 
 ```
 updateservicectl package upload bulk
@@ -249,7 +249,7 @@ This runs against the downstream instance (your CoreUpdate server). It uploads t
 updateservicectl package download
 ```
 
-This runs against the upstream instance (usually https://public.update.core-os.net). It downloads all the actual binary to the computer from which you run the command. Once complete you should copy these files to the fileserver you intend to serve the packages from.
+This runs against the upstream instance (usually https://public.update.flatcar-linux.net). It downloads all the actual binary to the computer from which you run the command. Once complete you should copy these files to the fileserver you intend to serve the packages from.
 
 ```
 updateservicectl package create bulk

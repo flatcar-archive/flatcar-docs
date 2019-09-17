@@ -4,7 +4,7 @@
 
 ## Torcx overview
 
-Torcx complements both the [Ignition][ignition] provisioning utility and [systemd][systemd]. Torcx allows customization of Container Linux systems without requiring the compilation of custom system images. This goal is achieved by following two main principles: customizations are ephemeral, and they are applied exactly once per boot. Torcx also has a very simple design, with the aim of providing a small low-level system utility which can be driven by more advanced and higher-level tools.
+Torcx complements both the [Ignition][ignition] provisioning utility and [systemd][systemd]. Torcx allows customization of Flatcar Linux systems without requiring the compilation of custom system images. This goal is achieved by following two main principles: customizations are ephemeral, and they are applied exactly once per boot. Torcx also has a very simple design, with the aim of providing a small low-level system utility which can be driven by more advanced and higher-level tools.
 
 ### Torcx execution model and systemd generators
 
@@ -17,7 +17,7 @@ Torcx customizations are applied via local addon packages, which are referenced 
 
 ### Boot-time customizations
 
-Torcx guarantees that customizations are applied at most once per boot, before any other service has been considered for startup. This provides a mechanism to customize most aspects of a Container Linux system in a reliable way, and avoids runtime upgrading/downgrading issues. Changes applied by Torcx are not persisted to disk, and therefore last exactly for the lifetime of a single boot of an instance.
+Torcx guarantees that customizations are applied at most once per boot, before any other service has been considered for startup. This provides a mechanism to customize most aspects of a Flatcar Linux system in a reliable way, and avoids runtime upgrading/downgrading issues. Changes applied by Torcx are not persisted to disk, and therefore last exactly for the lifetime of a single boot of an instance.
 
 By the same token, this should be read as a warning against abusing Torcx in the role of a general purpose container, service, or package manager. Torcx's boot-transient model consumes memory with each addon, and, worse, would require system reboots for even simple upgrades.
 

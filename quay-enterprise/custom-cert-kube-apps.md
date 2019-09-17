@@ -14,7 +14,7 @@ Client-version: 0.3.7
 
 To work around this restriction, add the CA for the self-signed certificate to the default list of trusted Certificate Authorities. This process is described for the following platforms:
 
-- [Container Linux][container-linux]
+- [Flatcar Linux][container-linux]
 - [Red Hat][red-hat]
 - [Ubuntu/Debian][ubuntu]
 
