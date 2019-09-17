@@ -17,7 +17,7 @@ Flatcar Linux is designed to be updated automatically with different schedules p
     <div class="tab-pane" id="alpha">
       <div class="channel-info">
         <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Flatcar Linux {{site.alpha-channel}}.</p>
-        <a class="btn btn-link btn-icon-left co-p-docs-rss" href="https://coreos.com/dist/aws/aws-alpha.json"><span class="fa fa-rss"></span>View as json feed</a>
+        <a class="btn btn-link btn-icon-left co-p-docs-rss" href="https://alpha.release.flatcar-linux.net/amd64-usr/current/flatcar_production_ami_all.json"><span class="fa fa-rss"></span>View as json feed</a>
       </div>
       <table>
         <thead>
@@ -49,7 +49,7 @@ Flatcar Linux is designed to be updated automatically with different schedules p
     <div class="tab-pane" id="beta">
       <div class="channel-info">
         <p>The Beta channel consists of promoted Alpha releases. The current version is Flatcar Linux {{site.beta-channel}}.</p>
-        <a class="btn btn-link btn-icon-left co-p-docs-rss" href="https://coreos.com/dist/aws/aws-beta.json"><span class="fa fa-rss"></span>View as json feed</a>
+        <a class="btn btn-link btn-icon-left co-p-docs-rss" href="https://beta.release.flatcar-linux.net/amd64-usr/current/flatcar_production_ami_all.json"><span class="fa fa-rss"></span>View as json feed</a>
       </div>
       <table>
         <thead>
@@ -112,7 +112,7 @@ Flatcar Linux is designed to be updated automatically with different schedules p
     <div class="tab-pane active" id="stable">
       <div class="channel-info">
         <p>The Stable channel should be used by production clusters. Versions of Flatcar Linux are battle-tested within the Beta and Alpha channels before being promoted. The current version is Flatcar Linux {{site.stable-channel}}.</p>
-        <a class="btn btn-link btn-icon-left co-p-docs-rss" href="https://coreos.com/dist/aws/aws-stable.json"><span class="fa fa-rss"></span>View as json feed</a>
+        <a class="btn btn-link btn-icon-left co-p-docs-rss" href="https://stable.release.flatcar-linux.net/amd64-usr/current/flatcar_production_ami_all.json"><span class="fa fa-rss"></span>View as json feed</a>
       </div>
       <table>
         <thead>
@@ -217,7 +217,7 @@ ssh core@<ip address>
 ```
 
 ## Multiple clusters
-If you would like to create multiple clusters you will need to change the "Stack Name". You can find the direct [template file on S3](https://s3.amazonaws.com/coreos.com/dist/aws/coreos-stable-hvm.template).
+If you would like to create multiple clusters you will need to change the "Stack Name". You can find the direct [template file on S3](https://flatcar-prod-ami-import-eu-central-1.s3.amazonaws.com/dist/aws/flatcar-stable-hvm.template).
 
 ## Manual setup
 
