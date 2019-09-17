@@ -5,8 +5,8 @@
 - [Flatcar Linux Issues][issues]
 - [Flatcar Linux Pull Requests][pullrequests]
 
-[issues]: https://github.com/issues?user=coreos
-[pullrequests]: https://github.com/pulls?user=coreos
+[issues]: https://github.com/issues?user=flatcar-linux
+[pullrequests]: https://github.com/pulls?user=flatcar-linux
 
 ## Searching all repo code
 
