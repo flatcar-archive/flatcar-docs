@@ -89,6 +89,7 @@ APIs and troubleshooting guides for working with Flatcar Linux.
 [install-to-disk]: os/installing-to-disk.md
 [boot-iso]: os/booting-with-iso.md
 [filesystem-placement]: os/root-filesystem-placement.md
+[migrate-from-container-linux]: os/migrate-from-container-linux.md
 [update-from-container-linux]: os/update-from-container-linux.md
 [ec2]: os/booting-on-ec2.md
 [digital-ocean]: os/booting-on-digitalocean.md
