@@ -2,6 +2,8 @@
 
 If you already have Container Linux clusters and can't or don't want to freshly install Flatcar Linux, you can update to Flatcar Linux directly from Container Linux by performing the following steps.
 
+**NOTE:** General differences when [migrating from CoreOS Container Linux](https://docs.flatcar-linux.org/os/migrate-from-container-linux/) also apply.
+
 ## Getting the public update key
 
 First, you need to get Flatcar's public update key:

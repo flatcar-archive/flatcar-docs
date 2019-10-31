@@ -16,8 +16,8 @@ Provisioning                                            | Cloud Providers
 
 Bare Metal                                              | Upgrading from Container Linux
 --------------                                          | -------------
-[Using Matchbox][matchbox]                              | [Update from Container Linux][update-from-container-linux] directly.
-[Booting with iPXE][ipxe]                               | 
+[Using Matchbox][matchbox]                              | [Migrate from Container Linux][migrate-from-container-linux]
+[Booting with iPXE][ipxe]                               | [Update from Container Linux][update-from-container-linux] directly.
 [Booting with PXE][pxe]                                 |
 [Installing to Disk][install-to-disk]                   |
 [Booting from ISO][boot-iso]                            |
