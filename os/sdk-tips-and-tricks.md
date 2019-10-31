@@ -26,6 +26,12 @@ Get a view into what the base system will contain and why it will contain those 
 emerge-amd64-usr --emptytree -p -v --tree coreos-base/coreos-dev
 ```
 
+Get a tree view of the SDK dependencies:
+
+```sh
+emerge-amd64-usr --emptytree -p -v --tree coreos-base/hard-host-depends
+```
+
 ## Add new upstream package
 
 An overview on contributing new packages to Flatcar Linux:
