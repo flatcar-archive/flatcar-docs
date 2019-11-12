@@ -1,8 +1,8 @@
-# Flatcar Linux cluster discovery
+# Flatcar Container Linux cluster discovery
 
 ## Overview
 
-Flatcar Linux uses etcd, a service running on each machine, to handle coordination between software running on the cluster. For a group of Flatcar Linux machines to form a cluster, their etcd instances need to be connected.
+Flatcar Container Linux uses etcd, a service running on each machine, to handle coordination between software running on the cluster. For a group of Flatcar Container Linux machines to form a cluster, their etcd instances need to be connected.
 
 A discovery service, [https://discovery.etcd.io](https://discovery.etcd.io), is provided as a free service to help connect etcd instances together by storing a list of peer addresses, metadata and the initial size of the cluster under a unique address, known as the discovery URL. You can generate them very easily:
 
@@ -11,7 +11,7 @@ $ curl -w "\n" 'https://discovery.etcd.io/new?size=3'
 https://discovery.etcd.io/6a28e078895c5ec737174db2419bb2f3
 ```
 
-The discovery URL can be provided to each Flatcar Linux machine via [Container Linux Configs](provisioning.md). The rest of this guide will explain what's happening behind the scenes, but if you're trying to get clustered as quickly as possible, all you need to do is provide a _fresh, unique_ discovery token in your config.
+The discovery URL can be provided to each Flatcar Container Linux machine via [Container Linux Configs](provisioning.md). The rest of this guide will explain what's happening behind the scenes, but if you're trying to get clustered as quickly as possible, all you need to do is provide a _fresh, unique_ discovery token in your config.
 
 Boot each one of the machines with identical Container Linux Config and they should be automatically clustered:
 
@@ -33,7 +33,7 @@ Specific documentation are provided for each platform's guide. Not all providers
 
 ## New clusters
 
-Starting a Flatcar Linux cluster requires one of the new machines to become the first leader of the cluster. The initial leader is stored as metadata with the discovery URL in order to inform the other members of the new cluster. Let's walk through a timeline a new three-machine Flatcar Linux cluster discovering each other:
+Starting a Flatcar Container Linux cluster requires one of the new machines to become the first leader of the cluster. The initial leader is stored as metadata with the discovery URL in order to inform the other members of the new cluster. Let's walk through a timeline a new three-machine Flatcar Container Linux cluster discovering each other:
 
 1. All three machines are booted via a cloud-provider with the same config in the user-data.
 2. Machine 1 starts up first. It requests information about the cluster from the discovery token and submits its `-initial-advertise-peer-urls` address `10.10.10.1`.
@@ -57,7 +57,7 @@ Third, if you specified `?size=3` upon discovery URL creation, any other machine
 
 [Do not use the public discovery service to reconfigure a running etcd cluster.][etcd-reconf-no-disc] The public discovery service is a convenience for bootstrapping new clusters, especially on cloud providers with dynamic IP assignment, but is not designed for the later case when the cluster is running and member IPs are known.
 
-To promote proxy members or join new members into an existing etcd cluster, configure static discovery and add members. The [etcd cluster reconfiguration guide][etcd-reconf-on-flatcar] details the steps for performing this reconfiguration on Flatcar Linux systems that were originally deployed with public discovery. The more general [etcd cluster reconfiguration document][etcd-reconf] explains the operations for removing and adding cluster members in a cluster already configured with static discovery.
+To promote proxy members or join new members into an existing etcd cluster, configure static discovery and add members. The [etcd cluster reconfiguration guide][etcd-reconf-on-flatcar] details the steps for performing this reconfiguration on Flatcar Container Linux systems that were originally deployed with public discovery. The more general [etcd cluster reconfiguration document][etcd-reconf] explains the operations for removing and adding cluster members in a cluster already configured with static discovery.
 
 ### Stale tokens
 
@@ -117,7 +117,7 @@ journalctl -u etcd-member
 
 ### Communicating with discovery.etcd.io
 
-If your Flatcar Linux cluster can't communicate out to the public internet, [https://discovery.etcd.io](https://discovery.etcd.io) won't work and you'll have to run your own discovery endpoint, which is described below.
+If your Flatcar Container Linux cluster can't communicate out to the public internet, [https://discovery.etcd.io](https://discovery.etcd.io) won't work and you'll have to run your own discovery endpoint, which is described below.
 
 ### Setting advertised client addresses correctly
 

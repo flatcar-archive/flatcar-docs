@@ -1,8 +1,8 @@
 # Customizing the SSH daemon
 
-Flatcar Linux defaults to running an OpenSSH daemon using `systemd` socket activation -- when a client connects to the port configured for SSH, `sshd` is started on the fly for that client using a `systemd` unit derived automatically from a template. In some cases you may want to customize this daemon's authentication methods or other configuration. This guide will show you how to do that at boot time using a [Container Linux Config][cl-configs], and after building by modifying the `systemd` unit file.
+Flatcar Container Linux defaults to running an OpenSSH daemon using `systemd` socket activation -- when a client connects to the port configured for SSH, `sshd` is started on the fly for that client using a `systemd` unit derived automatically from a template. In some cases you may want to customize this daemon's authentication methods or other configuration. This guide will show you how to do that at boot time using a [Container Linux Config][cl-configs], and after building by modifying the `systemd` unit file.
 
-As a practical example, when a client fails to connect by not completing the TCP connection (e.g. because the "client" is actually a TCP port scanner), the MOTD may report failures of `systemd` units (which will be named by the source IP that failed to connect) next time you log in to the Flatcar Linux host. These failures are not themselves harmful, but it is a good general practice to change how SSH listens, either by changing the IP address `sshd` listens to from the default setting (which listens on all configured interfaces), changing the default port, or both.
+As a practical example, when a client fails to connect by not completing the TCP connection (e.g. because the "client" is actually a TCP port scanner), the MOTD may report failures of `systemd` units (which will be named by the source IP that failed to connect) next time you log in to the Flatcar Container Linux host. These failures are not themselves harmful, but it is a good general practice to change how SSH listens, either by changing the IP address `sshd` listens to from the default setting (which listens on all configured interfaces), changing the default port, or both.
 
 ## Customizing sshd with a Container Linux Config
 
@@ -29,7 +29,7 @@ storage:
 
 ### Changing the sshd port
 
-Flatcar Linux ships with socket-activated SSH daemon by default. The configuration for this can be found at `/usr/lib/systemd/system/sshd.socket`. We're going to override some of the default settings for this in the Container Linux Config provided at boot:
+Flatcar Container Linux ships with socket-activated SSH daemon by default. The configuration for this can be found at `/usr/lib/systemd/system/sshd.socket`. We're going to override some of the default settings for this in the Container Linux Config provided at boot:
 
 ```yaml
 systemd:
@@ -49,7 +49,7 @@ systemd:
 
 It may be desirable to disable socket-activation for sshd to ensure it will reliably accept connections even when systemd or dbus aren't operating correctly.
 
-To configure sshd on Flatcar Linux without socket activation, a Container Linux Config file similar to the following may be used:
+To configure sshd on Flatcar Container Linux without socket activation, a Container Linux Config file similar to the following may be used:
 
 ```yaml
 systemd:
@@ -144,7 +144,7 @@ And if we attempt to connect to port 22 on our public IP, the connection is reje
 $ ssh core@[public IP]
 ssh: connect to host [public IP] port 22: Connection refused
 $ ssh -p 222 core@[public IP]
-Flatcar Linux by Kinvolk stable (1353.8.0)
+Flatcar Container Linux by Kinvolk stable (1353.8.0)
 core@machine $
 ```
 
@@ -164,7 +164,7 @@ Finally, restart the sshd.service unit:
 
 ### Further reading on systemd units
 
-For more information about configuring Flatcar Linux hosts with `systemd`, see [Getting Started with systemd](getting-started-with-systemd.md).
+For more information about configuring Flatcar Container Linux hosts with `systemd`, see [Getting Started with systemd](getting-started-with-systemd.md).
 
 
 [openssh-manual]: http://www.openssh.com/cgi-bin/man.cgi?query=sshd_config

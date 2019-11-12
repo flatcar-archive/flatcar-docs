@@ -1,6 +1,6 @@
 # Customizing docker
 
-The Docker systemd unit can be customized by overriding the unit that ships with the default Flatcar Linux settings. Common use-cases for doing this are covered below.
+The Docker systemd unit can be customized by overriding the unit that ships with the default Flatcar Container Linux settings. Common use-cases for doing this are covered below.
 
 ## Enable the remote API on a new socket
 
@@ -36,7 +36,7 @@ docker -H tcp://127.0.0.1:2375 ps
 
 ### Container Linux Config
 
-To enable the remote API on every Flatcar Linux machine in a cluster, use a [Container Linux Config][cl-configs]. We need to provide the new socket file and Docker's socket activation support will automatically start using the socket:
+To enable the remote API on every Flatcar Container Linux machine in a cluster, use a [Container Linux Config][cl-configs]. We need to provide the new socket file and Docker's socket activation support will automatically start using the socket:
 
 ```yaml
 systemd:
@@ -69,7 +69,7 @@ Docker TLS configuration consists of three parts: keys creation, configuring new
 
 ### TLS keys creation
 
-Please follow the [instruction][self-signed-certs] to know how to create self-signed certificates and private keys. Then copy with following files into `/etc/docker` Flatcar Linux's directory and fix their permissions:
+Please follow the [instruction][self-signed-certs] to know how to create self-signed certificates and private keys. Then copy with following files into `/etc/docker` Flatcar Container Linux's directory and fix their permissions:
 
 ```sh
 scp ~/cfssl/{server.pem,server-key.pem,ca.pem} coreos.example.com:
@@ -145,7 +145,7 @@ If you've experienceed problems connection to remote Docker API using TLS connec
 curl -v --cacert ~/.docker/ca.pem --cert ~/.docker/cert.pem --key ~/.docker/key.pem https://server:2376
 ```
 
-Or on your Flatcar Linux host:
+Or on your Flatcar Container Linux host:
 
 ```sh
 journalctl -f -u docker.service
@@ -220,7 +220,7 @@ docker:
 
 ## Use attached storage for Docker images
 
-Docker containers can be very large and debugging a build process makes it easy to accumulate hundreds of containers. It's advantageous to use attached storage to expand your capacity for container images. Check out the guide to [mounting storage to your Flatcar Linux machine][mounting-storage] for an example of how to bind mount storage into `/var/lib/docker`.
+Docker containers can be very large and debugging a build process makes it easy to accumulate hundreds of containers. It's advantageous to use attached storage to expand your capacity for container images. Check out the guide to [mounting storage to your Flatcar Container Linux machine][mounting-storage] for an example of how to bind mount storage into `/var/lib/docker`.
 
 ## Enabling the Docker debug flag
 

@@ -1,11 +1,11 @@
-# Running Flatcar Linux on Rackspace
+# Running Flatcar Container Linux on Rackspace
 
-These instructions will walk you through running Flatcar Linux on the Rackspace OpenStack cloud, which differs slightly from the generic OpenStack instructions. There are two ways to launch a Flatcar Linux cluster: launch an entire cluster with Heat or launch machines with Nova.
+These instructions will walk you through running Flatcar Container Linux on the Rackspace OpenStack cloud, which differs slightly from the generic OpenStack instructions. There are two ways to launch a Flatcar Container Linux cluster: launch an entire cluster with Heat or launch machines with Nova.
 
 
 ## Choosing a channel
 
-Flatcar Linux is designed to be updated automatically with different schedules per channel. You can [disable this feature](update-strategies.md), although we don't recommend it. Read the [release notes](https://flatcar-linux.org/releases) for specific features and bug fixes.
+Flatcar Container Linux is designed to be updated automatically with different schedules per channel. You can [disable this feature](update-strategies.md), although we don't recommend it. Read the [release notes](https://flatcar-linux.org/releases) for specific features and bug fixes.
 
 <div id="rax-images">
   <ul class="nav nav-tabs">
@@ -16,23 +16,23 @@ Flatcar Linux is designed to be updated automatically with different schedules p
   <div class="tab-content coreos-docs-image-table">
     <div class="tab-pane" id="alpha">
       <div class="channel-info">
-        <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Flatcar Linux {{site.alpha-channel}}.</p>
+        <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Flatcar Container Linux {{site.alpha-channel}}.</p>
         <p>The following command can be used to determine the image IDs for Alpha:</p>
-        <pre>supernova production image-list | grep 'Flatcar Linux (Alpha)'</pre>
+        <pre>supernova production image-list | grep 'Flatcar Container Linux (Alpha)'</pre>
       </div>
     </div>
     <div class="tab-pane" id="beta">
       <div class="channel-info">
-        <p>The Beta channel consists of promoted Alpha releases. The current version is Flatcar Linux {{site.beta-channel}}.</p>
+        <p>The Beta channel consists of promoted Alpha releases. The current version is Flatcar Container Linux {{site.beta-channel}}.</p>
         <p>The following command can be used to determine the image IDs for Beta:</p>
-        <pre>supernova production image-list | grep 'Flatcar Linux (Beta)'</pre>
+        <pre>supernova production image-list | grep 'Flatcar Container Linux (Beta)'</pre>
       </div>
     </div>
     <div class="tab-pane active" id="stable">
       <div class="channel-info">
-        <p>The Stable channel should be used by production clusters. Versions of Flatcar Linux are battle-tested within the Beta and Alpha channels before being promoted. The current version is Flatcar Linux {{site.stable-channel}}.</p>
+        <p>The Stable channel should be used by production clusters. Versions of Flatcar Container Linux are battle-tested within the Beta and Alpha channels before being promoted. The current version is Flatcar Container Linux {{site.stable-channel}}.</p>
         <p>The following command can be used to determine the image IDs for Stable:</p>
-        <pre>supernova production image-list | grep 'Flatcar Linux (Stable)'</pre>
+        <pre>supernova production image-list | grep 'Flatcar Container Linux (Stable)'</pre>
       </div>
     </div>
   </div>
@@ -40,7 +40,7 @@ Flatcar Linux is designed to be updated automatically with different schedules p
 
 ## Cloud-config
 
-Flatcar Linux allows you to configure machine parameters, launch systemd units on startup and more via cloud-config. Jump over to the [docs to learn about the supported features][cloud-config-docs]. Cloud-config is intended to bring up a cluster of machines into a minimal useful state and ideally shouldn't be used to configure anything that isn't standard across many hosts. Once a machine is created on Rackspace, the cloud-config can't be modified.
+Flatcar Container Linux allows you to configure machine parameters, launch systemd units on startup and more via cloud-config. Jump over to the [docs to learn about the supported features][cloud-config-docs]. Cloud-config is intended to bring up a cluster of machines into a minimal useful state and ideally shouldn't be used to configure anything that isn't standard across many hosts. Once a machine is created on Rackspace, the cloud-config can't be modified.
 
 You can provide cloud-config data via both Heat and Nova APIs. You **cannot** provide cloud-config via the Control Panel. If you launch machines via the UI, you will have to do all configuration manually.
 
@@ -91,7 +91,7 @@ flatcar:
 
 Mounting Cloud Block Storage can be done with a mount unit, but should not be included in cloud-config unless the disk is present on the first boot.
 
-For more general information, check out [mounting storage on Flatcar Linux](mounting-storage.md).
+For more general information, check out [mounting storage on Flatcar Container Linux](mounting-storage.md).
 
 ## Launch with Nova
 
@@ -125,7 +125,7 @@ We're ready to create a keypair then boot a server with it.
 
 ### Create keypair
 
-For this guide, I'm assuming you already have a public key you use for your Flatcar Linux servers. Note that only RSA keypairs are supported. Load the public key to Rackspace:
+For this guide, I'm assuming you already have a public key you use for your Flatcar Container Linux servers. Note that only RSA keypairs are supported. Load the public key to Rackspace:
 
 ```sh
 supernova production keypair-add --pub-key ~/.ssh/flatcar.pub flatcar-key
@@ -177,7 +177,7 @@ You should now see the details of your new server in your terminal and it should
 | updated                | 2013-11-02T19:43:45Z                 |
 | hostId                 |                                      |
 | key_name               | flatcar-key                          |
-| image                  | Flatcar Linux                        |
+| image                  | Flatcar Container Linux                        |
 | OS-EXT-STS:task_state  | scheduling                           |
 | OS-EXT-STS:vm_state    | building                             |
 | flavor                 | 512MB Standard Instance              |
@@ -208,11 +208,11 @@ You can also launch servers with either the `alpha` and `beta` channel versions 
  2. Click on 'Servers'
  3. Click on 'Create Server'
  4. Choose server name and region
- 5. Click on 'Linux', then on 'Flatcar Linux' and finally choose '(alpha)' or '(beta)' version
+ 5. Click on 'Linux', then on 'Flatcar Container Linux' and finally choose '(alpha)' or '(beta)' version
  6. Choose flavor and use 'Advanced Options' to select SSH Key -- if available
  7. Click on 'Create Server'
 
 
-## Using Flatcar Linux
+## Using Flatcar Container Linux
 
-Now that you have a machine booted it is time to play around. Check out the [Flatcar Linux Quickstart](quickstart.md) guide or dig into [more specific topics](https://docs.flatcar-linux.org).
+Now that you have a machine booted it is time to play around. Check out the [Flatcar Container Linux Quickstart](quickstart.md) guide or dig into [more specific topics](https://docs.flatcar-linux.org).

@@ -1,4 +1,4 @@
-# Disabling SMT on Flatcar Linux
+# Disabling SMT on Flatcar Container Linux
 
 Recent Intel CPU vulnerabilities ([L1TF] and [MDS]) cannot be fully mitigated in software without disabling Simultaneous Multi-Threading. This can have a substantial performance impact and is only necessary for certain workloads, so for compatibility reasons, SMT is enabled by default.
 
@@ -8,7 +8,7 @@ SMT should be disabled on affected Intel processors under the following circumst
 
 SMT can be conditionally disabled by passing `mitigations=auto,nosmt` on the kernel command line. This will disable SMT only if required for mitigating a vulnerability. This approach has two caveats:
 1. It does not protect against unknown vulnerabilities in SMT.
-2. It allows future Flatcar Linux updates to disable SMT if needed to mitigate new vulnerabilities.
+2. It allows future Flatcar Container Linux updates to disable SMT if needed to mitigate new vulnerabilities.
 
 Alternatively, SMT can be unconditionally disabled by passing `nosmt` on the kernel command line. This provides the most protection and avoids possible behavior changes on upgrades, at the cost of a potentially unnecessary reduction in performance.
 
@@ -20,7 +20,7 @@ For typical use cases, we recommend enabling the `mitigations=auto,nosmt` comman
 
 ## Configuring new machines
 
-The following Container Linux config performs two tasks:
+The following Container Linux Config performs two tasks:
 
 1. Adds `mitigations=auto,nosmt` to the kernel command line. This affects the second and subsequent boots of the machine, but not the first boot.
 2. On the first boot, disables SMT at runtime if the system has an Intel processor. This is sufficient to protect against currently-known SMT vulnerabilities until the system is rebooted. After reboot, SMT will be re-enabled if the processor is not actually vulnerable.

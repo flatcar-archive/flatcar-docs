@@ -1,6 +1,6 @@
-# Performing manual Flatcar Linux rollbacks
+# Performing manual Flatcar Container Linux rollbacks
 
-In the event of an upgrade failure, Flatcar Linux will automatically boot with the version on the rollback partition. Immediately after an upgrade reboot, the active version of Flatcar Linux can be rolled back to the version installed on the rollback partition, or downgraded to the version current on any lower release channel. There is no method to downgrade to an arbitrary version number.
+In the event of an upgrade failure, Flatcar Container Linux will automatically boot with the version on the rollback partition. Immediately after an upgrade reboot, the active version of Flatcar Container Linux can be rolled back to the version installed on the rollback partition, or downgraded to the version current on any lower release channel. There is no method to downgrade to an arbitrary version number.
 
 This section describes the automated upgrade process, performing a manual rollback, and forcing a channel downgrade.
 
@@ -35,10 +35,10 @@ $ cgpt show /dev/sda
                                   Type: Alias for linux-data
                                   UUID: 726E33FA-DFE9-45B2-B215-FB35CD9C2388
      4726784      131072       7  Label: "OEM-CONFIG"
-                                  Type: Flatcar Linux reserved
+                                  Type: Flatcar Container Linux reserved
                                   UUID: 8F39CE8B-1FB3-4E7E-A784-0C53C8F40442
      4857856    37085151       9  Label: "ROOT"
-                                  Type: Flatcar Linux auto-resize
+                                  Type: Flatcar Container Linux auto-resize
                                   UUID: D9A972BB-8084-4AB5-BA55-F8A3AFFAD70D
     41943007          32          Sec GPT table
     41943039           1          Sec GPT header
@@ -151,7 +151,7 @@ $ cgpt prioritize "$(cgpt find -t coreos-usr | grep --invert-match "$(rootdev -s
 
 ## Forcing a Channel Downgrade
 
-The procedure above restores the last known good Flatcar Linux version from immediately before an upgrade reboot. The system remains on the same [Flatcar Linux channel][relchans] after rebooting with the previous USR partition. It is also possible, though not recommended, to switch a Flatcar Linux installation to an older release channel, for example to make a system running an Alpha release downgrade to the Stable channel. Root privileges are required for this procedure, noted by `sudo` in the commands below.
+The procedure above restores the last known good Flatcar Container Linux version from immediately before an upgrade reboot. The system remains on the same [Flatcar Container Linux channel][relchans] after rebooting with the previous USR partition. It is also possible, though not recommended, to switch a Flatcar Container Linux installation to an older release channel, for example to make a system running an Alpha release downgrade to the Stable channel. Root privileges are required for this procedure, noted by `sudo` in the commands below.
 
 First, edit `/etc/coreos/update.conf` to set `GROUP` to the name of the target channel, one of `stable` or `beta`:
 

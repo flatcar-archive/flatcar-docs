@@ -1,6 +1,6 @@
 # Migrating from Cloud-Config to Container Linux Config
 
-Historically, the recommended way to provision a Flatcar Linux machine was with a cloud-config. This was a YAML file specifying things like systemd units to run, users that should exist, and files that should be written. This file would be given to a Flatcar Linux machine, and saved on disk. Then a utility called coreos-cloudinit running in a systemd unit would read this file, look at the system state, and make necessary changes on every boot.
+Historically, the recommended way to provision a Flatcar Container Linux machine was with a cloud-config. This was a YAML file specifying things like systemd units to run, users that should exist, and files that should be written. This file would be given to a Flatcar Container Linux machine, and saved on disk. Then a utility called coreos-cloudinit running in a systemd unit would read this file, look at the system state, and make necessary changes on every boot.
 
 Going forward, a new method of provisioning with Container Linux Configs is now recommended.
 
@@ -35,7 +35,7 @@ etcd:
     version: 3.1.6
 ```
 
-Omitting the version specification declares that the unit file should use the version of etcd matching the running version of Flatcar Linux.
+Omitting the version specification declares that the unit file should use the version of etcd matching the running version of Flatcar Container Linux.
 
 Configuration options in this section can be provided the same way as they were in a cloud-config, with the exception of dashes (`-`) being replaced with underscores (`_`) in key names.
 

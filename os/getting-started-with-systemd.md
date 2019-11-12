@@ -1,18 +1,18 @@
 # Getting started with systemd
 
-systemd is an init system that provides many powerful features for starting, stopping, and managing processes. Within Flatcar Linux, you will almost exclusively use systemd to manage the lifecycle of your Docker containers.
+systemd is an init system that provides many powerful features for starting, stopping, and managing processes. Within Flatcar Container Linux, you will almost exclusively use systemd to manage the lifecycle of your Docker containers.
 
 ## Terminology
 
 systemd consists of two main concepts: a unit and a target. A unit is a configuration file that describes the properties of the process that you'd like to run. This is normally a `docker run` command or something similar. A target is a grouping mechanism that allows systemd to start up groups of processes at the same time. This happens at every boot as processes are started at different run levels.
 
-systemd is the first process started on Flatcar Linux and it reads different targets and starts the processes specified which allows the operating system to start. The target that you'll interact with is the `multi-user.target` which holds all of the general use unit files for our containers.
+systemd is the first process started on Flatcar Container Linux and it reads different targets and starts the processes specified which allows the operating system to start. The target that you'll interact with is the `multi-user.target` which holds all of the general use unit files for our containers.
 
 Each target is actually a collection of symlinks to our unit files. This is specified in the unit file by `WantedBy=multi-user.target`. Running `systemctl enable foo.service` creates symlinks to the unit inside `multi-user.target.wants`.
 
 ## Unit file
 
-On Flatcar Linux, unit files are located at `/etc/systemd/system`. Let's create a simple unit named `hello.service`:
+On Flatcar Container Linux, unit files are located at `/etc/systemd/system`. Let's create a simple unit named `hello.service`:
 
 ```ini
 [Unit]

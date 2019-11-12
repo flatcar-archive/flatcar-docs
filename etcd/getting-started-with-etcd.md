@@ -1,16 +1,16 @@
 # Getting started with etcd
 
-etcd is an open-source distributed key value store that provides shared configuration and service discovery for Container Linux clusters. etcd runs on each machine in a cluster and gracefully handles leader election during network partitions and the loss of the current leader.
+etcd is an open-source distributed key value store that provides shared configuration and service discovery for CoreOS Container Linux clusters. etcd runs on each machine in a cluster and gracefully handles leader election during network partitions and the loss of the current leader.
 
-Application containers running on your cluster can read and write data into etcd. Common examples are storing database connection details, cache settings, feature flags, and more. This guide will walk you through a basic example of reading and writing to etcd then proceed to other features like TTLs, directories and watching a prefix. This guide is way more fun when you've got at least one Container Linux machine up and running &mdash; try it on [Amazon EC2](../os/booting-on-ec2.md) or locally with [Vagrant](../os/booting-on-vagrant.md).
+Application containers running on your cluster can read and write data into etcd. Common examples are storing database connection details, cache settings, feature flags, and more. This guide will walk you through a basic example of reading and writing to etcd then proceed to other features like TTLs, directories and watching a prefix. This guide is way more fun when you've got at least one CoreOS Container Linux machine up and running &mdash; try it on [Amazon EC2](../os/booting-on-ec2.md) or locally with [Vagrant](../os/booting-on-vagrant.md).
 
 <a class="btn btn-default" href="learning/api.html">Complete etcd API Docs</a>
 
-The [version 3 series is the current edition of etcd][etcd3-blog]. Version 3 etcd binaries are *not* included in the Container Linux filesystem. Instead, etcd is distributed in a container fetched by an included system service. Read on below in [setting up etcd][setup-internal-anchor] and see the [etcd on Container Linux FAQ][os-faq] for more details on etcd v3 in a container on Container Linux.
+The [version 3 series is the current edition of etcd][etcd3-blog]. Version 3 etcd binaries are *not* included in the CoreOS Container Linux filesystem. Instead, etcd is distributed in a container fetched by an included system service. Read on below in [setting up etcd][setup-internal-anchor] and see the [etcd on CoreOS Container Linux FAQ][os-faq] for more details on etcd v3 in a container on CoreOS Container Linux.
 
 ## Setting up etcd
 
-Container Linux's `etcd-member.service` systemd unit knows how to fetch and run the current etcd v3.x container image, providing etcd v3 without requiring the binary to be present in every default OS installation.
+CoreOS Container Linux's `etcd-member.service` systemd unit knows how to fetch and run the current etcd v3.x container image, providing etcd v3 without requiring the binary to be present in every default OS installation.
 
 etcd v3 startup can be configured at a new node's first boot with a [Container Linux Config][cl-configs].
 
@@ -34,7 +34,7 @@ etcd:
 
 The HTTP-based API is easy to use. This guide will show both `etcdctl` and `curl` examples.
 
-From a Container Linux machine, set a key `message` with value `Hello`:
+From a CoreOS Container Linux machine, set a key `message` with value `Hello`:
 
 ```sh
 $ etcdctl set /message Hello
@@ -58,7 +58,7 @@ $ curl http://127.0.0.1:2379/v2/keys/message
 {"action":"get","node":{"key":"/message","value":"Hello","modifiedIndex":4,"createdIndex":4}}
 ```
 
-If you followed a guide to set up more than one Container Linux machine, you can SSH into another machine and can retrieve this same value.
+If you followed a guide to set up more than one CoreOS Container Linux machine, you can SSH into another machine and can retrieve this same value.
 
 To delete the key run:
 
@@ -74,7 +74,7 @@ $ curl -X DELETE http://127.0.0.1:2379/v2/keys/message
 
 ## Reading and writing from inside a container
 
-To read and write to etcd from *within a container* you must use the IP address assigned to the `docker0` interface on the Container Linux host. From the host, run `ip address show` to find this address. It's normally `172.17.0.1`.
+To read and write to etcd from *within a container* you must use the IP address assigned to the `docker0` interface on the CoreOS Container Linux host. From the host, run `ip address show` to find this address. It's normally `172.17.0.1`.
 
 To read from etcd, replace `127.0.0.1` when running `curl` in the container:
 
@@ -123,7 +123,7 @@ $ curl http://127.0.0.1:2379/v2/keys/foo-service
 
 ### Watching the directory
 
-Now let's try watching the `foo-service` directory for changes, just like our proxy would have to. First, open up another shell on a Container Linux host in the cluster. In one window, start watching the directory and in the other window, add another key `container2` with the value `localhost:2222` into the directory. This command shouldn't output anything until the key has changed. Many events can trigger a change, including a new, updated, deleted or expired key.
+Now let's try watching the `foo-service` directory for changes, just like our proxy would have to. First, open up another shell on a CoreOS Container Linux host in the cluster. In one window, start watching the directory and in the other window, add another key `container2` with the value `localhost:2222` into the directory. This command shouldn't output anything until the key has changed. Many events can trigger a change, including a new, updated, deleted or expired key.
 
 ```sh
 $ etcdctl watch --recursive /foo-service

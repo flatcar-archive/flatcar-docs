@@ -1,6 +1,6 @@
-# Running Flatcar Linux on Vagrant
+# Running Flatcar Container Linux on Vagrant
 
-Running Flatcar Linux with Vagrant is one way to bring up a single machine or virtualize an entire cluster on your laptop. Since the true power of Flatcar Linux can be seen with a cluster, we're going to concentrate on that. Instructions for a single machine can be found [towards the end](#single-machine) of the guide.
+Running Flatcar Container Linux with Vagrant is one way to bring up a single machine or virtualize an entire cluster on your laptop. Since the true power of Flatcar Container Linux can be seen with a cluster, we're going to concentrate on that. Instructions for a single machine can be found [towards the end](#single-machine) of the guide.
 
 You can direct questions to the [IRC channel][irc] or [mailing list][flatcar-dev].
 
@@ -12,7 +12,7 @@ Vagrant is a simple-to-use command line virtual machine manager. There are insta
 
 Vagrant can use either the free VirtualBox provider or the commercial VMware provider. Instructions for both are below. For the VirtualBox provider, version 4.3.10 or greater is required.
 
-## Install Flatcar Linux
+## Install Flatcar Container Linux
 
 You can import the flatcar box and boot it with Vagrant.
 You'll find it in `https://${CHANNEL}.release.flatcar-linux.net/amd64-usr/${VERSION}/flatcar_production_vagrant.box`.
@@ -57,7 +57,7 @@ Bringing machine 'default' up with 'virtualbox' provider...
 ==> default: Machine booted and ready!
 $ vagrant ssh
 Last login: Thu Mar 15 17:02:25 UTC 2018 from 10.0.2.2 on ssh
-Flatcar Linux by Kinvolk alpha (1702.1.0)
+Flatcar Container Linux by Kinvolk alpha (1702.1.0)
 core@localhost ~ $
 ```
 
@@ -149,7 +149,7 @@ vagrant ssh core-01 -- -A
 
 ## Shared folder setup
 
-Optionally, you can share a folder from your laptop into the virtual machine. This is useful for easily getting code and Dockerfiles into Flatcar Linux.
+Optionally, you can share a folder from your laptop into the virtual machine. This is useful for easily getting code and Dockerfiles into Flatcar Container Linux.
 
 ```ini
 config.vm.synced_folder ".", "/home/core/share", id: "core", :nfs => true,  :mount_options   => ['nolock,vers=3,udp']
@@ -159,7 +159,7 @@ After a 'vagrant reload' you will be prompted for your local machine password.
 
 ## New box versions
 
-Flatcar Linux is a rolling release distribution and versions that are out of date will automatically update. If you want to start from the most up to date version you will need to make sure that you have the latest box file of Flatcar Linux. You can do this using `vagrant box update` - or, simply remove the old box file and Vagrant will download the latest one the next time you `vagrant up`.
+Flatcar Container Linux is a rolling release distribution and versions that are out of date will automatically update. If you want to start from the most up to date version you will need to make sure that you have the latest box file of Flatcar Container Linux. You can do this using `vagrant box update` - or, simply remove the old box file and Vagrant will download the latest one the next time you `vagrant up`.
 
 ```sh
 vagrant box remove flatcar-alpha vmware_fusion
@@ -172,9 +172,9 @@ If you'd like to download the box separately, you can download the URL contained
 vagrant box add flatcar-alpha <path-to-box-file>
 ```
 
-## Using Flatcar Linux
+## Using Flatcar Container Linux
 
-Now that you have a machine booted it is time to play around. Check out the [Flatcar Linux Quickstart](quickstart.md) guide, learn about [Flatcar Linux clustering with Vagrant](https://coreos.com/blog/coreos-clustering-with-vagrant/), or dig into [more specific topics](https://docs.flatcar-linux.org).
+Now that you have a machine booted it is time to play around. Check out the [Flatcar Container Linux Quickstart](quickstart.md) guide, learn about [Flatcar Container Linux clustering with Vagrant](https://coreos.com/blog/coreos-clustering-with-vagrant/), or dig into [more specific topics](https://docs.flatcar-linux.org).
 
 
 [flatcar-dev]: https://groups.google.com/forum/#!forum/flatcar-linux-dev

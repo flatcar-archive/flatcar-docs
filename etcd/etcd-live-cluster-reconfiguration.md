@@ -1,10 +1,10 @@
 # etcd cluster runtime reconfiguration on CoreOS Container Linux
 
-This document describes the reconfiguration and recovery of an etcd cluster running on Container Linux, using a combination of `systemd` features and `etcdctl` commands. The examples given in this document show the configuration for a three-node Container Linux cluster. Replace the IP addresses used in the examples with the corresponding real IPs.
+This document describes the reconfiguration and recovery of an etcd cluster running on CoreOS Container Linux, using a combination of `systemd` features and `etcdctl` commands. The examples given in this document show the configuration for a three-node CoreOS Container Linux cluster. Replace the IP addresses used in the examples with the corresponding real IPs.
 
 ## Configuring etcd using Container Linux Config
 
-When a [Container Linux Config][cl-configs] is used for configuring an etcd member on a Container Linux node, it compiles a special `/etc/systemd/system/etcd-member.service.d/20-clct-etcd-member.conf` [drop-in unit file][drop-in]. For example:
+When a [Container Linux Config][cl-configs] is used for configuring an etcd member on a CoreOS Container Linux node, it compiles a special `/etc/systemd/system/etcd-member.service.d/20-clct-etcd-member.conf` [drop-in unit file][drop-in]. For example:
 
 ```yaml
 etcd:
@@ -18,7 +18,7 @@ etcd:
   initial_cluster_state:       new
 ```
 
-The above Container Linux config file can be used to provision a machine. Provisioning with a config file creates the following [drop-in][drop-in]:
+The above Container Linux Config file can be used to provision a machine. Provisioning with a config file creates the following [drop-in][drop-in]:
 
 ```ini
 [Service]
@@ -38,7 +38,7 @@ If the etcd cluster is secured with TLS, use `https://` instead of `http://` in 
 
 ### Change etcd cluster size
 
-Changing the size of an etcd cluster is as simple as adding a new member, and using the output of the member addition, such as name of the new etcd member, member IDs, state and URLs of the cluster, to the config file for provisioning on the Container Linux node.
+Changing the size of an etcd cluster is as simple as adding a new member, and using the output of the member addition, such as name of the new etcd member, member IDs, state and URLs of the cluster, to the config file for provisioning on the CoreOS Container Linux node.
 
 1. Run the `etcdctl member add` command.
 
@@ -59,7 +59,7 @@ Changing the size of an etcd cluster is as simple as adding a new member, and us
     ```
 2. Store the output of this command for later use.
 
-3. Use the information from the output of the `etcdctl member add` command and provision a new Container Linux host with the following Container Linux Config:
+3. Use the information from the output of the `etcdctl member add` command and provision a new CoreOS Container Linux host with the following Container Linux Config:
 
     ```yaml
     etcd:
@@ -233,7 +233,7 @@ If a cluster is totally broken and [quorum][majority] cannot be restored, all et
 * Initialize a one-member etcd cluster using the initial [data directory][data-dir]
 * Resize this etcd cluster by adding new etcd members by following the steps in the [change the etcd cluster size][change-cluster-size] section.
 
-This document is an adaptation for Container Linux of the official [etcd disaster recovery guide][disaster-recovery], and uses systemd [drop-ins][drop-in] for convenience.
+This document is an adaptation for CoreOS Container Linux of the official [etcd disaster recovery guide][disaster-recovery], and uses systemd [drop-ins][drop-in] for convenience.
 
 Consider a three-node cluster with two permanently lost members.
 

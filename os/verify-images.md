@@ -1,6 +1,6 @@
-# Verify Flatcar Linux images with GPG
+# Verify Flatcar Container Linux images with GPG
 
-Kinvolk publishes new Flatcar Linux images for each release across a variety of platforms and hosting providers. Each channel has its own set of images ([stable], [beta], [alpha], [edge]) that are posted to our storage site. Along with each image, a signature is generated from the [Flatcar Linux Image Signing Key][signing-key] and posted.
+Kinvolk publishes new Flatcar Container Linux images for each release across a variety of platforms and hosting providers. Each channel has its own set of images ([stable], [beta], [alpha], [edge]) that are posted to our storage site. Along with each image, a signature is generated from the [Flatcar Container Linux Image Signing Key][signing-key] and posted.
 
 [signing-key]: https://www.flatcar-linux.org/security/image-signing-key/
 [stable]: https://stable.release.flatcar-linux.net/amd64-usr/current/
@@ -40,4 +40,4 @@ gpg: Signature made Tue Jun 23 09:39:04 2015 CEST using RSA key ID E5676EFC
 gpg: Good signature from "Flatcar Buildbot (Official Builds) <buildbot@flatcar-linux.org>"
 ```
 
-The `Good signature` message indicates that the file signature is valid. Go launch some machines now that we've successfully verified that this Flatcar Linux image isn't corrupt, that it was authored by Kinvolk, and wasn't tampered with in transit.
+The `Good signature` message indicates that the file signature is valid. Go launch some machines now that we've successfully verified that this Flatcar Container Linux image isn't corrupt, that it was authored by Kinvolk, and wasn't tampered with in transit.

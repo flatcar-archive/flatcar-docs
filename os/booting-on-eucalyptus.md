@@ -1,14 +1,14 @@
-# Running Flatcar Linux on Eucalyptus 3.4
+# Running Flatcar Container Linux on Eucalyptus 3.4
 
-These instructions will walk you through downloading Flatcar Linux, bundling the image, and running an instance from it.
+These instructions will walk you through downloading Flatcar Container Linux, bundling the image, and running an instance from it.
 
 ## Import the image
 
-These steps will download the Flatcar Linux image, uncompress it, convert it from qcow to raw, and then import it into Eucalyptus. In order to convert the image you will need to install `qemu-img` with your favorite package manager.
+These steps will download the Flatcar Container Linux image, uncompress it, convert it from qcow to raw, and then import it into Eucalyptus. In order to convert the image you will need to install `qemu-img` with your favorite package manager.
 
 ### Choosing a channel
 
-Flatcar Linux is designed to be updated automatically with different schedules per channel. You can [disable this feature](update-strategies.md), although we don't recommend it. Read the [release notes](https://flatcar-linux.org/releases) for specific features and bug fixes.
+Flatcar Container Linux is designed to be updated automatically with different schedules per channel. You can [disable this feature](update-strategies.md), although we don't recommend it. Read the [release notes](https://flatcar-linux.org/releases) for specific features and bug fixes.
 
 <div id="eucalyptus-create">
   <ul class="nav nav-tabs">
@@ -18,7 +18,7 @@ Flatcar Linux is designed to be updated automatically with different schedules p
   </ul>
   <div class="tab-content coreos-docs-image-table">
     <div class="tab-pane" id="alpha-create">
-      <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Flatcar Linux {{site.alpha-channel}}.</p>
+      <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Flatcar Container Linux {{site.alpha-channel}}.</p>
       <pre>
 $ wget -q https://alpha.release.flatcar-linux.net/amd64-usr/current/flatcar_production_openstack_image.img.bz2
 $ bunzip2 flatcar_production_openstack_image.img.bz2
@@ -28,12 +28,12 @@ $ euca-bundle-image -i flatcar_production_openstack_image.raw -r x86_64 -d /var/
 Wrote manifest bundle/flatcar_production_openstack_image.raw.manifest.xml
 $ euca-upload-bundle -m /var/tmp/flatcar_production_openstack_image.raw.manifest.xml -b flatcar-production
 Uploaded flatcar-production/flatcar_production_openstack_image.raw.manifest.xml
-$ euca-register flatcar-production/flatcar_production_openstack_image.raw.manifest.xml --virtualization-type hvm --name "Flatcar Linux-Production"
+$ euca-register flatcar-production/flatcar_production_openstack_image.raw.manifest.xml --virtualization-type hvm --name "Flatcar Container Linux-Production"
 emi-E4A33D45
       </pre>
     </div>
     <div class="tab-pane" id="beta-create">
-      <p>The Beta channel consists of promoted Alpha releases. The current version is Flatcar Linux {{site.beta-channel}}.</p>
+      <p>The Beta channel consists of promoted Alpha releases. The current version is Flatcar Container Linux {{site.beta-channel}}.</p>
       <pre>
 $ wget -q https://beta.release.flatcar-linux.net/amd64-usr/current/flatcar_production_openstack_image.img.bz2
 $ bunzip2 flatcar_production_openstack_image.img.bz2
@@ -43,12 +43,12 @@ $ euca-bundle-image -i flatcar_production_openstack_image.raw -r x86_64 -d /var/
 Wrote manifest bundle/flatcar_production_openstack_image.raw.manifest.xml
 $ euca-upload-bundle -m /var/tmp/flatcar_production_openstack_image.raw.manifest.xml -b flatcar-production
 Uploaded flatcar-production/flatcar_production_openstack_image.raw.manifest.xml
-$ euca-register flatcar-production/flatcar_production_openstack_image.raw.manifest.xml --virtualization-type hvm --name "Flatcar Linux-Production"
+$ euca-register flatcar-production/flatcar_production_openstack_image.raw.manifest.xml --virtualization-type hvm --name "Flatcar Container Linux-Production"
 emi-E4A33D45
       </pre>
     </div>
     <div class="tab-pane active" id="stable-create">
-      <p>The Stable channel should be used by production clusters. Versions of Flatcar Linux are battle-tested within the Beta and Alpha channels before being promoted. The current version is Flatcar Linux {{site.stable-channel}}.</p>
+      <p>The Stable channel should be used by production clusters. Versions of Flatcar Container Linux are battle-tested within the Beta and Alpha channels before being promoted. The current version is Flatcar Container Linux {{site.stable-channel}}.</p>
       <pre>
 $ wget -q https://stable.release.flatcar-linux.net/amd64-usr/current/flatcar_production_openstack_image.img.bz2
 $ bunzip2 flatcar_production_openstack_image.img.bz2
@@ -58,7 +58,7 @@ $ euca-bundle-image -i flatcar_production_openstack_image.raw -r x86_64 -d /var/
 Wrote manifest bundle/flatcar_production_openstack_image.raw.manifest.xml
 $ euca-upload-bundle -m /var/tmp/flatcar_production_openstack_image.raw.manifest.xml -b flatcar-production
 Uploaded flatcar-production/flatcar_production_openstack_image.raw.manifest.xml
-$ euca-register flatcar-production/flatcar_production_openstack_image.raw.manifest.xml --virtualization-type hvm --name "Flatcar Linux-Production"
+$ euca-register flatcar-production/flatcar_production_openstack_image.raw.manifest.xml --virtualization-type hvm --name "Flatcar Container Linux-Production"
 emi-E4A33D45
       </pre>
     </div>
@@ -75,7 +75,7 @@ $ euca-run-instances emi-E4A33D45 -k flatcar -t m1.medium -g default
 ...
 ```
 
-Your first Flatcar Linux instance should now be running. The only thing left to do is find the IP and SSH in.
+Your first Flatcar Container Linux instance should now be running. The only thing left to do is find the IP and SSH in.
 
 ```sh
 $ euca-describe-instances | grep flatcar
@@ -93,6 +93,6 @@ $ ssh -i core.pem core@10.0.1.61
 core@10-0-0-3 ~ $
 ```
 
-## Using Flatcar Linux
+## Using Flatcar Container Linux
 
-Now that you have a machine booted it is time to play around. Check out the [Flatcar Linux Quickstart](quickstart.md) guide or dig into [more specific topics](https://docs.flatcar-linux.org).
+Now that you have a machine booted it is time to play around. Check out the [Flatcar Container Linux Quickstart](quickstart.md) guide or dig into [more specific topics](https://docs.flatcar-linux.org).

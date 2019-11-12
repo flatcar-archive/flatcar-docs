@@ -2,15 +2,15 @@
 
 ## Importing images
 
-Images of Flatcar Linux alpha releases are hosted at [`https://alpha.release.flatcar-linux.net/amd64-usr/`][alpha-bucket]. There are directories for releases by version as well as `current` with a copy of the latest version. Similarly, beta releases can be found at [`https://beta.release.flatcar-linux.net/amd64-usr/`][beta-bucket], edge releases at [`https://edge.release.flatcar-linux.net/amd64-usr/`][edge-bucket], and stable releases at [`https://stable.release.flatcar-linux.net/amd64-usr/`][stable-bucket].
+Images of Flatcar Container Linux alpha releases are hosted at [`https://alpha.release.flatcar-linux.net/amd64-usr/`][alpha-bucket]. There are directories for releases by version as well as `current` with a copy of the latest version. Similarly, beta releases can be found at [`https://beta.release.flatcar-linux.net/amd64-usr/`][beta-bucket], edge releases at [`https://edge.release.flatcar-linux.net/amd64-usr/`][edge-bucket], and stable releases at [`https://stable.release.flatcar-linux.net/amd64-usr/`][stable-bucket].
 
-Each directory has a `version.txt` file containing version information for the files in that directory. If you are importing images for use inside your environment it is recommended that you fetch `version.txt` from the `current` directory and use its contents to compute the path to the other artifacts. For example, to download the alpha OpenStack version of Flatcar Linux:
+Each directory has a `version.txt` file containing version information for the files in that directory. If you are importing images for use inside your environment it is recommended that you fetch `version.txt` from the `current` directory and use its contents to compute the path to the other artifacts. For example, to download the alpha OpenStack version of Flatcar Container Linux:
 
 1. Download `https://alpha.release.flatcar-linux.net/amd64-usr/current/version.txt`.
 2. Parse `version.txt` to obtain the value of `COREOS_VERSION_ID`, for example `1576.1.0`.
 3. Download `https://alpha.release.flatcar-linux.net/amd64-usr/1576.1.0/flatcar_production_openstack_image.img.bz2`.
 
-It is recommended that you also verify files using the [Flatcar Linux Image Signing Key][signing-key]. The GPG signature for each image is a detached `.sig` file that must be passed to `gpg --verify`. For example:
+It is recommended that you also verify files using the [Flatcar Container Linux Image Signing Key][signing-key]. The GPG signature for each image is a detached `.sig` file that must be passed to `gpg --verify`. For example:
 
 ```sh
 wget https://alpha.release.flatcar-linux.net/amd64-usr/current/flatcar_production_openstack_image.img.bz2
@@ -29,7 +29,7 @@ The signing key is rotated annually. We will announce upcoming rotations of the 
 
 ## Image customization
 
-There are two predominant ways that a Flatcar Linux image can be easily customized for a specific operating environment: through Ignition, a first-boot provisioning tool that runs during a machine's boot process, and through [cloud-config](https://github.com/flatcar-linux/coreos-cloudinit/blob/master/Documentation/cloud-config.md), an older tool that runs every time a machine boots.
+There are two predominant ways that a Flatcar Container Linux image can be easily customized for a specific operating environment: through Ignition, a first-boot provisioning tool that runs during a machine's boot process, and through [cloud-config](https://github.com/flatcar-linux/coreos-cloudinit/blob/master/Documentation/cloud-config.md), an older tool that runs every time a machine boots.
 
 ### Ignition
 
@@ -46,14 +46,14 @@ Additionally, it is recommended that providers ensure that [coreos-metadata][cor
 
 ### Cloud config
 
-A Flatcar Linux image can also be customized using [cloud-config](https://github.com/flatcar-linux/coreos-cloudinit/blob/master/Documentation/cloud-config.md). Users are recommended to instead use Container Linux Configs (that are converted into Ignition configs with [ct][ct]), for reasons [outlined in the blog post that introduced Ignition][ignition].
+A Flatcar Container Linux image can also be customized using [cloud-config](https://github.com/flatcar-linux/coreos-cloudinit/blob/master/Documentation/cloud-config.md). Users are recommended to instead use Container Linux Configs (that are converted into Ignition configs with [ct][ct]), for reasons [outlined in the blog post that introduced Ignition][ignition].
 
 Providers that previously supported cloud-config should continue to do so, as not all users have switched over to Container Linux Configs. New platforms do not need to support cloud-config.
 
-Flatcar Linux will automatically parse and execute `/usr/share/oem/cloud-config.yml` if it exists.
+Flatcar Container Linux will automatically parse and execute `/usr/share/oem/cloud-config.yml` if it exists.
 
 ## Handling end-user Ignition files
 
-End-users should be able to provide an Ignition file to your platform while specifying their VM's parameters. This file should be made available to Flatcar Linux at the time of boot (e.g. at known network address, injected directly onto disk). Examples of these data sources can be found in the [Ignition documentation][providers].
+End-users should be able to provide an Ignition file to your platform while specifying their VM's parameters. This file should be made available to Flatcar Container Linux at the time of boot (e.g. at known network address, injected directly onto disk). Examples of these data sources can be found in the [Ignition documentation][providers].
 
 [providers]: https://github.com/flatcar-linux/ignition/blob/master/doc/supported-platforms.md

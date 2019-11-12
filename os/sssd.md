@@ -1,6 +1,6 @@
-# Configuring SSSD on Flatcar Linux
+# Configuring SSSD on Flatcar Container Linux
 
-Flatcar Linux ships with the System Security Services Daemon, allowing integration between Flatcar Linux and enterprise authentication services.
+Flatcar Container Linux ships with the System Security Services Daemon, allowing integration between Flatcar Container Linux and enterprise authentication services.
 
 ## Configuring SSSD
 

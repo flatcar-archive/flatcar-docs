@@ -1,10 +1,10 @@
-# Running Flatcar Linux on Exoscale
+# Running Flatcar Container Linux on Exoscale
 
 ## Choosing a channel
 
-Flatcar Linux is designed to be updated automatically with different schedules per channel. You can [disable this feature][reboot-docs], although we don't recommend it. Read the [release notes][release-notes] for specific features and bug fixes.
+Flatcar Container Linux is designed to be updated automatically with different schedules per channel. You can [disable this feature][reboot-docs], although we don't recommend it. Read the [release notes][release-notes] for specific features and bug fixes.
 
-The Exoscale Flatcar Linux image is built officially and each instance deployment is a unique fresh instance. By default, only the stable channel is deployed on Exoscale, you can easily [switch to Beta or Alpha channel][switching-channels].
+The Exoscale Flatcar Container Linux image is built officially and each instance deployment is a unique fresh instance. By default, only the stable channel is deployed on Exoscale, you can easily [switch to Beta or Alpha channel][switching-channels].
 
 
 [reboot-docs]: update-strategies.md
@@ -14,7 +14,7 @@ The Exoscale Flatcar Linux image is built officially and each instance deploymen
 
 ## Security groups
 
-Unlike other providers, all Exoscale instances are protected by default on inbound traffic. In order to be able to work in a Flatcar Linux cluster you should add the following rules in either your default security group or a security group of your choice and tag all Flatcar Linux instances with it:
+Unlike other providers, all Exoscale instances are protected by default on inbound traffic. In order to be able to work in a Flatcar Container Linux cluster you should add the following rules in either your default security group or a security group of your choice and tag all Flatcar Container Linux instances with it:
 
 * SSH: TCP port 22
 * etcd: TCP ports 2379 for client communication and 2380 for server-to-server communication
@@ -23,11 +23,11 @@ Unlike other providers, all Exoscale instances are protected by default on inbou
 
 ## Cloud-config
 
-Flatcar Linux allows you to configure machine parameters, launch systemd units on startup, and more via cloud-config. Jump over to the [docs to learn about the supported features][cloud-config-docs]. Cloud-config is intended to bring up a cluster of machines into a minimal useful state and ideally shouldn't be used to configure anything that isn't standard across many hosts. Once the machine is created, cloud-config cannot be modified.
+Flatcar Container Linux allows you to configure machine parameters, launch systemd units on startup, and more via cloud-config. Jump over to the [docs to learn about the supported features][cloud-config-docs]. Cloud-config is intended to bring up a cluster of machines into a minimal useful state and ideally shouldn't be used to configure anything that isn't standard across many hosts. Once the machine is created, cloud-config cannot be modified.
 
-You can provide raw cloud-config data to Flatcar Linux via the Exoscale portal or [via the Exoscale compute API](#via-the-api).
+You can provide raw cloud-config data to Flatcar Container Linux via the Exoscale portal or [via the Exoscale compute API](#via-the-api).
 
-In order to leverage Flatcar Linux unique automation attributes, a standard Flatcar Linux cloud-config on Exoscale could be configured with:
+In order to leverage Flatcar Container Linux unique automation attributes, a standard Flatcar Container Linux cloud-config on Exoscale could be configured with:
 
 ```cloud-config
 #cloud-config
@@ -69,11 +69,11 @@ cs startVirtualMachine id=<UUID of instance>
 
 [API reference for updateVirtualMachine](https://community.exoscale.ch/compute/api/#updatevirtualmachine_GET)
 
-## SSH to your Flatcar Linux instances
+## SSH to your Flatcar Container Linux instances
 
-Flatcar Linux does not allow root connection to the instance. By default, it uses the `core` user instead of `root` and doesn't use a password for authentication. You'll need to add an SSH key(s) via the web console or add keys/passwords via your cloud-config in order to log in.
+Flatcar Container Linux does not allow root connection to the instance. By default, it uses the `core` user instead of `root` and doesn't use a password for authentication. You'll need to add an SSH key(s) via the web console or add keys/passwords via your cloud-config in order to log in.
 
-To log in to a Flatcar Linux instance after it's created click on its IP address or run:
+To log in to a Flatcar Container Linux instance after it's created click on its IP address or run:
 
 ```sh
 ssh core@<ip address>
@@ -96,7 +96,7 @@ key = api key
 secret = secret
 ```
 
-To launch a Small 2GB instance with the current Stable Flatcar Linux image:
+To launch a Small 2GB instance with the current Stable Flatcar Container Linux image:
 
 note: template ids are available on the [Exoscale website](https://www.exoscale.ch/open-cloud/templates/).
 
@@ -113,7 +113,7 @@ Be sure to specify your SSH key to be able to access the machine. Management of 
 
 1. Open the ["add new instance"](https://portal.exoscale.ch/compute/instances/add) page in the Exoscale web portal.
 2. Give the machine a hostname, and choose a zone.
-3. Choose the Flatcar Linux template
+3. Choose the Flatcar Container Linux template
 <div class="row">
   <div class="col-lg-8 col-md-10 col-sm-8 col-xs-12">
     <img src="img/exoscale-template.png" class="screenshot" />
@@ -137,11 +137,11 @@ Be sure to specify your SSH key to be able to access the machine. Management of 
 </div>
 7. Create your instance
 
-Unlike other Exoscale images where the root password is randomly set at startup, Flatcar Linux does not have password logon activated. You will need to [configure your public key with Exoscale][exo-keys-docs] in order to login to the Flatcar Linux instances or to specify external keys using cloud-config.
+Unlike other Exoscale images where the root password is randomly set at startup, Flatcar Container Linux does not have password logon activated. You will need to [configure your public key with Exoscale][exo-keys-docs] in order to login to the Flatcar Container Linux instances or to specify external keys using cloud-config.
 
-## Using Flatcar Linux
+## Using Flatcar Container Linux
 
-Now that you have a machine booted it is time to play around. Check out the [Flatcar Linux Quickstart][quick-start] guide or dig into [more specific topics][docs].
+Now that you have a machine booted it is time to play around. Check out the [Flatcar Container Linux Quickstart][quick-start] guide or dig into [more specific topics][docs].
 
 [quick-start]: quickstart.md
 [docs]: https://docs.flatcar-linux.org

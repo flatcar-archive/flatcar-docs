@@ -1,8 +1,8 @@
-# Booting Flatcar Linux via PXE
+# Booting Flatcar Container Linux via PXE
 
-These instructions will walk you through booting Flatcar Linux via PXE on real or virtual hardware. By default, this will run Flatcar Linux completely out of RAM. Flatcar Linux can also be [installed to disk](installing-to-disk.md).
+These instructions will walk you through booting Flatcar Container Linux via PXE on real or virtual hardware. By default, this will run Flatcar Container Linux completely out of RAM. Flatcar Container Linux can also be [installed to disk](installing-to-disk.md).
 
-A minimum of 3 GB of RAM is required to boot Flatcar Linux via PXE.
+A minimum of 3 GB of RAM is required to boot Flatcar Container Linux via PXE.
 
 ## Configuring pxelinux
 
@@ -15,7 +15,7 @@ This guide assumes you already have a working PXE server using [pxelinux][pxelin
 
 ### Setting up pxelinux.cfg
 
-When configuring the Flatcar Linux pxelinux.cfg there are a few kernel options that may be useful but all are optional.
+When configuring the Flatcar Container Linux pxelinux.cfg there are a few kernel options that may be useful but all are optional.
 
 - **rootfstype=tmpfs**: Use tmpfs for the writable root filesystem. This is the default behavior.
 - **rootfstype=btrfs**: Use btrfs in RAM for the writable root filesystem. The filesystem will consume more RAM as it grows, up to a max of 50%. The limit isn't currently configurable.
@@ -26,7 +26,7 @@ When configuring the Flatcar Linux pxelinux.cfg there are a few kernel options t
 - **flatcar.first_boot=1**: Download an Ignition config and use it to provision your booted system. Ignition configs are generated from Container Linux Configs. See the [config transpiler documentation][cl-configs] for more information. If a local filesystem is used for the root partition, pass this parameter only on the first boot.
 - **ignition.config.url**: Download the Ignition config from the specified URL. `http`, `https`, `s3`, and `tftp` schemes are supported.
 
-This is an example pxelinux.cfg file that assumes Flatcar Linux is the only option. You should be able to copy this verbatim into `/var/lib/tftpboot/pxelinux.cfg/default` after providing an Ignition config URL:
+This is an example pxelinux.cfg file that assumes Flatcar Container Linux is the only option. You should be able to copy this verbatim into `/var/lib/tftpboot/pxelinux.cfg/default` after providing an Ignition config URL:
 
 ```sh
 default flatcar
@@ -59,9 +59,9 @@ passwd:
 
 ### Choose a channel
 
-Flatcar Linux is designed to be updated automatically with different schedules per channel. You can [disable this feature](update-strategies.md), although we don't recommend it. Read the [release notes](https://flatcar-linux.org/releases) for specific features and bug fixes.
+Flatcar Container Linux is designed to be updated automatically with different schedules per channel. You can [disable this feature](update-strategies.md), although we don't recommend it. Read the [release notes](https://flatcar-linux.org/releases) for specific features and bug fixes.
 
-PXE booted machines cannot currently update themselves when new versions are released to a channel. To update to the latest version of Flatcar Linux download/verify these files again and reboot.
+PXE booted machines cannot currently update themselves when new versions are released to a channel. To update to the latest version of Flatcar Container Linux download/verify these files again and reboot.
 
 <div id="pxe-create">
   <ul class="nav nav-tabs">
@@ -72,7 +72,7 @@ PXE booted machines cannot currently update themselves when new versions are rel
   </ul>
   <div class="tab-content coreos-docs-image-table">
     <div class="tab-pane" id="alpha-create">
-      <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Flatcar Linux {{site.alpha-channel}}.</p>
+      <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Flatcar Container Linux {{site.alpha-channel}}.</p>
       <p>In the config above you can see that a Kernel image and a initramfs file is needed. Download these two files into your tftp root.</p>
       <p>The <code>flatcar_production_pxe.vmlinuz.sig</code> and <code>flatcar_production_pxe_image.cpio.gz.sig</code> files can be used to <a href="notes-for-distributors.md#importing-images">verify the downloaded files</a>.</p>
       <pre>
@@ -86,7 +86,7 @@ gpg --verify flatcar_production_pxe_image.cpio.gz.sig
       </pre>
     </div>
     <div class="tab-pane" id="beta-create">
-      <p>The Beta channel consists of promoted Alpha releases. The current version is Flatcar Linux {{site.beta-channel}}.</p>
+      <p>The Beta channel consists of promoted Alpha releases. The current version is Flatcar Container Linux {{site.beta-channel}}.</p>
       <p>In the config above you can see that a Kernel image and a initramfs file is needed. Download these two files into your tftp root.</p>
       <p>The <code>flatcar_production_pxe.vmlinuz.sig</code> and <code>flatcar_production_pxe_image.cpio.gz.sig</code> files can be used to <a href="notes-for-distributors.md#importing-images">verify the downloaded files</a>.</p>
       <pre>
@@ -100,7 +100,7 @@ gpg --verify flatcar_production_pxe_image.cpio.gz.sig
       </pre>
     </div>
     <div class="tab-pane" id="edge-create">
-      <p>The Edge channel includes bleeding-edge features with the newest versions of the Linux kernel, systemd and other core packages. Can be highly unstable. The current version is Flatcar Linux {{site.edge-channel}}.</p>
+      <p>The Edge channel includes bleeding-edge features with the newest versions of the Linux kernel, systemd and other core packages. Can be highly unstable. The current version is Flatcar Container Linux {{site.edge-channel}}.</p>
       <p>In the config above you can see that a Kernel image and a initramfs file is needed. Download these two files into your tftp root.</p>
       <p>The <code>flatcar_production_pxe.vmlinuz.sig</code> and <code>flatcar_production_pxe_image.cpio.gz.sig</code> files can be used to <a href="notes-for-distributors.md#importing-images">verify the downloaded files</a>.</p>
       <pre>
@@ -114,7 +114,7 @@ gpg --verify flatcar_production_pxe_image.cpio.gz.sig
       </pre>
     </div>
     <div class="tab-pane active" id="stable-create">
-      <p>The Stable channel should be used by production clusters. Versions of Flatcar Linux are battle-tested within the Beta and Alpha channels before being promoted. The current version is Flatcar Linux {{site.stable-channel}}.</p>
+      <p>The Stable channel should be used by production clusters. Versions of Flatcar Container Linux are battle-tested within the Beta and Alpha channels before being promoted. The current version is Flatcar Container Linux {{site.stable-channel}}.</p>
       <p>In the config above you can see that a Kernel image and a initramfs file is needed. Download these two files into your tftp root.</p>
       <p>The <code>flatcar_production_pxe.vmlinuz.sig</code> and <code>flatcar_production_pxe_image.cpio.gz.sig</code> files can be used to <a href="notes-for-distributors.md#importing-images">verify the downloaded files</a>.</p>
       <pre>
@@ -132,7 +132,7 @@ gpg --verify flatcar_production_pxe_image.cpio.gz.sig
 
 ## Booting the box
 
-After setting up the PXE server as outlined above you can start the target machine in PXE boot mode. The machine should grab the image from the server and boot into Flatcar Linux. If something goes wrong you can direct questions to the [IRC channel][irc] or [mailing list][flatcar-user].
+After setting up the PXE server as outlined above you can start the target machine in PXE boot mode. The machine should grab the image from the server and boot into Flatcar Container Linux. If something goes wrong you can direct questions to the [IRC channel][irc] or [mailing list][flatcar-user].
 
 ```sh
 This is localhost.unknown_domain (Linux x86_64 3.10.10+) 19:53:36
@@ -156,7 +156,7 @@ Since our upgrade process requires a disk, this image does not have the option t
 
 ## Installation
 
-Once booted it is possible to [install Flatcar Linux on a local disk][install-to-disk] or to just use local storage for the writable root filesystem while continuing to boot Flatcar Linux itself via PXE.
+Once booted it is possible to [install Flatcar Container Linux on a local disk][install-to-disk] or to just use local storage for the writable root filesystem while continuing to boot Flatcar Container Linux itself via PXE.
 
 If you plan on using Docker we recommend using a local ext4 filesystem with overlayfs, however, btrfs is also available to use if needed.
 
@@ -198,7 +198,7 @@ storage:
 
 ## Adding a Custom OEM
 
-Similar to the [OEM partition][oem] in Flatcar Linux disk images, PXE images can be customized with an [Ignition config][ignition] bundled in the initramfs. Simply create a `./usr/share/oem/` directory, add a `config.ign` file containing the Ignition config, and add the directory tree as an additional initramfs:
+Similar to the [OEM partition][oem] in Flatcar Container Linux disk images, PXE images can be customized with an [Ignition config][ignition] bundled in the initramfs. Simply create a `./usr/share/oem/` directory, add a `config.ign` file containing the Ignition config, and add the directory tree as an additional initramfs:
 
 ```sh
 mkdir -p usr/share/oem
@@ -227,9 +227,9 @@ kernel flatcar_production_pxe.vmlinuz flatcar.first_boot=1
 ...
 ```
 
-## Using Flatcar Linux
+## Using Flatcar Container Linux
 
-Now that you have a machine booted it is time to play around. Check out the [Flatcar Linux Quickstart][qs] guide or dig into [more specific topics][docs].
+Now that you have a machine booted it is time to play around. Check out the [Flatcar Container Linux Quickstart][qs] guide or dig into [more specific topics][docs].
 
 
 [append-initrd]: http://www.syslinux.org/wiki/index.php?title=SYSLINUX#INITRD_initrd_file

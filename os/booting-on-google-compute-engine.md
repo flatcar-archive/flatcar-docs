@@ -1,4 +1,4 @@
-# Running Flatcar Linux on Google Compute Engine
+# Running Flatcar Container Linux on Google Compute Engine
 
 Before proceeding, you will need a GCE account ([GCE free trial ][free-trial]) and [install gcloud][gcloud-documentation] on your machine. In each command below, be sure to insert your project name in place of `<project-id>`.
 
@@ -10,7 +10,7 @@ After installation, log into your account with `gcloud auth login` and enter you
 
 ## Choosing a channel
 
-Flatcar Linux is designed to be updated automatically with different schedules per channel. You can [disable this feature](update-strategies.md), although we don't recommend it. Read the [release notes](https://flatcar-linux.org/releases) for specific features and bug fixes.
+Flatcar Container Linux is designed to be updated automatically with different schedules per channel. You can [disable this feature](update-strategies.md), although we don't recommend it. Read the [release notes](https://flatcar-linux.org/releases) for specific features and bug fixes.
 
 Create 3 instances from the image above using our Ignition from `example.ign`:
 
@@ -23,20 +23,20 @@ Create 3 instances from the image above using our Ignition from `example.ign`:
   </ul>
   <div class="tab-content coreos-docs-image-table">
     <div class="tab-pane active" id="stable-create">
-      <p>The Stable channel should be used by production clusters. Versions of Flatcar Linux are battle-tested within the Beta and Alpha channels before being promoted. The current version is Flatcar Linux {{site.stable-channel}}.</p>
+      <p>The Stable channel should be used by production clusters. Versions of Flatcar Container Linux are battle-tested within the Beta and Alpha channels before being promoted. The current version is Flatcar Container Linux {{site.stable-channel}}.</p>
       <pre>gcloud compute instances create flatcar1 flatcar2 flatcar3 --image-project flatcar-cloud --image-family flatcar-stable --zone us-central1-a --machine-type n1-standard-1 --metadata-from-file user-data=config.ign</pre>
     </div>
     <div class="tab-pane" id="beta-create">
-      <p>The Beta channel consists of promoted Alpha releases. The current version is Flatcar Linux {{site.beta-channel}}.</p>
+      <p>The Beta channel consists of promoted Alpha releases. The current version is Flatcar Container Linux {{site.beta-channel}}.</p>
       <pre>gcloud compute instances create flatcar1 flatcar2 flatcar3 --image-project flatcar-cloud --image-family flatcar-beta --zone us-central1-a --machine-type n1-standard-1 --metadata-from-file user-data=config.ign</pre>
     </div>
     <div class="tab-pane" id="alpha-create">
-      <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Flatcar Linux {{site.alpha-channel}}.</p>
+      <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Flatcar Container Linux {{site.alpha-channel}}.</p>
       <pre>gcloud compute instances create flatcar1 flatcar2 flatcar3 --image-project flatcar-cloud --image-family flatcar-alpha --zone us-central1-a --machine-type n1-standard-1 --metadata-from-file user-data=config.ign</pre>
     </div>
     <div class="tab-pane" id="edge-create">
       <p>The Edge channel includes bleeding-edge features with the newest versions of the Linux kernel, systemd
-      and other core packages. Can be highly unstable. The current version is Flatcar Linux {{site.edge-channel}}.</p>
+      and other core packages. Can be highly unstable. The current version is Flatcar Container Linux {{site.edge-channel}}.</p>
       <pre>gcloud compute instances create flatcar1 flatcar2 flatcar3 --image-project flatcar-cloud --image-family flatcar-edge --zone us-central1-a --machine-type n1-standard-1 --metadata-from-file user-data=config.ign</pre>
     </div>
   </div>
@@ -44,7 +44,7 @@ Create 3 instances from the image above using our Ignition from `example.ign`:
 
 ## Uploading an Image
 
-Official Flatcar Linux images are not available on Google Cloud at the moment. However, you can run Flatcar Linux today by uploading an image to your account.
+Official Flatcar Container Linux images are not available on Google Cloud at the moment. However, you can run Flatcar Container Linux today by uploading an image to your account.
 
 To do so, run the following command:
 ```sh
@@ -59,7 +59,7 @@ Where:
 - `<project id>` should be your project ID.
 
 During execution, the script will ask you to log into your Google account and then create all necessary resources for
-uploading an image. It will then download the requested Flatcar Linux image and upload it to the Google Cloud.
+uploading an image. It will then download the requested Flatcar Container Linux image and upload it to the Google Cloud.
 
 To see all available options, run:
 ```sh
@@ -72,8 +72,8 @@ Usage: /usr/local/bin/upload_images.sh [OPTION...]
   -p, --project-id  ID of the project for creating bucket.
 
  Optional arguments:
-  -c, --channel     Flatcar Linux release channel. Defaults to 'stable'.
-  -v, --version     Flatcar Linux version. Defaults to 'current'.
+  -c, --channel     Flatcar Container Linux release channel. Defaults to 'stable'.
+  -v, --version     Flatcar Container Linux version. Defaults to 'current'.
   -i, --image-name  Image name, which will be used later in Lokomotive configuration. Defaults to 'flatcar-<channel>'.
 
  Optional flags:
@@ -86,15 +86,15 @@ The Dockerfile for the `quay.io/kinvolk/google-cloud-flatcar-image-upload` image
 [bucket]: https://cloud.google.com/storage/docs/key-terms#bucket-names
 [google-cloud-flatcar-image-upload]: https://github.com/kinvolk/flatcar-cloud-image-uploader/blob/master/google-cloud-flatcar-image-upload
 
-## Upgrade from Container Linux
+## Upgrade from CoreOS Container Linux
 
-You can also [upgrade from an existing Container Linux system](./update-from-container-linux.md).
+You can also [upgrade from an existing CoreOS Container Linux system](./update-from-container-linux.md).
 
 ## Container Linux Config
 
-Flatcar Linux allows you to configure machine parameters, configure networking, launch systemd units on startup, and more via Container Linux Configs. These configs are then transpiled into Ignition configs and given to booting machines. Head over to the [docs to learn about the supported features][cl-configs].
+Flatcar Container Linux allows you to configure machine parameters, configure networking, launch systemd units on startup, and more via Container Linux Configs. These configs are then transpiled into Ignition configs and given to booting machines. Head over to the [docs to learn about the supported features][cl-configs].
 
-You can provide a raw Ignition config to Flatcar Linux via the Google Cloud console's metadata field `user-data` or via a flag using `gcloud`.
+You can provide a raw Ignition config to Flatcar Container Linux via the Google Cloud console's metadata field `user-data` or via a flag using `gcloud`.
 
 As an example, this config will configure and start etcd:
 
@@ -142,7 +142,7 @@ systemd:
         RequiredBy=local-fs.target
 ```
 
-For more information about mounting storage, Google's [own documentation](https://developers.google.com/compute/docs/disks#attach_disk) is the best source. You can also read about [mounting storage on Flatcar Linux](mounting-storage.md).
+For more information about mounting storage, Google's [own documentation](https://developers.google.com/compute/docs/disks#attach_disk) is the best source. You can also read about [mounting storage on Flatcar Container Linux](mounting-storage.md).
 
 ### Adding more machines
 
@@ -150,7 +150,7 @@ To add more instances to the cluster, just launch more with the same Ignition co
 
 ## SSH
 
-You can log in your Flatcar Linux instances using:
+You can log in your Flatcar Container Linux instances using:
 
 ```sh
 gcloud compute ssh --zone us-central1-a core@<instance-name>
@@ -158,6 +158,6 @@ gcloud compute ssh --zone us-central1-a core@<instance-name>
 
 Users other than `core`, which are set up by the GCE account manager, may not be a member of required groups. If you have issues, try running commands such as `journalctl` with sudo.
 
-## Using Flatcar Linux
+## Using Flatcar Container Linux
 
-Now that you have a machine booted it is time to play around. Check out the [Flatcar Linux Quickstart](quickstart.md) guide or dig into [more specific topics](https://docs.flatcar-linux.org).
+Now that you have a machine booted it is time to play around. Check out the [Flatcar Container Linux Quickstart](quickstart.md) guide or dig into [more specific topics](https://docs.flatcar-linux.org).

@@ -1,4 +1,4 @@
-# Running Flatcar Linux on Microsoft Azure
+# Running Flatcar Container Linux on Microsoft Azure
 
 ## Creating resource group via Microsoft Azure CLI
 
@@ -10,11 +10,11 @@ Instances on Microsoft Azure must be created within a resource group. Create a n
 az group create --name group-1 --location <location>
 ```
 
-Now that you have a resource group, you can choose a channel of Flatcar Linux you would like to install.
+Now that you have a resource group, you can choose a channel of Flatcar Container Linux you would like to install.
 
 ## Choosing a Channel
 
-Flatcar Linux is designed to be [updated automatically][update-docs] with different schedules per channel. This feature
+Flatcar Container Linux is designed to be [updated automatically][update-docs] with different schedules per channel. This feature
 can be [disabled][reboot-docs], although it is not recommended to do so. The [release notes][release-notes] contain
 information about specific features and bug fixes.
 
@@ -30,28 +30,28 @@ The following command will create a single instance. For more details, check out
   <div class="tab-content coreos-docs-image-table">
     <div class="tab-pane active" id="stable">
       <div class="channel-info">
-        <p>The Stable channel should be used by production clusters. Versions of Flatcar Linux are battle-tested within
-        the Beta and Alpha channels before being promoted. The current version is Flatcar Linux {{site.stable-channel}}.</p>
+        <p>The Stable channel should be used by production clusters. Versions of Flatcar Container Linux are battle-tested within
+        the Beta and Alpha channels before being promoted. The current version is Flatcar Container Linux {{site.stable-channel}}.</p>
         <pre>az vm create --name node-1 --resource-group group-1 --admin-username core --custom-data "$(cat config.ign)" --image flatcar-stable</pre>
       </div>
     </div>
     <div class="tab-pane" id="beta">
       <div class="channel-info">
-        <p>The Beta channel consists of promoted Alpha releases. The current version is Flatcar Linux {{site.beta-channel}}.</p>
+        <p>The Beta channel consists of promoted Alpha releases. The current version is Flatcar Container Linux {{site.beta-channel}}.</p>
         <pre>az vm create --name node-1 --resource-group group-1 --admin-username core --custom-data "$(cat config.ign)" --image flatcar-beta</pre>
       </div>
     </div>
     <div class="tab-pane" id="alpha">
       <div class="channel-info">
         <p>The Alpha channel closely tracks the master branch and is released frequently. The newest versions of system
-        libraries and utilities are available for testing in this channel. The current version is Flatcar Linux {{site.alpha-channel}}.</p>
+        libraries and utilities are available for testing in this channel. The current version is Flatcar Container Linux {{site.alpha-channel}}.</p>
         <pre>az vm create --name node-1 --resource-group group-1 --admin-username core --custom-data "$(cat config.ign)" --image flatcar-alpha</pre>
       </div>
     </div>
     <div class="tab-pane" id="edge">
       <div class="channel-info">
         <p>The Edge channel includes bleeding-edge features with the newest versions of the Linux kernel, systemd
-        and other core packages. Can be highly unstable. The current version is Flatcar Linux {{site.edge-channel}}.</p>
+        and other core packages. Can be highly unstable. The current version is Flatcar Container Linux {{site.edge-channel}}.</p>
         <pre>az vm create --name node-1 --resource-group group-1 --admin-username core --custom-data "$(cat config.ign)" --image flatcar-edge</pre>
       </div>
     </div>
@@ -60,7 +60,7 @@ The following command will create a single instance. For more details, check out
 
 ## Uploading an Image
 
-Official Flatcar Linux images are not available on Azure at the moment. However, you can run Flatcar Linux today by uploading an image to your account.
+Official Flatcar Container Linux images are not available on Azure at the moment. However, you can run Flatcar Container Linux today by uploading an image to your account.
 
 To do so, run the following command:
 ```sh
@@ -75,7 +75,7 @@ Where:
 - `<storage account name>` should be a valid [Storage Account][storage-account] name.
 
 During execution, the script will ask you to log into your Azure account and then create all necessary resources for
-uploading an image. It will then download the requested Flatcar Linux image and upload it to Azure.
+uploading an image. It will then download the requested Flatcar Container Linux image and upload it to Azure.
 
 If uploading fails with one of the following errors, it usually indicates a problem on Azure's side:
 
@@ -101,8 +101,8 @@ Usage: /usr/local/bin/upload_images.sh [OPTION...]
   -s, --storage-account-name  Azure storage account name. Must be between 3 and 24 characters and unique within Azure.
 
  Optional arguments:
-  -c, --channel              Flatcar Linux release channel. Defaults to 'stable'.
-  -v, --version              Flatcar Linux version. Defaults to 'current'.
+  -c, --channel              Flatcar Container Linux release channel. Defaults to 'stable'.
+  -v, --version              Flatcar Container Linux version. Defaults to 'current'.
   -i, --image-name           Image name, which will be used later in Lokomotive configuration. Defaults to 'flatcar-<channel>'.
   -l, --location             Azure location to storage image. To list available locations run with '--locations'. Defaults to 'westeurope'.
   -S, --storage-account-type Type of storage account. Defaults to 'Standard_LRS'.
@@ -112,12 +112,12 @@ The Dockerfile for the `quay.io/kinvolk/azure-flatcar-image-upload` image is man
 
 ## Container Linux Config
 
-Flatcar Linux allows you to configure machine parameters, configure networking, launch systemd units on startup, and more
+Flatcar Container Linux allows you to configure machine parameters, configure networking, launch systemd units on startup, and more
 via a Container Linux Config. Head over to the [provisioning docs][cl-configs] to learn how to use Container Linux Configs.
 Note that Microsoft Azure doesn't allow an instance's userdata to be modified after the instance had been launched. This
 isn't a problem since Ignition, the tool that consumes the userdata, only runs on the first boot.
 
-You can provide a raw Ignition config (produced from a Container Linux Config) to Flatcar Linux via the [Microsoft Azure CLI][azurecli-heading].
+You can provide a raw Ignition config (produced from a Container Linux Config) to Flatcar Container Linux via the [Microsoft Azure CLI][azurecli-heading].
 
 As an example, the following config will configure and start etcd:
 
@@ -140,15 +140,15 @@ etcd:
 
 ## Launching Instances via the Microsoft Azure CLI
 
-You can lunch instance of Flatcar Linux by executing following command:
+You can lunch instance of Flatcar Container Linux by executing following command:
 
 ```sh
 az vm create --name node-1 --resource-group group-1 --admin-username core --custom-data "$(cat config.ign)" --image flatcar-alpha
 ```
 
-## Using Flatcar Linux
+## Using Flatcar Container Linux
 
-For information on using Flatcar Linux check out the [Flatcar Linux quickstart guide][quickstart] or dive into [more specific topics][docs].
+For information on using Flatcar Container Linux check out the [Flatcar Container Linux quickstart guide][quickstart] or dive into [more specific topics][docs].
 
 [flatcar-user]: https://groups.google.com/forum/#!forum/flatcar-linux-user
 [etcd-docs]: https://github.com/flatcar-linux/etcd/tree/master/Documentation

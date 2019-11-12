@@ -1,6 +1,6 @@
 # Network configuration with networkd
 
-Flatcar Linux machines are preconfigured with [networking customized](notes-for-distributors.md) for each platform. You can write your own networkd units to replace or override the units created for each platform. This article covers a subset of networkd functionality. You can view the [full docs here](http://www.freedesktop.org/software/systemd/man/systemd-networkd.service.html).
+Flatcar Container Linux machines are preconfigured with [networking customized](notes-for-distributors.md) for each platform. You can write your own networkd units to replace or override the units created for each platform. This article covers a subset of networkd functionality. You can view the [full docs here](http://www.freedesktop.org/software/systemd/man/systemd-networkd.service.html).
 
 Drop a networkd unit in `/etc/systemd/network/` or inject a unit on boot via a Container Linux Config. Files placed manually on the filesystem will need to reload networkd afterwards with `sudo systemctl restart systemd-networkd`. Network units injected via a Container Linux Config will be written to the system before networkd is started, so there are no work-arounds needed.
 
