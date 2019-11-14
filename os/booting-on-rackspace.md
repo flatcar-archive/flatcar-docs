@@ -177,7 +177,7 @@ You should now see the details of your new server in your terminal and it should
 | updated                | 2013-11-02T19:43:45Z                 |
 | hostId                 |                                      |
 | key_name               | flatcar-key                          |
-| image                  | Flatcar Container Linux                        |
+| image                  | Flatcar Container Linux              |
 | OS-EXT-STS:task_state  | scheduling                           |
 | OS-EXT-STS:vm_state    | building                             |
 | flavor                 | 512MB Standard Instance              |
