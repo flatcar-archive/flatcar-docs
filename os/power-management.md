@@ -1,8 +1,8 @@
-# Tuning Flatcar Linux power management
+# Tuning Flatcar Container Linux power management
 
 ## CPU governor
 
-By default, Flatcar Linux uses the "performance" CPU governor meaning that the CPU operates at the maximum frequency regardless of load. This is reasonable for a system that is under constant load or cannot tolerate increased latency. On the other hand, if the system is idle much of the time and latency is not a concern, power savings may be desired.
+By default, Flatcar Container Linux uses the "performance" CPU governor meaning that the CPU operates at the maximum frequency regardless of load. This is reasonable for a system that is under constant load or cannot tolerate increased latency. On the other hand, if the system is idle much of the time and latency is not a concern, power savings may be desired.
 
 Several governors are available:
 

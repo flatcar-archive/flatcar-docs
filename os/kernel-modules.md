@@ -2,7 +2,7 @@
 
 ## Create a writable overlay
 
-The kernel modules directory `/usr/lib64/modules` is read-only on Flatcar Linux. A writable overlay can be mounted over it to allow installing new modules.
+The kernel modules directory `/usr/lib64/modules` is read-only on Flatcar Container Linux. A writable overlay can be mounted over it to allow installing new modules.
 
 ```sh
 modules=/opt/modules  # Adjust this writable storage location as needed.
@@ -36,9 +36,9 @@ Enable the unit so this overlay is mounted automatically on boot.
 sudo systemctl enable usr-lib64-modules.mount
 ```
 
-## Prepare a Flatcar Linux development container
+## Prepare a Flatcar Container Linux development container
 
-Read system configuration files to determine the URL of the development container that corresponds to the current Flatcar Linux version.
+Read system configuration files to determine the URL of the development container that corresponds to the current Flatcar Container Linux version.
 
 ```sh
 . /usr/share/coreos/release
@@ -63,7 +63,7 @@ sudo systemd-nspawn \
     --image=flatcar_developer_container.bin
 ```
 
-Now, inside the container, fetch the Flatcar Linux package definitions, then download and prepare the Linux kernel source for building external modules.
+Now, inside the container, fetch the Flatcar Container Linux package definitions, then download and prepare the Linux kernel source for building external modules.
 
 ```sh
 emerge-gitclone
@@ -74,7 +74,7 @@ make -C /usr/src/linux modules_prepare
 
 ## Build and install kernel modules
 
-At this point, upstream projects' instructions for building their out-of-tree modules should work in the Flatcar Linux development container. New kernel modules should be installed into `/usr/lib64/modules`, which is bind-mounted from the host, so they will be available on future boots without using the container again.
+At this point, upstream projects' instructions for building their out-of-tree modules should work in the Flatcar Container Linux development container. New kernel modules should be installed into `/usr/lib64/modules`, which is bind-mounted from the host, so they will be available on future boots without using the container again.
 
 In case the installation step didn't update the module dependency files automatically, running the following command will ensure commands like `modprobe` function correctly with the new modules.
 

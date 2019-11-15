@@ -80,9 +80,9 @@ Further details can be found in the systemd man pages:
 
 ## Adding custom kernel boot options
 
-The Flatcar Linux bootloader parses the configuration file `/usr/share/oem/grub.cfg`, where custom kernel boot options may be set.
+The Flatcar Container Linux bootloader parses the configuration file `/usr/share/oem/grub.cfg`, where custom kernel boot options may be set.
 
-### Enable Flatcar Linux autologin
+### Enable Flatcar Container Linux autologin
 
 To login without a password on every boot, edit `/usr/share/oem/grub.cfg` to add the line:
 
@@ -108,7 +108,7 @@ set linux_append="$linux_append systemd.mask=systemd-networkd.service"
 
 ## Adding custom messages to MOTD
 
-When logging in interactively, a brief message (the "Message of the Day (MOTD)") reports the Flatcar Linux release channel, version, and a list of any services or systemd units that have failed. Additional text can be added by dropping text files into `/etc/motd.d`. The directory may need to be created first, and the drop-in file name must end in `.conf`. Flatcar Linux versions 555.0.0 and greater support customization of the MOTD.
+When logging in interactively, a brief message (the "Message of the Day (MOTD)") reports the Flatcar Container Linux release channel, version, and a list of any services or systemd units that have failed. Additional text can be added by dropping text files into `/etc/motd.d`. The directory may need to be created first, and the drop-in file name must end in `.conf`. Flatcar Container Linux versions 555.0.0 and greater support customization of the MOTD.
 
 ```sh
 mkdir -p /etc/motd.d

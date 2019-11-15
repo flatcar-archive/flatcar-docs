@@ -1,14 +1,14 @@
-# Flatcar Linux developer SDK guide
+# Flatcar Container Linux developer SDK guide
 
-These are the instructions for building Flatcar Linux itself. By the end of the guide you will build a developer image that you can run under KVM and have tools for making changes to the code.
+These are the instructions for building Flatcar Container Linux itself. By the end of the guide you will build a developer image that you can run under KVM and have tools for making changes to the code.
 
-Flatcar Linux is an open source project. All of the source for Flatcar Linux is available on [github][github-flatcar]. If you find issues with these docs or the code please send a pull request.
+Flatcar Container Linux is an open source project. All of the source for Flatcar Container Linux is available on [github][github-flatcar]. If you find issues with these docs or the code please send a pull request.
 
 Direct questions and suggestions to the [IRC channel][irc] or [mailing list][flatcar-dev].
 
 ## Getting started
 
-Let's get set up with an SDK chroot and build a bootable image of Flatcar Linux. The SDK chroot has a full toolchain and isolates the build process from quirks and differences between host OSes. The SDK must be run on an x86-64 Linux machine, the distro should not matter (Ubuntu, Fedora, etc).
+Let's get set up with an SDK chroot and build a bootable image of Flatcar Container Linux. The SDK chroot has a full toolchain and isolates the build process from quirks and differences between host OSes. The SDK must be run on an x86-64 Linux machine, the distro should not matter (Ubuntu, Fedora, etc).
 
 ### Prerequisites
 
@@ -31,7 +31,7 @@ git config --global user.name "Your Name"
 
 ### Using Cork
 
-The `cork` utility, included in the Flatcar Linux [mantle](https://github.com/flatcar-linux/mantle) project, is used to create and work with an SDK chroot.
+The `cork` utility, included in the Flatcar Container Linux [mantle](https://github.com/flatcar-linux/mantle) project, is used to create and work with an SDK chroot.
 
 First, download the cork utility and verify it with the signature:
 
@@ -110,7 +110,7 @@ Build all of the target binary packages:
 ./build_packages
 ```
 
-#### Render the Flatcar Linux image
+#### Render the Flatcar Container Linux image
 
 Build an image based on the binary packages built above:
 
@@ -128,7 +128,7 @@ Once you build an image you can launch it with KVM (instructions will print out 
 
 ### git and repo
 
-Flatcar Linux is managed by `repo`, a tool built for the Android project that makes managing a large number of git repositories easier. From the repo announcement blog:
+Flatcar Container Linux is managed by `repo`, a tool built for the Android project that makes managing a large number of git repositories easier. From the repo announcement blog:
 
 > The repo tool uses an XML-based manifest file describing where the upstream
 > repositories are, and how to merge them into a single working checkout. repo
@@ -142,7 +142,7 @@ You can find the full manual for repo by visiting [android.com - Developing][and
 
 ### Updating repo manifests
 
-The repo manifest for Flatcar Linux lives in a git repository in
+The repo manifest for Flatcar Container Linux lives in a git repository in
 `.repo/manifests`. If you need to update the manifest edit `default.xml`
 in this directory.
 

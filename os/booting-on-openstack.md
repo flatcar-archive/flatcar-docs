@@ -1,14 +1,14 @@
-# Running Flatcar Linux on OpenStack
+# Running Flatcar Container Linux on OpenStack
 
-These instructions will walk you through downloading Flatcar Linux for OpenStack, importing it with the `glance` tool, and running your first cluster with the `nova` tool.
+These instructions will walk you through downloading Flatcar Container Linux for OpenStack, importing it with the `glance` tool, and running your first cluster with the `nova` tool.
 
 ## Import the image
 
-These steps will download the Flatcar Linux image, uncompress it, and then import it into the glance image store.
+These steps will download the Flatcar Container Linux image, uncompress it, and then import it into the glance image store.
 
 ## Choosing a channel
 
-Flatcar Linux is designed to be updated automatically with different schedules per channel. You can [disable this feature](update-strategies.md), although we don't recommend it. Read the [release notes](https://flatcar-linux.org/releases) for specific features and bug fixes.
+Flatcar Container Linux is designed to be updated automatically with different schedules per channel. You can [disable this feature](update-strategies.md), although we don't recommend it. Read the [release notes](https://flatcar-linux.org/releases) for specific features and bug fixes.
 
 <div id="openstack-create">
   <ul class="nav nav-tabs">
@@ -18,21 +18,21 @@ Flatcar Linux is designed to be updated automatically with different schedules p
   </ul>
   <div class="tab-content coreos-docs-image-table">
     <div class="tab-pane" id="alpha-create">
-      <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Flatcar Linux {{site.alpha-channel}}.</p>
+      <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Flatcar Container Linux {{site.alpha-channel}}.</p>
 <pre>
 $ wget https://alpha.release.flatcar-linux.net/amd64-usr/current/flatcar_production_openstack_image.img.bz2
 $ bunzip2 flatcar_production_openstack_image.img.bz2
 </pre>
     </div>
     <div class="tab-pane" id="beta-create">
-      <p>The Beta channel consists of promoted Alpha releases. The current version is Flatcar Linux {{site.beta-channel}}.</p>
+      <p>The Beta channel consists of promoted Alpha releases. The current version is Flatcar Container Linux {{site.beta-channel}}.</p>
 <pre>
 $ wget https://beta.release.flatcar-linux.net/amd64-usr/current/flatcar_production_openstack_image.img.bz2
 $ bunzip2 flatcar_production_openstack_image.img.bz2
 </pre>
     </div>
   <div class="tab-pane active" id="stable-create">
-      <p>The Stable channel should be used by production clusters. Versions of Flatcar Linux are battle-tested within the Beta and Alpha channels before being promoted. The current version is Flatcar Linux {{site.stable-channel}}.</p>
+      <p>The Stable channel should be used by production clusters. Versions of Flatcar Container Linux are battle-tested within the Beta and Alpha channels before being promoted. The current version is Flatcar Container Linux {{site.stable-channel}}.</p>
 <pre>
 $ wget https://stable.release.flatcar-linux.net/amd64-usr/current/flatcar_production_openstack_image.img.bz2
 $ bunzip2 flatcar_production_openstack_image.img.bz2
@@ -41,7 +41,7 @@ $ bunzip2 flatcar_production_openstack_image.img.bz2
   </div>
 </div>
 
-Once the download completes, add the Flatcar Linux image into Glance:
+Once the download completes, add the Flatcar Container Linux image into Glance:
 
 ```sh
 $ glance image-create --name Container-Linux \
@@ -74,7 +74,7 @@ Optionally add the `--visibility public` flag to make this image available outsi
 
 ## Container Linux Configs
 
-Flatcar Linux allows you to configure machine parameters, launch systemd units on startup and more via Container Linux Configs. These configs are then transpiled into Ignition configs and given to booting machines. Jump over to the [docs to learn about the supported features][cl-configs]. We're going to provide our Container Linux Config to OpenStack via the user-data flag. Our Container Linux Config will also contain SSH keys that will be used to connect to the instance. In order for this to work your OpenStack cloud provider must support [config drive][config-drive] or the OpenStack metadata service.
+Flatcar Container Linux allows you to configure machine parameters, launch systemd units on startup and more via Container Linux Configs. These configs are then transpiled into Ignition configs and given to booting machines. Jump over to the [docs to learn about the supported features][cl-configs]. We're going to provide our Container Linux Config to OpenStack via the user-data flag. Our Container Linux Config will also contain SSH keys that will be used to connect to the instance. In order for this to work your OpenStack cloud provider must support [config drive][config-drive] or the OpenStack metadata service.
 
 [config-drive]: http://docs.openstack.org/user-guide/cli_config_drive.html
 
@@ -138,7 +138,7 @@ nova network-list
 +--------------------------------------+---------+------+
 ```
 
-Your first Flatcar Linux cluster should now be running. The only thing left to do is find an IP and SSH in.
+Your first Flatcar Container Linux cluster should now be running. The only thing left to do is find an IP and SSH in.
 
 ```sh
 $ nova list
@@ -178,8 +178,8 @@ nova boot \
 
 If you would like to create multiple clusters you'll need to generate and use a new discovery token. Change the token value on the etcd discovery parameter in the Container Linux Config, and boot new instances.
 
-## Using Flatcar Linux
+## Using Flatcar Container Linux
 
-Now that you have instances booted it is time to play around. Check out the [Flatcar Linux Quickstart](quickstart.md) guide or dig into [more specific topics](https://docs.flatcar-linux.org).
+Now that you have instances booted it is time to play around. Check out the [Flatcar Container Linux Quickstart](quickstart.md) guide or dig into [more specific topics](https://docs.flatcar-linux.org).
 
 [cl-configs]: provisioning.md

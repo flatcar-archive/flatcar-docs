@@ -1,6 +1,6 @@
 # Adding users
 
-You can create user accounts on a Flatcar Linux machine manually with `useradd` or via a Container Linux Config when the machine is created.
+You can create user accounts on a Flatcar Container Linux machine manually with `useradd` or via a Container Linux Config when the machine is created.
 
 ## Add Users via Container Linux Configs
 

@@ -1,6 +1,6 @@
-# Running Flatcar Linux on VirtualBox
+# Running Flatcar Container Linux on VirtualBox
 
-These instructions will walk you through running Flatcar Linux on Oracle VM VirtualBox.
+These instructions will walk you through running Flatcar Container Linux on Oracle VM VirtualBox.
 
 ## Building the virtual disk
 
@@ -15,7 +15,7 @@ wget https://raw.githubusercontent.com/flatcar-linux/scripts/master/contrib/crea
 chmod +x create-coreos-vdi
 ```
 
-To run the script, you can specify a destination location and the Flatcar Linux version.
+To run the script, you can specify a destination location and the Flatcar Container Linux version.
 
 ```sh
 ./create-coreos-vdi -d /data/VirtualBox/Templates
@@ -23,7 +23,7 @@ To run the script, you can specify a destination location and the Flatcar Linux 
 
 ## Choose a channel
 
-Choose a channel to base your disk image on. Specific versions of Flatcar Linux can also be referenced by version number.
+Choose a channel to base your disk image on. Specific versions of Flatcar Container Linux can also be referenced by version number.
 
 <div id="virtualbox-create">
   <ul class="nav nav-tabs">
@@ -33,21 +33,21 @@ Choose a channel to base your disk image on. Specific versions of Flatcar Linux 
   </ul>
   <div class="tab-content coreos-docs-image-table">
     <div class="tab-pane" id="alpha-create">
-      <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Flatcar Linux {{site.alpha-channel}}.</p>
+      <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Flatcar Container Linux {{site.alpha-channel}}.</p>
       <p>Create a disk image from this channel by running:</p>
 <pre>
 ./create-coreos-vdi -V alpha
 </pre>
     </div>
     <div class="tab-pane" id="beta-create">
-      <p>The Beta channel consists of promoted Alpha releases. The current version is Flatcar Linux {{site.beta-channel}}.</p>
+      <p>The Beta channel consists of promoted Alpha releases. The current version is Flatcar Container Linux {{site.beta-channel}}.</p>
       <p>Create a disk image from this channel by running:</p>
 <pre>
 ./create-coreos-vdi -V beta
 </pre>
     </div>
   <div class="tab-pane active" id="stable-create">
-      <p>The Stable channel should be used by production clusters. Versions of Flatcar Linux are battle-tested within the Beta and Alpha channels before being promoted. The current version is Flatcar Linux {{site.stable-channel}}.</p>
+      <p>The Stable channel should be used by production clusters. Versions of Flatcar Container Linux are battle-tested within the Beta and Alpha channels before being promoted. The current version is Flatcar Container Linux {{site.stable-channel}}.</p>
       <p>Create a disk image from this channel by running:</p>
 <pre>
 ./create-coreos-vdi -V stable
@@ -56,7 +56,7 @@ Choose a channel to base your disk image on. Specific versions of Flatcar Linux 
   </div>
 </div>
 
-After the script has finished successfully, the Flatcar Linux image will be available at the specified destination location or at the current location. The file name will be something like:
+After the script has finished successfully, the Flatcar Container Linux image will be available at the specified destination location or at the current location. The file name will be something like:
 
 ```
 coreos_production_stable.vdi
@@ -66,7 +66,7 @@ coreos_production_stable.vdi
 
 Cloud-config can be specified by attaching a [config-drive](https://github.com/flatcar-linux/coreos-cloudinit/blob/master/Documentation/config-drive.md) with the label `config-2`. This is commonly done through whatever interface allows for attaching CD-ROMs or new drives.
 
-Note that the config-drive standard was originally an OpenStack feature, which is why you'll see strings containing `openstack`. This filepath needs to be retained, although Flatcar Linux supports config-drive on all platforms.
+Note that the config-drive standard was originally an OpenStack feature, which is why you'll see strings containing `openstack`. This filepath needs to be retained, although Flatcar Container Linux supports config-drive on all platforms.
 
 For more information on customization that can be done with cloud-config, head on over to the [cloud-config guide](https://github.com/flatcar-linux/coreos-cloudinit/blob/master/Documentation/cloud-config.md).
 
@@ -90,7 +90,7 @@ VBoxManage clonehd coreos_production_stable.vdi my_vm01.vdi
 VBoxManage modifyhd my_vm01.vdi --resize 10240
 ```
 
-At boot time, the Flatcar Linux will detect that the volume size has changed and will resize the filesystem accordingly.
+At boot time, the Flatcar Container Linux will detect that the volume size has changed and will resize the filesystem accordingly.
 
 Open VirtualBox Manager and go to Machine > New. Type the desired machine name and choose 'Linux' as the type and 'Linux 2.6 / 3.x (64 bit)' as the version.
 
@@ -114,6 +114,6 @@ Now, login using your private SSH key.
 ssh core@192.168.56.101
 ```
 
-## Using Flatcar Linux
+## Using Flatcar Container Linux
 
-Now that the machine has booted, it is time to play around. Check out the [Flatcar Linux Quickstart](quickstart.md) guide or dig into [more specific topics](https://docs.flatcar-linux.org).
+Now that the machine has booted, it is time to play around. Check out the [Flatcar Container Linux Quickstart](quickstart.md) guide or dig into [more specific topics](https://docs.flatcar-linux.org).

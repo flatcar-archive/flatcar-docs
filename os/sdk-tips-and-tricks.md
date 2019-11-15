@@ -2,8 +2,8 @@
 
 ## Finding all open pull requests and issues
 
-- [Flatcar Linux Issues][issues]
-- [Flatcar Linux Pull Requests][pullrequests]
+- [Flatcar Container Linux Issues][issues]
+- [Flatcar Container Linux Pull Requests][pullrequests]
 
 [issues]: https://github.com/issues?user=flatcar-linux
 [pullrequests]: https://github.com/pulls?user=flatcar-linux
@@ -34,11 +34,11 @@ emerge-amd64-usr --emptytree -p -v --tree coreos-base/hard-host-depends
 
 ## Add new upstream package
 
-An overview on contributing new packages to Flatcar Linux:
+An overview on contributing new packages to Flatcar Container Linux:
 
 - create a git branch for the work
 - fetch the the target package(s) from upstream (Gentoo)
-- make any necessary changes for Flatcar Linux
+- make any necessary changes for Flatcar Container Linux
 - add the package(s) as a dependency of `coreos-base/coreos`
 - build the package(s) and test
 - commit changes to git
@@ -46,7 +46,7 @@ An overview on contributing new packages to Flatcar Linux:
 
 See [CONTRIBUTING] for guidelines before you push.
 
-The following Flatcar Linux repositories are used:
+The following Flatcar Container Linux repositories are used:
 
 - Packages that will work unmodified are versioned in ```src/third_party/portage-stable```
 - Packages with Container-Linux-specific changes are versioned in ```src/third_party/coreos-overlay```
@@ -91,7 +91,7 @@ To recreate the chroot prior to a clean rebuild, exit the chroot and run:
 ~/flatcar-sdk $ cork create --replace
 ```
 
-To include the new package as a dependency of Flatcar Linux, add the package to the end of the `RDEPEND` environment variable in `coreos-base/coreos/coreos-0.0.1.ebuild` then increment the revision of Flatcar Linux by renaming the softlink (e.g.):
+To include the new package as a dependency of Flatcar Container Linux, add the package to the end of the `RDEPEND` environment variable in `coreos-base/coreos/coreos-0.0.1.ebuild` then increment the revision of Flatcar Container Linux by renaming the softlink (e.g.):
 
 ```sh
 ~/trunk/src/third_party/coreos-overly $ git mv coreos-base/coreos/coreos-0.0.1-r237.ebuild coreos-base/coreos/coreos-0.0.1-r238.ebuild
@@ -141,7 +141,7 @@ git config --global credential.helper cache
 
 Note: You need git 1.7.10 or newer to use the credential helper
 
-Why doesn't Flatcar Linux use SSH in the git remotes?  Because we can't do anonymous clones from GitHub with an SSH URL.  This will be fixed eventually.
+Why doesn't Flatcar Container Linux use SSH in the git remotes?  Because we can't do anonymous clones from GitHub with an SSH URL.  This will be fixed eventually.
 
 ## SSH config
 
@@ -157,7 +157,7 @@ Host 127.0.0.1
 
 ## Hide loop devices from desktop environments
 
-By default desktop environments will diligently display any mounted devices including loop devices used to construct Flatcar Linux disk images. If the daemon responsible for this happens to be ``udisks`` then you can disable this behavior with the following udev rule:
+By default desktop environments will diligently display any mounted devices including loop devices used to construct Flatcar Container Linux disk images. If the daemon responsible for this happens to be ``udisks`` then you can disable this behavior with the following udev rule:
 
 ```sh
 echo 'SUBSYSTEM=="block", KERNEL=="ram*|loop*", ENV{UDISKS_PRESENTATION_HIDE}="1", ENV{UDISKS_PRESENTATION_NOPOLICY}="1"' > /etc/udev/rules.d/85-hide-loop.rules
@@ -192,7 +192,7 @@ coreos-base/coreos-0.0.1-r187
 
 ### Newly added package fails checking for kernel sources
 
-It may be necessary to comment out kernel source checks from the ebuild if the build fails, as Flatcar Linux does not yet provide visibility of the configured kernel source at build time.  Usually this is not a problem, but may lead to warning messages.
+It may be necessary to comment out kernel source checks from the ebuild if the build fails, as Flatcar Container Linux does not yet provide visibility of the configured kernel source at build time.  Usually this is not a problem, but may lead to warning messages.
 
 ### `coreos-kernel` fails to link after previously aborting a build
 
@@ -216,9 +216,9 @@ Delete all `*.portage_lockfile`s in `/build/<arch>/`. To avoid stale lockfiles, 
 
 ## Constants and IDs
 
-### Flatcar Linux app ID
+### Flatcar Container Linux app ID
 
-This UUID is used to identify Flatcar Linux to the update service and elsewhere.
+This UUID is used to identify Flatcar Container Linux to the update service and elsewhere.
 
 ```
 e96281a6-d1af-4bde-9a0a-97b76e56dc57
@@ -226,6 +226,6 @@ e96281a6-d1af-4bde-9a0a-97b76e56dc57
 
 ### GPT UUID types
 
-- Flatcar Linux Root: 5dfbf5f4-2848-4bac-aa5e-0d9a20b745a6
-- Flatcar Linux Reserved: c95dc21a-df0e-4340-8d7b-26cbfa9a03e0
-- Flatcar Linux Raid Containing Root: be9067b9-ea49-4f15-b4f6-f36f8c9e1818
+- Flatcar Container Linux Root: 5dfbf5f4-2848-4bac-aa5e-0d9a20b745a6
+- Flatcar Container Linux Reserved: c95dc21a-df0e-4340-8d7b-26cbfa9a03e0
+- Flatcar Container Linux Raid Containing Root: be9067b9-ea49-4f15-b4f6-f36f8c9e1818

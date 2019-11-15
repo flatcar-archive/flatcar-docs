@@ -2,7 +2,7 @@
 
 While Flatcar is compatible with CoreOS Container Linux there are some naming differences you need to be aware of.
 
-**NOTE:** See [Updating from Container Linux](https://docs.flatcar-linux.org/os/update-from-container-linux/)
+**NOTE:** See [Updating from CoreOS Container Linux](https://docs.flatcar-linux.org/os/update-from-container-linux/)
 for additional information on updating an existing cluster.
 
 ## Installation

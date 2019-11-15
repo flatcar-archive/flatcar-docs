@@ -1,12 +1,12 @@
-# SELinux on Flatcar Linux
+# SELinux on Flatcar Container Linux
 
-SELinux is a fine-grained access control mechanism integrated into Flatcar Linux and rkt. Each container runs in its own independent SELinux context, increasing isolation between containers and providing another layer of protection should a container be compromised.
+SELinux is a fine-grained access control mechanism integrated into Flatcar Container Linux and rkt. Each container runs in its own independent SELinux context, increasing isolation between containers and providing another layer of protection should a container be compromised.
 
-Flatcar Linux implements SELinux, but currently does not enforce SELinux protections by default. This allows deployers to verify container operation before enabling SELinux enforcement. This document covers the process of checking containers for SELinux policy compatibility, and switching SELinux into `enforcing` mode.
+Flatcar Container Linux implements SELinux, but currently does not enforce SELinux protections by default. This allows deployers to verify container operation before enabling SELinux enforcement. This document covers the process of checking containers for SELinux policy compatibility, and switching SELinux into `enforcing` mode.
 
 ## Check a container's compatibility with SELinux policy
 
-To verify whether the current SELinux policy would inhibit your containers, enable SELinux logging. In the following set of commands, we delete the rules that suppress this logging by default, and copy the policy store from Flatcar Linux's read-only `/usr` to a writable file system location.
+To verify whether the current SELinux policy would inhibit your containers, enable SELinux logging. In the following set of commands, we delete the rules that suppress this logging by default, and copy the policy store from Flatcar Container Linux's read-only `/usr` to a writable file system location.
 
 ```sh
 $ rm /etc/audit/rules.d/80-selinux.rules

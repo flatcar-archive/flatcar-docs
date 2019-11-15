@@ -1,10 +1,10 @@
 # Using systemd drop-in units
 
-There are two methods of overriding default Flatcar Linux settings in unit files: copying the unit file from `/usr/lib64/systemd/system` to `/etc/systemd/system` and modifying the chosen settings. Alternatively, one can create a directory named `unit.d` within `/etc/systemd/system` and place a drop-in file `name.conf` there that only changes the specific settings one is interested in. Note that multiple such drop-in files are read if present.
+There are two methods of overriding default Flatcar Container Linux settings in unit files: copying the unit file from `/usr/lib64/systemd/system` to `/etc/systemd/system` and modifying the chosen settings. Alternatively, one can create a directory named `unit.d` within `/etc/systemd/system` and place a drop-in file `name.conf` there that only changes the specific settings one is interested in. Note that multiple such drop-in files are read if present.
 
-The advantage of the first method is that one easily overrides the complete unit, the default Flatcar Linux unit is not parsed at all anymore. It has the disadvantage that improvements to the unit file supplied by Flatcar Linux are not automatically incorporated on updates.
+The advantage of the first method is that one easily overrides the complete unit, the default Flatcar Container Linux unit is not parsed at all anymore. It has the disadvantage that improvements to the unit file supplied by Flatcar Container Linux are not automatically incorporated on updates.
 
-The advantage of the second method is that one only overrides the settings one specifically wants, where updates to the original Flatcar Linux unit automatically apply. This has the disadvantage that some future Flatcar Linux updates might be incompatible with the local changes, but the risk is much lower.
+The advantage of the second method is that one only overrides the settings one specifically wants, where updates to the original Flatcar Container Linux unit automatically apply. This has the disadvantage that some future Flatcar Container Linux updates might be incompatible with the local changes, but the risk is much lower.
 
 Note that for drop-in files, if one wants to remove entries from a setting that is parsed as a list (and is not a dependency), such as `ConditionPathExists=` (or e.g. `ExecStart=` in service units), one needs to first clear the list before re-adding all entries except the one that is to be removed. See below for an example.
 

@@ -1,6 +1,6 @@
-# Flatcar Linux hardening guide
+# Flatcar Container Linux hardening guide
 
-This guide covers the basics of securing a Flatcar Linux instance. Flatcar Linux has a very slim network profile and the only service that listens by default on Flatcar Linux is sshd on port 22 on all interfaces. There are also some defaults for local users and services that should be considered.
+This guide covers the basics of securing a Flatcar Container Linux instance. Flatcar Container Linux has a very slim network profile and the only service that listens by default on Flatcar Container Linux is sshd on port 22 on all interfaces. There are also some defaults for local users and services that should be considered.
 
 ## Remote listening services
 
@@ -26,7 +26,7 @@ etcd and Locksmith should be secured and authenticated using TLS if you are usin
 
 ### Local users
 
-Flatcar Linux has a single default user account called "core". Generally this user is the one that gets ssh keys added to it via a Container Linux Config for administrators to login. The core user, by default, has access to the wheel group which grants sudo access. You can change this by removing the core user from wheel by running this command: `gpasswd -d core wheel`.
+Flatcar Container Linux has a single default user account called "core". Generally this user is the one that gets ssh keys added to it via a Container Linux Config for administrators to login. The core user, by default, has access to the wheel group which grants sudo access. You can change this by removing the core user from wheel by running this command: `gpasswd -d core wheel`.
 
 ### Docker daemon
 
@@ -40,9 +40,9 @@ Users in the "rkt" group have access to the rkt container image store. A user ma
 
 ### SELinux
 
-SELinux is a fine-grained access control mechanism integrated into Flatcar Linux. Each container runs in its own independent SELinux context, increasing isolation between containers and providing another layer of protection should a container be compromised.
+SELinux is a fine-grained access control mechanism integrated into Flatcar Container Linux. Each container runs in its own independent SELinux context, increasing isolation between containers and providing another layer of protection should a container be compromised.
 
-Flatcar Linux implements SELinux, but currently does not enforce SELinux protections by default. The [SELinux on Flatcar Linux guide][selinux-guide] covers the process of checking containers for SELinux policy compatibility and switching SELinux into enforcing mode.
+Flatcar Container Linux implements SELinux, but currently does not enforce SELinux protections by default. The [SELinux on Flatcar Container Linux guide][selinux-guide] covers the process of checking containers for SELinux policy compatibility and switching SELinux into enforcing mode.
 
 
 [sshd-guide]: customizing-sshd.md

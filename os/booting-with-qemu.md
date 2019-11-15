@@ -1,6 +1,6 @@
-# Running Flatcar Linux on QEMU
+# Running Flatcar Container Linux on QEMU
 
-These instructions will bring up a single Flatcar Linux instance under QEMU, the small Swiss Army knife of virtual machine and CPU emulators. If you need to do more such as [configuring networks][qemunet] differently refer to the [QEMU Wiki][qemuwiki] and [User Documentation][qemudoc].
+These instructions will bring up a single Flatcar Container Linux instance under QEMU, the small Swiss Army knife of virtual machine and CPU emulators. If you need to do more such as [configuring networks][qemunet] differently refer to the [QEMU Wiki][qemuwiki] and [User Documentation][qemudoc].
 
 You can direct questions to the [IRC channel][irc] or [mailing list][flatcar-dev].
 
@@ -55,13 +55,13 @@ emerge -av app-emulation/qemu
 [qemugen]: http://wiki.gentoo.org/wiki/QEMU
 
 
-## Startup Flatcar Linux
+## Startup Flatcar Container Linux
 
-Once QEMU is installed you can download and start the latest Flatcar Linux image.
+Once QEMU is installed you can download and start the latest Flatcar Container Linux image.
 
 ### Choosing a channel
 
-Flatcar Linux is designed to be updated automatically with different schedules per channel. You can [disable this feature](update-strategies.md), although we don't recommend it. Read the [release notes](https://flatcar-linux.org/releases) for specific features and bug fixes.
+Flatcar Container Linux is designed to be updated automatically with different schedules per channel. You can [disable this feature](update-strategies.md), although we don't recommend it. Read the [release notes](https://flatcar-linux.org/releases) for specific features and bug fixes.
 
 <div id="qemu-images">
   <ul class="nav nav-tabs">
@@ -73,7 +73,7 @@ Flatcar Linux is designed to be updated automatically with different schedules p
   <div class="tab-content coreos-docs-image-table">
     <div class="tab-pane active" id="stable">
       <div class="channel-info">
-        <p>The Stable channel should be used by production clusters. Versions of Flatcar Linux are battle-tested within the Beta and Alpha channels before being promoted. The current version is Flatcar Linux {{site.stable-channel}}.</p>
+        <p>The Stable channel should be used by production clusters. Versions of Flatcar Container Linux are battle-tested within the Beta and Alpha channels before being promoted. The current version is Flatcar Container Linux {{site.stable-channel}}.</p>
        </div>
       <p>There are two files you need: the disk image (provided in qcow2
       format) and the wrapper shell script to start QEMU.</p>
@@ -89,7 +89,7 @@ chmod +x flatcar_production_qemu.sh</pre>
     </div>
     <div class="tab-pane" id="alpha">
       <div class="channel-info">
-        <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Flatcar Linux {{site.alpha-channel}}.</p>
+        <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Flatcar Container Linux {{site.alpha-channel}}.</p>
       </div>
       <p>There are two files you need: the disk image (provided in qcow2
       format) and the wrapper shell script to start QEMU.</p>
@@ -105,7 +105,7 @@ chmod +x flatcar_production_qemu.sh</pre>
     </div>
     <div class="tab-pane" id="beta">
       <div class="channel-info">
-        <p>The Beta channel consists of promoted Alpha releases. The current version is Flatcar Linux {{site.beta-channel}}.</p>
+        <p>The Beta channel consists of promoted Alpha releases. The current version is Flatcar Container Linux {{site.beta-channel}}.</p>
       </div>
       <p>There are two files you need: the disk image (provided in qcow2
       format) and the wrapper shell script to start QEMU.</p>
@@ -121,7 +121,7 @@ chmod +x flatcar_production_qemu.sh</pre>
     </div>
     <div class="tab-pane" id="edge">
       <div class="channel-info">
-        <p>The Edge channel includes bleeding-edge features with the newest versions of the Linux kernel, systemd and other core packages. Can be highly unstable. The current version is Flatcar Linux {{site.edge-channel}}.</p>
+        <p>The Edge channel includes bleeding-edge features with the newest versions of the Linux kernel, systemd and other core packages. Can be highly unstable. The current version is Flatcar Container Linux {{site.edge-channel}}.</p>
       </div>
       <p>There are two files you need: the disk image (provided in qcow2
       format) and the wrapper shell script to start QEMU.</p>
@@ -181,7 +181,7 @@ ssh flatcar
 
 ### Container Linux Configs
 
-Flatcar Linux allows you to configure machine parameters, configure networking, launch systemd units on startup, and more via Container Linux Configs. These configs are then transpiled into Ignition configs and given to booting machines. Head over to the [docs to learn about the supported features][cl-configs]. An Ignition config can be passed to the virtual machine using the QEMU Firmware Configuration Device. The wrapper script provides a method for doing so:
+Flatcar Container Linux allows you to configure machine parameters, configure networking, launch systemd units on startup, and more via Container Linux Configs. These configs are then transpiled into Ignition configs and given to booting machines. Head over to the [docs to learn about the supported features][cl-configs]. An Ignition config can be passed to the virtual machine using the QEMU Firmware Configuration Device. The wrapper script provides a method for doing so:
 
 ```sh
 ./flatcar_production_qemu.sh -i config.ign -- -nographic
@@ -191,9 +191,9 @@ This will pass the contents of `config.ign` through to Ignition, which runs in t
 
 [cl-configs]: provisioning.md
 
-## Using Flatcar Linux
+## Using Flatcar Container Linux
 
-Now that you have a machine booted it is time to play around. Check out the [Flatcar Linux Quickstart](quickstart.md) guide or dig into [more specific topics](https://docs.flatcar-linux.org).
+Now that you have a machine booted it is time to play around. Check out the [Flatcar Container Linux Quickstart](quickstart.md) guide or dig into [more specific topics](https://docs.flatcar-linux.org).
 
 [flatcar-dev]: https://groups.google.com/forum/#!forum/flatcar-linux-dev
 [irc]: irc://irc.freenode.org:6667/#flatcar

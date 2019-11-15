@@ -1,12 +1,12 @@
-# Running Flatcar Linux on VMware
+# Running Flatcar Container Linux on VMware
 
-These instructions walk through running Flatcar Linux on VMware Fusion or ESXi. If you are familiar with another VMware product, you can use these instructions as a starting point.
+These instructions walk through running Flatcar Container Linux on VMware Fusion or ESXi. If you are familiar with another VMware product, you can use these instructions as a starting point.
 
 ## Running the VM
 
 ### Choosing a channel
 
-Flatcar Linux is designed to be updated automatically with different schedules per channel. You can [disable this feature](update-strategies.md), although we don't recommend it. Read the [release notes](https://flatcar-linux.org/releases) for specific features and bug fixes.
+Flatcar Container Linux is designed to be updated automatically with different schedules per channel. You can [disable this feature](update-strategies.md), although we don't recommend it. Read the [release notes](https://flatcar-linux.org/releases) for specific features and bug fixes.
 
 <div id="vmware-images">
   <ul class="nav nav-tabs">
@@ -17,19 +17,19 @@ Flatcar Linux is designed to be updated automatically with different schedules p
   <div class="tab-content coreos-docs-image-table">
     <div class="tab-pane active" id="stable">
       <div class="channel-info">
-        <p>The Stable channel should be used by production clusters. Versions of Flatcar Linux are battle-tested within the Beta and Alpha channels before being promoted. The current version is Flatcar Linux {{site.stable-channel}}.</p>
+        <p>The Stable channel should be used by production clusters. Versions of Flatcar Container Linux are battle-tested within the Beta and Alpha channels before being promoted. The current version is Flatcar Container Linux {{site.stable-channel}}.</p>
        </div>
       <pre>curl -LO https://stable.release.flatcar-linux.net/amd64-usr/current/flatcar_production_vmware_ova.ova</pre>
     </div>
     <div class="tab-pane" id="alpha">
       <div class="channel-info">
-        <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Flatcar Linux {{site.alpha-channel}}.</p>
+        <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Flatcar Container Linux {{site.alpha-channel}}.</p>
       </div>
       <pre>curl -LO https://alpha.release.flatcar-linux.net/amd64-usr/current/flatcar_production_vmware_ova.ova</pre>
     </div>
     <div class="tab-pane" id="beta">
       <div class="channel-info">
-        <p>The Beta channel consists of promoted Alpha releases. The current version is Flatcar Linux {{site.beta-channel}}.</p>
+        <p>The Beta channel consists of promoted Alpha releases. The current version is Flatcar Container Linux {{site.beta-channel}}.</p>
       </div>
       <pre>curl -LO https://beta.release.flatcar-linux.net/amd64-usr/current/flatcar_production_vmware_ova.ova</pre>
     </div>
@@ -63,19 +63,19 @@ Run VMware Workstation GUI:
 4. (Press `Retry` *if* VMware Workstation raises an "OVF specification" warning)
 5. Edit VM settings if necessary
 6. [Modify the `.vmx` file][guestinfo] to pass an Ignition config containing at least one valid SSH key
-7. Start your Flatcar Linux VM
+7. Start your Flatcar Container Linux VM
 
 *NB: These instructions were tested with a Fusion 8.1 host.*
 
 ### Installing via PXE or ISO image
 
-Flatcar Linux can also be installed by booting the virtual machine via [PXE][PXE] or the [ISO image][ISO] and then [installing Flatcar Linux to disk][install].
+Flatcar Container Linux can also be installed by booting the virtual machine via [PXE][PXE] or the [ISO image][ISO] and then [installing Flatcar Container Linux to disk][install].
 
 ## Container Linux Configs
 
-Flatcar Linux allows you to configure machine parameters, configure networking, launch systemd units on startup, and more via Container Linux Configs. These configs are then transpiled into Ignition configs and given to booting machines. Head over to the [docs to learn about the supported features][cl-configs].
+Flatcar Container Linux allows you to configure machine parameters, configure networking, launch systemd units on startup, and more via Container Linux Configs. These configs are then transpiled into Ignition configs and given to booting machines. Head over to the [docs to learn about the supported features][cl-configs].
 
-You can provide a raw Ignition config to Flatcar Linux via VMware's [Guestinfo interface][guestinfo].
+You can provide a raw Ignition config to Flatcar Container Linux via VMware's [Guestinfo interface][guestinfo].
 
 As an example, this config will start etcd:
 
@@ -106,7 +106,7 @@ The VMware guestinfo interface is a mechanism for VM configuration. Guestinfo pr
 
 * Configure guestinfo in the OVF for deployment. Software like [vcloud director][vcloud director] manipulates OVF descriptors for guest configuration. For details, check out this VMware blog post about [Self-Configuration and the OVF Environment][ovf-selfconfig].
 
-* Set guestinfo keys and values from the Flatcar Linux guest itself, by using a VMware Tools command like:
+* Set guestinfo keys and values from the Flatcar Container Linux guest itself, by using a VMware Tools command like:
 
 ```sh
 /usr/share/oem/bin/vmtoolsd --cmd "info-set guestinfo.<variable> <value>"
@@ -120,7 +120,7 @@ vmware-cmd /vmfs/volumes/[...]/<VMNAME>/<VMNAME>.vmx setguestinfo guestinfo.<pro
 
 * You can manually modify the VMX and reload it on the VMware Workstation, ESXi host, or in vCenter.
 
-Guestinfo configuration set via the VMware API or with `vmtoolsd` from within the Flatcar Linux guest itself are stored in VM process memory and are lost on VM shutdown or reboot.
+Guestinfo configuration set via the VMware API or with `vmtoolsd` from within the Flatcar Container Linux guest itself are stored in VM process memory and are lost on VM shutdown or reboot.
 
 ### Defining the Ignition config in Guestinfo
 
@@ -164,9 +164,9 @@ ssh core@10.0.1.81
 
 Alternatively, appending `flatcar.autologin` to the kernel parameters at boot causes the console to accept the `core` user's login with no password. This is handy for debugging.
 
-## Using Flatcar Linux
+## Using Flatcar Container Linux
 
-Now that you have a machine booted, it's time to explore. Check out the [Flatcar Linux Quickstart][quickstart] guide, or dig into [more specific topics][docs].
+Now that you have a machine booted, it's time to explore. Check out the [Flatcar Container Linux Quickstart][quickstart] guide, or dig into [more specific topics][docs].
 
 [quickstart]: quickstart.md
 [docs]: https://docs.flatcar-linux.org
