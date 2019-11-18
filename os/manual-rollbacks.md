@@ -24,11 +24,11 @@ $ cgpt show /dev/sda
                                   Type: BIOS Boot Partition
                                   UUID: EACCC3D5-E7E9-461D-A6E2-1DCDAE4671EC
       270336     2097152       3  Label: "USR-A"
-                                  Type: Alias for coreos-rootfs
+                                  Type: Alias for flatcar-rootfs
                                   UUID: 7130C94A-213A-4E5A-8E26-6CCE9662F132
                                   Attr: priority=2 tries=0 successful=1
      2367488     2097152       4  Label: "USR-B"
-                                  Type: Alias for coreos-rootfs
+                                  Type: Alias for flatcar-rootfs
                                   UUID: E03DD35C-7C2D-4A47-B3FE-27F15780A57C
                                   Attr: priority=1 tries=0 successful=0
      4464640      262144       6  Label: "OEM"
@@ -48,11 +48,11 @@ Looking specifically at "USR-A" and "USR-B", we see that "USR-A" is the active U
 
 ```
       270336     2097152       3  Label: "USR-A"
-                                  Type: Alias for coreos-rootfs
+                                  Type: Alias for flatcar-rootfs
                                   UUID: 7130C94A-213A-4E5A-8E26-6CCE9662F132
                                   Attr: priority=2 tries=0 successful=1
      2367488     2097152       4  Label: "USR-B"
-                                  Type: Alias for coreos-rootfs
+                                  Type: Alias for flatcar-rootfs
                                   UUID: E03DD35C-7C2D-4A47-B3FE-27F15780A57C
                                   Attr: priority=1 tries=0 successful=0
 ```
@@ -62,11 +62,11 @@ You'll notice that on this machine, "USR-B" hasn't actually successfully booted.
 
 ```
       270336     2097152       3  Label: "USR-A"
-                                  Type: Alias for coreos-rootfs
+                                  Type: Alias for flatcar-rootfs
                                   UUID: 7130C94A-213A-4E5A-8E26-6CCE9662F132
                                   Attr: priority=1 tries=0 successful=1
      2367488     2097152       4  Label: "USR-B"
-                                  Type: Alias for coreos-rootfs
+                                  Type: Alias for flatcar-rootfs
                                   UUID: E03DD35C-7C2D-4A47-B3FE-27F15780A57C
                                   Attr: priority=2 tries=1 successful=0
 ```
@@ -75,11 +75,11 @@ In this case, we see that "USR-B" now has a higher priority and it has one try t
 
 ```
       270336     2097152       3  Label: "USR-A"
-                                  Type: Alias for coreos-rootfs
+                                  Type: Alias for flatcar-rootfs
                                   UUID: 7130C94A-213A-4E5A-8E26-6CCE9662F132
                                   Attr: priority=1 tries=0 successful=1
      2367488     2097152       4  Label: "USR-B"
-                                  Type: Alias for coreos-rootfs
+                                  Type: Alias for flatcar-rootfs
                                   UUID: E03DD35C-7C2D-4A47-B3FE-27F15780A57C
                                   Attr: priority=2 tries=0 successful=0
 ```
@@ -88,11 +88,11 @@ Now we see that the number of tries for "USR-B" has been decremented to zero. Th
 
 ```
       270336     2097152       3  Label: "USR-A"
-                                  Type: Alias for coreos-rootfs
+                                  Type: Alias for flatcar-rootfs
                                   UUID: 7130C94A-213A-4E5A-8E26-6CCE9662F132
                                   Attr: priority=1 tries=0 successful=1
      2367488     2097152       4  Label: "USR-B"
-                                  Type: Alias for coreos-rootfs
+                                  Type: Alias for flatcar-rootfs
                                   UUID: E03DD35C-7C2D-4A47-B3FE-27F15780A57C
                                   Attr: priority=2 tries=0 successful=1
 ```
@@ -100,10 +100,10 @@ Now we see that the number of tries for "USR-B" has been decremented to zero. Th
 
 ## Performing a manual rollback
 
-So, now that we understand what happens when the machine updates, we can tweak the process so that it boots an older image (assuming it's still intact on the passive partition). The first command we'll use is `cgpt find -t coreos-usr`. This will give us a list of all of the USR partitions available on the disk.
+So, now that we understand what happens when the machine updates, we can tweak the process so that it boots an older image (assuming it's still intact on the passive partition). The first command we'll use is `cgpt find -t flatcar-usr`. This will give us a list of all of the USR partitions available on the disk.
 
 ```
-$ cgpt find -t coreos-usr
+$ cgpt find -t flatcar-usr
 /dev/sda3
 /dev/sda4
 ```
@@ -118,7 +118,7 @@ $ rootdev -s /usr
 So now we know that `/dev/sda3` is the passive partition on our system. We can compose the previous two commands to dynamically figure out the passive partition.
 
 ```
-$ cgpt find -t coreos-usr | grep --invert-match "$(rootdev -s /usr)"
+$ cgpt find -t flatcar-usr | grep --invert-match "$(rootdev -s /usr)"
 /dev/sda3
 ```
 
@@ -133,11 +133,11 @@ If we take another look at the GPT tables, we'll see that the priorities have be
 
 ```
       270336     2097152       3  Label: "USR-A"
-                                  Type: Alias for coreos-rootfs
+                                  Type: Alias for flatcar-rootfs
                                   UUID: 7130C94A-213A-4E5A-8E26-6CCE9662F132
                                   Attr: priority=2 tries=0 successful=1
      2367488     2097152       4  Label: "USR-B"
-                                  Type: Alias for coreos-rootfs
+                                  Type: Alias for flatcar-rootfs
                                   UUID: E03DD35C-7C2D-4A47-B3FE-27F15780A57C
                                   Attr: priority=1 tries=0 successful=1
 
@@ -146,7 +146,7 @@ If we take another look at the GPT tables, we'll see that the priorities have be
 Composing the previous two commands produces the following command to set the currently passive partition to be active on the next boot:
 
 ```
-$ cgpt prioritize "$(cgpt find -t coreos-usr | grep --invert-match "$(rootdev -s /usr)")"
+$ cgpt prioritize "$(cgpt find -t flatcar-usr | grep --invert-match "$(rootdev -s /usr)")"
 ```
 
 ## Forcing a Channel Downgrade

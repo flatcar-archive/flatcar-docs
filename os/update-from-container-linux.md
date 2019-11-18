@@ -63,7 +63,7 @@ If you just updated to Flatcar (and haven't done any additional updates), CoreOS
 To do that, just use this command composition:
 
 ```
-$ sudo cgpt prioritize "$(sudo cgpt find -t coreos-usr | grep --invert-match "$(rootdev -s /usr)")"
+$ sudo cgpt prioritize "$(sudo cgpt find -t flatcar-usr | grep --invert-match "$(rootdev -s /usr)")"
 ```
 
 Now you can reboot and you'll be back to CoreOS Container Linux.
