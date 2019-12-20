@@ -178,6 +178,35 @@ If you want to permanently leave you can run the following:
 crossystem disable_dev_request=1; reboot
 ```
 
+## Build everything from scratch
+
+If you want to build everything from scratch, but at the same time want to exclude several packages that take much time.
+
+```sh
+emerge-amd64-usr --emptytree -1 -v --tree --exclude="dev-lang/rust sys-devel/gcc" coreos-base/coreos-dev
+```
+
+Or if you want to do the rebuild by running `build_packages`, you should remove the binary package of `coreos` before rebuilding it:
+
+```sh
+emerge-amd64-usr --unmerge coreos-base/coreos
+rm -f /build/amd64-usr/var/lib/portage/pkgs/coreos-base/coreos-0.0.1*.tbz2
+./build_packages
+```
+
+## Update invididual packages
+
+If you want to update an individual package to a newer version, you can basically do like that:
+
+```sh
+git mv aaa-bbb/package/package-0.0.1-r1.ebuild aaa-bbb/package/package-0.0.1-r2.ebuild
+ebuild aaa-bbb/package/package-0.0.1-r2.ebuild manifest
+emerge-amd64-usr -1 -v aaa-bbb/package
+```
+
+Do not forget about updating its version and revision in `package.accept_keywords` files in the `profiles` directory. In some cases such a file can pin an exact version of a specific package, which needs to be updated as well.
+
+
 ## Known issues
 
 ### build\_packages fails on coreos-base
