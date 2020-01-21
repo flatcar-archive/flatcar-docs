@@ -19,7 +19,7 @@ $ semodule -DB
 $ systemctl restart audit-rules
 ```
 
-Now run your container. Check the system logs for any messages containing `avc: denied`. Such messages indicate that an `enforcing` SELinux would prevent the container from performing the logged operation. Please open an issue at [coreos/bugs](https://github.com/coreos/bugs/issues), including the full avc log message.
+Now run your container. Check the system logs for any messages containing `avc: denied`. Such messages indicate that an `enforcing` SELinux would prevent the container from performing the logged operation. Please open an issue at [flatcar-linux/Flatcar](https://github.com/flatcar-linux/Flatcar/issues), including the full avc log message.
 
 ## Enable SELinux enforcement
 
