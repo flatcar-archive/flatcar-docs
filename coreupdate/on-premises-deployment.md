@@ -196,12 +196,6 @@ To sync the "Flatcar Container Linux" application it must exist and have the sam
 updateservicectl --server=http://localhost:8000 --user=admin --key=<previously-generated-key> app create --label="Flatcar Container Linux" --app-id=e96281a6-d1af-4bde-9a0a-97b76e56dc57
 ```
 
-This step needs to be repeated for the CoreOS ARM application:
-
-```bash
-updateservicectl --server=http://localhost:8000 --user=admin --key=<previously-generated-key> app create --label=CoreOS-ARM --app-id=103867da-e3a2-4c92-b0b3-7fbd7f7d8b71
-```
-
 #### Sync public upstream 
 
 Create a `Public Flatcar Container Linux` upstream:
