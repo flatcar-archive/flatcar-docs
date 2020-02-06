@@ -20,6 +20,9 @@ The change to a more generic name was done upstream by the Ignition project. Ver
 also do this via the analogous `flatcar.config.url` option but we encourage the generic name because future versions of Ignition
 will only support `ignition.config.url`.
 
+Instead of providing the `coreos.oem.id=NAME` argument via the boot loader you need to provide `flatcar.oem.id=NAME`.
+(A change to the more generic name `ignition.platform.id` was done upstream by the Afterburn project but is not part of Container Linux yet.)
+
 ## Ignition configuration with QEMU
 
 Instead of using `opt/com.coreos/config` in the `-fw_cfg` name-value argument pair for QEMU/KVM or libvirt you need to use `opt/org.flatcar-linux/config`.
