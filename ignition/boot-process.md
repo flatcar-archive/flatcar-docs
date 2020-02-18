@@ -22,17 +22,17 @@ If the `flatcar.first_boot` kernel parameter is provided and non-zero, Ignition 
 
 ### Ignition
 
-When Ignition runs on Flatcar Container Linux, it reads the Linux command line, looking for `flatcar.oem.id`. Ignition uses this identifier to determine where to read the user-provided configuration and which provider-specific configuration to combine with the user's. This provider-specific configuration performs basic machine setup, and may include enabling `flatcar-metadata-sshkeys@.service` (covered in more detail below).
+When Ignition runs on Flatcar Container Linux, it reads the Linux command line, looking for `flatcar.oem.id`. Ignition uses this identifier to determine where to read the user-provided configuration and which provider-specific configuration to combine with the user's. This provider-specific configuration performs basic machine setup, and may include enabling `coreos-metadata-sshkeys@.service` (covered in more detail below).
 
 After Ignition runs successfully, if `flatcar.first_boot` was set to the special value `detected`, Ignition mounts the EFI System Partition and deletes the `flatcar/first_boot` file.
 
 ## User space
 
-After all of the tasks in the initramfs complete, the machine pivots into user space. It is at this point that systemd begins starting units, including, if it was enabled, `flatcar-metadata-sshkeys@core.service`.
+After all of the tasks in the initramfs complete, the machine pivots into user space. It is at this point that systemd begins starting units, including, if it was enabled, `coreos-metadata-sshkeys@core.service`.
 
 ### SSH keys
 
-`flatcar-metadata-sshkeys@core.service` is responsible for fetching SSH keys from the machine's environment. The keys are written to `~core/.ssh/authorized_keys.d/flatcar-metadata` and `update-ssh-keys` is run to update `~core/.ssh/authorized_keys`. On cloud platforms, the keys are read from the provider's metadata service. This service is not supported on all platforms and is enabled by Ignition *only* on those which are supported.
+`coreos-metadata-sshkeys@core.service` is responsible for fetching SSH keys from the machine's environment. The keys are written to `~core/.ssh/authorized_keys.d/coreos-metadata` and `update-ssh-keys` is run to update `~core/.ssh/authorized_keys`. On cloud platforms, the keys are read from the provider's metadata service. This service is not supported on all platforms and is enabled by Ignition *only* on those which are supported.
 
 [check-file]: https://github.com/flatcar-linux/scripts/blob/9e1c23f3f44d2751076e770f43f7a6db05d49652/build_library/grub.cfg#L68-L71
 [gptprio.next]: https://github.com/flatcar-linux/scripts/blob/9e1c23f3f44d2751076e770f43f7a6db05d49652/build_library/grub.cfg#L132
