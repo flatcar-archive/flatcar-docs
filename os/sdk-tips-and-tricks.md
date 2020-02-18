@@ -221,6 +221,15 @@ emerge-amd64-usr -1 -v aaa-bbb/package
 Do not forget about updating its version and revision in `package.accept_keywords` files in the `profiles` directory.
 In some cases such a file can pin an exact version of a specific package, which needs to be updated as well.
 
+## Use binary packages from a shared build store
+
+Some packages like `coreos-modules` take a long time to build. Use 
+
+```
+./build_packages --getbinpkgver=$(gsutil cat gs://…/boards/amd64-usr/current-master/version.txt |& sed -n 's/^COREOS_VERSION=//p')
+```
+
+to use packages from the another build store.
 
 ## Known issues
 

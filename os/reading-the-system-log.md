@@ -1,6 +1,6 @@
 # Reading the system log
 
-`journalctl` is your interface into a single machine's journal/logging. All service files and Docker containers insert data into the systemd journal. There are a few helpful commands to read the journal:
+`journalctl` is your interface into a single machine's journal/logging. All service files insert data into the systemd journal. There are a few helpful commands to read the journal:
 
 ## Read the entire journal
 

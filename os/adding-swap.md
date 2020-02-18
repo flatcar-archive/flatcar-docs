@@ -91,6 +91,7 @@ storage:
 systemd:
   units:
     - name: var-vm-swapfile1.swap
+      enabled: true
       contents: |
         [Unit]
         Description=Turn on swap
@@ -114,5 +115,6 @@ systemd:
         ExecStart=/usr/bin/mkdir -p /var/vm
         ExecStart=/usr/bin/fallocate -l 1024m /var/vm/swapfile1
         ExecStart=/usr/bin/chmod 600 /var/vm/swapfile1
+        ExecStart=/usr/sbin/mkswap /var/vm/swapfile1
         RemainAfterExit=true
 ```
