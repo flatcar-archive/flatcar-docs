@@ -535,8 +535,6 @@ Then, follow the instructions in [Importing a Disk as a Snapshot Using VM Import
 After the snapshot is imported, you can go to "Snapshots" in the EC2 dashboard, and generate an AMI image from it.
 To make it work, use `/dev/sda2` as the "Root device name" and you probably want to select "Hardware-assisted virtualization" as "Virtualization type".
 
-In the future we'll upload AMIs directly during the build process so this will be much easier.
-
 ## Using Flatcar Container Linux
 
 Now that you have a machine booted it is time to play around. Check out the [Flatcar Container Linux Quickstart](quickstart.md) guide or dig into [more specific topics](https://docs.flatcar-linux.org).
