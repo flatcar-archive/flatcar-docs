@@ -2,7 +2,7 @@
 
 If you already have CoreOS Container Linux clusters and can't or don't want to freshly install Flatcar Container Linux, you can update to Flatcar Container Linux directly from CoreOS Container Linux by performing the following steps.
 
-**NOTE:** General differences when [migrating from CoreOS Container Linux](https://docs.flatcar-linux.org/os/migrate-from-container-linux/) also apply.
+**NOTE:** General differences when [migrating from CoreOS Container Linux](migrate-from-container-linux.md) also apply.
 
 At [the end of the section](#all-steps-in-one-script) you can find the [update-to-flatcar.sh](/update-to-flatcar.sh) script that does all steps for you.
 
@@ -69,6 +69,7 @@ Done, please reboot now
 core@host ~ $ sudo systemctl reboot
 ```
 
+**Before you reboot, check that you migrated the variable names as written in [Migrating from CoreOS Container Linux](migrate-from-container-linux.md).**
 
 
 ## Going back to CoreOS Container Linux
