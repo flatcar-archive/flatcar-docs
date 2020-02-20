@@ -2,7 +2,7 @@
 
 While Flatcar is compatible with CoreOS Container Linux there are some naming differences you need to be aware of.
 
-**NOTE:** See [Updating from CoreOS Container Linux](https://docs.flatcar-linux.org/os/update-from-container-linux/)
+**NOTE:** See [Updating from CoreOS Container Linux](update-from-container-linux.md)
 for additional information on updating an existing cluster.
 
 ## Installation
@@ -22,6 +22,15 @@ will only support `ignition.config.url`.
 
 Instead of providing the `coreos.oem.id=NAME` argument via the boot loader you need to provide `flatcar.oem.id=NAME`.
 (A change to the more generic name `ignition.platform.id` was done upstream by the Afterburn project but is not part of Container Linux yet.)
+
+**Recover from or prevent errors with missing OEM settings (e.g., `coreos-metadata-sshkeys@core.service`):** While future releases will handle both `coreos.oem` and `flatcar.oem` names, all current releases still require `flatcar.oem.…`.
+Change the variables in the file `/usr/share/oem/grub.cfg` when you update from CoreOS Container Linux:
+
+```
+# GRUB settings
+set oem_id="myoemvalue"
+set linux_append="$linux flatcar.oem.id=myoemvalue"
+```
 
 ## Ignition configuration with QEMU
 
