@@ -8,10 +8,10 @@ By design, the Flatcar Container Linux update engine does not execute downgrades
 
 ## Customizing channel configuration
 
-The update engine sources its configuration from `/usr/share/coreos/update.conf` and `/etc/coreos/update.conf`.
+The update engine sources its configuration from `/usr/share/flatcar/update.conf` and `/etc/flatcar/update.conf`.
 The former file contains the default hardcoded configuration from the running OS version. Its values cannot be edited, but they can be overridden by the ones in the latter file.
 
-To switch a machine to a different channel, specify the new channel group in `/etc/coreos/update.conf`:
+To switch a machine to a different channel, specify the new channel group in `/etc/flatcar/update.conf`:
 
 ```ini
 GROUP=beta
@@ -42,9 +42,9 @@ journalctl -f -u update-engine
 For reference, the OS version and channel for a running system can be determined via:
 
 ```sh
-cat /usr/share/coreos/os-release
+cat /usr/share/flatcar/os-release
 
-cat /usr/share/coreos/update.conf
+cat /usr/share/flatcar/update.conf
 ```
 
-Note: while a manual channel switch is in progress, `/usr/share/coreos/update.conf` shows the channel for the current OS while `/etc/coreos/update.conf` shows the one for the next update.
+Note: while a manual channel switch is in progress, `/usr/share/flatcar/update.conf` shows the channel for the current OS while `/etc/flatcar/update.conf` shows the one for the next update.
