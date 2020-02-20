@@ -114,7 +114,7 @@ Locksmith supports maintenance windows in addition to the reboot strategies ment
 
 Windows are defined by a start time and a length. In this example, the window is defined to be every Thursday between 04:00 and 05:00:
 
-```yaml container-linux-config
+```yaml
 locksmith:
   reboot_strategy: reboot
   window_start: Thu 04:00

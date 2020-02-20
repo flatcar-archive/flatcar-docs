@@ -177,7 +177,7 @@ This will use your GCE user to log in.
 
 You can disable the OS Login functionality by masking the `oem-gce-enable-oslogin.service` unit:
 
-```yaml container-linux-config:gce
+```yaml
 systemd:
   units:
     - name: oem-gce-enable-oslogin.service

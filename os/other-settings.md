@@ -86,7 +86,7 @@ The `/usr/share/oem/grub.cfg` file can be configured with Ignition. Note that Ig
 
 Here's an example configuration:
 
-```yaml container-linux-config
+```yaml
 storage:
   filesystems:
     - name: "OEM"

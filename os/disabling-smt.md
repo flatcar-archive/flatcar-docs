@@ -30,7 +30,7 @@ The following Container Linux Config performs two tasks:
 1. Adds `mitigations=auto,nosmt tsx=auto` to the kernel command line. This affects the second and subsequent boots of the machine, but not the first boot.
 2. On the first boot, disables SMT at runtime if the system has an Intel processor. This is sufficient to protect against currently-known SMT vulnerabilities until the system is rebooted. After reboot, SMT will be re-enabled if the processor is not actually vulnerable.
 
-```yaml container-linux-config
+```yaml
 # Add kernel command-line arguments to automatically disable SMT or TSX
 # on CPUs where they are vulnerable.  This will affect the second and
 # subsequent boots of the machine, but not the first boot.
