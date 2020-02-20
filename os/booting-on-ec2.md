@@ -33,7 +33,7 @@ Flatcar Container Linux is designed to be updated automatically with different s
         </thead>
         <tbody>
         {% for region in site.data.alpha-channel.amis %}
-        {% capture region_domain %}{% if region.name == 'us-gov-west-1' %}amazonaws-us-gov.com{% elsif region.name == 'cn-north-1' %}amazonaws.cn{% else %}aws.amazon.com{% endif %}{% endcapture %}
+        {% capture region_domain %}{% if region.name == 'us-gov-west-1' %}amazonaws-us-gov.com{% elsif region.name == 'cn-north-1' or region.name == 'cn-northwest-1' %}amazonaws.cn{% else %}aws.amazon.com{% endif %}{% endcapture %}
         <tr>
           <td rowspan="2">{{ region.name }}</td>
           <td class="dashed"><a href="http://aws.amazon.com/amazon-linux-ami/instance-type-matrix/">HVM (amd64)</a></td>
@@ -72,7 +72,7 @@ Flatcar Container Linux is designed to be updated automatically with different s
         </thead>
         <tbody>
         {% for region in site.data.beta-channel.amis %}
-        {% capture region_domain %}{% if region.name == 'us-gov-west-1' %}amazonaws-us-gov.com{% elsif region.name == 'cn-north-1' %}amazonaws.cn{% else %}aws.amazon.com{% endif %}{% endcapture %}
+        {% capture region_domain %}{% if region.name == 'us-gov-west-1' %}amazonaws-us-gov.com{% elsif region.name == 'cn-north-1' or region.name == 'cn-northwest-1' %}amazonaws.cn{% else %}aws.amazon.com{% endif %}{% endcapture %}
         <tr>
           <td rowspan="2">{{ region.name }}</td>
           <td class="dashed"><a href="http://aws.amazon.com/amazon-linux-ami/instance-type-matrix/">HVM (amd64)</a></td>
@@ -146,7 +146,7 @@ Flatcar Container Linux is designed to be updated automatically with different s
         </thead>
         <tbody>
         {% for region in site.data.stable-channel.amis %}
-        {% capture region_domain %}{% if region.name == 'us-gov-west-1' %}amazonaws-us-gov.com{% elsif region.name == 'cn-north-1' %}amazonaws.cn{% else %}aws.amazon.com{% endif %}{% endcapture %}
+        {% capture region_domain %}{% if region.name == 'us-gov-west-1' %}amazonaws-us-gov.com{% elsif region.name == 'cn-north-1' or region.name == 'cn-northwest-1' %}amazonaws.cn{% else %}aws.amazon.com{% endif %}{% endcapture %}
         <tr>
           <td rowspan="2">{{ region.name }}</td>
           <td class="dashed"><a href="http://aws.amazon.com/amazon-linux-ami/instance-type-matrix/">HVM (amd64)</a></td>
@@ -534,8 +534,6 @@ Then, follow the instructions in [Importing a Disk as a Snapshot Using VM Import
 
 After the snapshot is imported, you can go to "Snapshots" in the EC2 dashboard, and generate an AMI image from it.
 To make it work, use `/dev/sda2` as the "Root device name" and you probably want to select "Hardware-assisted virtualization" as "Virtualization type".
-
-In the future we'll upload AMIs directly during the build process so this will be much easier.
 
 ## Using Flatcar Container Linux
 

@@ -36,6 +36,12 @@ Enable the unit so this overlay is mounted automatically on boot.
 sudo systemctl enable usr-lib64-modules.mount
 ```
 
+An alternative is to mount the overlay automatically when the system boots by adding the following line to `/etc/fstab` (creating it if necessary).
+
+```
+overlay /lib/modules overlay lowerdir=/lib/modules,upperdir=/opt/modules,workdir=/opt/modules.wd,nofail 0 0
+```
+
 ## Prepare a Flatcar Container Linux development container
 
 Read system configuration files to determine the URL of the development container that corresponds to the current Flatcar Container Linux version.

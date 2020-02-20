@@ -6,7 +6,7 @@ Flatcar Container Linux is designed to be reliably updated via a continuous stre
 
 | Number | Label      | Description                                                       | Partition Type        |
 |:------:|------------|-------------------------------------------------------------------|-----------------------|
-| 1      | EFI-SYSTEM | Contains the bootloader                                           | VFAT                  |
+| 1      | EFI-SYSTEM | Contains the bootloader                                           | FAT32                 |
 | 2      | BIOS-BOOT  | Contains the second stages of GRUB for use when booting from BIOS | grub core.img         |
 | 3      | USR-A      | One of two active/passive partitions holding Flatcar Container Linux      | EXT4                  |
 | 4      | USR-B      | One of two active/passive partitions holding Flatcar Container Linux      | (empty on first boot) |
@@ -48,4 +48,9 @@ All stateful data, including container images, is stored within the read/write f
 
 The data stored on the root partition isn't manipulated by the update process. In return, we do our best to prevent you from modifying the data in /usr.
 
-Due to the unique disk layout of Flatcar Container Linux, an `rm -rf /` is an un-supported but valid operation to do a "factory reset". The machine should boot and operate normally afterwards.
+Due to the unique disk layout of Flatcar Container Linux, an `rm -rf --one-file-system --no-preserve-root /` is an unsupported but valid operation to purge any OS data. On the next boot, the machine should just start from a clean state.
+
+To [re-provision][provisioning] the node after such cleanup, use `touch /boot/flatcar/first_boot` to trigger Ignition [to run once][boot process] again on the next boot.
+
+[provisioning]: ../os/provisioning.md
+[boot process]: ../ignition/boot-process.md

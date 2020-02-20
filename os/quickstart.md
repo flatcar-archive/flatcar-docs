@@ -21,18 +21,16 @@ ssh-add
 Connect to a Flatcar Container Linux machine via SSH as the user `core`. For example, on Amazon, use:
 
 ```sh
-$ ssh -A core@an.ip.compute-1.amazonaws.com
+$ ssh core@an.ip.compute-1.amazonaws.com
 Flatcar Container Linux (beta)
 ```
-
-The `-A` forwards your ssh-agent to the machine.
 
 If you're using Vagrant, you'll need to connect a bit differently:
 
 ```sh
 $ ssh-add ~/.vagrant.d/insecure_private_key
 Identity added: /Users/core/.vagrant.d/insecure_private_key (/Users/core/.vagrant.d/insecure_private_key)
-$ vagrant ssh core-01 -- -A
+$ vagrant ssh core-01
 Flatcar Container Linux (beta)
 ```
 
@@ -112,11 +110,6 @@ docker run -i -t busybox /bin/sh
 <a class="btn btn-primary" href="https://coreos.com/os/docs/latest/getting-started-with-docker.html" data-category="More Information" data-event="Docs: Getting Started docker">View Complete Guide</a>
 <a class="btn btn-default" href="http://docs.docker.io/">Read Docker Docs</a>
 
-### More detailed information
-
-<a class="btn btn-default" href="https://coreos.com/os/docs/latest/getting-started-with-systemd.html" data-category="More Information" data-event="Docs: Getting Started with systemd">View Getting Started with systemd Guide</a>
-
-[getting-started-systemd]: getting-started-with-systemd.md
 [docker-docs]: https://docs.docker.com/
 [etcd-docs]: https://coreos.com/etcd/docs/latest/
 [running-container-linux]: https://coreos.com/os/docs/latest/#running-coreos
