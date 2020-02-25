@@ -1,6 +1,6 @@
 # Kinvolk Flatcar Container Linux Documentation
 
-This repository contains the Markdown source of the [Flatcar Container Linux documentation][coreos-docs].
+This repository contains the Markdown source of the [Flatcar Container Linux documentation][flatcar-docs].
 
 ## Contributing
 
@@ -9,6 +9,6 @@ Flatcar Container Linux documentation is released under the [Apache 2.0 License]
 
 [asl]: LICENSE
 [contributing]: CONTRIBUTING.md
-[coreos-docs]: https://coreos.com/docs/
-[help-wanted]: https://github.com/coreos/docs/issues?q=is%3Aopen+label%3Ahelp-wanted
+[flatcar-docs]: https://docs.flatcar-linux.org/
+[help-wanted]: https://github.com/flatcar-linux/docs/issues?q=is%3Aopen+label%3Ahelp-wanted
 [style]: STYLE.md "Flatcar Container Linux Documentation Style and Formatting"

@@ -1,12 +1,12 @@
 # How to Contribute
 
-CoreOS documentation is released under the [Apache 2.0 License][asl], and we welcome contributions. Check out the [help-wanted tag][help-wanted] in this project's Issues list for good places to start participating.
+Flatcar documentation is released under the [Apache 2.0 License][asl], and we welcome contributions. Check out the [help-wanted tag][help-wanted] in this project's Issues list for good places to start participating.
 
 Submit fixes and additions in the form of [GitHub *Pull Requests* (PRs)][pull-requests]. The general process is the typical git fork-branch-PR-review-merge cycle:
 
 1. Fork this repository into your GitHub account
 2. Make changes in a topic branch or your fork's `master`
-3. Send a Pull Request from that topic branch to coreos/docs
+3. Send a Pull Request from that topic branch to flatcar-linux/docs
 4. Maintainers will review the PR and either merge it or make comments
 
 Cognizance of the tribal customs described and linked to below will help get your contributions incorporated with the greatest of ease.
@@ -36,7 +36,7 @@ Where the optional `[<footer>]` might include `signed-off-by` lines and other me
 
 ## Style guide
 
-The [style guide][style] prescribes the conventions of formatting and English style preferred in CoreOS project documentation.
+The [style guide][style] prescribes the conventions of formatting and English style preferred in Flatcar project documentation.
 
 ## Translations
 
@@ -48,7 +48,7 @@ We happily accept accurate translations. Please send the documents as a pull req
 
 
 [asl]: LICENSE
-[coreos-docs]: https://coreos.com/docs/
-[help-wanted]: https://github.com/coreos/docs/issues?q=is%3Aopen+label%3Ahelp-wanted
+[flatcar-docs]: https://docs.flatcar-linux.org
+[help-wanted]: https://github.com/flatcar-linux/docs/issues?q=is%3Aopen+label%3Ahelp-wanted
 [pull-requests]: https://help.github.com/articles/using-pull-requests/
-[style]: STYLE.md "CoreOS Documentation Style and Formatting"
+[style]: STYLE.md
