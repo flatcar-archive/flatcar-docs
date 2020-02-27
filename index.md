@@ -62,10 +62,10 @@ Securing Clusters                                               | Debugging Clus
 ### Container Runtimes
 Flatcar Container Linux supports all of the popular methods for running containers, and you can choose to interact with the containers at a low-level, or use a higher level orchestration framework. Listed below are your options from the highest level abstraction down to the lowest level, the container runtime.
 
-Docker                                              | rkt
---------------                                      | --------------
-[Getting started with Docker][docker]               | [Getting started with rkt][rkt]
-[Customizing Docker][customizing-docker]            |
+Docker
+--------------
+[Getting started with Docker][docker]
+[Customizing Docker][customizing-docker]
 
 
 ### Reference
@@ -132,7 +132,6 @@ APIs and troubleshooting guides for working with Flatcar Container Linux.
 [container-linux-rollbacks]: os/manual-rollbacks.md
 [docker]: os/getting-started-with-docker.md
 [customizing-docker]: os/customizing-docker.md
-[rkt]: https://github.com/rkt/rkt/blob/v1.29.0/Documentation/getting-started-guide.md
 [developer-guides]: os/developer-guides.md
 [integrations]: os/integrations.md
 [migrating-from-cloud-config]: os/migrating-to-clcs.md

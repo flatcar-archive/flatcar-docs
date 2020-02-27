@@ -25,20 +25,11 @@ There are a few prescribed ways of writing frequently questioned words and phras
 * Deployments may occur *on-premises*, sometimes "on-prem," but never on-premise. A *premises* is a place. A *premise* is a proposition.
 * *GIFEE* was formerly *Google's Infrastructure for Everyone Else*, but now it is *Google's Infrastructure for EveryonE*.
 
-#### Project names are (mostly) proper nouns
+#### Project names are proper nouns
 
-These project names are not capitalized, except when appearing as the first word of a sentence:
+Project names are proper nouns written with an initial capital letter. Examples include Ignition, Dex, and Matchbox.
 
-* etcd
-* flannel
-* fleet
-* rkt
-
-The first word of a sentence is always capitalized.
-
-Other project names are proper nouns written with an initial capital letter. Examples include Ignition, Dex, and Matchbox.
-
-CoreOS is written in CamelCase. The Linux distribution is called CoreOS Container Linux.
+The Linux distribution is called Flatcar Container Linux.
 
 These capitalization rules are traditional and arcane. They should eventually give way to all project and product names being capitalized as proper nouns, except when given literally, e.g., `rkt run docker://nginx` or `/var/lib/rkt`.
 
@@ -103,7 +94,7 @@ Use these standard example entities to avoid exposing real URLs, IP Addresses, o
 
 ## Source formatting
 
-CoreOS documentation is written in [Markdown][mdhome], a simple way to annotate text to indicate presentation typesetting. Markdown source is intended to be a plain text human-readable version of the document, even before conversion to HTML for the browser or other display.
+Flatcar documentation is written in [Markdown][mdhome], a simple way to annotate text to indicate presentation typesetting. Markdown source is intended to be a plain text human-readable version of the document, even before conversion to HTML for the browser or other display.
 
 ### Source file naming and encoding
 
@@ -140,7 +131,7 @@ Each heading is both preceded and followed by a newline. A space separates the M
 
 Section headings expose the document's logical structure with a notation of incrementing hash marks (`#[#][...]`) for increasingly nested levels of a hierarchy. With the level one heading devoted to the document title, the second-level headings represent the document's primary concepts.
 
-The site deployment process inspects a document's headings to derive the thumb index outlines seen in the right sidebar of [documentation viewed at CoreOS.com][coreos-docs].
+The site deployment process inspects a document's headings to derive the thumb index outlines seen in the right sidebar of [documentation viewed at docs.flatcar-linux.org][flatcar-docs].
 
 #### Example: This document's source
 
@@ -213,13 +204,13 @@ which link will likewise have its label defined at the document's foot.
 
 #### Relative URLs preferred
 
-Using relative URLs where possible helps portability among multiple presentation targets, as they remain valid even as the site root moves. Absolute linking is obviously necessary for resources external to the document's repository and/or the coreos.com domain.
+Using relative URLs where possible helps portability among multiple presentation targets, as they remain valid even as the site root moves. Absolute linking is obviously necessary for resources external to the document's repository and/or the docs.flatcar-linux.org domain.
 
-For example, there are two ways to refer to the [CoreOS quick start guide][quickstart]'s location. The preferred way is a relative link from the current file's path to the target, which from this document is `os/quickstart.md`. An absolute link to the complete URL is less flexible, and more verbose: `https://github.com/coreos/docs/blob/master/os/quickstart.md`.
+For example, there are two ways to refer to the [CoreOS quick start guide][quickstart]'s location. The preferred way is a relative link from the current file's path to the target, which from this document is `os/quickstart.md`. An absolute link to the complete URL is less flexible, and more verbose: `https://github.com/flatcar-linux/docs/blob/master/os/quickstart.md`.
 
 #### Hyperlink deployment automation
 
-CoreOS documents have two major publication targets: the [coreos.com documentation library][coreos-docs], and [GitHub's Markdown presentation][githubmd]. The deployment scripts used to build the CoreOS site handle some of the wrinkles arising between the two targets. These scripts expect links to other CoreOS project documentation to refer to the Markdown source; that is, to end with the `.md` file extension. The deployment scripts rewrite hyperlinks to replace that extension with `.html` for presentation. This allows the links to be valid in either context. External links are not rewritten.
+CoreOS documents have two major publication targets: the [docs.flatcar-linux.org documentation][flatcar-docs], and [GitHub's Markdown presentation][githubmd]. The deployment scripts used to build the CoreOS site handle some of the wrinkles arising between the two targets. These scripts expect links to other CoreOS project documentation to refer to the Markdown source; that is, to end with the `.md` file extension. The deployment scripts rewrite hyperlinks to replace that extension with `.html` for presentation. This allows the links to be valid in either context. External links are not rewritten.
 
 ## Example: Documenting code blocks
 
@@ -252,7 +243,7 @@ Some file types are commonly identified with more than one file name extension. 
 
 [command-line-grammar]: #command-line-grammar
 [configuring-dns]: os/configuring-dns.md
-[coreos-docs]: https://coreos.com/docs/
+[flatcar-docs]: https://docs.flatcar-linux.org/
 [economist-hyphens]: http://www.economist.com/news/books-and-arts/21723088-hyphens-can-be-tricky-they-need-not-drive-you-crazy-hysteria-over-hyphens
 [eos]: https://faculty.washington.edu/heagerty/Courses/b572/public/StrunkWhite.pdf "The Elements of Style"
 [githubmd]: https://help.github.com/articles/github-flavored-markdown/
