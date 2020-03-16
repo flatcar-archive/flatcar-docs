@@ -50,7 +50,7 @@ The data stored on the root partition isn't manipulated by the update process. I
 
 Due to the unique disk layout of Flatcar Container Linux, an `rm -rf --one-file-system --no-preserve-root /` is an unsupported but valid operation to purge any OS data. On the next boot, the machine should just start from a clean state.
 
-To [re-provision][provisioning] the node after such cleanup, use `touch /boot/flatcar/first_boot` to trigger Ignition [to run once][boot process] again on the next boot.
+To [re-provision][provisioning] the node after such cleanup, use `touch /boot/flatcar/first_boot` to trigger Ignition [to run once][boot process] again on the next boot (if the machine was updated from CoreOS Container Linux, you need to use `/boot/coreos/first_boot`).
 
 [provisioning]: ../os/provisioning.md
 [boot process]: ../ignition/boot-process.md
