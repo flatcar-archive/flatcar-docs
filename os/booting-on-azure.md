@@ -12,13 +12,14 @@ az group create --name group-1 --location <location>
 
 Now that you have a resource group, you can choose a channel of Flatcar Container Linux you would like to install.
 
-## Choosing a Channel
+## Using the official image from the Marketplace
 
-Flatcar Container Linux is designed to be [updated automatically][update-docs] with different schedules per channel. This feature
+Official Flatcar Container Linux images for all channels are available in the Marketplace.
+Flatcar Container Linux is designed to be [updated automatically][update-docs] with different schedules per channel. Updating
 can be [disabled][reboot-docs], although it is not recommended to do so. The [release notes][release-notes] contain
 information about specific features and bug fixes.
 
-The following command will create a single instance. For more details, check out [Launching via the Microsoft Azure CLI][azurecli-heading].
+The following command will create a single instance through the Azure CLI.
 
 <div id="azure-images">
   <ul class="nav nav-tabs">
@@ -32,37 +33,83 @@ The following command will create a single instance. For more details, check out
       <div class="channel-info">
         <p>The Stable channel should be used by production clusters. Versions of Flatcar Container Linux are battle-tested within
         the Beta and Alpha channels before being promoted. The current version is Flatcar Container Linux {{site.stable-channel}}.</p>
-        <pre>az vm create --name node-1 --resource-group group-1 --admin-username core --custom-data "$(cat config.ign)" --image flatcar-stable</pre>
+        <pre>
+$ az vm image list --all -p kinvolk -f flatcar -s stable  # Query the image name urn specifier 
+[
+  {
+    "offer": "flatcar-container-linux",
+    "publisher": "kinvolk",
+    "sku": "stable",
+    "urn": "kinvolk:flatcar-container-linux:stable:2345.3.0",
+    "version": "2345.3.0"
+  }
+]
+$ az vm create --name node-1 --resource-group group-1 --admin-username core --custom-data "$(cat config.ign)" --image kinvolk:flatcar-container-linux:stable:2345.3.0
+        </pre>
       </div>
     </div>
     <div class="tab-pane" id="beta">
       <div class="channel-info">
         <p>The Beta channel consists of promoted Alpha releases. The current version is Flatcar Container Linux {{site.beta-channel}}.</p>
-        <pre>az vm create --name node-1 --resource-group group-1 --admin-username core --custom-data "$(cat config.ign)" --image flatcar-beta</pre>
+        <pre>
+$ az vm image list --all -p kinvolk -f flatcar -s beta  # Query the image name urn specifier
+[
+  {
+    "offer": "flatcar-container-linux",
+    "publisher": "kinvolk",
+    "sku": "beta",
+    "urn": "kinvolk:flatcar-container-linux:beta:2411.1.0",
+    "version": "2411.1.0"
+  }
+]
+$ az vm create --name node-1 --resource-group group-1 --admin-username core --custom-data "$(cat config.ign)" --image kinvolk:flatcar-container-linux:beta:2411.1.0
+        </pre>
       </div>
     </div>
     <div class="tab-pane" id="alpha">
       <div class="channel-info">
         <p>The Alpha channel closely tracks the master branch and is released frequently. The newest versions of system
         libraries and utilities are available for testing in this channel. The current version is Flatcar Container Linux {{site.alpha-channel}}.</p>
-        <pre>az vm create --name node-1 --resource-group group-1 --admin-username core --custom-data "$(cat config.ign)" --image flatcar-alpha</pre>
+        <pre>
+$ az vm image list --all -p kinvolk -f flatcar -s alpha
+[
+  {
+    "offer": "flatcar-container-linux",
+    "publisher": "kinvolk",
+    "sku": "alpha",
+    "urn": "kinvolk:flatcar-container-linux:alpha:2430.0.0",
+    "version": "2430.0.0"
+  }
+]
+$ az vm create --name node-1 --resource-group group-1 --admin-username core --custom-data "$(cat config.ign)" --image kinvolk:flatcar-container-linux:alpha:2430.0.0
+        </pre>
       </div>
     </div>
     <div class="tab-pane" id="edge">
       <div class="channel-info">
         <p>The Edge channel includes bleeding-edge features with the newest versions of the Linux kernel, systemd
         and other core packages. Can be highly unstable. The current version is Flatcar Container Linux {{site.edge-channel}}.</p>
-        <pre>az vm create --name node-1 --resource-group group-1 --admin-username core --custom-data "$(cat config.ign)" --image flatcar-edge</pre>
+        <pre>
+$ az vm image list --all -p kinvolk -f flatcar -s edge
+[
+  {
+    "offer": "flatcar-container-linux",
+    "publisher": "kinvolk",
+    "sku": "edge",
+    "urn": "kinvolk:flatcar-container-linux:edge:2430.99.0",
+    "version": "2430.99.0"
+  }
+]
+$ az vm create --name node-1 --resource-group group-1 --admin-username core --custom-data "$(cat config.ign)" --image kinvolk:flatcar-container-linux:edge:2430.99.0
+        </pre>
       </div>
     </div>
   </div>
 </div>
 
-## Uploading an Image
+## Uploading your own Image
 
-Official Flatcar Container Linux images are not available on Azure at the moment. However, you can run Flatcar Container Linux today by uploading an image to your account.
-
-To do so, run the following command:
+To automatically download the Flatcar image for Azure from the release page and upload it to your Azure account, run the following command:
 ```sh
 docker run -it --rm quay.io/kinvolk/azure-flatcar-image-upload \
   --resource-group <resource group> \
@@ -117,7 +164,7 @@ via a Container Linux Config. Head over to the [provisioning docs][cl-configs] t
 Note that Microsoft Azure doesn't allow an instance's userdata to be modified after the instance had been launched. This
 isn't a problem since Ignition, the tool that consumes the userdata, only runs on the first boot.
 
-You can provide a raw Ignition config (produced from a Container Linux Config) to Flatcar Container Linux via the [Microsoft Azure CLI][azurecli-heading].
+You can provide a raw Ignition config (produced from a Container Linux Config) to Flatcar Container Linux via the Azure CLI using the `----custom-data` flag.
 
 As an example, the following config will configure and start etcd:
 
@@ -138,21 +185,12 @@ etcd:
   discovery:                   "https://discovery.etcd.io/<token>"
 ```
 
-## Launching Instances via the Microsoft Azure CLI
-
-You can lunch instance of Flatcar Container Linux by executing following command:
-
-```sh
-az vm create --name node-1 --resource-group group-1 --admin-username core --custom-data "$(cat config.ign)" --image flatcar-alpha
-```
-
 ## Using Flatcar Container Linux
 
 For information on using Flatcar Container Linux check out the [Flatcar Container Linux quickstart guide][quickstart] or dive into [more specific topics][docs].
 
 [flatcar-user]: https://groups.google.com/forum/#!forum/flatcar-linux-user
 [etcd-docs]: https://github.com/flatcar-linux/etcd/tree/master/Documentation
-[azurecli-heading]: #via-the-microsoft-azure-cli
 [quickstart]: quickstart.md
 [reboot-docs]: update-strategies.md
 [azure-cli]: https://docs.microsoft.com/en-us/cli/azure/overview
@@ -162,6 +200,5 @@ For information on using Flatcar Container Linux check out the [Flatcar Containe
 [resource-group]: https://docs.microsoft.com/en-us/azure/architecture/best-practices/naming-conventions#naming-rules-and-restrictions
 [storage-account]: https://docs.microsoft.com/en-us/azure/storage/common/storage-account-overview#naming-storage-accounts
 [azure-flatcar-image-upload]: https://github.com/kinvolk/flatcar-cloud-image-uploader/blob/master/azure-flatcar-image-upload
-[azurecli-heading]: #via-the-microsoft-azure-cli
 [release-notes]: https://flatcar-linux.org/releases
 [update-docs]: https://docs.flatcar-linux.org/os/update-strategies
