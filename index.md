@@ -13,7 +13,7 @@ Provisioning                                            | Cloud Providers
 [CL Config Dynamic Data][config-dynamic-data]           | [Google Compute Engine][gce]
 [CL Config Examples][config-examples]                   | [Microsoft Azure][azure]
 [CL Config Spec][config-spec]                           | [Packet][packet]
-                                                        | [QEMU][qemu]
+                                                        | [QEMU][qemu], [libVirt][libvirt]
 
 Bare Metal                                              | Upgrading from CoreOS Container Linux
 --------------                                          | -------------
@@ -99,6 +99,7 @@ APIs and troubleshooting guides for working with Flatcar Container Linux.
 [azure]: os/booting-on-azure.md
 [qemu]: os/booting-with-qemu.md
 [packet]: os/booting-on-packet.md
+[libvirt]: os/booting-with-libvirt.md
 [cluster-architectures]: os/cluster-architectures.md
 [update-strategies]: os/update-strategies.md
 [clustering-machines]: os/cluster-discovery.md
