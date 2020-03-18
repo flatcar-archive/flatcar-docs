@@ -4,7 +4,7 @@ Packet is a bare metal cloud hosting provider. Flatcar Container Linux is instal
 
 ## Deployment instructions
 
-The first step in deploying any devices on Packet is to first create an account and decide if you'd like to deploy via our portal or API. The portal is appropriate for small clusters of machines that won't change frequently. If you'll be deploying a lot of machines, or expect your workload to change frequently it is much more efficient to use the API. You can generate an API token through the portal once you've set up an account and payment method. Create an account here: [Packet Account Registration](https://www.packet.net/promo/coreos/).
+The first step in deploying any devices on Packet is to first create an account and decide if you'd like to deploy via our portal or API. The portal is appropriate for small clusters of machines that won't change frequently. If you'll be deploying a lot of machines, or expect your workload to change frequently it is much more efficient to use the API. You can generate an API token through the portal once you've set up an account and payment method.
 
 ### Projects
 
@@ -12,11 +12,11 @@ Packet has a concept of 'projects' that represent a grouping of machines that de
 
 ### Portal instructions
 
-Once logged into the portal you will be able to click the 'Deploy' button and choose Flatcar Container Linux from the menu of operating systems, and choose which project you want the server to be deployed in. If you choose to enter a custom Ignition config, you can click the 'manage' link and add that as well. The SSH key that you associate with your account and any other team member's keys that are on the project will be added to your Flatcar Container Linux machine once it is provisioned.
+Once logged into the portal you will be able to click the 'New server' button and choose Flatcar Container Linux from the menu of operating systems, and choose which region you want the server to be deployed in. If you choose to enter a custom Ignition config, you can enable 'Add User Data' and paste it there. The SSH key that you associate with your account and any other team member's keys that are on the project will be added to your Flatcar Container Linux machine once it is provisioned.
 
 ### API instructions
 
-If you elect to use the API to provision machines on Packet you should consider using [one of our language libraries](https://www.packet.net/integrations/libraries/) to code against. As an example, this is how you would launch a single Type 1 machine in a curl command. [Packet API Documentation](https://www.packet.net/dev/api/).
+If you select to use the API to provision machines on Packet you should consider using [one of the language libraries](https://www.packet.com/developers/libraries/) to code against. As an example, this is how you would launch a single Type 1 machine in a curl command. [Packet API Documentation](https://www.packet.com/developers/api/).
 
 ```bash
 # Replace items in brackets (<EXAMPLE>) with the appropriate values.
@@ -25,11 +25,25 @@ curl -X POST \
 -H 'Content-Type: application/json' \
 -H 'Accept: application/json' \
 -H 'X-Auth-Token: <API_TOKEN>' \
--d '{"hostname": "<HOSTNAME>", "plan": "baremetal_1", "facility": "ewr1", "operating_system": "coreos_alpha", "userdata": "<USERDATA>"}' \
+-d '{"hostname": "<HOSTNAME>", "plan": "baremetal_1", "facility": "ewr1", "operating_system": "flatcar_alpha", "userdata": "<USERDATA>"}' \
 https://api.packet.net/projects/<PROJECT_ID>/devices
 ```
 
 Double quotes in the `<USERDATA>` value must be escaped such that the request body is valid JSON. See the Container Linux Config section below for more information about accepted forms of userdata.
+
+## iPXE booting
+If you need to run a Flatcar Container Linux image which is not available through the OS option in the API, you can boot via 'Custom iPXE'.
+This is the case for ARM64 images which are just published in the Alpha and Edge channels right now and not available via Packet's API.
+
+Assuming you want to run boot an Alpha image via iPXE on a `c2.large.arm` machine, you have to provide this URL for 'Custom iPXE Settings':
+
+```
+https://alpha.release.flatcar-linux.net/arm64-usr/current/flatcar_production_packet.ipxe
+```
+
+Do not forget to provide an Ignition config with your SSH key because the PXE images don't have any OEM packages which could fetch the Packet project's SSH keys after booting.
+
+If not configured elsewise, iPXE booting will only done at the first boot because you are expected to install the operating system to the hard disk yourself.
 
 ## Container Linux Configs
 
