@@ -14,6 +14,7 @@ Provisioning                                            | Cloud Providers
 [CL Config Examples][config-examples]                   | [Microsoft Azure][azure]
 [CL Config Spec][config-spec]                           | [Packet][packet]
                                                         | [QEMU][qemu], [libVirt][libvirt], [VirtualBox][virtualbox], [Vagrant][vagrant]
+                                                        | [VMware][vmware]
 
 Bare Metal                                              | Upgrading from CoreOS Container Linux
 --------------                                          | -------------
@@ -102,6 +103,7 @@ APIs and troubleshooting guides for working with Flatcar Container Linux.
 [libvirt]: os/booting-with-libvirt.md
 [virtualbox]: os/booting-on-virtualbox.md
 [vagrant]: os/booting-on-vagrant.md
+[vmware]: os/booting-on-vmware.md
 [cluster-architectures]: os/cluster-architectures.md
 [update-strategies]: os/update-strategies.md
 [clustering-machines]: os/cluster-discovery.md
