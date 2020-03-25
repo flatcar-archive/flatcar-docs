@@ -1,5 +1,8 @@
 # Running Flatcar Container Linux on Vagrant
 
+_While we always welcome community contributions and fixes, please note that Vagrant is not an officially supported platform at this time. (See the [platform overview](/#getting-started).)_
+
+
 Running Flatcar Container Linux with Vagrant is one way to bring up a single machine or virtualize an entire cluster on your laptop. Since the true power of Flatcar Container Linux can be seen with a cluster, we're going to concentrate on that. Instructions for a single machine can be found [towards the end](#single-machine) of the guide.
 
 You can direct questions to the [IRC channel][irc] or [mailing list][flatcar-dev].
