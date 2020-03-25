@@ -143,7 +143,7 @@ You could instead use the `-nographic` option, `./flatcar_production_qemu.sh -no
 
 You could also log in via SSH by running `./flatcar_production_qemu.sh` and then running `ssh core@127.0.0.1 -p 2222` to enter the guest OS. Running without the `-p 2222` option will arise a *ssh: connect to host 127.0.0.1 port 22: Connection refused* or *Permission denied (publickey,gssapi-keyex,gssapi-with-mic)* warning. Additionally, you can log in via SSH keys or with a different ssh port by running this example `./flatcar_production_qemu.sh -a ~/.ssh/authorized_keys -p 2223 -- -curses`. Refer to the [Booting with QEMU](booting-with-qemu.md#SSH-keys) guide for more information on this usage.
 
-The default login username is `core` and the [password is the one set in the `./set_shared_user_password`](sdk-modifying-coreos.md#Building-an-image) step of this guide. If you forget your password, you will need to rerun `./set_shared_user_password` and then `./build_image` again.
+The default login username is `core` and the [password is the one set in the `./set_shared_user_password`](sdk-modifying-flatcar.md#Building-an-image) step of this guide. If you forget your password, you will need to rerun `./set_shared_user_password` and then `./build_image` again.
 
 ## Making changes
 
