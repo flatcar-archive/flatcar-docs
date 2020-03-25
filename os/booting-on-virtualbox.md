@@ -1,5 +1,8 @@
 # Running Flatcar Container Linux on VirtualBox
 
+_While we always welcome community contributions and fixes, please note that VirtualBox is not an officially supported platform at this time. (See the [platform overview](/#getting-started).)_
+
+
 These instructions will walk you through running Flatcar Container Linux on Oracle VM VirtualBox.
 
 ## Building the virtual disk

@@ -13,8 +13,10 @@ Provisioning                                            | Cloud Providers
 [CL Config Dynamic Data][config-dynamic-data]           | [Google Compute Engine][gce]
 [CL Config Examples][config-examples]                   | [Microsoft Azure][azure]
 [CL Config Spec][config-spec]                           | [Packet][packet]
-                                                        | [QEMU][qemu], [libVirt][libvirt], [VirtualBox][virtualbox], [Vagrant][vagrant]
+                                                        | [QEMU][qemu], [libVirt][libvirt], [VirtualBox][virtualbox]¹, [Vagrant][vagrant]¹
                                                         | [VMware][vmware]
+
+_¹ These platforms are not officially supported and releases are not tested._
 
 Bare Metal                                              | Upgrading from CoreOS Container Linux
 --------------                                          | -------------
