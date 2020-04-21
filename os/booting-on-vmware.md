@@ -124,9 +124,9 @@ Guestinfo configuration set via the VMware API or with `vmtoolsd` from within th
 
 ### Defining the Ignition config in Guestinfo
 
-If the `guestinfo.ignition.config.data` property is set, Ignition will apply the referenced config on first boot.
+If the `guestinfo.coreos.config.data` property is set, Ignition will apply the referenced config on first boot.
 
-The Ignition config is prepared for the guestinfo facility in one of two encoding types, specified in the `guestinfo.ignition.config.data.encoding` variable:
+The Ignition config is prepared for the guestinfo facility in one of two encoding types, specified in the `guestinfo.coreos.config.data.encoding` variable:
 
 |    Encoding    |                        Command                        |
 |:---------------|:------------------------------------------------------|
@@ -136,8 +136,8 @@ The Ignition config is prepared for the guestinfo facility in one of two encodin
 #### Example
 
 ```
-guestinfo.ignition.config.data = "ewogICJpZ25pdGlvbiI6IHsgInZlcnNpb24iOiAiMi4wLjAiIH0KfQo="
-guestinfo.ignition.config.data.encoding = "base64"
+guestinfo.coreos.config.data = "ewogICJpZ25pdGlvbiI6IHsgInZlcnNpb24iOiAiMi4wLjAiIH0KfQo="
+guestinfo.coreos.config.data.encoding = "base64"
 ```
 
 This example will be decoded into:

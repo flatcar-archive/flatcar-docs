@@ -39,5 +39,5 @@ The value in the argument pair specifies the Ignition file to use.
 
 ## Ignition configuration with VMware
 
-_Optional (planned for releases after 2020/03/16):_ Instead of `coreos.config.data` and `coreos.config.data.encoding` for the VMware `guestinfo.VARIABLE` command line options you should use `ignition.config.data` and `ignition.config.data.encoding`.
+_Optional (planned for releases after 2020/04/21):_ Instead of `coreos.config.data` and `coreos.config.data.encoding` for the VMware `guestinfo.VARIABLE` command line options you should use `ignition.config.data` and `ignition.config.data.encoding`.
 Same as for the `ignition.config.url` kernel parameter this change was done upstream by the Ignition project.
