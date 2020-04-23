@@ -1,8 +1,8 @@
 # Migrating from Cloud-Config to Container Linux Config
 
-Historically, the recommended way to provision a Flatcar Container Linux machine was with a cloud-config. This was a YAML file specifying things like systemd units to run, users that should exist, and files that should be written. This file would be given to a Flatcar Container Linux machine, and saved on disk. Then a utility called coreos-cloudinit running in a systemd unit would read this file, look at the system state, and make necessary changes on every boot.
+Flatcar Container Linus started as a fork of CoreOS Container Linux. Historically, the recommended way to provision a CoreOS Container Linux machine was with a cloud-config. This was a YAML file specifying things like systemd units to run, users that should exist, and files that should be written. This file would be given to a CoreOS Container Linux machine, and saved on disk. Then a utility called coreos-cloudinit running in a systemd unit would read this file, look at the system state, and make necessary changes on every boot.
 
-Going forward, a new method of provisioning with Container Linux Configs is now recommended.
+The current recommended method is provisioning with Container Linux Configs.
 
 This document details how to convert an existing cloud-config into a Container Linux Config. Once a Container Linux Config has been written, it is given to the Config Transpiler to be converted into an Ignition Config. This Ignition Config can then be provided to a booting machine. For more information on this process, take a look at the [provisioning guide][provisioning].
 
