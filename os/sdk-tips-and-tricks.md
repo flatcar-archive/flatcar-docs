@@ -29,7 +29,7 @@ emerge-amd64-usr --emptytree -p -v --tree coreos-base/coreos-dev
 Get a tree view of the SDK dependencies:
 
 ```sh
-emerge-amd64-usr --emptytree -p -v --tree coreos-base/hard-host-depends
+emerge --emptytree -p -v --tree coreos-base/hard-host-depends coreos-devel/sdk-depends
 ```
 
 ## Add new upstream package
