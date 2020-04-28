@@ -126,5 +126,5 @@ docker run -i -t busybox /bin/sh
 [ipxe-docs]: booting-with-ipxe.md
 [iso-docs]: booting-with-iso.md
 [install-docs]: installing-to-disk.md
-[ignition]: https://github.com/coreos/ignition/blob/master/doc/getting-started.md
+[ignition]: https://coreos.com/ignition/docs/latest/
 [cl-configs]: provisioning.md
