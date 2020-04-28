@@ -112,7 +112,7 @@ docker run -i -t busybox /bin/sh
 
 [docker-docs]: https://docs.docker.com/
 [etcd-docs]: https://coreos.com/etcd/docs/latest/
-[running-container-linux]: https://coreos.com/os/docs/latest/#running-coreos
+[running-container-linux]: https://docs.flatcar-linux.org/#getting-started
 [ec2-docs]: booting-on-ec2.md
 [azure-docs]: booting-on-azure.md
 [gce-docs]: booting-on-google-compute-engine.md
@@ -126,5 +126,5 @@ docker run -i -t busybox /bin/sh
 [ipxe-docs]: booting-with-ipxe.md
 [iso-docs]: booting-with-iso.md
 [install-docs]: installing-to-disk.md
-[ignition]: https://coreos.com/blog/introducing-ignition.html
+[ignition]: https://coreos.com/ignition/docs/latest/
 [cl-configs]: provisioning.md
