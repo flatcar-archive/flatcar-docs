@@ -34,6 +34,41 @@ After all of the tasks in the initramfs complete, the machine pivots into user s
 
 `coreos-metadata-sshkeys@core.service` is responsible for fetching SSH keys from the machine's environment. The keys are written to `~core/.ssh/authorized_keys.d/coreos-metadata` and `update-ssh-keys` is run to update `~core/.ssh/authorized_keys`. On cloud platforms, the keys are read from the provider's metadata service. This service is not supported on all platforms and is enabled by Ignition *only* on those which are supported.
 
+### Reprovisioning
+
+To trigger a new Ignition run, either manually set `flatcar.first_boot=1` as temporary kernel command line parameter in GRUB or create the flag file `touch /boot/flatcar/first_boot` (or `/boot/coreos/first_boot` if the machine was updated from CoreOS CL).
+
+Be aware that if you changed the Ignition config in the mean time, old files not known to the new Ignition config will be kept, and any other runtime data, too.
+Systemd service presets are also not reevaluated automatically. This means that newly declared service units won't be enabled unless you also create the symlinks for their targets.
+
+Here is an example config with an additional `link` entry that ensures that the new service unit is enabled if this config is used for reprovisioning:
+
+```
+{
+  "ignition": {
+    "version": "2.2.0"
+  },
+  "systemd": {
+     "units": [
+       {
+         "name": "my.service",
+         "enabled": true,
+         "contents": "[Service]\nType=oneshot\nExecStart=/usr/bin/echo Hello World\n\n[Install]\nWantedBy=multi-user.target"
+       }
+     ]
+   },
+   "storage": {
+     "links": [
+       {
+         "filesystem": "root",
+         "path": "/etc/systemd/system/multi-user.target.wants/my.service",
+         "target": "/etc/systemd/system/my.service"
+       }
+     ]
+   }
+}
+```
+
 [check-file]: https://github.com/flatcar-linux/scripts/blob/9e1c23f3f44d2751076e770f43f7a6db05d49652/build_library/grub.cfg#L68-L71
 [gptprio.next]: https://github.com/flatcar-linux/scripts/blob/9e1c23f3f44d2751076e770f43f7a6db05d49652/build_library/grub.cfg#L132
 [grub]: https://www.gnu.org/software/grub/
