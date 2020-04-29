@@ -6,15 +6,20 @@ Welcome to Flatcar Container Linux documentation
 ### Getting Started
 Flatcar Container Linux runs on most cloud providers, virtualization platforms and bare metal servers. Running a local VM on your laptop is a great dev environment. Following the [Quick Start guide][quick-start] is the fastest way to get set up.
 
-Provisioning                                            | Cloud Providers
---------------                                          | -------------
-[Using Container Linux Config][container-linux-config]  | [Amazon EC2][ec2]
-[Using Config Transpiler][config-transpiler]            | [DigitalOcean][digital-ocean]
-[CL Config Dynamic Data][config-dynamic-data]           | [Google Compute Engine][gce]
-[CL Config Examples][config-examples]                   | [Microsoft Azure][azure]
-[CL Config Spec][config-spec]                           | [Packet][packet]
-                                                        | [QEMU][qemu], [libVirt][libvirt], [VirtualBox][virtualbox]¹, [Vagrant][vagrant]¹
-                                                        | [VMware][vmware]
+Ignition is the recommended way to provision Flatcar Container Linux at first boot.
+Ignition uses a JSON configuration file, and it is recommended to generate it from the Container Linux Config YAML format, which has additional features.
+The Container Linux Config Transpiler converts a Container Linux Config to an Ignition config.
+
+
+Provisioning                                                                                      | Cloud Providers
+--------------                                                                                    | -------------
+[Using Ignition and Container Linux Config][container-linux-config]                               | [Amazon EC2][ec2]
+[Ignition vs coreos-cloudinit][ignition-what], [Boot Process][ignition-boot]                      | [DigitalOcean][digital-ocean]
+[Ignition Network Config][ignition-network]                                                       | [Google Compute Engine][gce]
+[Container Linux Config Transpiler][config-transpiler]                                            | [Microsoft Azure][azure]
+[CL Config Dynamic Metadata][config-dynamic-data], [Ignition Dynamic Metadata][ignition-metadata] | [Packet][packet]
+[CL ct][config-intro], [CL Config Examples][config-examples]                                      | [QEMU][qemu], [libVirt][libvirt], [VirtualBox][virtualbox]¹, [Vagrant][vagrant]¹
+[CL Config Spec][config-spec], [CL Config Notes][config-notes]                                    | [VMware][vmware]
 
 _¹ These platforms are not officially supported and releases are not tested._
 
@@ -66,12 +71,10 @@ Securing Clusters                                               | Debugging Clus
 ### Container Runtimes
 Flatcar Container Linux supports all of the popular methods for running containers, and you can choose to interact with the containers at a low-level, or use a higher level orchestration framework. Listed below are your options from the highest level abstraction down to the lowest level, the container runtime.
 
-Docker
---------------
-[Getting started with Docker][docker]
-
-[Customizing Docker][customizing-docker]
-
+Docker |
+-------------- |
+[Getting started with Docker][docker] |
+[Customizing Docker][customizing-docker] |
 
 ### Reference
 APIs and troubleshooting guides for working with Flatcar Container Linux.
@@ -83,11 +86,17 @@ APIs and troubleshooting guides for working with Flatcar Container Linux.
 [Migrating from cloud-config to Container Linux Config][migrating-from-cloud-config]
 
 [quick-start]: os/quickstart.md
+[ignition-what]: ignition/what-is-ignition.md
+[ignition-boot]: ignition/boot-process.md
+[ignition-network]: ignition/network-configuration.md
+[ignition-metadata]: ignition/metadata.md
 [container-linux-config]: os/provisioning.md
 [config-transpiler]: container-linux-config-transpiler/doc/overview.md
+[config-intro]: container-linux-config-transpiler/doc/getting-started.md
 [config-dynamic-data]: container-linux-config-transpiler/doc/dynamic-data.md
 [config-examples]: container-linux-config-transpiler/doc/examples.md
 [config-spec]: container-linux-config-transpiler/doc/configuration.md
+[config-notes]: container-linux-config-transpiler/doc/operators-notes.md
 [matchbox]: https://github.com/coreos/matchbox/blob/master/README.md
 [ipxe]: os/booting-with-ipxe.md
 [pxe]: os/booting-with-pxe.md
