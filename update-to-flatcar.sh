@@ -12,6 +12,7 @@ sudo umount /usr/share/coreos/release || true
 cp /usr/share/coreos/release /tmp/release
 sed -E -i "s/(COREOS_RELEASE_VERSION=)(.*)/\10.0.0/" /tmp/release
 sudo mount --bind /tmp/release /usr/share/coreos/release
+[ -d /var/lib/coreos-install ] && [ ! -e /var/lib/flatcar-install ] && sudo ln -sn /var/lib/coreos-install /var/lib/flatcar-install
 sudo systemctl restart update-engine
 update_engine_client -update
 echo "Done, please reboot now"

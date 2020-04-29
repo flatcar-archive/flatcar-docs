@@ -42,7 +42,11 @@ Then, you need to edit `/usr/share/coreos/release` and replace the value of `COR
 COREOS_RELEASE_VERSION=0.0.0
 ```
 
-**NOTE:** In bare metal installations, the path where `user_data` is expected changes from `/var/lib/coreos-install/user_data` to `/var/lib/flatcar-install/user_data`. Make sure you place your `user_data` in the new path.
+Migrate any cloud-config `user_data` if it exists in `/var/lib/coreos-install/user_data` (e.g., in bare metal installations):
+
+```
+$ [ -d /var/lib/coreos-install ] && sudo ln -sn /var/lib/coreos-install /var/lib/flatcar-install
+```
 
 ## Restart service and reboot
 
