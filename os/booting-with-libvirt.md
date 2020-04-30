@@ -88,9 +88,11 @@ This configuration can be done in the following steps:
 
 #### Create the Ignition config
 
-Typically you won't write Ignition files yourself, rather you will typically use a tool like the [config transpiler](https://coreos.com/os/docs/latest/overview-of-ct.html) to generate them.
+Typically you won't write Ignition files yourself, rather you will typically use a tool like the [config transpiler](/container-linux-config-transpiler/doc/overview/) to generate them.
 
 However the Ignition file is created, it should be placed in a location which qemu can access. In this example, we'll place it in `/var/lib/libvirt/flatcar-linux/flatcar-linux1/provision.ign`.
+
+Here, for example, we create an empty Ignition config that contains no further declarations besides its specification version:
 
 ```sh
 mkdir -p /var/lib/libvirt/flatcar-linux/flatcar-linux1/
@@ -104,7 +106,7 @@ semanage fcontext -a -t virt_content_t "/var/lib/libvirt/flatcar-linux/flatcar-l
 restorecon -R "/var/lib/libvirt/flatcar-linux/flatcar-linux1"
 ```
 
-A simple Flatcar Container Linux config to add your ssh keys might look like the following:
+Since the empty Ignition config is not very useful, here is an example how to write a simple Flatcar Container Linux config to add your ssh keys and write a hostname file:
 
 ```yaml
 storage:
@@ -119,6 +121,13 @@ passwd:
     - name: core
       ssh_authorized_keys:
         - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC0g+ZTxC7weoIJLUafOgrm+h..."
+```
+
+Assuming that you save this as `example.yaml` (and replace the dummy key with public key), you can convert it to an Ignition config with the [config transpiler](/container-linux-config-transpiler/doc/getting-started/).
+Here we run it from a Docker image:
+
+```sh
+$ cat example.yaml | docker run --rm -i quay.io/coreos/ct:latest-dev > /var/lib/libvirt/flatcar-linux/flatcar-linux1/provision.ign
 ```
 
 #### Creating the domain xml
