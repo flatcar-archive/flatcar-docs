@@ -59,13 +59,20 @@ For reference here are the rest of the `flatcar-install` options:
 
 ```
 -d DEVICE   Install Flatcar Container Linux to the given device.
+-s          EXPERIMENTAL: Install Flatcar Container Linux to the smallest unmounted disk found
+            (min. size 10GB). It is recommended to use it with -e or -I to filter the
+            block devices by their major numbers. E.g., -e 7 to exclude loop devices
+            or -I 8,259 for certain disk types. Read more about the numbers here:
+            https://www.kernel.org/doc/Documentation/admin-guide/devices.txt.
 -V VERSION  Version to install (e.g. current)
 -B BOARD    Flatcar Container Linux board to use
 -C CHANNEL  Release channel to use (e.g. beta)
--o OEM      OEM type to install (e.g. ami)
+-I|e <M,..> EXPERIMENTAL (used with -s): List of major device numbers to in-/exclude
+            when finding the smallest disk.
+-o OEM      OEM type to install (e.g. ami), using flatcar_production_<OEM>_image.bin.bz2
 -c CLOUD    Insert a cloud-init config to be executed on boot.
 -i IGNITION Insert an Ignition config to be executed on boot.
--b BASEURL  URL to the image mirror (overrides BOARD)
+-b BASEURL  URL to the image mirror (overrides BOARD and CHANNEL)
 -k KEYFILE  Override default GPG key for verifying image signature
 -f IMAGE    Install unverified local image file to disk instead of fetching
 -n          Copy generated network units to the root partition.
