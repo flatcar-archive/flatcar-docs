@@ -169,6 +169,35 @@ Flatcar Container Linux is designed to be updated automatically with different s
         {% endfor %}
         </tbody>
       </table>
+      <div class="channel-info">
+      <h4>AWS China AMIs maintained by <a href="https://www.giantswarm.io/" target="_blank">Giant Swarm</a></h4>
+      <p>The following AMIs are not part of the official Flatcar Container Linux release process and may lag behind (<a href="https://flatcar-prod-ami-import-cn-north-1.s3.cn-north-1.amazonaws.com.cn/version.txt" target="_blank">query version</a>).</p>
+      View as json feed: <a class="btn btn-link btn-icon-left co-p-docs-rss" href="https://flatcar-prod-ami-import-cn-north-1.s3.cn-north-1.amazonaws.com.cn/stable-amd64-usr.json"><span class="fa fa-rss"></span>amd64</a>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>EC2 Region</th>
+            <th>AMI Type</th>
+            <th>AMI ID</th>
+            <th>CloudFormation</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for region in site.data.stable-channel.china_amis %}
+        {% capture region_domain %}{% if region.name == 'us-gov-west-1' %}amazonaws-us-gov.com{% elsif region.name == 'cn-north-1' or region.name == 'cn-northwest-1' %}amazonaws.cn{% else %}aws.amazon.com{% endif %}{% endcapture %}
+        <tr>
+          <td rowspan="2">{{ region.name }}</td>
+          <td class="dashed"><a href="http://aws.amazon.com/amazon-linux-ami/instance-type-matrix/">HVM (amd64)</a></td>
+          <td class="dashed"><a href="https://console.{{ region_domain }}/ec2/home?region={{ region.name }}#launchAmi={{ region.hvm }}">{{ region.hvm }}</a></td>
+          <td class="dashed"><a href="https://console.{{ region_domain }}/cloudformation/home?region={{ region.name }}#/stacks/new?stackName=Flatcar-stable&templateURL=https://flatcar-prod-ami-import-eu-central-1.s3.amazonaws.com/dist/aws/flatcar-stable-hvm.template" target="_blank"><img src="https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png" alt="Launch Stack"/></a></td>
+        </tr>
+        <tr>
+          <!-- No stable-channel-arm.china_amis -->
+        </tr>
+        {% endfor %}
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
