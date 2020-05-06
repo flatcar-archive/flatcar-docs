@@ -44,7 +44,7 @@ $ cgpt show /dev/sda
     41943039           1          Sec GPT header
 ```
 
-Looking specifically at "USR-A" and "USR-B", we see that "USR-A" is the active USR partition (this is what's actually mounted at /usr). Its priority is higher than that of "USR-B". When the system boots, GRUB (the bootloader) looks at the priorities, tries, and successful flags to determine which partition to use.
+Looking specifically at "USR-A" and "USR-B", we see that "USR-A" is the active USR partition (this is what's actually mounted at /usr; you can verify this with `rootdev -s /usr`). Its priority is higher than that of "USR-B". When the system boots, GRUB (the bootloader) looks at the priorities, tries, and successful flags to determine which partition to use.
 
 ```
       270336     2097152       3  Label: "USR-A"
@@ -97,6 +97,7 @@ Now we see that the number of tries for "USR-B" has been decremented to zero. Th
                                   Attr: priority=2 tries=0 successful=1
 ```
 
+**Note:** You may also see `Alias for coreos-rootfs` shown for the `/usr` partition instead of the `flatcar-rootfs`. To refer to them you can use both names or the more appropriate `flatcar-usr` name which we will use from now on.
 
 ## Performing a manual rollback
 
@@ -148,6 +149,14 @@ Composing the previous two commands produces the following command to set the cu
 ```
 $ cgpt prioritize "$(cgpt find -t flatcar-usr | grep --invert-match "$(rootdev -s /usr)")"
 ```
+
+In the above scenario, _tries_ can stay 0 because the partition was marked as _successful_.
+If the partition was not successfully booted, we also need to set the available _tries_ to 1 again:
+
+```
+$ cgpt add -T 1 /dev/sda3
+```
+
 
 ## Forcing a Channel Downgrade
 

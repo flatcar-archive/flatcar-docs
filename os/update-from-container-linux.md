@@ -93,7 +93,7 @@ $ sudo cgpt prioritize "$(sudo cgpt find -t flatcar-usr | grep --invert-match "$
 Now you can reboot and you'll be back to CoreOS Container Linux.
 Remember to undo your changes in your `/etc/coreos/update.conf` after rolling back if you want to keep getting CoreOS Container Linux updates.
 
-For more information about manual rollbacks, check [Performing a manual rollback](https://coreos.com/os/docs/latest/manual-rollbacks.html#performing-a-manual-rollback).
+For more information about manual rollbacks, check [Performing a manual rollback](/os/manual-rollbacks/#performing-a-manual-rollback).
 
 ### Force an update to CoreOS Container Linux
 
