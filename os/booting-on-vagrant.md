@@ -31,19 +31,19 @@ gpg: assuming signed data in 'flatcar_production_vagrant.box'
 gpg: Signature made Thu 15 Mar 2018 10:29:23 AM CET
 gpg:                using RSA key A621F1DA96C93C639506832D603443A1D0FC498C
 gpg: Good signature from "Flatcar Buildbot (Official Builds) <buildbot@flatcar-linux.org>" [ultimate]
-$ vagrant box add flatcar flatcar_production_vagrant.box
+$ vagrant box add flatcar-alpha flatcar_production_vagrant.box
 ==> box: Box file was not detected as metadata. Adding it directly...
-==> box: Adding box 'flatcar' (v0) for provider:
+==> box: Adding box 'flatcar-alpha' (v0) for provider:
     box: Unpacking necessary files from: file:///tmp/flatcar_production_vagrant.box
-==> box: Successfully added box 'flatcar' (v0) for 'virtualbox'!
-$ vagrant init flatcar
+==> box: Successfully added box 'flatcar-alpha' (v0) for 'virtualbox'!
+$ vagrant init flatcar-alpha
 A `Vagrantfile` has been placed in this directory. You are now
 ready to `vagrant up` your first virtual environment! Please read
 the comments in the Vagrantfile as well as documentation on
 `vagrantup.com` for more information on using Vagrant.
 $ vagrant up
 Bringing machine 'default' up with 'virtualbox' provider...
-==> default: Importing base box 'flatcar'...
+==> default: Importing base box 'flatcar-alpha'...
 ==> default: Matching MAC address for NAT networking...
 ==> default: Setting the name of the VM: vagrant_default_1520510346048_14823
 ==> default: Clearing any previously set network interfaces...
@@ -77,12 +77,19 @@ Vagrant.require_version '>= 2.0.4'
 Vagrant.configure('2') do |config|
   config.ssh.username = 'core'
   config.ssh.insert_key = true
+  config.vm.box = 'flatcar-alpha'
   config.vm.synced_folder '.', '/vagrant', disabled: true
   config.vm.provider :virtualbox do |v|
     v.check_guest_additions = false
     v.functional_vboxsf = false
     v.cpus = 2
     v.memory = 2048
+  end
+  config.vm.define 'core-01' do |c|
+  end
+  config.vm.define 'core-02' do |c|
+  end
+  config.vm.define 'core-03' do |c|
   end
 end
 ```
@@ -177,7 +184,7 @@ vagrant box add flatcar-alpha <path-to-box-file>
 
 ## Using Flatcar Container Linux
 
-Now that you have a machine booted it is time to play around. Check out the [Flatcar Container Linux Quickstart](quickstart.md) guide, learn about [Flatcar Container Linux clustering with Vagrant](https://coreos.com/blog/coreos-clustering-with-vagrant/), or dig into [more specific topics](https://docs.flatcar-linux.org).
+Now that you have a machine booted it is time to play around. Check out the [Flatcar Container Linux Quickstart](quickstart.md) guide, learn about [CoreOS Container Linux clustering with Vagrant](https://coreos.com/blog/coreos-clustering-with-vagrant/), or dig into [more specific topics](https://docs.flatcar-linux.org).
 
 
 [flatcar-dev]: https://groups.google.com/forum/#!forum/flatcar-linux-dev
