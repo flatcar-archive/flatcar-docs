@@ -9,15 +9,15 @@ The script is self-contained and located [on GitHub here][flatcar-install] and c
 If you boot Flatcar Container Linux via PXE, the install script is already installed. By default the install script will attempt to install the same version and channel that was PXE-booted:
 
 ```sh
-flatcar-install -d /dev/sda -i ignition.json
+flatcar-install -d /dev/sda -i ignition.yaml
 ```
 
-`ignition.json` should include user information (especially an SSH key) generated from a [Container Linux Config][clc-section], or you will not be able to log into your Flatcar Container Linux instance.
+`ignition.yaml` should include user information (especially an SSH key) generated from a [Container Linux Config][clc-section], or you will not be able to log into your Flatcar Container Linux instance.
 
 If you are installing on VMware, pass `-o vmware_raw` to install the VMware-specific image:
 
 ```sh
-flatcar-install -d /dev/sda -i ignition.json -o vmware_raw
+flatcar-install -d /dev/sda -i ignition.yaml -o vmware_raw
 ```
 
 ## Choose a channel
@@ -76,7 +76,7 @@ For reference here are the rest of the `flatcar-install` options:
 
 By default there isn't a password or any other way to log into a fresh Flatcar Container Linux system. The easiest way to configure accounts, add systemd units, and more is via Container Linux Configs. Jump over to the [docs to learn about the supported features][cl-configs].
 
-After using the [Container Linux Config Transpiler][ct] to produce an Ignition config, the installation script will process your `ignition.json` file specified with the `-i` flag and use it when the installation is booted.
+After using the [Container Linux Config Transpiler][ct] to produce an Ignition config, the installation script will process your `ignition.yaml` file specified with the `-i` flag and use it when the installation is booted.
 
 A Container Linux Config that specifies an SSH key for the `core` user but doesn't use any other parameters looks like:
 
@@ -94,7 +94,7 @@ Note: The `{PRIVATE_IPV4}` and `{PUBLIC_IPV4}` substitution variables referenced
 To start the installation script with a reference to our Ignition config, run:
 
 ```
-flatcar-install -d /dev/sda -C stable -i ~/ignition.json
+flatcar-install -d /dev/sda -C stable -i ~/ignition.yaml
 ```
 
 ### Advanced Container Linux Config example
