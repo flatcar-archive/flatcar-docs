@@ -22,7 +22,14 @@ $ sudo mount --bind /tmp/key /usr/share/update_engine/update-payload-key.pub.pem
 
 ## Modifying the configuration files
 
-Now, you need to point update_engine to Flatcar's update server by setting the `SERVER` configuration option in `/etc/coreos/update.conf`:
+Migrate your `/etc/coreos/update.conf` settings but keep a symlink:
+
+```
+sudo mv /etc/coreos /etc/flatcar
+sudo ln -s flatcar /etc/coreos
+```
+
+Now, you need to point update_engine to Flatcar's update server by setting the `SERVER` configuration option in `/etc/flatcar/update.conf`:
 
 ```
 SERVER=https://public.update.flatcar-linux.net/v1/update/
@@ -50,12 +57,16 @@ $ [ -d /var/lib/coreos-install ] && sudo ln -sn /var/lib/coreos-install /var/lib
 
 ## Restart service and reboot
 
-After that, restart the update service so it rescans the edited configuration and initiates an update.
-The system will reboot into Flatcar Container Linux:
+After that, restart the update service so it rescans the edited configuration. Initiate an immediate update.
+This takes some time. Afterwards remove the `SERVER` parameter from the `update.conf` file because it is already
+specified in the `/usr/share/flatcar/update.conf` file on the new partititon.
+Usually 5 minutes after the update finished, the system will reboot into Flatcar Container Linux, but you can also reboot manually:
 
 ```
 $ sudo systemctl restart update-engine
 $ update_engine_client -update
+$ sudo sed -i "/SERVER=.*/d" /etc/flatcar/update.conf
+$ sudo systemctl reboot
 ```
 
 ## All steps in one script
