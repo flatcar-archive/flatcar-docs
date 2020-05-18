@@ -64,7 +64,7 @@ Usually 5 minutes after the update finished, the system will reboot into Flatcar
 
 ```
 $ sudo systemctl restart update-engine
-$ update_engine_client -update
+$ sudo update_engine_client -update
 $ sudo sed -i "/SERVER=.*/d" /etc/flatcar/update.conf
 $ sudo systemctl reboot
 ```
@@ -154,5 +154,5 @@ The system will reboot into CoreOS Container Linux:
 
 ```
 $ sudo systemctl restart update-engine
-$ update_engine_client -update
+$ sudo update_engine_client -update
 ```
