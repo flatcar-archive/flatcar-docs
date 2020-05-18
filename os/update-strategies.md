@@ -81,6 +81,22 @@ systemd:
       mask: true
 ```
 
+**Note:** If you want to manually trigger an update after having masked `update-engine`,
+you'll need to unmask the service, start `update-engine` to trigger an update, and
+**keep the service unmasked** until the next reboot is completed and `update-engine` started
+and marked the updated partition as successful.
+Otherwise, the update will be considered unsuccessful and in all following reboots GRUB will use the
+old partition again because `update-engine` never marked the new partition to be successfully booted.
+
+To check that you can stop and mask `update-engine` after the reboot, run these commands to see that
+the partition was marked as successful. This will happen after the service ran for about 1 minute:
+
+```sh
+$ sudo cgpt show "$(rootdev -s /usr)" | grep successful=1
+                                  Attr: priority=1 tries=0 successful=1
+```
+
+
 ## Updating behind a proxy
 
 Public Internet access is required to contact CoreUpdate and download new versions of Flatcar Container Linux. If direct access is not available the `update-engine` service may be configured to use a HTTP or SOCKS proxy using curl-compatible environment variables, such as `HTTPS_PROXY` or `ALL_PROXY`.
