@@ -231,6 +231,20 @@ Some packages like `coreos-modules` take a long time to build. Use
 
 to use packages from the another build store.
 
+## Allow /usr to be remounted as read-write
+
+By default, in every Flatcar image, it is not possible to remount `/usr` partition as read-write. However, sometimes it is needed to mount the partition as read-write mainly for debugging purposes. To make such a debugging image, Use
+
+```
+./build_image --noenable_rootfs_verification
+```
+
+Then it will create an image without dm-verity being enabled. So after booting with the image, you can simply run:
+
+```
+sudo mount -o remount,rw /usr
+```
+
 ## Known issues
 
 ### build\_packages fails on coreos-base
