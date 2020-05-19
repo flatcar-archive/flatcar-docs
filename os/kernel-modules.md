@@ -6,9 +6,9 @@ The kernel modules directory `/usr/lib64/modules` is read-only on Flatcar Contai
 
 ```sh
 modules=/opt/modules  # Adjust this writable storage location as needed.
-sudo mkdir -p "$modules" "$modules.wd"
+sudo mkdir -p "${modules}" "${modules}.wd"
 sudo mount \
-    -o "lowerdir=/usr/lib64/modules,upperdir=$modules,workdir=$modules.wd" \
+    -o "lowerdir=/usr/lib64/modules,upperdir=${modules},workdir=${modules}.wd" \
     -t overlay overlay /usr/lib64/modules
 ```
 
@@ -47,18 +47,18 @@ overlay /lib/modules overlay lowerdir=/lib/modules,upperdir=/opt/modules,workdir
 Read system configuration files to determine the URL of the development container that corresponds to the current Flatcar Container Linux version.
 
 ```sh
-. /usr/share/coreos/release
-. /usr/share/coreos/update.conf
-url="https://${GROUP:-stable}.release.flatcar-linux.net/$FLATCAR_RELEASE_BOARD/$FLATCAR_RELEASE_VERSION/flatcar_developer_container.bin.bz2"
+. /usr/share/flatcar/release
+. /usr/share/flatcar/update.conf
+url="https://${GROUP:-stable}.release.flatcar-linux.net/${FLATCAR_RELEASE_BOARD}/${FLATCAR_RELEASE_VERSION}/flatcar_developer_container.bin.bz2"
 ```
 
 Download, decompress, and verify the development container image.
 
 ```sh
 gpg2 --keyserver pool.sks-keyservers.net --recv-keys F88CFEDEFF29A5B4D9523864E25D9AED0593B34A  # Fetch the buildbot key if necessary.
-curl -L "$url" |
+curl -L "${url}" |
     tee >(bzip2 -d > flatcar_developer_container.bin) |
-    gpg2 --verify <(curl -Ls "$url.sig") -
+    gpg2 --verify <(curl -Ls "${url}.sig") -
 ```
 
 Start the development container with the host's writable modules directory mounted into place.
