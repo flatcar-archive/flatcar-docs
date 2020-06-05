@@ -62,6 +62,39 @@ This means two important things:
 * The container filesystem will take up space on disk (a few hundred MiB
 for the default `fedora` container)
 
+## Spawn a toolbox with tmux in the background
+
+Since `toolbox` can only be started once it is not straightforward to use `tmux`
+for long-running jobs or sharing a debugging session with someone else.
+
+To keep user processes running in the background after logging out with SSH,
+you need to start them via `systemd-run` because _process lingering_ is disabled
+by default in logind and all non-service user processes are killed on logout.
+Spawn a user service to persist the toolbox container with the `tmux` process
+even when you log out with SSH.
+The following command line will ensure `tmux`, `strace` and `pidof` are installed
+in the container, then create a new `tmux` session to which you can later attach,
+and keep the service active by waiting with `strace` until the `tmux` process exits.
+
+```sh
+systemd-run --user toolbox sh -c 'dnf install -y tmux strace procps-ng; tmux new-session -d -s sharedsession; strace -p "$(pidof tmux)"'
+```
+
+With `-d` we tell `tmux` to not allocate a TTY now (needed for `systemd-run`) but run a
+new session in the background.
+Because `tmux` forks away, we cannot use `wait` in the shell to wait for children but need
+to use `strace` to have a foreground process running that prevents `toolbox` from quitting.
+
+Once this is running you can can attach to the `tmux` session as often as you want from any SSH connection.
+
+```sh
+sudo nsenter -t "$(pidof tmux | cut -d ' ' -f 1)" -a tmux a
+```
+
+As usual with `tmux` you can attach and detach to the session as many times as you want because detaching
+still keeps `tmux` running in the background. But keep in mind that if you exit the session, the process
+started with `systemd-run` will terminate and you'll have to start the service again with `systemd-run`.
+
 ## SSH directly into a toolbox
 
 Advanced users can SSH directly into a toolbox by setting up an `/etc/passwd` entry:
