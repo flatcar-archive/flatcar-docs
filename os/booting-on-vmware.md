@@ -63,7 +63,7 @@ The last step uploads the files to the ESXi datastore and registers the new VM. 
 Use the [`ovftool`][ovftool] to deploy from the command line as follows:
 
 ```sh
-$ ovftool --name=testvm --skipManifestCheck --noSSLVerify --datastore=datastore1 --powerOn=True --net:"VM Network=VM Network" --X:waitForIp --overwrite --powerOffTarget --X:guest:coreos.config.data=$(cat ignition_config.json | base64 --wrap=0) --X:guest:coreos.config.data.encoding=base64 ./flatcar_production_vmware_ova.ova 'vi:///<YOUR_USER>:<ESXI_PASSWORD>@<ESXI_HOST_IP>'
+$ ovftool --name=testvm --skipManifestCheck --noSSLVerify --datastore=datastore1 --powerOn=True --net:"VM Network=VM Network" --X:waitForIp --overwrite --powerOffTarget --X:guest:ignition.config.data=$(cat ignition_config.json | base64 --wrap=0) --X:guest:ignition.config.data.encoding=base64 ./flatcar_production_vmware_ova.ova 'vi:///<YOUR_USER>:<ESXI_PASSWORD>@<ESXI_HOST_IP>'
 ```
 
 This assumes that you downloaded `flatcar_production_vmware_ova.ova` to your current folder, and that you want to specify an Ignition config as userdata from `ignition_config.json`.
@@ -135,8 +135,8 @@ etcd:
 
 For DHCP you don't need to specify any networkd units.
 
-After transpilation, the resulting JSON content can be used in `guestinfo.coreos.config.data` after encoding it to base64 and setting `guestinfo.coreos.config.data.encoding` to `base64`.
-If DHCP is used, the JSON file can also be uploaded to a web server and fetched by Ignition if the HTTP(s) URL is given in `guestinfo.coreos.config.url`.
+After transpilation, the resulting JSON content can be used in `guestinfo.ignition.config.data` after encoding it to base64 and setting `guestinfo.ignition.config.data.encoding` to `base64`.
+If DHCP is used, the JSON file can also be uploaded to a web server and fetched by Ignition if the HTTP(s) URL is given in `guestinfo.ignition.config.url`.
 
 With static IP addresses there is no network connectivity in the initramfs. Therefore, fetching remote resources in Ignition or with torcx is currently only supported with DHCP.
 
@@ -233,9 +233,9 @@ Guestinfo configuration set via the VMware API or with `vmtoolsd` from within th
 
 ### Defining the Ignition config or coreos-cloudinit Cloud-Config in Guestinfo
 
-If either the `guestinfo.coreos.config.data` or the `guestinfo.coreos.config.url` userdata property contains an Ignition config, Ignition will apply the referenced config on first boot during the initramfs phase. If it contains a Cloud-Config or script, Ignition will enable a service for coreos-cloudinit that will run on every boot and apply the config.
+If either the `guestinfo.ignition.config.data` or the `guestinfo.ignition.config.url` userdata property contains an Ignition config, Ignition will apply the referenced config on first boot during the initramfs phase. If it contains a Cloud-Config or script, Ignition will enable a service for coreos-cloudinit that will run on every boot and apply the config.
 
-The userdata is prepared for the guestinfo facility in one of two encoding types, specified in the `guestinfo.coreos.config.data.encoding` variable:
+The userdata is prepared for the guestinfo facility in one of two encoding types, specified in the `guestinfo.ignition.config.data.encoding` variable:
 
 |    Encoding    |                        Command                        |
 |:---------------|:------------------------------------------------------|
@@ -246,8 +246,8 @@ The userdata is prepared for the guestinfo facility in one of two encoding types
 #### Example
 
 ```
-guestinfo.coreos.config.data = "ewogICJpZ25pdGlvbiI6IHsgInZlcnNpb24iOiAiMi4wLjAiIH0KfQo="
-guestinfo.coreos.config.data.encoding = "base64"
+guestinfo.ignition.config.data = "ewogICJpZ25pdGlvbiI6IHsgInZlcnNpb24iOiAiMi4wLjAiIH0KfQo="
+guestinfo.ignition.config.data.encoding = "base64"
 ```
 
 This example will be decoded into the following Ignition config, but a Cloud-Config can be specified the same way in the variable:
@@ -258,7 +258,7 @@ This example will be decoded into the following Ignition config, but a Cloud-Con
 }
 ```
 
-Instead of providing the userdata inline, you can also specify a remote HTTP location in `guestinfo.coreos.config.url`.
+Instead of providing the userdata inline, you can also specify a remote HTTP location in `guestinfo.ignition.config.url`.
 Both Ignition and coreos-cloudinit support it but Ignition relies on DHCP in the initramfs which means that it can't fetch remote resources if you have to use static IPs.
 
 ## Logging in
