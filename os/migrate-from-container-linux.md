@@ -14,8 +14,8 @@ _Optional:_ Instead of `coreos-installer` you should use `flatcar-installer`.
 _Optional:_ Instead of providing the `coreos.first_boot=1` argument via the boot loader you should provide `flatcar.first_boot=1`.
 This forces provisioning via Ignition even if the machine (image) was booted already before.
 
-Instead of providing the `coreos.config.url=SOMEURL` argument via the boot loader you need to provide `ignition.config.url=SOMEURL`
-to tell Ignition to download the configuration (compatibility for `coreos.config.url` is planned for releases after 2020/03/16).
+_Optional:_ Instead of providing the `coreos.config.url=SOMEURL` argument via the boot loader you should to provide `ignition.config.url=SOMEURL`
+to tell Ignition to download the configuration.
 The change to a more generic name was done upstream by the Ignition project. Version 0.33 still supports both names and we
 also do this via the analogous `flatcar.config.url` option but we encourage the generic name because future versions of Ignition
 will only support `ignition.config.url`.
@@ -39,5 +39,5 @@ The value in the argument pair specifies the Ignition file to use.
 
 ## Ignition configuration with VMware
 
-_Optional (planned for releases after 2020/04/21):_ Instead of `coreos.config.data` and `coreos.config.data.encoding` for the VMware `guestinfo.VARIABLE` command line options you should use `ignition.config.data` and `ignition.config.data.encoding`.
+_Optional:_ Instead of `coreos.config.data` and `coreos.config.data.encoding` for the VMware `guestinfo.VARIABLE` command line options you should use `ignition.config.data` and `ignition.config.data.encoding`.
 Same as for the `ignition.config.url` kernel parameter this change was done upstream by the Ignition project.
