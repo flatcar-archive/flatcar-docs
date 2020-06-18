@@ -14,7 +14,7 @@ _Optional:_ Instead of `coreos-installer` you should use `flatcar-installer`.
 _Optional:_ Instead of providing the `coreos.first_boot=1` argument via the boot loader you should provide `flatcar.first_boot=1`.
 This forces provisioning via Ignition even if the machine (image) was booted already before.
 
-_Optional:_ Instead of providing the `coreos.config.url=SOMEURL` argument via the boot loader you should to provide `ignition.config.url=SOMEURL`
+_Optional:_ Instead of providing the `coreos.config.url=SOMEURL` argument via the boot loader you should provide `ignition.config.url=SOMEURL`
 to tell Ignition to download the configuration.
 The change to a more generic name was done upstream by the Ignition project. Version 0.33 still supports both names and we
 also do this via the analogous `flatcar.config.url` option but we encourage the generic name because future versions of Ignition
