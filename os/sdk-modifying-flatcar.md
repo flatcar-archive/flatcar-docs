@@ -73,6 +73,13 @@ cork create # This will request root permisions via sudo
 cork enter # This will request root permisions via sudo
 ```
 
+By default `cork create` will download the latest SDK used for the Stable release which can be changed with `--sdk-version x.y.z`.
+You can also change the SDK release later.
+
+A manifest defines which source code branches are checked out. The default manifest uses the development branches for the Stable channel.
+If you want to patch a specific release, you can pass `--manifest-branch flatcar-build-x.y.z` and if you want to work on a channel other
+than Stable you can pass `--manifest-name CHANNEL-master.xml`. You can also change the branches later with git.
+
 Verify you are in the SDK chroot:
 
 ```
@@ -87,13 +94,52 @@ To use the SDK chroot in the future, run `cork enter` from the above directory.
 
 #### Set up the chroot
 
-After entering the chroot via `cork` for the first time, you should set user `core`'s password:
+When entering the SDK you are in the `~/trunk/src/scripts` repository which can be seen as the build system.
+It is one of the three repositories that define a Flatcar build. The other two are the `~/trunk/src/third_party/portage-stable`
+and the `~/trunk/src/third_party/coreos-overlay` repository. These contain Gentoo package build files. The `portage-stable` repository
+hosts build files for upstream Gentoo packages and the `coreos-overlay` repository contains additional and patched packages.
+You have to check out the right combination of branches if you don't use the default. For example, checking out a feature branch
+based on the `flatcar-master-alpha` branch of `coreos-overlay` means that `portage-stable` and `scripts` also need to point
+to `flatcar-master-alpha` (or a feature branch based on it).
+Any other repositories under `third_party/` are managed by commit references and you should not alter them.
+
+The chroot you entered has the SDK packages installed. The actual image packages are built in a new chroot under `/build/amd64-usr/`
+or `/build/arm64-usr/`, called the _board_.
+Both chroots use Gentoo's portage to manage the packages (via `sudo emerge` for the SDK and `emerge-BOARD` for the boards).
+To reduce the build time it is important that as many binary packages as possible are downloaded from a previous SDK release,
+Flatcar release, or nightly build.
+
+To reference the latest nightly builds as source for board packages, use the following command. It has to be rerun if you later want
+to switch to a recent nightly version because it only dereferences the nightly of the day when you ran this command, to keep your
+build environment reproducible.
+
+```
+./set_version --dev-board --board-version amd64-usr/CHANNEL-nightly
+```
+
+To switch to a Flatcar release use the following:
+
+```
+./set_version --no-dev-board --board-version x.y.z  # --no-dev-board disables any previous --dev-board setting
+```
+
+You should also use this command to switch to a newer SDK release if available.
+
+```
+./set_version --sdk-version x.y.z
+```
+
+#### Optional: Set a password for console login
+
+After entering the chroot via `cork` for the first time, you can set user `core`'s password:
 
 ```sh
 ./set_shared_user_password.sh
 ```
 
 This is the password you will use to log into the console of images built and launched with the SDK.
+
+You can also rely on SSH key detection which normally works well when booting the QEMU images.
 
 #### Selecting the architecture to build
 
@@ -116,6 +162,10 @@ Build all of the target binary packages:
 ```sh
 ./build_packages
 ```
+
+You can make sure that a package is rebuilt with your changes by running emerge manually.
+For board packages run `emerge-amd64-usr PACKAGE` and for SDK packages run `sudo emerge PACKAGE`
+with `PACKAGE` being either `CATEGORY/PACKAGEFOLDER` or just `PACKAGEFOLDER`.
 
 #### Render the Flatcar Container Linux image
 
