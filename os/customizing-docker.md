@@ -69,7 +69,7 @@ Docker TLS configuration consists of three parts: keys creation, configuring new
 
 ### TLS keys creation
 
-Please follow the [instruction][self-signed-certs] to know how to create self-signed certificates and private keys. Then copy with following files into `/etc/docker` Flatcar Container Linux's directory and fix their permissions:
+Please follow the [instruction][self-signed-certs] to know how to create self-signed certificates and private keys. Then copy the following files into `/etc/docker` Flatcar Container Linux's directory and fix their permissions:
 
 ```sh
 scp ~/cfssl/{server.pem,server-key.pem,ca.pem} coreos.example.com:
