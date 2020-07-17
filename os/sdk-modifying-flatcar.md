@@ -114,19 +114,22 @@ to switch to a recent nightly version because it only dereferences the nightly o
 build environment reproducible.
 
 ```
-./set_version --dev-board --board-version amd64-usr/CHANNEL-nightly
+./set_version --dev-board --board-version amd64-usr/CHANNEL-nightly --no-dev-sdk
+# --no-dev-sdk needed because --dev-board implies --dev-sdk
 ```
 
-To switch to a Flatcar release use the following:
+To switch to a Flatcar release when you checked out release branches use the following:
 
 ```
-./set_version --no-dev-board --board-version x.y.z  # --no-dev-board disables any previous --dev-board setting
+./set_version --no-dev-board --board-version x.y.z
+# --no-dev-board disables any previous --dev-board setting
 ```
 
-You should also use this command to switch to a newer SDK release if available.
+You can also use this command to switch to a newer SDK release if available so that you don't have to rebuild SDK packages when
+you checked out more recent branches.
 
 ```
-./set_version --sdk-version x.y.z
+./set_version --no-dev-sdk --sdk-version x.y.z
 ```
 
 #### Optional: Set a password for console login
