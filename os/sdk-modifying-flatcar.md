@@ -73,12 +73,15 @@ cork create # This will request root permisions via sudo
 cork enter # This will request root permisions via sudo
 ```
 
-By default `cork create` will download the latest SDK used for the Stable release which can be changed with `--sdk-version x.y.z`.
+By default `cork create` will download the latest SDK used for the Alpha release which can be changed with `--sdk-version x.y.z`.
 You can also change the SDK release later.
 
-A manifest defines which source code branches are checked out. The default manifest uses the development branches for the Stable channel.
-If you want to patch a specific release, you can pass `--manifest-branch flatcar-build-x.y.z` and if you want to work on a channel other
-than Stable you can pass `--manifest-name CHANNEL-master.xml`. You can also change the branches later with git.
+A manifest defines which source code branches are checked out. The default manifest uses the development branches for the next Alpha major version.
+If you want to check out a specific release, you can pass `--manifest-branch flatcar-CHANNEL-x.y.z`.
+If you want to add changes to a major version that is propagated through the channels and gets maintenance releases increasing the minor version,
+you need to use the maintenance branch `flatcar-MAJORVERSION` (the major version is the _x_ in _x.y.z_) which you can check out by passing
+`--manifest-branch flatcar-CHANNEL-x.y.z --manifest-name maintenance.xml` for any release of that major version family (not for releases <= 2513.2.0).
+You can also change the branches later with git.
 
 Verify you are in the SDK chroot:
 
