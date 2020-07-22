@@ -1,4 +1,4 @@
-# Kinvolk Flatcar Container Linux Documentation
+# Flatcar Container Linux Documentation
 
 This repository contains the Markdown source of the [Flatcar Container Linux documentation][flatcar-docs].
 
