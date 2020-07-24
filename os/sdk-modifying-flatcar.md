@@ -114,10 +114,11 @@ Flatcar release, or nightly build.
 
 To reference the latest nightly builds as source for board packages, use the following command. It has to be rerun if you later want
 to switch to a recent nightly version because it only dereferences the nightly of the day when you ran this command, to keep your
-build environment reproducible.
+build environment reproducible. For `BRANCH` use the branch you checked out or want to base your work on, e.g., the Alpha/Edge
+development branches or the `flatcar-MAJORVERSION` maintenance branches.
 
 ```
-./set_version --dev-board --board-version amd64-usr/CHANNEL-nightly --no-dev-sdk
+./set_version --dev-board --board-version amd64-usr/BRANCH-nightly --no-dev-sdk
 # --no-dev-sdk needed because --dev-board implies --dev-sdk
 ```
 
