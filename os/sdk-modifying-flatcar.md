@@ -36,9 +36,12 @@ The `cork` utility, included in the Flatcar Container Linux [mantle](https://git
 First, download the cork utility and verify it with the signature:
 
 ```sh
-curl -L -o cork https://github.com/flatcar-linux/mantle/releases/download/v0.14.0/cork-0.14.0-amd64
-curl -L -o cork.sig https://github.com/flatcar-linux/mantle/releases/download/v0.14.0/cork-0.14.0-amd64.sig
+curl -L -o cork https://github.com/flatcar-linux/mantle/releases/download/v0.15.0/cork-0.15.0-amd64
+curl -L -o cork.sig https://github.com/flatcar-linux/mantle/releases/download/v0.15.0/cork-0.15.0-amd64.sig
 gpg --receive-keys 84C8E771C0DF83DFBFCAAAF03ADA89DEC2507883
+curl -LO https://www.flatcar-linux.org/security/image-signing-key/Flatcar_Image_Signing_Key.asc
+gpg --import Flatcar_Image_Signing_Key.asc
+rm Flatcar_Image_Signing_Key.asc
 gpg --verify cork.sig cork
 ```
 
