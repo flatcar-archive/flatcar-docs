@@ -121,23 +121,18 @@ build environment reproducible. For `BRANCH` use the branch you checked out or w
 development branches or the `flatcar-MAJORVERSION` maintenance branches.
 
 ```
-./set_version --dev-board --board-version amd64-usr/BRANCH-nightly --no-dev-sdk
-# --no-dev-sdk needed because --dev-board implies --dev-sdk
+./set_version --dev-board --board-version amd64-usr/BRANCH-nightly --dev-sdk --sdk-version sdk-main-nightly
 ```
 
 To switch to a Flatcar release when you checked out release branches use the following:
 
 ```
-./set_version --no-dev-board --board-version x.y.z
-# --no-dev-board disables any previous --dev-board setting
+./set_version --no-dev-board --board-version x.y.z --no-dev-sdk --sdk-version x.0.0
+# --no-dev-board disables any previous --dev-board setting, same for --no-dev-sdk
 ```
 
-You can also use this command to switch to a newer SDK release if available so that you don't have to rebuild SDK packages when
-you checked out more recent branches.
-
-```
-./set_version --no-dev-sdk --sdk-version x.y.z
-```
+Normally it is enough to switch to the first SDK release of a major version (as above)
+to ensure that you don't have to rebuild many SDK packages. If you notice that no binary packages are used, try a later minor release.
 
 #### Optional: Set a password for console login
 
