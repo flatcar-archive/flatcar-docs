@@ -13,9 +13,9 @@ Each directory has a `version.txt` file containing version information for the f
 It is recommended that you also verify files using the [Flatcar Container Linux Image Signing Key][signing-key]. The GPG signature for each image is a detached `.sig` file that must be passed to `gpg --verify`. For example:
 
 ```sh
-wget https://alpha.release.flatcar-linux.net/amd64-usr/current/flatcar_production_openstack_image.img.bz2
-wget https://alpha.release.flatcar-linux.net/amd64-usr/current/flatcar_production_openstack_image.img.bz2.sig
-gpg --verify flatcar_production_openstack_image.img.bz2.sig
+wget https://alpha.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu_image.img.bz2
+wget https://alpha.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu_image.img.bz2.sig
+gpg --verify flatcar_production_qemu_image.img.bz2.sig
 ```
 
 The signing key is rotated annually. We will announce upcoming rotations of the signing key on the [user mailing list][flatcar-user].
@@ -24,7 +24,7 @@ The signing key is rotated annually. We will announce upcoming rotations of the 
 [beta-bucket]: https://beta.release.flatcar-linux.net/amd64-usr/
 [edge-bucket]: https://edge.release.flatcar-linux.net/amd64-usr/
 [stable-bucket]: https://stable.release.flatcar-linux.net/amd64-usr/
-[signing-key]: https://coreos.com/security/image-signing-key
+[signing-key]: https://www.flatcar-linux.org/security/image-signing-key/
 [flatcar-user]: https://groups.google.com/forum/#!forum/flatcar-linux-user
 
 ## Image customization

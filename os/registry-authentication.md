@@ -231,6 +231,6 @@ For details, check out the [Container Linux Config examples][ct-examples].
 [quay-robot]: https://docs.quay.io/glossary/robot-accounts.html
 [quay-site]: https://quay.io/
 [rfc-2397]: https://tools.ietf.org/html/rfc2397
-[rkt-config]: https://coreos.com/rkt/docs/latest/configuration.html#configuration-kinds
+[rkt-config]: https://docs.flatcar-linux.org/os/registry-authentication/#rkt
 [cl-configs]: provisioning.md
-[ct-examples]: https://github.com/coreos/container-linux-config-transpiler/blob/master/doc/examples.md
+[ct-examples]: https://github.com/flatcar-linux/container-linux-config-transpiler/blob/flatcar-master/doc/examples.md

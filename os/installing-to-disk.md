@@ -4,7 +4,7 @@
 
 There is a simple installer that will destroy everything on the given target disk and install Flatcar Container Linux. Essentially it downloads an image, verifies it with gpg, and then copies it bit for bit to disk. An installation requires at least 8 GB of usable space on the device.
 
-The script is self-contained and located [on GitHub here][flatcar-install] and can be run from any Linux distribution. You cannot normally install Flatcar Container Linux to the same device that is currently booted. However, the [Flatcar Container Linux ISO][coreos-iso] or any Linux liveCD will allow Flatcar Container Linux to install to a non-active device.
+The script is self-contained and located [on GitHub here][flatcar-install] and can be run from any Linux distribution. You cannot normally install Flatcar Container Linux to the same device that is currently booted. However, the [Flatcar Container Linux ISO][flatcar-iso] or any Linux liveCD will allow Flatcar Container Linux to install to a non-active device.
 
 If you boot Flatcar Container Linux via PXE, the install script is already installed. By default the install script will attempt to install the same version and channel that was PXE-booted:
 
@@ -22,7 +22,7 @@ flatcar-install -d /dev/sda -i ignition.json -o vmware_raw
 
 ## Choose a channel
 
-Flatcar Container Linux is designed to be [updated automatically](https://coreos.com/why/#updates) with different schedules per channel. You can [disable this feature](update-strategies.md), although we don't recommend it. Read the [release notes](https://flatcar-linux.org/releases) for specific features and bug fixes.
+Flatcar Container Linux is designed to be [updated automatically][update-strategies] with different schedules per channel. You can [disable this feature](update-strategies.md), although we don't recommend it. Read the [release notes](https://flatcar-linux.org/releases) for specific features and bug fixes.
 
 <div id="install">
   <ul class="nav nav-tabs">
@@ -132,7 +132,7 @@ systemd:
       - name: 50-network-config.conf
         contents: |
           [Service]
-          ExecStartPre=/usr/bin/etcdctl set /coreos.com/network/config '{"Network":"10.1.0.0/16", "Backend": {"Type": "vxlan"}}'
+          ExecStartPre=/usr/bin/etcdctl set /kinvolk.io/network/config '{"Network":"10.1.0.0/16", "Backend": {"Type": "vxlan"}}'
 ```
 
 ## Using Flatcar Container Linux
@@ -141,7 +141,8 @@ Now that you have a machine booted it is time to play around. Check out the [Fla
 
 [quickstart]: quickstart.md
 [docs-root]: https://docs.flatcar-linux.org
-[coreos-iso]: booting-with-iso.md
+[update-strategies]: https://docs.flatcar-linux.org/os/update-strategies/
+[flatcar-iso]: booting-with-iso.md
 [clc-section]: #container-linux-configs
 [flatcar-install]: https://raw.githubusercontent.com/flatcar-linux/init/flatcar-master/bin/flatcar-install
 [cl-configs]: provisioning.md

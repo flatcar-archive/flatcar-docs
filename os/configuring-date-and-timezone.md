@@ -198,7 +198,7 @@ storage:
 ```
 
 [timedatectl]: http://www.freedesktop.org/software/systemd/man/timedatectl.html
-[681.0.0]: https://coreos.com/releases/#681.0.0
+[681.0.0]: https://github.com/flatcar-linux/manifest/tree/build-681
 [ntp.org]: http://ntp.org/
 [systemd-timesyncd]: http://www.freedesktop.org/software/systemd/man/systemd-timesyncd.service.html
 [systemd.network]: http://www.freedesktop.org/software/systemd/man/systemd.network.html
