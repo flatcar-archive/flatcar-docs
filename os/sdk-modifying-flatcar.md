@@ -79,7 +79,7 @@ cork enter # This will request root permisions via sudo
 By default `cork create` will download the latest SDK used for the Alpha release which can be changed with `--sdk-version x.y.z`.
 You can also change the SDK release later.
 
-A manifest defines which source code branches are checked out. The default manifest uses the development branches for the next Alpha major version.
+A manifest defines which source code branches are checked out. The default manifest uses the `main` development branches for the next Alpha major version.
 If you want to check out a specific release, you can pass `--manifest-branch flatcar-CHANNEL-x.y.z`.
 If you want to add changes to a major version that is propagated through the channels and gets maintenance releases increasing the minor version,
 you need to use the maintenance branch `flatcar-MAJORVERSION` (the major version is the _x_ in _x.y.z_) which you can check out by passing
@@ -117,8 +117,8 @@ Flatcar release, or nightly build.
 
 To reference the latest nightly builds as source for board packages, use the following command. It has to be rerun if you later want
 to switch to a recent nightly version because it only dereferences the nightly of the day when you ran this command, to keep your
-build environment reproducible. For `BRANCH` use the branch you checked out or want to base your work on, e.g., the Alpha/Edge
-development branches or the `flatcar-MAJORVERSION` maintenance branches.
+build environment reproducible. For `BRANCH` use the branch you checked out or want to base your work on, e.g.,
+the Alpha development branch `main` or the `flatcar-MAJORVERSION` maintenance branches.
 
 ```
 ./set_version --dev-board --board-version amd64-usr/BRANCH-nightly --dev-sdk --sdk-version sdk-main-nightly
