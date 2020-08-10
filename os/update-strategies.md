@@ -143,4 +143,4 @@ For more information about the supported syntax, refer to the [Locksmith documen
 
 [rollback]: manual-rollbacks.md
 [reboot-windows]: https://github.com/flatcar-linux/locksmith#reboot-windows
-[systemd-env-vars]: https://coreos.com/os/docs/latest/using-environment-variables-in-systemd-units.html#system-wide-environment-variables
+[systemd-env-vars]: https://docs.flatcar-linux.org/os/using-environment-variables-in-systemd-units/#system-wide-environment-variables

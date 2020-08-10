@@ -38,7 +38,7 @@ Flatcar Container Linux (beta)
 
 The first building block of Flatcar Container Linux is service discovery with **etcd** ([docs][etcd-docs]). Data stored in etcd is distributed across all of your machines running Flatcar Container Linux. For example, each of your app containers can announce itself to a proxy container, which would automatically know which machines should receive traffic. Building service discovery into your application allows you to add more machines and scale your services seamlessly.
 
-If you used an example [Container Linux Config][cl-configs] or [cloud-config](https://coreos.com/os/docs/latest/cloud-config.html) from a guide linked in the first paragraph, etcd is automatically started on boot.
+If you used an example [Container Linux Config][cl-configs] or [cloud-config](https://github.com/flatcar-linux/coreos-cloudinit/blob/master/Documentation/cloud-config.md) from a guide linked in the first paragraph, etcd is automatically started on boot.
 
 A good starting point for a Container Linux Config would be something like:
 
@@ -87,7 +87,7 @@ If you followed a guide to set up more than one Flatcar Container Linux machine,
 ### More detailed information
 
 <a class="btn btn-primary" href="https://coreos.com/etcd/docs/latest/getting-started-with-etcd.html" data-category="More Information" data-event="Docs: Getting Started etcd">View Complete Guide</a>
-<a class="btn btn-default" href="https://coreos.com/etcd/docs/latest/api.html">Read etcd API Docs</a>
+<a class="btn btn-default" href="https://etcd.io/docs/">Read etcd API Docs</a>
 
 ## Container management with Docker
 
@@ -107,11 +107,10 @@ docker run -i -t busybox /bin/sh
 
 ### More detailed information
 
-<a class="btn btn-primary" href="https://coreos.com/os/docs/latest/getting-started-with-docker.html" data-category="More Information" data-event="Docs: Getting Started docker">View Complete Guide</a>
 <a class="btn btn-default" href="http://docs.docker.io/">Read Docker Docs</a>
 
 [docker-docs]: https://docs.docker.com/
-[etcd-docs]: https://coreos.com/etcd/docs/latest/
+[etcd-docs]: https://etcd.io/
 [running-container-linux]: https://docs.flatcar-linux.org/#getting-started
 [ec2-docs]: booting-on-ec2.md
 [azure-docs]: booting-on-azure.md

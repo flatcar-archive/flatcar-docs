@@ -86,7 +86,7 @@ Once you have a small cluster up and running, you can install a Kubernetes on th
 
 ### Configuring the machines
 
-For more information on getting started with this architecture, see the Flatcar Container Linux documentation on [supported platforms][flatcar-supported]. These include [Amazon EC2][flatcar-ec2], [Openstack][flatcar-openstack], [Azure][flatcar-azure], [Google Compute Platform][flatcar-gce], [bare metal iPXE][flatcar-bm], [Digital Ocean][flatcar-do], and many more community supported platforms.
+For more information on getting started with this architecture, see the Flatcar Container Linux documentation on [supported platforms][flatcar-supported]. These include [Amazon EC2][flatcar-ec2], [Packet][flatcar-packet], [Azure][flatcar-azure], [Google Compute Platform][flatcar-gce], [bare metal iPXE][flatcar-bm], [Digital Ocean][flatcar-do], and many more community supported platforms.
 
 Boot the desired number of machines with the same CL Config and discovery token. The CL Config specifies which services will be started on each machine.
 
@@ -165,7 +165,7 @@ For large clusters, it's recommended to set aside 3-5 machines to run central se
 
 Our central services machines will run services like etcd and Kubernetes controllers that support the rest of the cluster. etcd is configured with static networking and a peers list.
 
-[Flatcar Container Linux Support][flatcar-managed] customers can also specify a [CoreUpdate][core-update] group ID which allows you to subscribe these machines to a different update channel, controlling updates separately from the worker machines.
+[Flatcar Container Linux Support][flatcar-managed] customers can also specify a [Update Service][nebraska-update] group ID which allows you to subscribe these machines to a different [update channel][flatcar-channels], controlling updates separately from the worker machines.
 
 Here's an example CL Config for one of the central service machines. Be sure to generate a new discovery token with the initial size of your cluster:
 
@@ -197,19 +197,19 @@ networkd:
         Gateway=10.0.0.1
 ```
 
-[ct-download]: https://github.com/coreos/container-linux-config-transpiler/releases
+[ct-download]: https://github.com/flatcar-linux/container-linux-config-transpiler
 [ignition-getting-started]: https://coreos.com/ignition/docs/latest/getting-started.html
 [ignition-supported]: https://coreos.com/ignition/docs/latest/supported-platforms.html
-[flatcar-qemu]: https://coreos.com/os/docs/latest/booting-with-qemu.html
+[flatcar-qemu]: https://docs.flatcar-linux.org/os/booting-with-qemu/
 [minikube]: https://github.com/kubernetes/minikube
-[managed-linux]: https://coreos.com/products/managed-linux
-[core-update]: https://coreos.com/products/coreupdate
-[flatcar-supported]: https://coreos.com/os/docs/latest#running-coreos
-[flatcar-managed]: https://coreos.com/products/managed-linux
-[flatcar-ec2]: https://coreos.com/os/docs/latest/booting-on-ec2.html
-[flatcar-openstack]: https://coreos.com/os/docs/latest/booting-on-openstack.html
-[flatcar-azure]: https://coreos.com/os/docs/latest/booting-on-azure.html
-[flatcar-gce]: https://coreos.com/os/docs/latest/booting-on-google-compute-engine.html
-[flatcar-bm]: https://coreos.com/matchbox/
-[flatcar-do]: https://coreos.com/os/docs/latest/booting-on-digitalocean.html
+[nebraska-update]: https://github.com/kinvolk/nebraska
+[flatcar-channels]: https://www.flatcar-linux.org/releases/
+[flatcar-supported]: https://docs.flatcar-linux.org/
+[flatcar-managed]: https://kinvolk.io/flatcar-container-linux/#kinvolk-update-service
+[flatcar-ec2]: https://docs.flatcar-linux.org/os/booting-on-ec2/
+[flatcar-packet]: https://docs.flatcar-linux.org/os/booting-on-packet/
+[flatcar-azure]: https://docs.flatcar-linux.org/os/booting-on-azure/
+[flatcar-gce]: https://docs.flatcar-linux.org/os/booting-on-google-compute-engine/
+[flatcar-do]: https://docs.flatcar-linux.org/os/booting-on-digitalocean/
+[flatcar-bm]: https://docs.flatcar-linux.org/os/booting-with-ipxe/
 [typhoon]: https://github.com/poseidon/typhoon

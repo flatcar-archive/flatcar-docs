@@ -72,8 +72,8 @@ Docker TLS configuration consists of three parts: keys creation, configuring new
 Please follow the [instruction][self-signed-certs] to know how to create self-signed certificates and private keys. Then copy the following files into `/etc/docker` Flatcar Container Linux's directory and fix their permissions:
 
 ```sh
-scp ~/cfssl/{server.pem,server-key.pem,ca.pem} coreos.example.com:
-ssh core@coreos.example.com
+scp ~/cfssl/{server.pem,server-key.pem,ca.pem} flatcar.example.com:
+ssh core@flatcar.example.com
 sudo mv {server.pem,server-key.pem,ca.pem} /etc/docker/
 sudo chown root:root /etc/docker/{server-key.pem,server.pem,ca.pem}
 sudo chmod 0600 /etc/docker/server-key.pem
@@ -343,5 +343,5 @@ A json file `.dockercfg` can be created in your home directory that holds authen
 [mounting-storage]: mounting-storage.md
 [self-signed-certs]: generate-self-signed-certificates.md
 [systemd-socket]: https://www.freedesktop.org/software/systemd/man/systemd.socket.html
-[systemd-env-vars]: https://coreos.com/os/docs/latest/using-environment-variables-in-systemd-units.html#system-wide-environment-variables
+[systemd-env-vars]: https://docs.flatcar-linux.org/os/using-environment-variables-in-systemd-units/#system-wide-environment-variables
 [cl-configs]: provisioning.md

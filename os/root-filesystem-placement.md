@@ -2,7 +2,7 @@
 Flatcar Container Linux supports composite disk devices such as RAID arrays. If the root filesystem is placed on a composite device, special care must be taken to ensure Flatcar Container Linux can find and mount the filesystem early in the boot process. GPT partition entries have a [partition type GUID](https://en.wikipedia.org/wiki/GUID_Partition_Table#Partition_type_GUIDs) that specifies what type of partition it is (e.g. Linux filesystem); Flatcar Container Linux uses special type GUIDs to indicate that a partition is a component of a composite device containing the root filesystem.
 
 ## Root on RAID
-RAID enables multiple disks to be combined into a single logical disk to increase reliability and performance. To create a software RAID array when provisioning a Flatcar Container Linux system, use the `storage.raid` section of a [Container Linux Config](https://coreos.com/os/docs/latest/provisioning.html). RAID components containing the root filesystem must have the type GUID `be9067b9-ea49-4f15-b4f6-f36f8c9e1818`. All other RAID arrays must not have that GUID; the Linux RAID partition GUID `a19d880f-05fc-4d3b-a006-743f0f84911e` is recommended instead. See the [Ignition documentation](https://coreos.com/ignition/docs/latest/examples.html#create-a-raid-enabled-data-volume) for more information on setting up RAID for data volumes.
+RAID enables multiple disks to be combined into a single logical disk to increase reliability and performance. To create a software RAID array when provisioning a Flatcar Container Linux system, use the `storage.raid` section of a [Container Linux Config](https://docs.flatcar-linux.org/os/root-filesystem-placement/). RAID components containing the root filesystem must have the type GUID `be9067b9-ea49-4f15-b4f6-f36f8c9e1818`. All other RAID arrays must not have that GUID; the Linux RAID partition GUID `a19d880f-05fc-4d3b-a006-743f0f84911e` is recommended instead. See the [Ignition documentation](https://coreos.com/ignition/docs/latest/examples.html#create-a-raid-enabled-data-volume) for more information on setting up RAID for data volumes.
 
 ### Overview
 To place the root filesystem on a RAID array:
@@ -13,7 +13,7 @@ To place the root filesystem on a RAID array:
  * Remove the `ROOT` label from the original root filesystem.
 
 ### Example Container Linux Config
-This Container Linux Config creates partitions on `/dev/vdb` and `/dev/vdc` that fill each disk, creates a RAID array named `root_array` from those partitions, and finally creates the root filesystem on the array. To prevent inadvertent booting from the [original root filesystem](https://coreos.com/os/docs/latest/sdk-disk-partitions.html#partition-table), `/dev/vda9` is reformatted with a blank ext4 filesystem labeled `unused`.
+This Container Linux Config creates partitions on `/dev/vdb` and `/dev/vdc` that fill each disk, creates a RAID array named `root_array` from those partitions, and finally creates the root filesystem on the array. To prevent inadvertent booting from the [original root filesystem](https://docs.flatcar-linux.org/os/sdk-disk-partitions/#partition-table), `/dev/vda9` is reformatted with a blank ext4 filesystem labeled `unused`.
 
 **Warning: This will erase both `/dev/vdb` and `/dev/vdc`.**
 ```yaml

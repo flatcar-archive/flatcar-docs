@@ -97,7 +97,7 @@ APIs and troubleshooting guides for working with Flatcar Container Linux.
 [config-examples]: container-linux-config-transpiler/doc/examples.md
 [config-spec]: container-linux-config-transpiler/doc/configuration.md
 [config-notes]: container-linux-config-transpiler/doc/operators-notes.md
-[matchbox]: https://github.com/coreos/matchbox/blob/master/README.md
+[matchbox]: https://matchbox.psdn.io/
 [ipxe]: os/booting-with-ipxe.md
 [pxe]: os/booting-with-pxe.md
 [install-to-disk]: os/installing-to-disk.md
