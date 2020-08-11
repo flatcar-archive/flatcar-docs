@@ -1,4 +1,7 @@
-# Building custom kernel modules
+---
+title: Building custom kernel modules
+weight: 10
+---
 
 ## Create a writable overlay
 

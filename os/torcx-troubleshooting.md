@@ -1,4 +1,7 @@
-# Troubleshooting Torcx
+---
+title: Troubleshooting Torcx
+weight: 10
+---
 
 Torcx generator runs early in the boot, when other system facilities are not yet set up and available for use. In case of errors, troubleshooting and debugging can be performed following the suggestions described here.
 

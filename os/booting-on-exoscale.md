@@ -1,4 +1,7 @@
-# Running Flatcar Container Linux on Exoscale
+---
+title: Running Flatcar Container Linux on Exoscale
+weight: 10
+---
 
 ## Choosing a channel
 

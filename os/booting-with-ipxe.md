@@ -1,4 +1,7 @@
-# Booting Flatcar Container Linux via iPXE
+---
+title: Booting Flatcar Container Linux via iPXE
+weight: 10
+---
 
 These instructions will walk you through booting Flatcar Container Linux via iPXE on real or virtual hardware. By default, this will run Flatcar Container Linux completely out of RAM. Flatcar Container Linux can also be [installed to disk](installing-to-disk.md).
 

@@ -1,4 +1,7 @@
-# Running Flatcar Container Linux on VMware
+---
+title: Running Flatcar Container Linux on VMware
+weight: 10
+---
 
 These instructions walk through running Flatcar Container Linux on VMware Fusion or ESXi. If you are familiar with another VMware product, you can use these instructions as a starting point.
 

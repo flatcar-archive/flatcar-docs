@@ -1,4 +1,7 @@
-# Running Flatcar Container Linux on Google Compute Engine
+---
+title: Running Flatcar Container Linux on Google Compute Engine
+weight: 10
+---
 
 Before proceeding, you will need a GCE account ([GCE free trial][free-trial]) and [install gcloud][gcloud-documentation] on your machine. In each command below, be sure to insert your project name in place of `<project-id>`.
 

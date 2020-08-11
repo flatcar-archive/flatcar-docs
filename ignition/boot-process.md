@@ -1,4 +1,7 @@
-# Flatcar Container Linux startup process
+---
+title: Flatcar Container Linux startup process
+weight: 10
+---
 
 The Flatcar Container Linux startup process is built on the standard [Linux startup process][linux-startup]. Since this process is already well documented and generally well understood, this document will focus on aspects specific to booting Flatcar Container Linux.
 

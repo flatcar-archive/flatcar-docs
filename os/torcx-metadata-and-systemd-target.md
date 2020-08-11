@@ -1,4 +1,7 @@
-# Torcx metadata and systemd target
+---
+title: Torcx metadata and systemd target
+weight: 10
+---
 
 In many cases, it is desirable to inspect the state of a system booted with Torcx and to verify the details of the configuration that has been applied.
 For this purpose, Torcx comes with additional facilities to integrate with systemd-based workflows: a custom target and a metadata file containing environment flags.

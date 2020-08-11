@@ -1,4 +1,7 @@
-# Custom certificate authorities
+---
+title: Custom certificate authorities
+weight: 10
+---
 
 Flatcar Container Linux supports custom Certificate Authorities (CAs) in addition to the default list of trusted CAs. Adding your own CA allows you to:
 

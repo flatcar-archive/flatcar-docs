@@ -1,4 +1,7 @@
-# iSCSI on Flatcar Container Linux
+---
+title: iSCSI on Flatcar Container Linux
+weight: 10
+---
 
 [iSCSI][iscsi-wiki] is a protocol which provides block-level access to storage devices over IP.
 This allows applications to treat remote storage devices as if they were local disks.

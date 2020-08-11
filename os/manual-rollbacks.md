@@ -1,4 +1,7 @@
-# Performing manual Flatcar Container Linux rollbacks
+---
+title: Performing manual Flatcar Container Linux rollbacks
+weight: 10
+---
 
 In the event of an upgrade failure, Flatcar Container Linux will automatically boot with the version on the rollback partition. Immediately after an upgrade reboot, the active version of Flatcar Container Linux can be rolled back to the version installed on the rollback partition, or downgraded to the version current on any lower release channel. There is no method to downgrade to an arbitrary version number.
 

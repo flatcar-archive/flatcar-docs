@@ -1,4 +1,7 @@
-# Constants and IDs
+---
+title: Constants and IDs
+weight: 10
+---
 
 This document contains well-known constants and IDs used by Flatcar Container Linux.
 

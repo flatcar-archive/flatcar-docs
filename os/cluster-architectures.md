@@ -1,4 +1,7 @@
-# Flatcar Container Linux cluster architectures
+---
+title: Flatcar Container Linux cluster architectures
+weight: 10
+---
 
 ## Overview
 

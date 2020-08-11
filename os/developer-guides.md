@@ -1,4 +1,7 @@
-# Developer Guides
+---
+title: Developer Guides
+weight: 10
+---
 
 Most users will never have to build Flatcar Container Linux from source or modify it in any way. If you have a need to modify Flatcar Container Linux, we provide an SDK that allows you to build your own developer images. We also provide OEM functionality for cloud providers and other companies that must customize Flatcar Container Linux to run within their environment.
 

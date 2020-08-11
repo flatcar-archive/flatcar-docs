@@ -1,4 +1,7 @@
-# Reboot strategies on updates
+---
+title: Reboot strategies on updates
+weight: 10
+---
 
 The overarching goal of Flatcar Container Linux is to secure the Internet's backend infrastructure. We believe that automatically updating the operating system is one of the best tools to achieve this goal.
 

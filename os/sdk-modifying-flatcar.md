@@ -1,4 +1,7 @@
-# Flatcar Container Linux developer SDK guide
+---
+title: Flatcar Container Linux developer SDK guide
+weight: 10
+---
 
 These are the instructions for building Flatcar Container Linux itself. By the end of the guide you will build a developer image that you can run under KVM and have tools for making changes to the code.
 
