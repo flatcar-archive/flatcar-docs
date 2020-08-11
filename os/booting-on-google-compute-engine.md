@@ -1,12 +1,15 @@
 # Running Flatcar Container Linux on Google Compute Engine
 
-Before proceeding, you will need a GCE account ([GCE free trial ][free-trial]) and [install gcloud][gcloud-documentation] on your machine. In each command below, be sure to insert your project name in place of `<project-id>`.
+Before proceeding, you will need a GCE account ([GCE free trial][free-trial]) and [install gcloud][gcloud-documentation] on your machine. In each command below, be sure to insert your project name in place of `<project-id>`.
 
 [gce-advanced-os]: http://developers.google.com/compute/docs/transition-v1#customkernelbinaries
 [gcloud-documentation]: https://cloud.google.com/sdk/
 [free-trial]: https://cloud.google.com/free-trial/?utm_source=flatcar&utm_medium=partners&utm_campaign=partner-free-trial
 
 After installation, log into your account with `gcloud auth login` and enter your project ID when prompted.
+
+<!--
+This section is commented out until images have been made public
 
 ## Choosing a channel
 
@@ -41,6 +44,8 @@ Create 3 instances from the image above using our Ignition from `example.ign`:
     </div>
   </div>
 </div>
+-->
+
 
 ## Uploading an Image
 
