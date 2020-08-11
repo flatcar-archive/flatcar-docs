@@ -1,4 +1,7 @@
-# Switching release channels
+---
+title: Switching release channels
+weight: 10
+---
 
 Flatcar Container Linux is designed to be updated automatically with different schedules per channel. You can [disable this feature](update-strategies.md), although we don't recommend it. Read the [release notes](https://flatcar-linux.org/releases) for specific features and bug fixes.
 

@@ -1,4 +1,7 @@
-# Running Flatcar Container Linux on Vagrant
+---
+title: Running Flatcar Container Linux on Vagrant
+weight: 10
+---
 
 _While we always welcome community contributions and fixes, please note that Vagrant is not an officially supported platform at this time. (See the [platform overview](/#getting-started).)_
 

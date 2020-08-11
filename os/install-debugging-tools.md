@@ -1,4 +1,7 @@
-# Install debugging tools
+---
+title: Install debugging tools
+weight: 10
+---
 
 You can use common debugging tools like tcpdump or strace with Toolbox. Using the filesystem of a specified Docker container Toolbox will launch a container with full system privileges including access to system PIDs, network interfaces and other global information. Inside of the toolbox, the machine's filesystem is mounted to `/media/root`.
 

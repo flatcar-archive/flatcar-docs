@@ -1,4 +1,7 @@
-# Adding swap in Flatcar Container Linux
+---
+title: Adding swap in Flatcar Container Linux
+weight: 10
+---
 
 Swap is the process of moving pages of memory to a designated part of the hard disk, freeing up space when needed. Swap can be used to alleviate problems with low-memory environments.
 

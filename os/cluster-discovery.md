@@ -1,4 +1,7 @@
-# Flatcar Container Linux cluster discovery
+---
+title: Flatcar Container Linux cluster discovery
+weight: 10
+---
 
 ## Overview
 

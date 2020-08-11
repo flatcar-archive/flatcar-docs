@@ -1,4 +1,7 @@
-# Running Flatcar Container Linux on Eucalyptus 3.4
+---
+title: Running Flatcar Container Linux on Eucalyptus 3.4
+weight: 10
+---
 
 These instructions will walk you through downloading Flatcar Container Linux, bundling the image, and running an instance from it.
 

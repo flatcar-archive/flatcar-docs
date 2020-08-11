@@ -1,4 +1,7 @@
-# Getting started with systemd
+---
+title: Getting started with systemd
+weight: 10
+---
 
 systemd is an init system that provides many powerful features for starting, stopping, and managing processes. Within Flatcar Container Linux, you will almost exclusively use systemd to manage the lifecycle of your Docker containers.
 

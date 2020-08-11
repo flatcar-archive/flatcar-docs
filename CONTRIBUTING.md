@@ -1,4 +1,8 @@
-# How to Contribute
+---
+title: How to Contribute
+content_type: contribute
+weight: 10
+---
 
 Flatcar documentation is released under the [Apache 2.0 License][asl], and we welcome contributions. Check out the [help-wanted tag][help-wanted] in this project's Issues list for good places to start participating.
 

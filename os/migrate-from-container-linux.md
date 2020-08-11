@@ -1,4 +1,7 @@
-# Migrating from CoreOS Container Linux
+---
+title: Migrating from CoreOS Container Linux
+weight: 10
+---
 
 While Flatcar is compatible with CoreOS Container Linux there are some naming differences you need to be aware of.
 

@@ -1,4 +1,7 @@
-# Using environment variables in systemd units
+---
+title: Using environment variables in systemd units
+weight: 10
+---
 
 ## Environment directive
 

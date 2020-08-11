@@ -1,4 +1,7 @@
-# Building production images
+---
+title: Building production images
+weight: 10
+---
 
 ## This document is not maintained
 

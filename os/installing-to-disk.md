@@ -1,4 +1,7 @@
-# Installing Flatcar Container Linux to disk
+---
+title: Installing Flatcar Container Linux to disk
+weight: 10
+---
 
 ## Install script
 

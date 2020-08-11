@@ -1,4 +1,7 @@
-# Running Flatcar Container Linux on EC2
+---
+title: Running Flatcar Container Linux on EC2
+weight: 10
+---
 
 The current AMIs for all Flatcar Container Linux channels and EC2 regions are listed below and updated frequently. Using CloudFormation is the easiest way to launch a cluster, but it is also possible to follow the manual steps at the end of the article. Questions can be directed to the Flatcar Container Linux [IRC channel][irc] or [user mailing list][flatcar-user].
 

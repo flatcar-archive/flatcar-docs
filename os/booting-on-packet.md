@@ -1,4 +1,7 @@
-# Running Flatcar Container Linux on Packet
+---
+title: Running Flatcar Container Linux on Packet
+weight: 10
+---
 
 Packet is a bare metal cloud hosting provider. Flatcar Container Linux is installable as one of the default operating system options. You can deploy Flatcar Container Linux servers via the Packet portal or API.
 

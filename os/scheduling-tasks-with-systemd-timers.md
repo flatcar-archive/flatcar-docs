@@ -1,4 +1,7 @@
-# Scheduling tasks with systemd timers
+---
+title: Scheduling tasks with systemd timers
+weight: 10
+---
 
 Flatcar Container Linux uses systemd timers (`cron` replacement) to schedule tasks. Here we will show you how you can schedule a periodic job.
 

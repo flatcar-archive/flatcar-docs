@@ -1,4 +1,7 @@
-# Community supported platforms
+---
+title: Community supported platforms
+weight: 10
+---
 
 The Flatcar Container Linux community has provided support for Flatcar Container Linux on a number of platforms beyond those [officially supported][official-support] by Kinvolk.
 

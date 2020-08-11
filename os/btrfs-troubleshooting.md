@@ -1,4 +1,7 @@
-# Working with btrfs and common troubleshooting
+---
+title: Working with btrfs and common troubleshooting
+weight: 10
+---
 
 btrfs is a copy-on-write filesystem with full support in the upstream Linux kernel and several desirable features. In the past, Flatcar Container Linux shipped with a btrfs root filesystem to support Docker filesystem requirements at the time. As of version 561.0.0, Flatcar Container Linux ships with ext4 as the default root filesystem by default while still supporting Docker. Btrfs is still supported and works with the latest Flatcar Container Linux releases and Docker, but we recommend using ext4.
 

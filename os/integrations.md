@@ -1,4 +1,7 @@
-# Integrations
+---
+title: Integrations
+weight: 10
+---
 
 This document tracks projects that integrate with Flatcar Container Linux. [Join the community](https://github.com/coreos/docs/), and help us keep the list current.
 

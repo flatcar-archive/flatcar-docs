@@ -1,4 +1,7 @@
-# Running Flatcar Container Linux on libvirt
+---
+title: Running Flatcar Container Linux on libvirt
+weight: 10
+---
 
 This guide explains how to run Flatcar Container Linux with libvirt using the QEMU driver. The libvirt configuration
 file can be used (for example) with `virsh` or `virt-manager`. The guide assumes

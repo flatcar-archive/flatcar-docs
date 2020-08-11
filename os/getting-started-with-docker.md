@@ -1,4 +1,7 @@
-# Getting started with Docker
+---
+title: Getting started with Docker
+weight: 10
+---
 
 Docker is an open-source project that makes creating and managing Linux containers really easy. Containers are like extremely lightweight VMs – they allow code to run in isolation from other containers but safely share the machine’s resources, all without the overhead of a hypervisor.
 

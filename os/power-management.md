@@ -1,4 +1,7 @@
-# Tuning Flatcar Container Linux power management
+---
+title: Tuning Flatcar Container Linux power management
+weight: 10
+---
 
 ## CPU governor
 

@@ -1,4 +1,7 @@
-# Updating from CoreOS Container Linux
+---
+title: Updating from CoreOS Container Linux
+weight: 10
+---
 
 If you already have CoreOS Container Linux clusters and can't or don't want to freshly install Flatcar Container Linux, you can update to Flatcar Container Linux directly from CoreOS Container Linux by performing the following steps.
 

@@ -1,4 +1,7 @@
-# Notes for distributors
+---
+title: Notes for distributors
+weight: 10
+---
 
 ## Importing images
 

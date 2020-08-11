@@ -1,4 +1,7 @@
-# Mounting storage
+---
+title: Mounting storage
+weight: 10
+---
 
 Container Linux Configs can be used to format and attach additional filesystems to Flatcar Container Linux nodes, whether such storage is provided by an underlying cloud platform, physical disk, SAN, or NAS system. This is done by specifying how partitions should be mounted in the config, and then using a _systemd mount unit_ to mount the partition. By [systemd convention](http://www.freedesktop.org/software/systemd/man/systemd.mount.html), mount unit names derive from the target mount point, with interior slashes replaced by dashes, and the `.mount` extension appended. A unit mounting onto `/var/www` is thus named `var-www.mount`.
 

@@ -1,4 +1,7 @@
-# Running Flatcar Container Linux on OpenStack
+---
+title: Running Flatcar Container Linux on OpenStack
+weight: 10
+---
 
 These instructions will walk you through downloading Flatcar Container Linux for OpenStack, importing it with the `glance` tool, and running your first cluster with the `nova` tool.
 

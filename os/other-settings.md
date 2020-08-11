@@ -1,4 +1,7 @@
-# Tips and other settings
+---
+title: Tips and other settings
+weight: 10
+---
 
 ## Loading kernel modules
 

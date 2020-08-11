@@ -1,4 +1,7 @@
-# Tips and tricks
+---
+title: Tips and tricks
+weight: 10
+---
 
 ## Finding all open pull requests and issues
 

@@ -1,4 +1,7 @@
-# Disabling SMT on Flatcar Container Linux
+---
+title: Disabling SMT on Flatcar Container Linux
+weight: 10
+---
 
 Recent Intel CPU vulnerabilities ([L1TF] and [MDS]) cannot be fully mitigated in software without disabling Simultaneous Multi-Threading. This can have a substantial performance impact and is only necessary for certain workloads, so for compatibility reasons, SMT is enabled by default.
 
