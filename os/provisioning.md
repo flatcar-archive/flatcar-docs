@@ -92,7 +92,7 @@ This time, `ct` successfully runs and produces the following Ignition Config:
       "enable": true,
       "dropins": [{
         "name": "20-clct-etcd-member.conf",
-        "contents": "[Unit]\nRequires=coreos-metadata.service\nAfter=coreos-metadata.service\n\n[Service]\nEnvironmentFile=/run/metadata/coreos\nExecStart=\nExecStart=/usr/lib/coreos/etcd-wrapper $ETCD_OPTS \\\n  --listen-peer-urls=\"http://${COREOS_EC2_IPV4_LOCAL}:2380\" \\\n  --listen-client-urls=\"http://0.0.0.0:2379\" \\\n  --initial-advertise-peer-urls=\"http://${COREOS_EC2_IPV4_LOCAL}:2380\" \\\n  --advertise-client-urls=\"http://${COREOS_EC2_IPV4_PUBLIC}:2379\" \\\n  --discovery=\"https://discovery.etcd.io/\u003ctoken\u003e\""
+        "contents": "[Unit]\nRequires=coreos-metadata.service\nAfter=coreos-metadata.service\n\n[Service]\nEnvironmentFile=/run/metadata/coreos\nExecStart=\nExecStart=/usr/lib/flatcar/etcd-wrapper $ETCD_OPTS \\\n  --listen-peer-urls=\"http://${COREOS_EC2_IPV4_LOCAL}:2380\" \\\n  --listen-client-urls=\"http://0.0.0.0:2379\" \\\n  --initial-advertise-peer-urls=\"http://${COREOS_EC2_IPV4_LOCAL}:2380\" \\\n  --advertise-client-urls=\"http://${COREOS_EC2_IPV4_PUBLIC}:2379\" \\\n  --discovery=\"https://discovery.etcd.io/\u003ctoken\u003e\""
       }]
     }]
   }
@@ -109,7 +109,7 @@ After=coreos-metadata.service
 [Service]
 EnvironmentFile=/run/metadata/coreos
 ExecStart=
-ExecStart=/usr/lib/coreos/etcd-wrapper $ETCD_OPTS \
+ExecStart=/usr/lib/flatcar/etcd-wrapper $ETCD_OPTS \
   --listen-peer-urls="http://${COREOS_EC2_IPV4_LOCAL}:2380" \
   --listen-client-urls="http://0.0.0.0:2379" \
   --initial-advertise-peer-urls="http://${COREOS_EC2_IPV4_LOCAL}:2380" \
