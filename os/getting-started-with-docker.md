@@ -88,6 +88,21 @@ While the sections above explained how to run a container when configuring it, f
 
 Instead, create a systemd unit file to make systemd keep that container running. See the [Getting Started with systemd](getting-started-with-systemd.md) for details.
 
+Alternatively, Docker also has a feature to start existing containers on boot, when the container has the `restart` attribute set to `always`.
+This requires the Docker service to get started on boot instead of using the default socket activation that starts on-demand.
+
+Here is a Container Linux Config to enable the Docker service while disabling socket activation:
+
+```yaml
+systemd:
+  units:
+    # Ensure docker starts automatically instead of being socket-activated
+    - name: docker.socket
+      enabled: false
+    - name: docker.service
+      enabled: true
+```
+
 ### Network access to 80
 
 The default apache install will be running on port 80. To give our container access to traffic over port 80, we use the `-p` flag and specify the port on the host that maps to the port inside the container. In our case we want 80 for each, so we include `-p 80:80` in our command:
