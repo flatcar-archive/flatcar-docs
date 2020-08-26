@@ -77,7 +77,7 @@ data:
   .dockercfg: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx==
 kind: Secret
 metadata:
-  creationTimestamp: null 
+  creationTimestamp: null
   name: my-favorite-registry-secret
 type: kubernetes.io/dockercfg
 ```
@@ -107,7 +107,7 @@ spec:
   containers:
     - name: web
       image: registry.example.io/v0/giffee_lover_93/somerepo
-  
+
   imagePullSecrets:
     - name: my-favorite-registry-secret
 ```
@@ -116,7 +116,7 @@ For more information, check the [docker-registry Kubernetes secret][k8s-docker-r
 
 ### rkt
 
-rkt stores registry-authentication in a JSON file stored in the directory `/etc/rkt/auth.d/`. 
+rkt stores registry-authentication in a JSON file stored in the directory `/etc/rkt/auth.d/`.
 
 `/etc/rkt/auth.d/registry.example.io.json`:
 
@@ -168,7 +168,7 @@ The archive secret is referenced via the `uris` field in a container specificati
       "network": "HOST"
     }
   },
-  
+
   "uris":  [
       "file:///path/to/registry.example.io.tar.gz"
   ]

@@ -338,7 +338,7 @@ storage:
           127.0.0.1 example.com
 ```
 
-[provisioning]: provisioning.md
+[provisioning]: provisioning
 [dynamic-data]: https://github.com/coreos/container-linux-config-transpiler/blob/master/doc/dynamic-data.md
 [ct-config]: https://github.com/coreos/container-linux-config-transpiler/blob/master/doc/configuration.md
 [ignition]: https://coreos.com/ignition

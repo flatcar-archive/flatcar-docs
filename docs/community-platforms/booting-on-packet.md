@@ -1,5 +1,6 @@
 ---
 title: Running Flatcar Container Linux on Packet
+linktitle: Running on Packet
 weight: 10
 ---
 

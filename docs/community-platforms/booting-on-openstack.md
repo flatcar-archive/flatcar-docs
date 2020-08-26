@@ -1,5 +1,6 @@
 ---
 title: Running Flatcar Container Linux on OpenStack
+linktitle: Running on OpenStack
 weight: 10
 ---
 

@@ -1,5 +1,5 @@
 ---
-title: Flatcar Container Linux cluster architectures
+title: Architectures
 weight: 10
 ---
 
@@ -11,7 +11,7 @@ Most of these scenarios dedicate a few machines, bare metal or virtual, to runni
 
 ## Docker dev environment on laptop
 
-<img class="img-center" src="../img/laptop.jpg" alt="Laptop Environment Diagram"/>
+<img class="img-center" src="../../img/laptop.jpg" alt="Laptop Environment Diagram"/>
 <div class="caption">Laptop development environment with Flatcar Container Linux VM</div>
 
 | Cost | Great For          | Set Up Time | Production |
@@ -74,7 +74,7 @@ There are several different options for testing Flatcar Container Linux locally:
 
 ## Small cluster
 
-<img class="img-center" src="../img/small.jpg" alt="Small Flatcar Container Linux Cluster Diagram"/>
+<img class="img-center" src="../../img/small.jpg" alt="Small Flatcar Container Linux Cluster Diagram"/>
 <div class="caption">Small Flatcar Container Linux cluster running etcd on all machines</div>
 
 | Cost | Great For                                  | Set Up Time | Production |
@@ -95,7 +95,7 @@ Boot the desired number of machines with the same CL Config and discovery token.
 
 ## Easy development/testing cluster
 
-<img class="img-center" src="../img/dev.jpg" alt="Flatcar Container Linux cluster optimized for development and testing"/>
+<img class="img-center" src="../../img/dev.jpg" alt="Flatcar Container Linux cluster optimized for development and testing"/>
 <div class="caption">Flatcar Container Linux cluster optimized for development and testing</div>
 
 | Cost | Great For | Set Up Time | Production |
@@ -155,7 +155,7 @@ This architecture allows you to boot any number of workers, from a single unit t
 
 ## Production cluster with central services
 
-<img class="img-center" src="../img/prod.jpg" alt="Flatcar Container Linux cluster optimized for production environments"/>
+<img class="img-center" src="../../img/prod.jpg" alt="Flatcar Container Linux cluster optimized for production environments"/>
 <div class="caption">Flatcar Container Linux cluster separated into central services and workers.</div>
 
 | Cost | Great For | Set Up Time | Production |

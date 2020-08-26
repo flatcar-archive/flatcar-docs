@@ -1,5 +1,6 @@
 ---
 title: Running Flatcar Container Linux on Exoscale
+linktitle: Running on Exoscale
 weight: 10
 ---
 

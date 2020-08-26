@@ -12,9 +12,9 @@ Most users will never have to build Flatcar Container Linux from source or modif
 * [Disk layout][disk-layout]
 * [Kola integration testing framework][mantle-utils]
 
-[sdk-tips]: sdk-tips-and-tricks.md
-[disk-layout]: sdk-disk-partitions.md
-[production-images]: sdk-building-production-images.md
-[mod-cl]: sdk-modifying-flatcar.md
-[kernel-modules]: kernel-modules.md
+[sdk-tips]: sdk-tips-and-tricks
+[disk-layout]: sdk-disk-partitions
+[production-images]: sdk-building-production-images
+[mod-cl]: sdk-modifying-flatcar
+[kernel-modules]: kernel-modules
 [mantle-utils]: https://github.com/flatcar-linux/mantle/blob/master/README.md#kola

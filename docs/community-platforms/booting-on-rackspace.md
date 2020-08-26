@@ -1,5 +1,6 @@
 ---
 title: Running Flatcar Container Linux on Rackspace
+linktitle: Running on Rackspace
 weight: 10
 ---
 

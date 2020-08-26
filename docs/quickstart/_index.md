@@ -1,6 +1,7 @@
 ---
 title: Flatcar Container Linux quick start
-weight: 10
+linktitle: Quick start
+weight: 2
 ---
 
 If you don't have a Flatcar Container Linux machine running, check out the guides on [running Flatcar Container Linux][running-container-linux] on most cloud providers ([EC2][ec2-docs], [Azure][azure-docs], [GCE][gce-docs], [Packet][packet-docs]), virtualization platforms ([Vagrant][vagrant-docs], [VMware][vmware-docs], [VirtualBox][virtualbox-docs] [QEMU/KVM][qemu-docs]/[libVirt][libvirt-docs]) and bare metal servers ([PXE][pxe-docs], [iPXE][ipxe-docs], [ISO][iso-docs], [Installer][install-docs]). With any of these guides you will have machines up and running in a few minutes.

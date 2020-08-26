@@ -1,5 +1,5 @@
 ---
-title: Flatcar Container Linux cluster discovery
+title: Cluster discovery
 weight: 10
 ---
 
