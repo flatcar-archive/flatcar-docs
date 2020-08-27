@@ -15,7 +15,7 @@ The latest Flatcar Container Linux ISOs can be downloaded from the image storage
   <div class="tab-content coreos-docs-image-table">
     <div class="tab-pane" id="alpha">
       <div class="channel-info">
-        <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Flatcar Container Linux {{site.alpha-channel}}.</p>
+        <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Flatcar Container Linux {{< param alpha_channel >}}.</p>
       </div>
       <a href="https://alpha.release.flatcar-linux.net/amd64-usr/current/flatcar_production_iso_image.iso" class="btn btn-primary">Download Alpha ISO</a>
       <a href="https://alpha.release.flatcar-linux.net/amd64-usr/current/" class="btn btn-default">Browse Storage Site</a>
@@ -24,7 +24,7 @@ The latest Flatcar Container Linux ISOs can be downloaded from the image storage
     </div>
     <div class="tab-pane" id="beta">
       <div class="channel-info">
-        <p>The Beta channel consists of promoted Alpha releases. The current version is Flatcar Container Linux {{site.beta-channel}}.</p>
+        <p>The Beta channel consists of promoted Alpha releases. The current version is Flatcar Container Linux {{< param beta_channel >}}.</p>
       </div>
       <a href="https://beta.release.flatcar-linux.net/amd64-usr/current/flatcar_production_iso_image.iso" class="btn btn-primary">Download Beta ISO</a>
       <a href="https://beta.release.flatcar-linux.net/amd64-usr/current/" class="btn btn-default">Browse Storage Site</a>
@@ -33,7 +33,7 @@ The latest Flatcar Container Linux ISOs can be downloaded from the image storage
     </div>
     <div class="tab-pane" id="edge">
       <div class="channel-info">
-        <p>The Edge channel includes bleeding-edge features with the newest versions of the Linux kernel, systemd and other core packages. Can be highly unstable. The current version is Flatcar Container Linux {{site.edge-channel}}.</p>
+        <p>The Edge channel includes bleeding-edge features with the newest versions of the Linux kernel, systemd and other core packages. Can be highly unstable. The current version is Flatcar Container Linux {{< param edge_channel >}}.</p>
       </div>
       <a href="https://edge.release.flatcar-linux.net/amd64-usr/current/flatcar_production_iso_image.iso" class="btn btn-primary">Download Edge ISO</a>
       <a href="https://edge.release.flatcar-linux.net/amd64-usr/current/" class="btn btn-default">Browse Storage Site</a>
@@ -42,7 +42,7 @@ The latest Flatcar Container Linux ISOs can be downloaded from the image storage
     </div>
     <div class="tab-pane active" id="stable">
       <div class="channel-info">
-        <p>The Stable channel should be used by production clusters. Versions of Flatcar Container Linux are battle-tested within the Beta and Alpha channels before being promoted. The current version is Flatcar Container Linux {{site.stable-channel}}.</p>
+        <p>The Stable channel should be used by production clusters. Versions of Flatcar Container Linux are battle-tested within the Beta and Alpha channels before being promoted. The current version is Flatcar Container Linux {{< param stable_channel >}}.</p>
       </div>
       <a href="https://stable.release.flatcar-linux.net/amd64-usr/current/flatcar_production_iso_image.iso" class="btn btn-primary">Download Stable ISO</a>
       <a href="https://stable.release.flatcar-linux.net/amd64-usr/current/" class="btn btn-default">Browse Storage Site</a>

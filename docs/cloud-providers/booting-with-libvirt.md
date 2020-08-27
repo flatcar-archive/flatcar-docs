@@ -29,7 +29,7 @@ Flatcar Container Linux is designed to be updated automatically with different s
   </ul>
   <div class="tab-content coreos-docs-image-table">
     <div class="tab-pane" id="alpha-create">
-      <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Flatcar Container Linux {{site.alpha-channel}}.</p>
+      <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Flatcar Container Linux {{< param alpha_channel >}}.</p>
       <p>We start by downloading the most recent disk image:</p>
       <pre>
 mkdir -p /var/lib/libvirt/images/flatcar-linux
@@ -39,7 +39,7 @@ gpg --verify flatcar_production_qemu_image.img.bz2.sig
 bunzip2 flatcar_production_qemu_image.img.bz2</pre>
     </div>
     <div class="tab-pane" id="beta-create">
-      <p>The Beta channel consists of promoted Alpha releases. The current version is Flatcar Container Linux {{site.beta-channel}}.</p>
+      <p>The Beta channel consists of promoted Alpha releases. The current version is Flatcar Container Linux {{< param beta_channel >}}.</p>
       <p>We start by downloading the most recent disk image:</p>
       <pre>
 mkdir -p /var/lib/libvirt/images/flatcar-linux
@@ -49,7 +49,7 @@ gpg --verify flatcar_production_qemu_image.img.bz2.sig
 bunzip2 flatcar_production_qemu_image.img.bz2</pre>
     </div>
     <div class="tab-pane" id="edge-create">
-      <p>The Edge channel includes bleeding-edge features with the newest versions of the Linux kernel, systemd and other core packages. Can be highly unstable. The current version is Flatcar Container Linux {{site.edge-channel}}.</p>
+      <p>The Edge channel includes bleeding-edge features with the newest versions of the Linux kernel, systemd and other core packages. Can be highly unstable. The current version is Flatcar Container Linux {{< param edge_channel >}}.</p>
       <p>We start by downloading the most recent disk image:</p>
       <pre>
 mkdir -p /var/lib/libvirt/images/flatcar-linux
@@ -59,7 +59,7 @@ gpg --verify flatcar_production_qemu_image.img.bz2.sig
 bunzip2 flatcar_production_qemu_image.img.bz2</pre>
     </div>
     <div class="tab-pane active" id="stable-create">
-      <p>The Stable channel should be used by production clusters. Versions of Flatcar Container Linux are battle-tested within the Beta and Alpha channels before being promoted. The current version is Flatcar Container Linux {{site.stable-channel}}.</p>
+      <p>The Stable channel should be used by production clusters. Versions of Flatcar Container Linux are battle-tested within the Beta and Alpha channels before being promoted. The current version is Flatcar Container Linux {{< param stable_channel >}}.</p>
       <p>We start by downloading the most recent disk image:</p>
       <pre>
 mkdir -p /var/lib/libvirt/images/flatcar-linux
@@ -195,7 +195,7 @@ Once the XML domain has been edited to include the Ignition file, it can be crea
 
 ```sh
 virsh define /var/lib/libvirt/flatcar-linux/flatcar-linux1/domain.xml
-virsh start flatcar-linux1 
+virsh start flatcar-linux1
 ```
 
 #### SSH into the machine
@@ -227,7 +227,7 @@ storage:
   files:
   - path: /etc/hostname
     filesystem: "root"
-    contents: 
+    contents:
       inline: flatcar-linux1
 
 networkd:
