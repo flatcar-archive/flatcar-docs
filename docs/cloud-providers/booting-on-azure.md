@@ -35,7 +35,7 @@ The following command will create a single instance through the Azure CLI.
     <div class="tab-pane active" id="stable">
       <div class="channel-info">
         <p>The Stable channel should be used by production clusters. Versions of Flatcar Container Linux are battle-tested within
-        the Beta and Alpha channels before being promoted. The current version is Flatcar Container Linux {{site.stable-channel}}.</p>
+        the Beta and Alpha channels before being promoted. The current version is Flatcar Container Linux {{< param stable_channel >}}.</p>
         <pre>
 $ az vm image list --all -p kinvolk -f flatcar -s stable  # Query the image name urn specifier
 [
@@ -53,7 +53,7 @@ $ az vm create --name node-1 --resource-group group-1 --admin-username core --cu
     </div>
     <div class="tab-pane" id="beta">
       <div class="channel-info">
-        <p>The Beta channel consists of promoted Alpha releases. The current version is Flatcar Container Linux {{site.beta-channel}}.</p>
+        <p>The Beta channel consists of promoted Alpha releases. The current version is Flatcar Container Linux {{< param beta_channel >}}.</p>
         <pre>
 $ az vm image list --all -p kinvolk -f flatcar -s beta  # Query the image name urn specifier
 [
@@ -72,7 +72,7 @@ $ az vm create --name node-1 --resource-group group-1 --admin-username core --cu
     <div class="tab-pane" id="alpha">
       <div class="channel-info">
         <p>The Alpha channel closely tracks the master branch and is released frequently. The newest versions of system
-        libraries and utilities are available for testing in this channel. The current version is Flatcar Container Linux {{site.alpha-channel}}.</p>
+        libraries and utilities are available for testing in this channel. The current version is Flatcar Container Linux {{< param alpha_channel >}}.</p>
         <pre>
 $ az vm image list --all -p kinvolk -f flatcar -s alpha
 [
@@ -91,7 +91,7 @@ $ az vm create --name node-1 --resource-group group-1 --admin-username core --cu
     <div class="tab-pane" id="edge">
       <div class="channel-info">
         <p>The Edge channel includes bleeding-edge features with the newest versions of the Linux kernel, systemd
-        and other core packages. Can be highly unstable. The current version is Flatcar Container Linux {{site.edge-channel}}.</p>
+        and other core packages. Can be highly unstable. The current version is Flatcar Container Linux {{< param edge_channel >}}.</p>
         <pre>
 $ az vm image list --all -p kinvolk -f flatcar -s edge
 [

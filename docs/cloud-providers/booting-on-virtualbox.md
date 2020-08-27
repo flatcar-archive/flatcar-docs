@@ -38,21 +38,21 @@ Choose a channel to base your disk image on. Specific versions of Flatcar Contai
   </ul>
   <div class="tab-content coreos-docs-image-table">
     <div class="tab-pane" id="alpha-create">
-      <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Flatcar Container Linux {{site.alpha-channel}}.</p>
+      <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Flatcar Container Linux {{< param alpha_channel >}}.</p>
       <p>Create a disk image from this channel by running:</p>
 <pre>
 ./create-coreos-vdi -V alpha
 </pre>
     </div>
     <div class="tab-pane" id="beta-create">
-      <p>The Beta channel consists of promoted Alpha releases. The current version is Flatcar Container Linux {{site.beta-channel}}.</p>
+      <p>The Beta channel consists of promoted Alpha releases. The current version is Flatcar Container Linux {{< param beta_channel >}}.</p>
       <p>Create a disk image from this channel by running:</p>
 <pre>
 ./create-coreos-vdi -V beta
 </pre>
     </div>
   <div class="tab-pane active" id="stable-create">
-      <p>The Stable channel should be used by production clusters. Versions of Flatcar Container Linux are battle-tested within the Beta and Alpha channels before being promoted. The current version is Flatcar Container Linux {{site.stable-channel}}.</p>
+      <p>The Stable channel should be used by production clusters. Versions of Flatcar Container Linux are battle-tested within the Beta and Alpha channels before being promoted. The current version is Flatcar Container Linux {{< param stable_channel >}}.</p>
       <p>Create a disk image from this channel by running:</p>
 <pre>
 ./create-coreos-vdi -V stable

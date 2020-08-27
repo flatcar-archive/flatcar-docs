@@ -23,7 +23,7 @@ Flatcar Container Linux is designed to be updated automatically with different s
   <div class="tab-content coreos-docs-image-table">
     <div class="tab-pane" id="alpha">
       <div class="channel-info">
-        <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Flatcar Container Linux {{site.alpha-channel}}.</p>
+        <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Flatcar Container Linux {{< param alpha_channel >}}.</p>
         View as json feed: <a class="btn btn-link btn-icon-left co-p-docs-rss" href="https://alpha.release.flatcar-linux.net/amd64-usr/current/flatcar_production_ami_all.json"><span class="fa fa-rss"></span>amd64</a>
         {% if site.data.alpha-channel-arm.amis.size > 0 %}
         <a class="btn btn-link btn-icon-left co-p-docs-rss" href="https://alpha.release.flatcar-linux.net/arm64-usr/current/flatcar_production_ami_all.json"><span class="fa fa-rss"></span>arm64</a>
@@ -62,7 +62,7 @@ Flatcar Container Linux is designed to be updated automatically with different s
     </div>
     <div class="tab-pane" id="beta">
       <div class="channel-info">
-        <p>The Beta channel consists of promoted Alpha releases. The current version is Flatcar Container Linux {{site.beta-channel}}.</p>
+        <p>The Beta channel consists of promoted Alpha releases. The current version is Flatcar Container Linux {{< param beta_channel >}}.</p>
         View as json feed: <a class="btn btn-link btn-icon-left co-p-docs-rss" href="https://beta.release.flatcar-linux.net/amd64-usr/current/flatcar_production_ami_all.json"><span class="fa fa-rss"></span>amd64</a>
         {% if site.data.beta-channel-arm.amis.size > 0 %}
         <a class="btn btn-link btn-icon-left co-p-docs-rss" href="https://beta.release.flatcar-linux.net/arm64-usr/current/flatcar_production_ami_all.json"><span class="fa fa-rss"></span>arm64</a>
@@ -101,7 +101,7 @@ Flatcar Container Linux is designed to be updated automatically with different s
     </div>
     <div class="tab-pane" id="edge">
       <div class="channel-info">
-        <p>The Edge channel includes bleeding-edge features with the newest versions of the Linux kernel, systemd and other core packages. Can be highly unstable. The current version is Flatcar Container Linux {{site.edge-channel}}.</p>
+        <p>The Edge channel includes bleeding-edge features with the newest versions of the Linux kernel, systemd and other core packages. Can be highly unstable. The current version is Flatcar Container Linux {{< param edge_channel >}}.</p>
       </div>
       <table>
         <thead>
@@ -136,7 +136,7 @@ Flatcar Container Linux is designed to be updated automatically with different s
     </div>
     <div class="tab-pane active" id="stable">
       <div class="channel-info">
-        <p>The Stable channel should be used by production clusters. Versions of Flatcar Container Linux are battle-tested within the Beta and Alpha channels before being promoted. The current version is Flatcar Container Linux {{site.stable-channel}}.</p>
+        <p>The Stable channel should be used by production clusters. Versions of Flatcar Container Linux are battle-tested within the Beta and Alpha channels before being promoted. The current version is Flatcar Container Linux {{< param stable_channel >}}.</p>
         View as json feed: <a class="btn btn-link btn-icon-left co-p-docs-rss" href="https://stable.release.flatcar-linux.net/amd64-usr/current/flatcar_production_ami_all.json"><span class="fa fa-rss"></span>amd64</a>
         {% if site.data.stable-channel-arm.amis.size > 0 %}
         <a class="btn btn-link btn-icon-left co-p-docs-rss" href="https://stable.release.flatcar-linux.net/arm64-usr/current/flatcar_production_ami_all.json"><span class="fa fa-rss"></span>arm64</a>
@@ -353,7 +353,7 @@ First we need to create a security group to allow Flatcar Container Linux instan
           etcd:
             # All options get passed as command line flags to etcd.
             # Any information inside curly braces comes from the machine at boot time.
-          
+
             # multi_region and multi_cloud deployments need to use {PUBLIC_IPV4}
             advertise_client_urls:       "http://{PRIVATE_IPV4}:2379"
             initial_advertise_peer_urls: "http://{PRIVATE_IPV4}:2380"
@@ -427,7 +427,7 @@ First we need to create a security group to allow Flatcar Container Linux instan
           etcd:
             # All options get passed as command line flags to etcd.
             # Any information inside curly braces comes from the machine at boot time.
-          
+
             # multi_region and multi_cloud deployments need to use {PUBLIC_IPV4}
             advertise_client_urls:       "http://{PRIVATE_IPV4}:2379"
             initial_advertise_peer_urls: "http://{PRIVATE_IPV4}:2380"
@@ -501,7 +501,7 @@ First we need to create a security group to allow Flatcar Container Linux instan
           etcd:
             # All options get passed as command line flags to etcd.
             # Any information inside curly braces comes from the machine at boot time.
-          
+
             # multi_region and multi_cloud deployments need to use {PUBLIC_IPV4}
             advertise_client_urls:       "http://{PRIVATE_IPV4}:2379"
             initial_advertise_peer_urls: "http://{PRIVATE_IPV4}:2380"

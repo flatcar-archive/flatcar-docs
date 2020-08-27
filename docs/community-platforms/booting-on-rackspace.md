@@ -19,21 +19,21 @@ Flatcar Container Linux is designed to be updated automatically with different s
   <div class="tab-content coreos-docs-image-table">
     <div class="tab-pane" id="alpha">
       <div class="channel-info">
-        <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Flatcar Container Linux {{site.alpha-channel}}.</p>
+        <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Flatcar Container Linux {{< param alpha_channel >}}.</p>
         <p>The following command can be used to determine the image IDs for Alpha:</p>
         <pre>supernova production image-list | grep 'Flatcar Container Linux (Alpha)'</pre>
       </div>
     </div>
     <div class="tab-pane" id="beta">
       <div class="channel-info">
-        <p>The Beta channel consists of promoted Alpha releases. The current version is Flatcar Container Linux {{site.beta-channel}}.</p>
+        <p>The Beta channel consists of promoted Alpha releases. The current version is Flatcar Container Linux {{< param beta_channel >}}.</p>
         <p>The following command can be used to determine the image IDs for Beta:</p>
         <pre>supernova production image-list | grep 'Flatcar Container Linux (Beta)'</pre>
       </div>
     </div>
     <div class="tab-pane active" id="stable">
       <div class="channel-info">
-        <p>The Stable channel should be used by production clusters. Versions of Flatcar Container Linux are battle-tested within the Beta and Alpha channels before being promoted. The current version is Flatcar Container Linux {{site.stable-channel}}.</p>
+        <p>The Stable channel should be used by production clusters. Versions of Flatcar Container Linux are battle-tested within the Beta and Alpha channels before being promoted. The current version is Flatcar Container Linux {{< param stable_channel >}}.</p>
         <p>The following command can be used to determine the image IDs for Stable:</p>
         <pre>supernova production image-list | grep 'Flatcar Container Linux (Stable)'</pre>
       </div>
