@@ -105,8 +105,8 @@ It is one of the three repositories that define a Flatcar build. The other two a
 and the `~/trunk/src/third_party/coreos-overlay` repository. These contain Gentoo package build files. The `portage-stable` repository
 hosts build files for upstream Gentoo packages and the `coreos-overlay` repository contains additional and patched packages.
 You have to check out the right combination of branches if you don't use the default. For example, checking out a feature branch
-based on the `flatcar-master-alpha` branch of `coreos-overlay` means that `portage-stable` and `scripts` also need to point
-to `flatcar-master-alpha` (or a feature branch based on it).
+based on the `main` branch of `coreos-overlay` means that `portage-stable` and `scripts` also need to point
+to `main` (or a feature branch based on it).
 Any other repositories under `third_party/` are managed by commit references and you should not alter them.
 
 The chroot you entered has the SDK packages installed. The actual image packages are built in a new chroot under `/build/amd64-usr/`
