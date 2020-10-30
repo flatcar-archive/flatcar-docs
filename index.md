@@ -15,7 +15,7 @@ Provisioning                                                                    
 --------------                                                                                    | -------------
 [Using Ignition and Container Linux Config][container-linux-config]                               | [Amazon EC2][ec2]
 [Ignition vs coreos-cloudinit][ignition-what], [Boot Process][ignition-boot]                      | [DigitalOcean][digital-ocean]
-[Ignition Network Config][ignition-network]                                                       | [Google Compute Engine][gce]
+[Ignition Network Config][ignition-network]                                                       | [Google Compute Engine][gce], [Google Cloud Launcher][gcl]
 [Container Linux Config Transpiler][config-transpiler]                                            | [Microsoft Azure][azure]
 [CL Config Dynamic Metadata][config-dynamic-data], [Ignition Dynamic Metadata][ignition-metadata] | [Packet][packet]
 [CL ct][config-intro], [CL Config Examples][config-examples]                                      | [QEMU][qemu], [libVirt][libvirt], [VirtualBox][virtualbox]¹, [Vagrant][vagrant]¹
@@ -108,6 +108,7 @@ APIs and troubleshooting guides for working with Flatcar Container Linux.
 [ec2]: os/booting-on-ec2.md
 [digital-ocean]: os/booting-on-digitalocean.md
 [gce]: os/booting-on-google-compute-engine.md
+[gcl]: os/using-google-cloud-launcher.md
 [azure]: os/booting-on-azure.md
 [qemu]: os/booting-with-qemu.md
 [packet]: os/booting-on-packet.md
