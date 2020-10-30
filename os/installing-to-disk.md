@@ -8,7 +8,7 @@ The script is self-contained and located [on GitHub here][flatcar-install] and c
 
 If you boot Flatcar Container Linux via PXE, the install script is already installed. By default the install script will attempt to install the same version and channel that was PXE-booted:
 
-```sh
+```shell
 flatcar-install -d /dev/sda -i ignition.json
 ```
 
@@ -16,7 +16,7 @@ flatcar-install -d /dev/sda -i ignition.json
 
 If you are installing on VMware, pass `-o vmware_raw` to install the VMware-specific image:
 
-```sh
+```shell
 flatcar-install -d /dev/sda -i ignition.json -o vmware_raw
 ```
 
@@ -57,7 +57,7 @@ Flatcar Container Linux is designed to be [updated automatically][update-strateg
 
 For reference here are the rest of the `flatcar-install` options:
 
-```
+```shell
 -d DEVICE   Install Flatcar Container Linux to the given device.
 -s          EXPERIMENTAL: Install Flatcar Container Linux to the smallest unmounted disk found
             (min. size 10GB). It is recommended to use it with -e or -I to filter the
@@ -95,12 +95,11 @@ passwd:
         - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDGdByTgSVHq.......
 ```
 
-
 Note: The `{PRIVATE_IPV4}` and `{PUBLIC_IPV4}` substitution variables referenced in other documents are not supported on libvirt.
 
 To start the installation script with a reference to our Ignition config, run:
 
-```
+```shell
 flatcar-install -d /dev/sda -C stable -i ~/ignition.json
 ```
 

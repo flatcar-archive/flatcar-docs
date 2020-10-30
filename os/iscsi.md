@@ -22,7 +22,7 @@ If the iSCSI target is configured to support mutual authentication (allowing the
 
 ### Start the iSCSI daemon
 
-```
+```shell
 systemctl start iscsid
 ```
 
@@ -30,16 +30,16 @@ systemctl start iscsid
 
 To discover targets, run:
 
-```
-$ iscsiadm -m discovery -t sendtargets -p target_ip:target_port
+```shell
+iscsiadm -m discovery -t sendtargets -p target_ip:target_port
 ```
 
 ### Provide target-specific credentials
 
 For each unique `--targetname`, first enter the username:
 
-```
-$ iscsiadm -m node \
+```shell
+iscsiadm -m node \
   --targetname=custom_target \
   --op update \
   --name=node.session.auth.username \
@@ -48,8 +48,8 @@ $ iscsiadm -m node \
 
 And then the password:
 
-```
-$ iscsiadm -m node \
+```shell
+iscsiadm -m node \
   --targetname=custom_target \
   --op update \
   --name=node.session.auth.password \
@@ -60,22 +60,22 @@ $ iscsiadm -m node \
 
 The following command will log into all discovered targets.
 
-```
-$ iscsiadm -m node --login
+```shell
+iscsiadm -m node --login
 ```
 
 Then, to log into a specific target use:
 
-```
-$ iscsiadm -m node --targetname=custom_target --login
+```shell
+iscsiadm -m node --targetname=custom_target --login
 ```
 
 ### Enable automatic iSCSI login at boot
 
 If you want to connect to iSCSI targets automatically at boot you first need to enable the systemd service:
 
-```
-$ systemctl enable iscsid
+```shell
+systemctl enable iscsid
 ```
 
 ## Automatic iSCSI configuration
@@ -84,12 +84,7 @@ To configure and start iSCSI automatically after a machine is provisioned, crede
 
 A Container Linux Config will be used to write the file `/etc/iscsi/iscsid.conf` to disk:
 
-#### /etc/iscsi/iscsid.conf
-<!-- TODO: It's inclear based on documentation what the actual first line of this doc snippet should be.
-     This is a best guess based on docs I've read, the rest I'm pretty certain of.
-     I know we want to do discovery in this file, just not sure if that line accomplished the task. -->
-
-```
+```ini
 isns.address = host_ip
 isns.port = host_port
 node.session.auth.username = my_username

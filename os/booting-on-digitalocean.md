@@ -106,7 +106,7 @@ Container Linux is set up to be a little more secure than other DigitalOcean ima
 
 To connect to a droplet after it's created, run:
 
-```sh
+```shell
 ssh core@<ip address>
 ```
 
@@ -116,28 +116,28 @@ ssh core@<ip address>
 
 For starters, generate a [Personal Access Token][do-token-settings] and save it in an environment variable:
 
-```sh
+```shell
 read TOKEN
 # Enter your Personal Access Token
 ```
 
 Upload your SSH key via [DigitalOcean's API][do-keys-docs] or the web console. Retrieve the SSH key ID via the ["list all keys"][do-list-keys-docs] method:
 
-```sh
+```shell
 curl --request GET "https://api.digitalocean.com/v2/account/keys" \
      --header "Authorization: Bearer $TOKEN"
 ```
 
 Save the key ID from the previous command in an environment variable:
 
-```sh
+```shell
 read SSH_KEY_ID
 # Enter your SSH key ID
 ```
 
 Create a 512MB droplet with private networking in NYC3 from the Container Linux Stable image:
 
-```sh
+```shell
 curl --request POST "https://api.digitalocean.com/v2/droplets" \
      --header "Content-Type: application/json" \
      --header "Authorization: Bearer $TOKEN" \

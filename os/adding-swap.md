@@ -12,7 +12,7 @@ systemd provides a specialized `.swap` unit file type which may be used to activ
 
 The following commands, run as root, will make a 1GiB file suitable for use as swap.
 
-```sh
+```shell
 mkdir -p /var/vm
 fallocate -l 1024m /var/vm/swapfile1
 chmod 600 /var/vm/swapfile1
@@ -38,7 +38,7 @@ WantedBy=multi-user.target
 
 Use `systemctl` to enable the unit once created. The `swappiness` value may be modified if desired.
 
-```sh
+```shell
 $ systemctl enable --now var-vm-swapfile1.swap
 # Optionally
 $ echo 'vm.swappiness=10' | sudo tee /etc/sysctl.d/80-swappiness.conf
@@ -47,7 +47,7 @@ $ systemctl restart systemd-sysctl
 
 Swap has been enabled and will be started automatically on subsequent reboots. We can verify that the swap is activated by running `swapon`:
 
-```
+```shell
 $ swapon
 NAME              TYPE       SIZE USED PRIO
 /var/vm/swapfile1 file      1024M   0B   -1
@@ -67,7 +67,7 @@ The swapfile cannot be larger than the partition on which it is stored.
 
 Use the `df(1)` command to verify that a partition has the right format and enough available space:
 
-```
+```shell
 $ df -Th
 Filesystem     Type      Size  Used Avail Use% Mounted on
 [...]
@@ -109,7 +109,7 @@ systemd:
         Description=Create a swapfile
         RequiresMountsFor=/var
         ConditionPathExists=!/var/vm/swapfile1
-        
+
         [Service]
         Type=oneshot
         ExecStart=/usr/bin/mkdir -p /var/vm

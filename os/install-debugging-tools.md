@@ -6,13 +6,13 @@ You can use common debugging tools like tcpdump or strace with Toolbox. Using th
 
 By default, Toolbox uses the stock Fedora Docker container. To start using it, simply run:
 
-```sh
+```shell
 /usr/bin/toolbox
 ```
 
 You're now in the namespace of Fedora and can install any software you'd like via `dnf`. For example, if you'd like to use `tcpdump`:
 
-```sh
+```shell
 [root@srv-3qy0p ~]# dnf -y install tcpdump
 [root@srv-3qy0p ~]# tcpdump -i ens3
 tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
@@ -23,7 +23,7 @@ listening on ens3, link-type EN10MB (Ethernet), capture size 65535 bytes
 
 Create a `.toolboxrc` in the user's home folder to use a specific Docker image:
 
-```sh
+```shell
 $ cat .toolboxrc
 TOOLBOX_DOCKER_IMAGE=index.example.com/debug
 TOOLBOX_USER=root
@@ -76,7 +76,7 @@ The following command line will ensure `tmux`, `strace` and `pidof` are installe
 in the container, then create a new `tmux` session to which you can later attach,
 and keep the service active by waiting with `strace` until the `tmux` process exits.
 
-```sh
+```shell
 systemd-run --user toolbox sh -c 'dnf install -y tmux strace procps-ng; tmux new-session -d -s sharedsession; strace -p "$(pidof tmux)"'
 ```
 
@@ -87,7 +87,7 @@ to use `strace` to have a foreground process running that prevents `toolbox` fro
 
 Once this is running you can can attach to the `tmux` session as often as you want from any SSH connection.
 
-```sh
+```shell
 sudo nsenter -t "$(pidof tmux | cut -d ' ' -f 1)" -a tmux a
 ```
 
@@ -99,20 +99,18 @@ started with `systemd-run` will terminate and you'll have to start the service a
 
 Advanced users can SSH directly into a toolbox by setting up an `/etc/passwd` entry:
 
-```sh
+```shell
 useradd bob -m -p '*' -s /usr/bin/toolbox -U -G sudo,docker,rkt
 ```
 
 To test, SSH as bob:
 
-```sh
+```shell
 ssh bob@hostname.example.com
-
-   ______                ____  _____
-  / ____/___  ________  / __ \/ ___/
- / /   / __ \/ ___/ _ \/ / / /\__ \
-/ /___/ /_/ / /  /  __/ /_/ /___/ /
-\____/\____/_/   \___/\____//____/
+Flatcar Container Linux by Kinvolk alpha (2671.0.0)
+Downloading sha256:ee7e8933710 [=============================] 63.4 MB / 63.4 MB
+Spawning container bob-fedora-latest on /var/lib/toolbox/bob-fedora-latest.
+Press ^] three times within 1s to kill container.
 [root@srv-3qy0p ~]# dnf -y install emacs-nox
 [root@srv-3qy0p ~]# emacs /media/root/etc/systemd/system/newapp.service
 ```

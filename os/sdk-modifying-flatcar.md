@@ -22,7 +22,7 @@ System requirements to get started:
 
 You also need a proper git setup:
 
-```sh
+```shell
 git config --global user.email "you@example.com"
 git config --global user.name "Your Name"
 ```
@@ -35,7 +35,7 @@ The `cork` utility, included in the Flatcar Container Linux [mantle](https://git
 
 First, download the cork utility and verify it with the signature:
 
-```sh
+```shell
 curl -L -o cork https://github.com/flatcar-linux/mantle/releases/download/v0.15.1/cork-0.15.1-amd64
 curl -L -o cork.sig https://github.com/flatcar-linux/mantle/releases/download/v0.15.1/cork-0.15.1-amd64.sig
 gpg --receive-keys 84C8E771C0DF83DFBFCAAAF03ADA89DEC2507883
@@ -47,7 +47,7 @@ gpg --verify cork.sig cork
 
 The `gpg --verify` command should output something like this:
 
-```
+```shell
 gpg: Signature made Mon 07 Jan 2019 14:51:50 CET
 gpg:                using RSA key 84C8E771C0DF83DFBFCAAAF03ADA89DEC2507883
 gpg: Good signature from "Flatcar Application Signing Key <buildbot@flatcar-linux.org>" [unknown]
@@ -57,7 +57,7 @@ Primary key fingerprint: C1C0 B82A 2F75 90B2 E369  822B E52F 0DB3 9145 3C45
 
 Then proceed with the installation of the cork binary to a location on your path:
 
-```sh
+```shell
 chmod +x cork
 mkdir -p ~/.local/bin
 mv cork ~/.local/bin
@@ -66,10 +66,9 @@ export PATH=$PATH:$HOME/.local/bin
 
 You may want to add the `PATH` export to your shell profile (e.g. `.bashrc`).
 
-
 Next, use the cork utility to create a project directory. This will hold all of your git repos and the SDK chroot. A few gigabytes of space will be necessary.
 
-```sh
+```shell
 mkdir flatcar-sdk
 cd flatcar-sdk
 cork create # This will request root permisions via sudo
@@ -88,10 +87,11 @@ You can also change the branches later with git.
 
 Verify you are in the SDK chroot:
 
-```
+```shell
 $ grep NAME /etc/os-release
 NAME="Flatcar Container Linux by Kinvolk"
 ```
+
 To leave the SDK chroot, simply run `exit`.
 
 To use the SDK chroot in the future, run `cork enter` from the above directory.
@@ -120,13 +120,13 @@ to switch to a recent nightly version because it only dereferences the nightly o
 build environment reproducible. For `BRANCH` use the branch you checked out or want to base your work on, e.g.,
 the Alpha development branch `main` or the `flatcar-MAJORVERSION` maintenance branches.
 
-```
+```shell
 ./set_version --dev-board --board-version amd64-usr/BRANCH-nightly --dev-sdk --sdk-version sdk-main-nightly
 ```
 
 To switch to a Flatcar release when you checked out release branches use the following:
 
-```
+```shell
 ./set_version --no-dev-board --board-version x.y.z --no-dev-sdk --sdk-version x.0.0
 # --no-dev-board disables any previous --dev-board setting, same for --no-dev-sdk
 ```
@@ -138,7 +138,7 @@ to ensure that you don't have to rebuild many SDK packages. If you notice that n
 
 After entering the chroot via `cork` for the first time, you can set user `core`'s password:
 
-```sh
+```shell
 ./set_shared_user_password.sh
 ```
 
@@ -156,7 +156,7 @@ The `--board` option can be set to one of a few known target architectures, or s
 
 To create a root filesystem for the `amd64-usr` target beneath the directory `/build/amd64-usr/`:
 
-```sh
+```shell
 ./setup_board --default --board=amd64-usr
 ```
 
@@ -164,7 +164,7 @@ To create a root filesystem for the `amd64-usr` target beneath the directory `/b
 
 Build all of the target binary packages:
 
-```sh
+```shell
 ./build_packages
 ```
 
@@ -176,7 +176,7 @@ with `PACKAGE` being either `CATEGORY/PACKAGEFOLDER` or just `PACKAGEFOLDER`.
 
 Build a production image based on the binary packages built above:
 
-```sh
+```shell
 ./build_image
 ```
 
@@ -194,7 +194,7 @@ The `./flatcar_production_qemu.sh` file can be found in the `~/trunk/src/build/i
 
 After `image_to_vm.sh` completes, run `./flatcar_production_qemu.sh -curses` to launch a graphical interface to log in to the Flatcar Container Linux VM.
 
-You could instead use the `-nographic` option, `./flatcar_production_qemu.sh -nographic`, which gives you the ability to switch from the VM to the QEMU monitor console by pressing <kbd>CTRL</kbd>+<kbd>a</kbd> and then <kbd>c</kbd>. To close the Flatcar Container Linux Guest OS VM, run `sudo systemctl poweroff` inside the VM. 
+You could instead use the `-nographic` option, `./flatcar_production_qemu.sh -nographic`, which gives you the ability to switch from the VM to the QEMU monitor console by pressing <kbd>CTRL</kbd>+<kbd>a</kbd> and then <kbd>c</kbd>. To close the Flatcar Container Linux Guest OS VM, run `sudo systemctl poweroff` inside the VM.
 
 You could also log in via SSH by running `./flatcar_production_qemu.sh` and then running `ssh core@127.0.0.1 -p 2222` to enter the guest OS. Running without the `-p 2222` option will arise a *ssh: connect to host 127.0.0.1 port 22: Connection refused* or *Permission denied (publickey,gssapi-keyex,gssapi-with-mic)* warning. Additionally, you can log in via SSH keys or with a different ssh port by running this example `./flatcar_production_qemu.sh -a ~/.ssh/authorized_keys -p 2223 -- -curses`. Refer to the [Booting with QEMU](booting-with-qemu.md#SSH-keys) guide for more information on this usage.
 
@@ -238,7 +238,6 @@ We've compiled a [list of tips and tricks][sdktips] that can make working with t
 ## Testing images
 
 [Mantle][mantle] is a collection of utilities used in testing and launching SDK images.
-
 
 [android-repo-git]: https://source.android.com/source/developing.html
 [flatcar-dev]: https://groups.google.com/forum/#!forum/flatcar-linux-dev

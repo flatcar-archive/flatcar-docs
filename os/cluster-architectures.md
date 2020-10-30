@@ -55,9 +55,9 @@ Using the CL Config Transpiler, or `ct`, ([download][ct-download]) convert the a
 
 Once the local VM is running, tell your Docker binary on your personal operating system to use the remote port by exporting an environment variable and start running Docker commands. Run these commands in a terminal *on your local operating system (MacOS or Linux), not in the Flatcar Container Linux virtual machine*:
 
-```sh
-$ export DOCKER_HOST=tcp://localhost:2375
-$ docker ps
+```shell
+export DOCKER_HOST=tcp://localhost:2375
+docker ps
 ```
 
 This avoids discrepancies between your development and production environments.

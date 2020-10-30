@@ -18,7 +18,7 @@ Once logged into the portal you will be able to click the 'New server' button an
 
 If you select to use the API to provision machines on Packet you should consider using [one of the language libraries](https://www.packet.com/developers/libraries/) to code against. As an example, this is how you would launch a single Type 1 machine in a curl command. [Packet API Documentation](https://www.packet.com/developers/api/).
 
-```bash
+```shell
 # Replace items in brackets (<EXAMPLE>) with the appropriate values.
 
 curl -X POST \
@@ -32,12 +32,13 @@ https://api.packet.net/projects/<PROJECT_ID>/devices
 Double quotes in the `<USERDATA>` value must be escaped such that the request body is valid JSON. See the Container Linux Config section below for more information about accepted forms of userdata.
 
 ## iPXE booting
+
 If you need to run a Flatcar Container Linux image which is not available through the OS option in the API, you can boot via 'Custom iPXE'.
 This is the case for ARM64 images which are just published in the Alpha and Edge channels right now and not available via Packet's API.
 
 Assuming you want to run boot an Alpha image via iPXE on a `c2.large.arm` machine, you have to provide this URL for 'Custom iPXE Settings':
 
-```
+```text
 https://alpha.release.flatcar-linux.net/arm64-usr/current/flatcar_production_packet.ipxe
 ```
 

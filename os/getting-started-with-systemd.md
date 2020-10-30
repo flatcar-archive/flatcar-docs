@@ -41,14 +41,14 @@ The `Description` shows up in the systemd log and a few other places. Write some
 
 To start a new unit, we need to tell systemd to create the symlink and then start the file:
 
-```sh
-$ sudo systemctl enable /etc/systemd/system/hello.service
-$ sudo systemctl start hello.service
+```shell
+sudo systemctl enable /etc/systemd/system/hello.service
+sudo systemctl start hello.service
 ```
 
 To verify the unit started, you can see the list of containers running with `docker ps` and read the unit's output with `journalctl`:
 
-```sh
+```shell
 $ journalctl -f -u hello.service
 -- Logs begin at Fri 2014-02-07 00:05:55 UTC. --
 Feb 11 17:46:26 localhost docker[23470]: Hello World
@@ -57,8 +57,8 @@ Feb 11 17:46:28 localhost docker[23470]: Hello World
 ...
 ```
 
-<a class="btn btn-default" href="overview-of-systemctl.md">Overview of systemctl</a>
-<a class="btn btn-default" href="reading-the-system-log.md">Reading the System Log</a>
+- [Overview of systemctl](overview-of-systemctl.md)
+- [Reading the System Log](reading-the-system-log.md)
 
 ## Advanced unit files
 
@@ -148,6 +148,6 @@ This gives us the flexibility to use a single unit file to announce multiple cop
 
 ## More information
 
-<a class="btn btn-default" href="http://www.freedesktop.org/software/systemd/man/systemd.service.html">systemd.service Docs</a>
-<a class="btn btn-default" href="http://www.freedesktop.org/software/systemd/man/systemd.unit.html">systemd.unit Docs</a>
-<a class="btn btn-default" href="http://www.freedesktop.org/software/systemd/man/systemd.target.html">systemd.target Docs</a>
+- [`systemd.service` Docs](http://www.freedesktop.org/software/systemd/man/systemd.service.html)
+- [`systemd.unit` Docs](http://www.freedesktop.org/software/systemd/man/systemd.unit.html)
+- [`systemd.target` Docs](http://www.freedesktop.org/software/systemd/man/systemd.target.html)

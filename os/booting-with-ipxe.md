@@ -88,27 +88,26 @@ boot</pre>
 
 An easy place to host this boot script is on [http://pastie.org](http://pastie.org). Be sure to reference the "raw" version of script, which is accessed by clicking on the clipboard in the top right.
 
-
 ### Booting iPXE
 
 First, download and boot the iPXE image.
 We will use `qemu-kvm` in this guide but use whatever process you normally use for booting an ISO on your platform.
 
-```sh
+```shell
 wget http://boot.ipxe.org/ipxe.iso
 qemu-kvm -m 1024 ipxe.iso --curses
 ```
 
 Next press Ctrl+B to get to the iPXE prompt and type in the following commands:
 
-```sh
+```shell
 iPXE> dhcp
 iPXE> chain http://${YOUR_BOOT_URL}
 ```
 
 Immediately iPXE should download your boot script URL and start grabbing the images from the Flatcar Container Linux storage site:
 
-```sh
+```shell
 ${YOUR_BOOT_URL}... ok
 http://alpha.release.flatcar-linux.net/amd64-usr/current/flatcar_production_pxe.vmlinuz... 98%
 ```

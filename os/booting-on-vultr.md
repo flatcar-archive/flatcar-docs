@@ -11,9 +11,9 @@ The simplest option to boot up Flatcar Container Linux is to select the "Flatcar
 
 First, you'll need to make a shell script containing your `cloud-config` available at a public URL:
 
-**cloud-config-bootstrap.sh**
+`cloud-config-bootstrap.sh`:
 
-```sh
+```shell
 #!/bin/bash
 
 cat > "cloud-config.yaml" <<EOF
@@ -44,7 +44,7 @@ Flatcar Container Linux is designed to be updated automatically with different s
   <div class="tab-content coreos-docs-image-table">
     <div class="tab-pane" id="alpha">
       <div class="channel-info">
-        <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Flatcar Container Linux {{site.alpha-channel}}.</p>
+        <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing.</p>
       </div>
       <p>A sample script will look like this:</p>
 
@@ -56,8 +56,9 @@ set cloud-config-url http://example.com/cloud-config-bootstrap.sh
 set base-url https://alpha.release.flatcar-linux.net/amd64-usr/current
 kernel ${base-url}/flatcar_production_pxe.vmlinuz cloud-config-url=${cloud-config-url}
 initrd ${base-url}/flatcar_production_pxe_image.cpio.gz
-boot</pre>
-    </div>
+boot
+</pre>
+  </div>
     <div class="tab-pane" id="beta">
       <div class="channel-info">
         <p>The Beta channel consists of promoted Alpha releases. The current version is Flatcar Container Linux {{site.beta-channel}}.</p>
@@ -73,10 +74,10 @@ set base-url https://beta.release.flatcar-linux.net/amd64-usr/current
 kernel ${base-url}/flatcar_production_pxe.vmlinuz cloud-config-url=${cloud-config-url}
 initrd ${base-url}/flatcar_production_pxe_image.cpio.gz
 boot</pre>
-    </div>
+  </div>
     <div class="tab-pane active" id="stable">
       <div class="channel-info">
-        <p>The Stable channel should be used by production clusters. Versions of Flatcar Container Linux are battle-tested within the Beta and Alpha channels before being promoted. The current version is Flatcar Container Linux {{site.stable-channel}}.</p>
+        <p>The Stable channel should be used by production clusters. Versions of Flatcar Container Linux are battle-tested within the Beta and Alpha channels before being promoted.</p>
       </div>
       <p>A sample script will look like this:</p>
 
@@ -89,7 +90,7 @@ set base-url https://stable.release.flatcar-linux.net/amd64-usr/current
 kernel ${base-url}/flatcar_production_pxe.vmlinuz cloud-config-url=${cloud-config-url}
 initrd ${base-url}/flatcar_production_pxe_image.cpio.gz
 boot</pre>
-    </div>
+  </div>
   </div>
 </div>
 
@@ -113,7 +114,7 @@ You can now log in to Flatcar Container Linux using the associated private key o
 
 SSH to the IP of your VPS, and specify the "core" user: ```ssh core@IP```
 
-```sh
+```shell
 $ ssh core@IP
 The authenticity of host 'IP (2a02:1348:17c:423d:24:19ff:fef1:8f6)' can't be established.
 RSA key fingerprint is 99:a5:13:60:07:5d:ac:eb:4b:f2:cb:c9:b2:ab:d7:21.

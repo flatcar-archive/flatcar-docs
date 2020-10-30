@@ -270,11 +270,12 @@ Flatcar Container Linux is set up to be a little more secure than other cloud im
 
 To connect to an instance after it's created, run:
 
-```sh
+```shell
 ssh core@<ip address>
 ```
 
 ## Multiple clusters
+
 If you would like to create multiple clusters you will need to change the "Stack Name". You can find the direct [template file on S3](https://flatcar-prod-ami-import-eu-central-1.s3.amazonaws.com/dist/aws/flatcar-stable-hvm.template).
 
 ## Manual setup
@@ -289,7 +290,7 @@ If you would like to create multiple clusters you will need to change the "Stack
 
 You need open port 2379, 2380, 7001 and 4001 between servers in the `etcd` cluster. Step by step instructions below.
 
-_This step is only needed once_
+Note: _This step is only needed once_
 
 First we need to create a security group to allow Flatcar Container Linux instances to communicate with one another.
 
@@ -553,7 +554,7 @@ First we need to create a security group to allow Flatcar Container Linux instan
 One of the possible ways of installation is to import the generated VMDK Flatcar image as a snapshot. The image file will be in `https://${CHANNEL}.release.flatcar-linux.net/${ARCH}-usr/${VERSION}/flatcar_production_ami_vmdk_image.vmdk.bz2`.
 Make sure you download the signature (it's available in `https://${CHANNEL}.release.flatcar-linux.net/${ARCH}-usr/${VERSION}/flatcar_production_ami_vmdk_image.vmdk.bz2.sig`) and check it before proceeding.
 
-```
+```shell
 $ wget https://alpha.release.flatcar-linux.net/amd64-usr/current/flatcar_production_ami_vmdk_image.vmdk.bz2
 $ wget https://alpha.release.flatcar-linux.net/amd64-usr/current/flatcar_production_ami_vmdk_image.vmdk.bz2.sig
 $ gpg --verify flatcar_production_ami_vmdk_image.vmdk.bz2.sig
@@ -571,7 +572,6 @@ To make it work, use `/dev/sda2` as the "Root device name" and you probably want
 ## Using Flatcar Container Linux
 
 Now that you have a machine booted it is time to play around. Check out the [Flatcar Container Linux Quickstart](quickstart.md) guide or dig into [more specific topics](https://docs.flatcar-linux.org).
-
 
 [flatcar-user]: https://groups.google.com/forum/#!forum/flatcar-linux-user
 [docker-docs]: https://docs.docker.io

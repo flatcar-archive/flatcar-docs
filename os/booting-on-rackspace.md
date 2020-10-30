@@ -2,7 +2,6 @@
 
 These instructions will walk you through running Flatcar Container Linux on the Rackspace OpenStack cloud, which differs slightly from the generic OpenStack instructions. There are two ways to launch a Flatcar Container Linux cluster: launch an entire cluster with Heat or launch machines with Nova.
 
-
 ## Choosing a channel
 
 Flatcar Container Linux is designed to be updated automatically with different schedules per channel. You can [disable this feature](update-strategies.md), although we don't recommend it. Read the [release notes](https://flatcar-linux.org/releases) for specific features and bug fixes.
@@ -46,7 +45,7 @@ You can provide cloud-config data via both Heat and Nova APIs. You **cannot** pr
 
 The most common Rackspace cloud-config looks like:
 
-```cloud-config
+```yaml
 #cloud-config
 
 flatcar:
@@ -76,7 +75,7 @@ The `$private_ipv4` and `$public_ipv4` substitution variables are fully supporte
 
 Certain server flavors have separate system and data disks. To utilize the data disks, they must be mounted with a `.mount` unit. Check to make sure the `Where=` parameter accurately reflects the location of the block device:
 
-```cloud-config
+```yaml
 #cloud-config
 flatcar:
   units:
@@ -101,7 +100,7 @@ We're going to install `rackspace-novaclient`, upload a keypair and boot the ima
 
 The Supernova tool requires Python and `pip`, a Python package manager. If you don't have `pip` installed, install it by running `sudo easy_install pip`. Now let's use `pip` to install Supernova, a tool that lets you easily switch Rackspace regions. Be sure to install these in the order listed:
 
-```sh
+```shell
 sudo pip install keyring
 sudo pip install rackspace-novaclient
 sudo pip install supernova
@@ -127,13 +126,13 @@ We're ready to create a keypair then boot a server with it.
 
 For this guide, I'm assuming you already have a public key you use for your Flatcar Container Linux servers. Note that only RSA keypairs are supported. Load the public key to Rackspace:
 
-```sh
+```shell
 supernova production keypair-add --pub-key ~/.ssh/flatcar.pub flatcar-key
 ```
 
 Check you make sure the key is in your list by running `supernova production keypair-list`
 
-```
+```sell
 +------------+--------------------------------------------------+
 | Name       | Fingerprint                                      |
 +------------+--------------------------------------------------+
@@ -169,7 +168,7 @@ Check you make sure the key is in your list by running `supernova production key
 
 You should now see the details of your new server in your terminal and it should also show up in the control panel:
 
-```
+```shell
 +------------------------+--------------------------------------+
 | Property               | Value                                |
 +------------------------+--------------------------------------+
@@ -211,7 +210,6 @@ You can also launch servers with either the `alpha` and `beta` channel versions 
  5. Click on 'Linux', then on 'Flatcar Container Linux' and finally choose '(alpha)' or '(beta)' version
  6. Choose flavor and use 'Advanced Options' to select SSH Key -- if available
  7. Click on 'Create Server'
-
 
 ## Using Flatcar Container Linux
 

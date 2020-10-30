@@ -62,14 +62,13 @@ The last step uploads the files to the ESXi datastore and registers the new VM. 
 
 Use the [`ovftool`][ovftool] to deploy from the command line as follows:
 
-```sh
-$ ovftool --name=testvm --skipManifestCheck --noSSLVerify --datastore=datastore1 --powerOn=True --net:"VM Network=VM Network" --X:waitForIp --overwrite --powerOffTarget --X:guest:ignition.config.data=$(cat ignition_config.json | base64 --wrap=0) --X:guest:ignition.config.data.encoding=base64 ./flatcar_production_vmware_ova.ova 'vi:///<YOUR_USER>:<ESXI_PASSWORD>@<ESXI_HOST_IP>'
+```shell
+ovftool --name=testvm --skipManifestCheck --noSSLVerify --datastore=datastore1 --powerOn=True --net:"VM Network=VM Network" --X:waitForIp --overwrite --powerOffTarget --X:guest:ignition.config.data=$(cat ignition_config.json | base64 --wrap=0) --X:guest:ignition.config.data.encoding=base64 ./flatcar_production_vmware_ova.ova 'vi:///<YOUR_USER>:<ESXI_PASSWORD>@<ESXI_HOST_IP>'
 ```
 
 This assumes that you downloaded `flatcar_production_vmware_ova.ova` to your current folder, and that you want to specify an Ignition config as userdata from `ignition_config.json`.
 
 *NB: These instructions were tested with an ESXi v5.5 host.*
-
 
 ### Booting with VMware Workstation 12 or VMware Fusion
 
@@ -202,7 +201,6 @@ The guestinfo variables known to coreos-cloudinit are (taken from [here](https:/
 
 If you rely on `$public_ipv4` and `$private_ipv4` substitutions through `guestinfo.interface.<n>.role` but have both IP addresses in one interface you may either use variables in `/run/metadata/coreos` as written in the previous section or you could provide the second IP address again on a dummy interface with a name that never matches a real interface, just to propagate the IP address to the coreos-cloudinit metadata.
 
-
 ## VMware Guestinfo interface
 
 ### Setting Guestinfo options
@@ -217,13 +215,13 @@ The VMware guestinfo interface is a mechanism for VM configuration. Guestinfo pr
 
 * Set guestinfo keys and values from the Flatcar Container Linux guest itself, by using a VMware Tools command like:
 
-```sh
+```shell
 /usr/share/oem/bin/vmtoolsd --cmd "info-set guestinfo.<variable> <value>"
 ```
 
 * Guestinfo keys and values can be set from a VMware Service Console, using the `setguestinfo` subcommand:
 
-```sh
+```shell
 vmware-cmd /vmfs/volumes/[...]/<VMNAME>/<VMNAME>.vmx setguestinfo guestinfo.<property> <value>
 ```
 
@@ -245,7 +243,7 @@ The userdata is prepared for the guestinfo facility in one of two encoding types
 
 #### Example
 
-```
+```ini
 guestinfo.ignition.config.data = "ewogICJpZ25pdGlvbiI6IHsgInZlcnNpb24iOiAiMi4wLjAiIH0KfQo="
 guestinfo.ignition.config.data.encoding = "base64"
 ```
@@ -269,7 +267,7 @@ Networking can take some time to start under VMware. Once it does, you will see 
 
 You can login to the host at that IP using your SSH key, or the password set in your cloud-config:
 
-```sh
+```shell
 ssh core@YOURIP
 ```
 

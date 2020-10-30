@@ -21,7 +21,7 @@ WantedBy=sockets.target
 
 Then enable this new socket:
 
-```sh
+```shell
 systemctl enable docker-tcp.socket
 systemctl stop docker
 systemctl start docker-tcp.socket
@@ -30,7 +30,7 @@ systemctl start docker
 
 Test that it's working:
 
-```sh
+```shell
 docker -H tcp://127.0.0.1:2375 ps
 ```
 
@@ -71,7 +71,7 @@ Docker TLS configuration consists of three parts: keys creation, configuring new
 
 Please follow the [instruction][self-signed-certs] to know how to create self-signed certificates and private keys. Then copy the following files into `/etc/docker` Flatcar Container Linux's directory and fix their permissions:
 
-```sh
+```shell
 scp ~/cfssl/{server.pem,server-key.pem,ca.pem} flatcar.example.com:
 ssh core@flatcar.example.com
 sudo mv {server.pem,server-key.pem,ca.pem} /etc/docker/
@@ -81,7 +81,7 @@ sudo chmod 0600 /etc/docker/server-key.pem
 
 On your local host copy certificates into `~/.docker`:
 
-```sh
+```shell
 mkdir ~/.docker
 chmod 700 ~/.docker
 cd ~/.docker
@@ -109,7 +109,7 @@ WantedBy=sockets.target
 
 Then enable this new socket:
 
-```sh
+```shell
 systemctl enable docker-tls-tcp.socket
 systemctl stop docker
 systemctl start docker-tls-tcp.socket
@@ -126,14 +126,14 @@ Environment="DOCKER_OPTS=--tlsverify --tlscacert=/etc/docker/ca.pem --tlscert=/e
 
 Reload systemd config files and restart docker service:
 
-```sh
+```shell
 sudo systemctl daemon-reload
 sudo systemctl restart docker.service
 ```
 
 Now you can access your Docker's API through TLS secured connection:
 
-```sh
+```shell
 docker --tlsverify -H tcp://server:2376 images
 # or
 docker --tlsverify -H tcp://server.example.com:2376 images
@@ -141,24 +141,24 @@ docker --tlsverify -H tcp://server.example.com:2376 images
 
 If you've experienceed problems connection to remote Docker API using TLS connection, you can debug it with `curl`:
 
-```sh
+```shell
 curl -v --cacert ~/.docker/ca.pem --cert ~/.docker/cert.pem --key ~/.docker/key.pem https://server:2376
 ```
 
 Or on your Flatcar Container Linux host:
 
-```sh
+```shell
 journalctl -f -u docker.service
 ```
 
 In addition you can export environment variables and use docker client without additional options:
 
-```sh
+```shell
 export DOCKER_HOST=tcp://server.example.com:2376 DOCKER_TLS_VERIFY=1
 docker images
 ```
 
-### Container Linux Config
+### Container Linux Config (TLS)
 
 A Container Linux Config for Docker TLS authentication will look like:
 
@@ -233,19 +233,19 @@ Environment=DOCKER_OPTS=--debug
 
 Now tell systemd about the new configuration and restart Docker:
 
-```sh
+```shell
 systemctl daemon-reload
 systemctl restart docker
 ```
 
 To test our debugging stream, run a Docker command and then read the systemd journal, which should contain the output:
 
-```sh
+```shell
 docker ps
 journalctl -u docker
 ```
 
-### Container Linux Config
+### Container Linux Config (flags)
 
 If you need to modify a flag across many machines, you can add the flag with a Container Linux Config:
 
@@ -259,7 +259,7 @@ docker:
 
 If you're operating in a locked down networking environment, you can specify an HTTP proxy for Docker to use via an environment variable. First, create a directory for drop-in configuration for Docker:
 
-```sh
+```shell
 mkdir /etc/systemd/system/docker.service.d
 ```
 
@@ -272,14 +272,14 @@ Environment="HTTP_PROXY=http://proxy.example.com:8080"
 
 To apply the change, reload the unit and restart Docker:
 
-```sh
+```shell
 systemctl daemon-reload
 systemctl restart docker
 ```
 
 Proxy environment variables can also be set [system-wide][systemd-env-vars].
 
-### Container Linux Config
+### Container Linux Config (proxy)
 
 The easiest way to use this proxy on all of your machines is via a Container Linux Config:
 
@@ -299,7 +299,7 @@ systemd:
 
 If you need to increase certain ulimits that are too low for your application by default, like memlock, you will need to modify the Docker service to increase the limit. First, create a directory for drop-in configuration for Docker:
 
-```sh
+```shell
 mkdir /etc/systemd/system/docker.service.d
 ```
 
@@ -312,12 +312,12 @@ LimitMEMLOCK=infinity
 
 To apply the change, reload the unit and restart Docker:
 
-```sh
+```shell
 systemctl daemon-reload
 systemctl restart docker
 ```
 
-### Container Linux Config
+### Container Linux Config (ulimits)
 
 The easiest way to use these new ulimits on all of your machines is via a Container Linux Config:
 
@@ -332,7 +332,6 @@ systemd:
             [Service]
             LimitMEMLOCK=infinity
 ```
-
 
 ## Using a dockercfg file for authentication
 

@@ -6,10 +6,10 @@ btrfs was marked as experimental for a long time, but it's now fully production-
 
 Notable Features of btrfs:
 
- - Ability to add/remove block devices without interruption
- - Ability to balance the filesystem without interruption
- - RAID 0, RAID 1, RAID 5, RAID 6 and RAID 10
- - Snapshots and file cloning
+- Ability to add/remove block devices without interruption
+- Ability to balance the filesystem without interruption
+- RAID 0, RAID 1, RAID 5, RAID 6 and RAID 10
+- Snapshots and file cloning
 
 This guide won't cover these topics &mdash; it's mostly focused on troubleshooting.
 
@@ -33,7 +33,7 @@ Re-balancing the filesystem ([official btrfs docs](https://btrfs.wiki.kernel.org
 
 First, let's see how much free space we have:
 
-```sh
+```shell
 $ sudo btrfs fi show
 Label: 'ROOT'  uuid: 82a40c46-557e-4848-ad4d-10c6e36ed5ad
   Total devices 1 FS bytes used 13.44GiB
@@ -48,7 +48,7 @@ The re-balance command can be configured to only relocate data in chunks up to a
 
 Let's try to relocate chunks with less than 5% of usage:
 
-```sh
+```shell
 $ sudo btrfs fi balance start -dusage=5 /
 Done, had to relocate 5 out of 45 chunks
 $ sudo btrfs fi show
@@ -63,7 +63,7 @@ The operation took about a minute on a cloud server and gained us 4GiB of space 
 
 If your balance operation is taking a long time, you can open a new shell and find the status:
 
-```
+```shell
 $ sudo btrfs balance status /
 Balance on '/' is running
 0 out of about 1 chunks balanced (1 considered), 100% left
@@ -73,9 +73,9 @@ Balance on '/' is running
 
 New physical disks can be added to an existing btrfs filesystem. The first step is to have the new block device [mounted on the machine](mounting-storage.md). Afterwards, let btrfs know about the new device and re-balance the file system. The key step here is re-balancing, which will move the data and metadata across both block devices. Expect this process to take some time:
 
-```sh
-$ btrfs device add /dev/sdc /
-$ btrfs filesystem balance /
+```shell
+btrfs device add /dev/sdc /
+btrfs filesystem balance /
 ```
 
 ## Disable copy-on-write
@@ -86,9 +86,9 @@ The best strategy for successfully running a database in a container is to disab
 
 The COW setting is stored as a file attribute and is modified with a utility called `chattr`. To disable COW for a MySQL container's volume, run:
 
-```sh
-$ sudo mkdir /var/lib/mysql
-$ sudo chattr -R +C /var/lib/mysql
+```shell
+sudo mkdir /var/lib/mysql
+sudo chattr -R +C /var/lib/mysql
 ```
 
 The directory `/var/lib/mysql` is now ready to be used by a Docker container without COW. Let's break down the command:
@@ -98,7 +98,7 @@ The directory `/var/lib/mysql` is now ready to be used by a Docker container wit
 
 To verify, we can run:
 
-```sh
+```shell
 $ sudo lsattr /var/lib/
 ---------------- /var/lib/portage
 ---------------- /var/lib/gentoo

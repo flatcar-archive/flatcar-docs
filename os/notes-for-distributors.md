@@ -12,7 +12,7 @@ Each directory has a `version.txt` file containing version information for the f
 
 It is recommended that you also verify files using the [Flatcar Container Linux Image Signing Key][signing-key]. The GPG signature for each image is a detached `.sig` file that must be passed to `gpg --verify`. For example:
 
-```sh
+```shell
 wget https://alpha.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu_image.img.bz2
 wget https://alpha.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu_image.img.bz2.sig
 gpg --verify flatcar_production_qemu_image.img.bz2.sig
