@@ -124,6 +124,17 @@ $ update_engine_client -check_for_update
 [0123/220706:INFO:update_engine_client.cc(245)] Initiating update check and install.
 ```
 
+### Double update workaround
+
+If you have disabled automatic reboots, and your host has already applied an update then your flatcar host will not apply a _newer_ update until it has rebooted into the prior-applied update.
+( i.e. Host is in `UPDATE_STATUS_UPDATED_NEED_REBOOT` state).
+To work around this intermediate reboot, one can call:
+
+```shell
+update_engine_client -reset_status
+update_engine_client -check_for_update
+```
+
 ## Auto-updates with a maintenance window
 
 Locksmith supports maintenance windows in addition to the reboot strategies mentioned earlier. Maintenance windows define a window of time during which a reboot can occur. These operate in addition to reboot strategies, so if the machine has a maintenance window and requires a reboot lock, the machine will only reboot when it has the lock during that window.
