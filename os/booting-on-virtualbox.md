@@ -2,7 +2,6 @@
 
 _While we always welcome community contributions and fixes, please note that VirtualBox is not an officially supported platform at this time. (See the [platform overview](/#getting-started).)_
 
-
 These instructions will walk you through running Flatcar Container Linux on Oracle VM VirtualBox.
 
 ## Building the virtual disk
@@ -13,14 +12,14 @@ The script is located on [GitHub](https://github.com/flatcar-linux/scripts/blob/
 
 As first step, you must download the script and make it executable.
 
-```sh
+```shell
 wget https://raw.githubusercontent.com/flatcar-linux/scripts/master/contrib/create-coreos-vdi
 chmod +x create-coreos-vdi
 ```
 
 To run the script, you can specify a destination location and the Flatcar Container Linux version.
 
-```sh
+```shell
 ./create-coreos-vdi -d /data/VirtualBox/Templates
 ```
 
@@ -61,7 +60,7 @@ Choose a channel to base your disk image on. Specific versions of Flatcar Contai
 
 After the script has finished successfully, the Flatcar Container Linux image will be available at the specified destination location or at the current location. The file name will be something like:
 
-```
+```shell
 coreos_production_stable.vdi
 ```
 
@@ -75,7 +74,7 @@ For more information on customization that can be done with cloud-config, head o
 
 You need a config-drive to configure at least one SSH key to access the virtual machine. If you are in hurry, you can create a basic config-drive with following steps:
 
-```sh
+```shell
 wget https://raw.github.com/flatcar-linux/scripts/master/contrib/create-basic-configdrive
 chmod +x create-basic-configdrive
 ./create-basic-configdrive -H my_vm01 -S ~/.ssh/id_rsa.pub
@@ -87,7 +86,7 @@ An ISO file named `my_vm01.iso` will be created that will configure a virtual ma
 
 Use the built image as the base image. Clone that image for each new virtual machine and set the desired size.
 
-```sh
+```shell
 VBoxManage clonehd coreos_production_stable.vdi my_vm01.vdi
 # Resize virtual disk to 10 GB
 VBoxManage modifyhd my_vm01.vdi --resize 10240
@@ -113,7 +112,7 @@ Networking can take a bit of time to come up under VirtualBox, and the IP is nee
 
 Now, login using your private SSH key.
 
-```sh
+```shell
 ssh core@192.168.56.101
 ```
 

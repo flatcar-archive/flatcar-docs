@@ -4,7 +4,7 @@
 
 The kernel modules directory `/usr/lib64/modules` is read-only on Flatcar Container Linux. A writable overlay can be mounted over it to allow installing new modules.
 
-```sh
+```shell
 modules=/opt/modules  # Adjust this writable storage location as needed.
 sudo mkdir -p "${modules}" "${modules}.wd"
 sudo mount \
@@ -32,13 +32,13 @@ WantedBy=local-fs.target
 
 Enable the unit so this overlay is mounted automatically on boot.
 
-```sh
+```shell
 sudo systemctl enable usr-lib64-modules.mount
 ```
 
 An alternative is to mount the overlay automatically when the system boots by adding the following line to `/etc/fstab` (creating it if necessary).
 
-```
+```fstab
 overlay /lib/modules overlay lowerdir=/lib/modules,upperdir=/opt/modules,workdir=/opt/modules.wd,nofail 0 0
 ```
 
@@ -46,7 +46,7 @@ overlay /lib/modules overlay lowerdir=/lib/modules,upperdir=/opt/modules,workdir
 
 Read system configuration files to determine the URL of the development container that corresponds to the current Flatcar Container Linux version.
 
-```sh
+```shell
 . /usr/share/flatcar/release
 . /usr/share/flatcar/update.conf
 url="https://${GROUP:-stable}.release.flatcar-linux.net/${FLATCAR_RELEASE_BOARD}/${FLATCAR_RELEASE_VERSION}/flatcar_developer_container.bin.bz2"
@@ -54,7 +54,7 @@ url="https://${GROUP:-stable}.release.flatcar-linux.net/${FLATCAR_RELEASE_BOARD}
 
 Download, decompress, and verify the development container image.
 
-```sh
+```shell
 gpg2 --keyserver pool.sks-keyservers.net --recv-keys F88CFEDEFF29A5B4D9523864E25D9AED0593B34A  # Fetch the buildbot key if necessary.
 curl -L "${url}" |
     tee >(bzip2 -d > flatcar_developer_container.bin) |
@@ -63,7 +63,7 @@ curl -L "${url}" |
 
 Start the development container with the host's writable modules directory mounted into place.
 
-```sh
+```shell
 sudo systemd-nspawn \
     --bind=/usr/lib64/modules \
     --image=flatcar_developer_container.bin
@@ -71,7 +71,7 @@ sudo systemd-nspawn \
 
 Now, inside the container, fetch the Flatcar Container Linux package definitions, then download and prepare the Linux kernel source for building external modules.
 
-```sh
+```shell
 emerge-gitclone
 emerge -gKv coreos-sources
 gzip -cd /proc/config.gz > /usr/src/linux/.config
@@ -84,6 +84,6 @@ At this point, upstream projects' instructions for building their out-of-tree mo
 
 In case the installation step didn't update the module dependency files automatically, running the following command will ensure commands like `modprobe` function correctly with the new modules.
 
-```sh
+```shell
 sudo depmod
 ```

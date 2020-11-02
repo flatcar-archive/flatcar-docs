@@ -27,7 +27,7 @@ The `etcd-lock` strategy mandates that each machine acquire and hold a reboot lo
 
 The number of machines allowed to reboot simultaneously is configurable via a command line utility:
 
-```sh
+```shell
 $ locksmithctl set-max 4
 Old: 1
 New: 4
@@ -37,7 +37,7 @@ This setting is stored in etcd so it won't have to be configured for subsequent 
 
 To view the number of available slots and find out which machines in the cluster are holding locks, run:
 
-```sh
+```shell
 $ locksmithctl status
 Available: 0
 Max: 1
@@ -48,7 +48,7 @@ MACHINE ID
 
 If needed, you can manually clear a lock by providing the machine ID:
 
-```sh
+```shell
 locksmithctl unlock 69d27b356a94476da859461d3a3bc6fd
 ```
 
@@ -91,11 +91,10 @@ old partition again because `update-engine` never marked the new partition to be
 To check that you can stop and mask `update-engine` after the reboot, run these commands to see that
 the partition was marked as successful. This will happen after the service ran for about 1 minute:
 
-```sh
+```shell
 $ sudo cgpt show "$(rootdev -s /usr)" | grep successful=1
                                   Attr: priority=1 tries=0 successful=1
 ```
-
 
 ## Updating behind a proxy
 
@@ -119,7 +118,7 @@ Proxy environment variables can also be set [system-wide][systemd-env-vars].
 
 Each machine should check in about 10 minutes after boot and roughly every hour after that. If you'd like to see it sooner, you can force an update check, which will skip any rate-limiting settings that are configured in CoreUpdate.
 
-```
+```shell
 $ update_engine_client -check_for_update
 [0123/220706:INFO:update_engine_client.cc(245)] Initiating update check and install.
 ```

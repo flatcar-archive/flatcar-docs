@@ -19,7 +19,7 @@ GROUP=beta
 
 In order for the configuration override to take effect, the update engine must first be restarted:
 
-```sh
+```shell
 sudo systemctl restart update-engine
 ```
 
@@ -29,21 +29,20 @@ After the update engine is restarted, the machine should check for an update wit
 
 The live status of updates checking can queried via:
 
-```sh
+```shell
 update_engine_client --status
 ```
 
 The update engine logs all update attempts, which can inspected in the system journal:
 
-```sh
+```shell
 journalctl -f -u update-engine
 ```
 
 For reference, the OS version and channel for a running system can be determined via:
 
-```sh
+```shell
 cat /usr/share/flatcar/os-release
-
 cat /usr/share/flatcar/update.conf
 ```
 

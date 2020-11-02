@@ -8,12 +8,12 @@ This document still contains useful pointers, but the details are not necessaril
 
 In general the automated process should always be used but in a pinch putting together a release manually may be necessary. All release information is tracked in the [manifest][flatcar-manifest] git repository which is usually organized like so:
 
- * build-109.xml (previous release manifest)
- * build-115.xml (current release manifest)
- * master.xml    (master branch manifest)
- * version.txt   (current version information)
- * default.xml -> master.xml
- * release.xml -> build-115.xml
+* build-109.xml (previous release manifest)
+* build-115.xml (current release manifest)
+* master.xml    (master branch manifest)
+* version.txt   (current version information)
+* default.xml -> master.xml
+* release.xml -> build-115.xml
 
 [flatcar-manifest]: https://github.com/flatcar-linux/manifest
 
@@ -56,7 +56,7 @@ Now you can start building images! This will build an image that can be ran unde
 
 Note: Add `COREOS_OFFICIAL=1` here if you are making a real release. That will change the version to leave off the build id suffix.
 
-```sh
+```shell
 ./build_image prod --group alpha
 ```
 

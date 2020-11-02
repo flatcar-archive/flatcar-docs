@@ -20,7 +20,6 @@ The platforms and providers listed below each provide support and documentation 
 * [VirtualBox][virtualbox]
 * [VMware][vmware]
 
-
 [exoscale]: booting-on-exoscale.md
 [openstack]: booting-on-openstack.md
 [packet]: booting-on-packet.md

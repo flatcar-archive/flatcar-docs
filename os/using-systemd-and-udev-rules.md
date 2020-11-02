@@ -2,7 +2,7 @@
 
 In our example we will use libvirt VM with Flatcar Container Linux and run systemd unit on disk attach event. First of all we have to create systemd unit file `/etc/systemd/system/device-attach.service`:
 
-```
+```ini
 [Service]
 Type=oneshot
 ExecStart=/usr/bin/echo 'device has been attached'
@@ -14,7 +14,7 @@ Then we have to start `udevadm monitor --environment` to monitor kernel events.
 
 Once you've attached virtio libvirt device (i.e. `virsh attach-disk coreos /dev/VG/test vdc`) you'll see similar `udevadm` output:
 
-```
+```text
 UDEV  [545.954641] add      /devices/pci0000:00/0000:00:18.0/virtio4/block/vdb (block)
 .ID_FS_TYPE_NEW=
 ACTION=add
@@ -31,7 +31,7 @@ USEC_INITIALIZED=545954447
 
 According to text above udev generates event which contains directives (ACTION=add and SUBSYSTEM=block) we will use in our rule. It should look this way:
 
-```
+```text
 ACTION=="add", SUBSYSTEM=="block", TAG+="systemd", ENV{SYSTEMD_WANTS}="device-attach.service"
 ```
 

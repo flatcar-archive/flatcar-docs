@@ -12,7 +12,7 @@ Amazon doesn't support directly resizing volumes, you must take a snapshot and c
 
 Even if you are not using Qemu itself the qemu-img tool is the easiest to use. It will work on raw, qcow2, vmdk, and most other formats. The command accepts either an absolute size or a relative size by by adding `+` prefix. Unit suffixes such as `G` or `M` are also supported.
 
-```sh
+```shell
 # Increase the disk size by 5GB
 qemu-img resize flatcar_production_qemu_image.img +5G
 ```
@@ -21,7 +21,7 @@ qemu-img resize flatcar_production_qemu_image.img +5G
 
 The interface available for resizing disks in VMware varies depending on the product. See this [Knowledge Base article][vmkb1004047] for details. Most products include a tool called `vmware-vdiskmanager`. The size must be the absolute disk size, relative sizes are not supported so be careful to only increase the size, not shrink it. The unit suffixes `Gb` and `Mb` are supported.
 
-```sh
+```shell
 # Set the disk size to 20GB
 vmware-vdiskmanager -x 20Gb flatcar_developer_vmware_insecure.vmx
 ```
@@ -34,7 +34,7 @@ Use qemu-img or vmware-vdiskmanager as described above. VirtualBox does not supp
 
 If you have have no other options you can try converting the VMDK disk image to a VDI image and configuring a new virtual machine with it:
 
-```sh
+```shell
 VBoxManage clonehd old.vmdk new.vdi --format VDI
 VBoxManage modifyhd new.vdi --resize 20480
 ```

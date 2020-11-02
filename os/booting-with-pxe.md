@@ -29,7 +29,7 @@ When configuring the Flatcar Container Linux pxelinux.cfg there are a few kernel
 
 This is an example pxelinux.cfg file that assumes Flatcar Container Linux is the only option. You should be able to copy this verbatim into `/var/lib/tftpboot/pxelinux.cfg/default` after providing an Ignition config URL:
 
-```sh
+```shell
 default flatcar
 prompt 1
 timeout 15
@@ -135,7 +135,7 @@ gpg --verify flatcar_production_pxe_image.cpio.gz.sig
 
 After setting up the PXE server as outlined above you can start the target machine in PXE boot mode. The machine should grab the image from the server and boot into Flatcar Container Linux. If something goes wrong you can direct questions to the [IRC channel][irc] or [mailing list][flatcar-user].
 
-```sh
+```shell
 This is localhost.unknown_domain (Linux x86_64 3.10.10+) 19:53:36
 SSH host key: 24:2e:f1:3f:5f:9c:63:e5:8c:17:47:32:f4:09:5d:78 (RSA)
 SSH host key: ed:84:4d:05:e3:7d:e3:d0:b9:58:90:58:3b:99:3a:4c (DSA)
@@ -147,7 +147,7 @@ localhost login:
 
 The IP address for the machine should be printed out to the terminal for convenience. If it doesn't show up immediately, press enter a few times and it should show up. Now you can simply SSH in using public key authentication:
 
-```sh
+```shell
 ssh core@10.0.2.15
 ```
 
@@ -201,7 +201,7 @@ storage:
 
 Similar to the [OEM partition][oem] in Flatcar Container Linux disk images, PXE images can be customized with an [Ignition config][ignition] bundled in the initramfs. Simply create a `./usr/share/oem/` directory, add a `config.ign` file containing the Ignition config, and add the directory tree as an additional initramfs:
 
-```sh
+```shell
 mkdir -p usr/share/oem
 cp example.ign ./usr/share/oem/config.ign
 find usr | cpio -o -H newc -O oem.cpio
@@ -210,7 +210,7 @@ gzip oem.cpio
 
 Confirm the archive looks correct and has your config inside of it:
 
-```sh
+```shell
 gzip --stdout --decompress oem.cpio.gz | cpio -it
 ./
 usr
@@ -221,7 +221,7 @@ usr/share/oem/config.ign
 
 Add the `oem.cpio.gz` file to your PXE boot directory, then [append it][append-initrd] to the `initrd` line in your `pxelinux.cfg`:
 
-```
+```text
 ...
 initrd flatcar_production_pxe_image.cpio.gz,oem.cpio.gz
 kernel flatcar_production_pxe.vmlinuz flatcar.first_boot=1
@@ -231,7 +231,6 @@ kernel flatcar_production_pxe.vmlinuz flatcar.first_boot=1
 ## Using Flatcar Container Linux
 
 Now that you have a machine booted it is time to play around. Check out the [Flatcar Container Linux Quickstart][qs] guide or dig into [more specific topics][docs].
-
 
 [append-initrd]: http://www.syslinux.org/wiki/index.php?title=SYSLINUX#INITRD_initrd_file
 [flatcar-user]: https://groups.google.com/forum/#!forum/flatcar-linux-user

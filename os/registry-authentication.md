@@ -23,8 +23,8 @@ If you are using a registry other than Quay (e.g., Docker Hub, Docker Store, etc
 
 The Docker client uses an interactive command to authenticate with a centralized service.
 
-```
-$ docker login -u <username> -p <password> https://registry.example.io
+```shell
+docker login -u <username> -p <password> https://registry.example.io
 ```
 
 This command creates the file `$HOME/.docker/config.json`, formatted like the following example:
@@ -57,15 +57,15 @@ Kubernetes uses [*Secrets*][k8s-secrets] to store registry credentials.
 
 When manually configuring authentication with *any* registry in Kubernetes (including Quay and Docker Hub) the following command is used to generate the Kubernetes registry-auth secret:
 
-```
+```shell
 $ kubectl create secret docker-registry my-favorite-registry-secret --docker-username=giffee_lover_93 --docker-password='passphrases are great!' --docker-email='giffee.lover.93@example.com' --docker-server=registry.example.io
 secret "my-favorite-registry-secret" created
 ```
 
 If you prefer you can store this in a YAML file by adding the `--dry-run` and `-o yaml` flag to the end of your command and copying or redirecting the output to a file:
 
-```
-$ kubectl create secret docker-registry my-favorite-registry [...] --dry-run -o yaml | tee credentials.yaml
+```shell
+kubectl create secret docker-registry my-favorite-registry [...] --dry-run -o yaml | tee credentials.yaml
 ```
 
 ```yaml
@@ -79,14 +79,14 @@ metadata:
 type: kubernetes.io/dockercfg
 ```
 
-```
+```shell
 $ kubectl create -f credentials.yaml
 secret "my-favorite-registry-secret" created
 ```
 
 You can check that this secret is loaded with with the `kubectl get` command:
 
-```
+```shell
 $ kubectl get my-favorite-registry-secret
 NAME                            TYPE                      DATA      AGE
 my-favorite-registry-secret     kubernetes.io/dockercfg   1         30m
@@ -115,7 +115,7 @@ For more information, check the [docker-registry Kubernetes secret][k8s-docker-r
 
 rkt stores registry-authentication in a JSON file stored in the directory `/etc/rkt/auth.d/`. 
 
-**/etc/rkt/auth.d/registry.example.io.json**
+`/etc/rkt/auth.d/registry.example.io.json`:
 
 ```json
 {
@@ -146,8 +146,8 @@ Mesos uses a gzip-compressed archive of a `.docker/config.json` (directory and f
 
 Once you have followed the above steps to [create the docker registry auth config file][docker-instructions] create your Mesos configuration using `tar`:
 
-```
-$ tar cxf ~/.docker/config.json
+```shell
+tar cxf ~/.docker/config.json
 ```
 
 The archive secret is referenced via the `uris` field in a container specification file:

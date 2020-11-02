@@ -10,13 +10,13 @@ Kinvolk publishes new Flatcar Container Linux images for each release across a v
 
 After downloading your image, you should verify it with `gpg` tool. First, download the image signing key:
 
-```sh
+```shell
 curl -L -O https://flatcar-linux.org/security/image-signing-key/Flatcar_Image_Signing_Key.asc
 ```
 
 Next, import the public key and verify that the ID matches the website: [Flatcar Image Signing Key][signing-key]
 
-```sh
+```shell
 gpg --import --keyid-format LONG Flatcar_Image_Signing_Key.asc
 gpg: key 50E0885593D2DCB4: public key "Flatcar Buildbot (Official Builds) <buildbot@flatcar-linux.org>" imported
 gpg: Total number processed: 1
@@ -27,14 +27,14 @@ gpg: depth: 0  valid:   2  signed:   0  trust: 0-, 0q, 0n, 0m, 0f, 2u
 
 Now we're ready to download an image and it's signature, ending in .sig. We're using the QEMU image in this example:
 
-```sh
+```shell
 curl -L -O https://stable.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu_image.img.bz2
 curl -L -O https://stable.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu_image.img.bz2.sig
 ```
 
 Verify image with `gpg` tool:
 
-```sh
+```shell
 gpg --verify flatcar_production_qemu_image.img.bz2.sig
 gpg: Signature made Tue Jun 23 09:39:04 2015 CEST using RSA key ID E5676EFC
 gpg: Good signature from "Flatcar Buildbot (Official Builds) <buildbot@flatcar-linux.org>"

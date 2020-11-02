@@ -9,16 +9,16 @@ account ([GCE free trial][free-trial]).
 To start the deployment, go to
 <https://console.cloud.google.com/marketplace/details/kinvolk-public/flatcar-container-linux>
 
-![](./img/gcl-landingpage.png)
+![GCL landing page](./img/gcl-landingpage.png)
 
 Click "Launch".
 
-![](./img/gcl-launcherconfig.png)
+![GCL launcher config](./img/gcl-launcherconfig.png)
 
 You can use the default values already filled in for you, or customize them
 for your needs. When you're happy with the settings, click "Deploy"
 
-![](./img/gcl-deploying.png)
+![GCL deploying](./img/gcl-deploying.png)
 
 And that's it! Your new Flatcar Container Linux is deploying.
 
@@ -26,7 +26,7 @@ And that's it! Your new Flatcar Container Linux is deploying.
 
 When complete you should see:
 
-![](./img/gcl-deployed.png)
+![GCL deployed](./img/gcl-deployed.png)
 
 Flatcar supports automatic resizing on first boot, the installation will
 use all the available space. So, you can ignore the warning about the image
@@ -48,7 +48,7 @@ username that matches your account.
 
 The easiest way to launch an SSH client is directly from the web UI
 
-![](./img/gcl-ssh.png)
+![GCL ssh](./img/gcl-ssh.png)
 
 This will connect with your user, which has some basic permissions. You
 will be able to inspect the machine and have a look around.
@@ -65,7 +65,7 @@ and on the instance. **It is enabled by default on instances provisioned with
 Flatcar Container Linux**. Once enabled, you can log into your Container Linux
 instances using:
 
-```sh
+```shell
 gcloud compute ssh --zone us-central1-a <instance-name>
 ```
 
@@ -76,7 +76,7 @@ This will use your GCE user to log in.
 You can log in your Flatcar Container Linux instances from the command
 line, using the `gcloud` command.
 
-```sh
+```shell
 gcloud compute ssh --zone <instance-zone> core@<instance-name>
 ```
 

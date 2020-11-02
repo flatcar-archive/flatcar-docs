@@ -46,13 +46,13 @@ Create 3 instances from the image above using our Ignition from `example.ign`:
 </div>
 -->
 
-
 ## Uploading an Image
 
 Official Flatcar Container Linux images are not available on Google Cloud at the moment. However, you can run Flatcar Container Linux today by uploading an image to your account.
 
 To do so, run the following command:
-```sh
+
+```shell
 docker run -it quay.io/kinvolk/google-cloud-flatcar-image-upload \
   --bucket-name <bucket name> \
   --project-id <project id>
@@ -67,7 +67,8 @@ During execution, the script will ask you to log into your Google account and th
 uploading an image. It will then download the requested Flatcar Container Linux image and upload it to the Google Cloud.
 
 To see all available options, run:
-```sh
+
+```shell
 docker run -it quay.io/kinvolk/google-cloud-flatcar-image-upload --help
 
 Usage: /usr/local/bin/upload_images.sh [OPTION...]
@@ -176,7 +177,6 @@ gcloud compute ssh --zone us-central1-a <instance-name>
 ```
 
 This will use your GCE user to log in.
-
 
 #### Disabling OS Login on newly provisioned nodes
 

@@ -14,7 +14,7 @@ This also applies for user instances of systemd, but with different locations fo
 
 Let's review `/usr/lib64/systemd/system/locksmithd.service` unit (you can find it using this command: `systemctl list-units | grep locksmithd`) with the following contents:
 
-```
+```ini
 [Unit]
 Description=Cluster reboot manager
 After=update-engine.service
@@ -42,21 +42,21 @@ Let's walk through increasing the `RestartSec` parameter via both methods:
 
 You can create a drop-in file `/etc/systemd/system/locksmithd.service.d/10-restart_60s.conf` with the following contents:
 
-```
+```ini
 [Service]
 RestartSec=60s
 ```
 
 Then reload systemd, scanning for new or changed units:
 
-```sh
+```shell
 systemctl daemon-reload
 
 ```
 
 And restart modified service if necessary (in our example we have changed only `RestartSec` option, but if you want to change environment variables, `ExecStart` or other run options you have to restart service):
 
-```sh
+```shell
 systemctl restart locksmithd.service
 ```
 
@@ -80,7 +80,7 @@ This change is small and targeted. It is the easiest way to tweak unit's paramet
 
 Another way is to override whole systemd unit. Copy default unit file `/usr/lib64/systemd/system/locksmithd.service` to `/etc/systemd/system/locksmithd.service` and change the chosen settings:
 
-```
+```ini
 [Unit]
 Description=Cluster reboot manager
 After=update-engine.service
@@ -135,7 +135,7 @@ systemd:
 
 To see all runtime drop-in changes for system units run the command below:
 
-```sh
+```shell
 systemd-delta --type=extended
 ```
 

@@ -10,11 +10,11 @@ The etcd and flannel examples shown in this document will use dynamic data in th
 
 To see all supported options available in a Container Linux Config, please look at the [Container Linux Config schema][ct-config].
 
-### etcd2
+## etcd2
 
 In a cloud-config, etcd version 2 can be enabled and configured by using the `coreos.etcd2.*` section. As an example of this:
 
-```cloud-config
+```yaml
 #cloud-config
 
 coreos:
@@ -49,11 +49,11 @@ etcd:
   initial_cluster:             "%m=http://{PRIVATE_IPV4}:2380"
 ```
 
-### flannel
+## flannel
 
 Flannel is easily configurable in a cloud-config the same way etcd is, by using the `coreos.flannel.*` section.
 
-```cloud-config
+```yaml
 #cloud-config
 
 coreos:
@@ -69,11 +69,11 @@ flannel:
   etcd_prefix: "/coreos.com/network2"
 ```
 
-### locksmith
+## locksmith
 
 The `coreos.locksmith.*` section in a cloud-config can be used to configure the locksmith daemon via environment variables.
 
-```cloud-config
+```yaml
 #cloud-config
 
 coreos:
@@ -89,11 +89,11 @@ locksmith:
   etcd_endpoints:  "http://example.com:2379"
 ```
 
-### update
+## update
 
 The `coreos.update.*` section can be used to configure the reboot strategy, update group, and update server in a cloud-config.
 
-```cloud-config
+```yaml
 #cloud-config
 coreos:
   update:
@@ -110,11 +110,11 @@ update:
   server: "https://public.update.flatcar-linux.net/v1/update/"
 ```
 
-### units
+## units
 
 The `coreos.units.*` section in a cloud-config can define arbitrary systemd units that should be started after booting.
 
-```cloud-config
+```yaml
 #cloud-config
 
 coreos:
@@ -135,7 +135,7 @@ coreos:
 
 This section could also be used to define systemd drop-in files for existing units.
 
-```cloud-config
+```yaml
 #cloud-config
 
 coreos:
@@ -150,7 +150,7 @@ coreos:
 
 And existing units could also be started without any further configuration.
 
-```cloud-config
+```yaml
 #cloud-config
 
 coreos:
@@ -209,7 +209,7 @@ systemd:
 
 In a cloud-config the `ssh_authorized_keys` section can be used to add ssh public keys to the `core` user.
 
-```cloud-config
+```yaml
 #cloud-config
 
 ssh_authorized_keys:
@@ -230,7 +230,7 @@ passwd:
 
 In a cloud-config the `hostname` section can be used to set a machine's hostname.
 
-```cloud-config
+```yaml
 #cloud-config
 
 hostname: "coreos1"
@@ -252,7 +252,7 @@ storage:
 
 The `users` section in a cloud-config can be used to add users and specify many properties about them, from groups the user should be in to what the user's shell should be.
 
-```cloud-config
+```yaml
 #cloud-config
 
 users:
@@ -283,7 +283,7 @@ passwd:
 
 The `write_files` section in a cloud-config can be used to specify files and their contents that should be written to disk on the machine.
 
-```cloud-config
+```yaml
 #cloud-config
 write_files:
   - path:        "/etc/resolv.conf"
@@ -314,7 +314,7 @@ Under the `contents` section, the file contents are under a sub-section called `
 
 The `manage_etcd_hosts` section in a cloud-config can be used to configure the contents of the `/etc/hosts` file. Currently only one value is supported, `"localhost"`, which will cause your system's hostname to resolve to `127.0.0.1`.
 
-```cloud-config
+```yaml
 #cloud-config
 
 manage_etc_hosts: "localhost"
@@ -330,8 +330,8 @@ storage:
       mode:       0644
       contents:
         inline: |
-          127.0.0.1	localhost
-          ::1		localhost
+          127.0.0.1 localhost
+          ::1       localhost
           127.0.0.1 example.com
 ```
 

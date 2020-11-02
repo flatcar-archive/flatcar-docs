@@ -8,26 +8,26 @@ Flatcar Container Linux gives you three essential tools: service discovery, cont
 
 First, on the client start your user agent by typing:
 
-```
+```shell
 eval $(ssh-agent)
 ```
 
 Then, add your private key to the agent by typing:
 
-```
+```shell
 ssh-add
 ```
 
 Connect to a Flatcar Container Linux machine via SSH as the user `core`. For example, on Amazon, use:
 
-```sh
+```shell
 $ ssh core@an.ip.compute-1.amazonaws.com
 Flatcar Container Linux (beta)
 ```
 
 If you're using Vagrant, you'll need to connect a bit differently:
 
-```sh
+```shell
 $ ssh-add ~/.vagrant.d/insecure_private_key
 Identity added: /Users/core/.vagrant.d/insecure_private_key (/Users/core/.vagrant.d/insecure_private_key)
 $ vagrant ssh core-01
@@ -58,13 +58,13 @@ In order to get the discovery token, visit [https://discovery.etcd.io/new](https
 
 Set a key `message` with value `Hello world`:
 
-```sh
+```shell
 etcdctl set /message "Hello world"
 ```
 
 Read the value of `message` back:
 
-```sh
+```shell
 etcdctl get /message
 ```
 
@@ -72,19 +72,19 @@ You can also use simple `curl`. These examples correspond to previous ones:
 
 Set the value:
 
-```sh
+```shell
 curl -L http://127.0.0.1:2379/v2/keys/message -XPUT -d value="Hello world"
 ```
 
 Read the value:
 
-```sh
+```shell
 curl -L http://127.0.0.1:2379/v2/keys/message
 ```
 
 If you followed a guide to set up more than one Flatcar Container Linux machine, you can SSH into another machine and can retrieve this same value.
 
-### More detailed information
+### More detailed information (service discovery)
 
 <a class="btn btn-primary" href="https://coreos.com/etcd/docs/latest/getting-started-with-etcd.html" data-category="More Information" data-event="Docs: Getting Started etcd">View Complete Guide</a>
 <a class="btn btn-default" href="https://etcd.io/docs/">Read etcd API Docs</a>
@@ -95,17 +95,17 @@ The second building block, **Docker** ([docs][docker-docs]), is where your appli
 
 Run a command in the container and then stop it:
 
-```sh
+```shell
 docker run busybox /bin/echo hello world
 ```
 
 Open a shell prompt inside the container:
 
-```sh
+```shell
 docker run -i -t busybox /bin/sh
 ```
 
-### More detailed information
+### More detailed information (Docker)
 
 <a class="btn btn-default" href="http://docs.docker.io/">Read Docker Docs</a>
 

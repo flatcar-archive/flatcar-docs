@@ -8,15 +8,15 @@ Flatcar Container Linux implements SELinux, but currently does not enforce SELin
 
 To verify whether the current SELinux policy would inhibit your containers, enable SELinux logging. In the following set of commands, we delete the rules that suppress this logging by default, and copy the policy store from Flatcar Container Linux's read-only `/usr` to a writable file system location.
 
-```sh
-$ rm /etc/audit/rules.d/80-selinux.rules
-$ rm /etc/audit/rules.d/99-default.rules
-$ rm /etc/selinux/mcs
-$ cp -a /usr/lib/selinux/mcs /etc/selinux
-$ rm /var/lib/selinux
-$ cp -a /usr/lib/selinux/policy /var/lib/selinux
-$ semodule -DB
-$ systemctl restart audit-rules
+```shell
+rm /etc/audit/rules.d/80-selinux.rules
+rm /etc/audit/rules.d/99-default.rules
+rm /etc/selinux/mcs
+cp -a /usr/lib/selinux/mcs /etc/selinux
+rm /var/lib/selinux
+cp -a /usr/lib/selinux/policy /var/lib/selinux
+semodule -DB
+systemctl restart audit-rules
 ```
 
 Now run your container. Check the system logs for any messages containing `avc: denied`. Such messages indicate that an `enforcing` SELinux would prevent the container from performing the logged operation. Please open an issue at [flatcar-linux/Flatcar](https://github.com/flatcar-linux/Flatcar/issues), including the full avc log message.

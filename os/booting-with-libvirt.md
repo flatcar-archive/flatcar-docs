@@ -72,7 +72,7 @@ bunzip2 flatcar_production_qemu_image.img.bz2</pre>
 
 Now create a qcow2 image snapshot using the command below:
 
-```sh
+```shell
 cd /var/lib/libvirt/images/flatcar-linux
 qemu-img create -f qcow2 -b flatcar_production_qemu_image.img flatcar-linux1.qcow2
 ```
@@ -94,14 +94,14 @@ However the Ignition file is created, it should be placed in a location which qe
 
 Here, for example, we create an empty Ignition config that contains no further declarations besides its specification version:
 
-```sh
+```shell
 mkdir -p /var/lib/libvirt/flatcar-linux/flatcar-linux1/
 echo '{"ignition":{"version":"2.0.0"}}' > /var/lib/libvirt/flatcar-linux/flatcar-linux1/provision.ign
 ```
 
 If the host uses SELinux, allow the VM access to the config:
 
-```sh
+```shell
 semanage fcontext -a -t virt_content_t "/var/lib/libvirt/flatcar-linux/flatcar-linux1"
 restorecon -R "/var/lib/libvirt/flatcar-linux/flatcar-linux1"
 ```
@@ -126,8 +126,8 @@ passwd:
 Assuming that you save this as `example.yaml` (and replace the dummy key with public key), you can convert it to an Ignition config with the [config transpiler](/container-linux-config-transpiler/doc/getting-started/).
 Here we run it from a Docker image:
 
-```sh
-$ cat example.yaml | docker run --rm -i quay.io/coreos/ct:latest-dev > /var/lib/libvirt/flatcar-linux/flatcar-linux1/provision.ign
+```shell
+cat example.yaml | docker run --rm -i quay.io/coreos/ct:latest-dev > /var/lib/libvirt/flatcar-linux/flatcar-linux1/provision.ign
 ```
 
 #### Creating the domain xml
@@ -136,8 +136,7 @@ Once the Ignition file exists on disk, the machine can be configured to use it.
 
 Start by creating a libvirt [domain XML](https://libvirt.org/formatdomaincaps.html) document:
 
-
-```sh
+```shell
 virt-install --connect qemu:///system \
              --import \
              --name flatcar-linux1 \
@@ -164,7 +163,7 @@ Next, modify the domain xml to reference the qemu-specific configuration needed:
 
 If you have the `xmlstarlet` utility installed, the above modification can be accomplished easily with the following:
 
-```sh
+```shell
 domain=/var/lib/libvirt/flatcar-linux/flatcar-linux1/domain.xml
 ignition_file=/var/lib/libvirt/flatcar-linux/flatcar-linux1/provision.ign
 
@@ -178,7 +177,7 @@ xmlstarlet ed -P -L -s "(//domain/qemu:commandline/qemu:arg)[2]" -t attr -n "val
 
 Alternately, you can accomplish the same modification using sed:
 
-```sh
+```shell
 domain=/var/lib/libvirt/flatcar-linux/flatcar-linux1/domain.xml
 ignition_file=/var/lib/libvirt/flatcar-linux/flatcar-linux1/provision.ign
 
@@ -190,22 +189,21 @@ sed -i "/<\/devices>/a <qemu:commandline>\n  <qemu:arg value='-fw_cfg'/>\n  <qem
 
 Once the XML domain has been edited to include the Ignition file, it can be created and started using the `virsh` tool included with libvirt:
 
-```sh
+```shell
 virsh define /var/lib/libvirt/flatcar-linux/flatcar-linux1/domain.xml
-virsh start flatcar-linux1 
+virsh start flatcar-linux1
 ```
 
 #### SSH into the machine
 
 By default, libvirt runs its own DHCP server which will provide an IP address to new instances. You can query it for what IP addresses have been assigned to machines:
 
-```sh
+```shell
 $ virsh net-dhcp-leases default
 Expiry Time          MAC address        Protocol  IP address                Hostname        Client ID or DUID
 -------------------------------------------------------------------------------------------------------------------
  2017-08-09 16:32:52  52:54:00:13:12:45  ipv4      192.168.122.184/24        flatcar-linux1 ff:32:39:f9:b5:00:02:00:00:ab:11:06:6a:55:ed:5d:0a:73:ee
 ```
-
 
 ### Network configuration
 
@@ -224,7 +222,7 @@ storage:
   files:
   - path: /etc/hostname
     filesystem: "root"
-    contents: 
+    contents:
       inline: flatcar-linux1
 
 networkd:
@@ -248,7 +246,7 @@ An alternative to statically configuring an IP at the host level is to do so at 
 
 This can be done using the `net-update` command. The following assumes you're using the `default` libvirt network and have configured the MAC Address to `52:54:00:fe:b3:c0` through the `--network` flag on `virt-install`:
 
-```sh
+```shell
 ip="192.168.122.2"
 mac="52:54:00:fe:b3:c0"
 
@@ -259,12 +257,11 @@ virsh net-update --network "default" add-last ip-dhcp-host \
 
 By executing these commands before running `virsh start`, we can ensure the libvirt DHCP server will hand out a known IP.
 
-
 ## Virtual machine startup
 
 Now, start this libvirt instance with the RAM, vCPU, and networking configuration defined above:
 
-```sh
+```shell
 ignition_file=/var/lib/libvirt/flatcar-linux/flatcar-linux1/provision.ign
 
 domain=/var/lib/libvirt/flatcar-linux/flatcar-linux1/domain.xml
@@ -296,7 +293,7 @@ virsh start flatcar-linux1
 
 Once the virtual machine has started you can log in via SSH:
 
-```sh
+```shell
 ssh core@192.168.122.2
 ```
 
@@ -314,7 +311,7 @@ UserKnownHostsFile /dev/null
 
 Now you can log in to the virtual machine with:
 
-```sh
+```shell
 ssh flatcar-linux1
 ```
 

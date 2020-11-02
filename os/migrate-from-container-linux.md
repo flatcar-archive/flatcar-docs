@@ -26,7 +26,7 @@ _Optional:_ Instead of providing the `coreos.oem.id=NAME` argument via the boot 
 **Recover from or prevent errors with missing OEM settings (e.g., `coreos-metadata-sshkeys@core.service`):** While current releases handle both `coreos.oem` and `flatcar.oem` names, previous releases still required `flatcar.oem.…`.
 In that case you need to change the variables in the file `/usr/share/oem/grub.cfg` when you update from CoreOS Container Linux:
 
-```
+```text
 # GRUB settings
 set oem_id="myoemvalue"
 set linux_append="$linux flatcar.oem.id=myoemvalue"

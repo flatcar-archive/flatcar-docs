@@ -22,7 +22,7 @@ DNS=1.2.3.4
 
 Place the file in `/etc/systemd/network/`. To apply the configuration, run:
 
-```sh
+```shell
 sudo systemctl restart systemd-networkd
 ```
 
@@ -48,7 +48,7 @@ networkd:
 
 If you'd like to use DHCP on all interfaces except `enp2s0`, create two files. They'll be checked in lexical order, as described in the [full network docs](http://www.freedesktop.org/software/systemd/man/systemd-networkd.service.html). Any interfaces matching during earlier files will be ignored during later files.
 
-#### 10-static.network
+`10-static.network`:
 
 ```ini
 [Match]
@@ -62,7 +62,7 @@ DNS=1.2.3.4
 
 Put your settings-of-last-resort in `20-dhcp.network`. For example, any interfaces matching `en*` that weren't matched in `10-static.network` will be configured with DHCP:
 
-#### 20-dhcp.network
+`20-dhcp.network`:
 
 ```ini
 [Match]
@@ -92,7 +92,7 @@ IPv6AcceptRA=no
 
 Specify static routes in a systemd network unit's `[Route]` section. In this example, we create a unit file, `10-static.network`, and define in it a static route to the `172.16.0.0/24` subnet:
 
-#### 10-static.network
+`10-static.network`:
 
 ```ini
 [Route]
@@ -116,7 +116,7 @@ networkd:
 
 To configure multiple IP addresses on one interface, we define multiple `Address` keys in the network unit. In the example below, we've also defined a different gateway for each IP address.
 
-#### 20-multi_ip.network
+`20-multi_ip.network`:
 
 ```ini
 [Match]
@@ -154,20 +154,20 @@ If you've faced some problems with networkd you can enable debug mode following 
 
 ### Enable debugging manually
 
-```sh
+```shell
 mkdir -p /etc/systemd/system/systemd-networkd.service.d/
 ```
 
 Create [Drop-In][drop-ins] `/etc/systemd/system/systemd-networkd.service.d/10-debug.conf` with following content:
 
-```sh
+```shell
 [Service]
 Environment=SYSTEMD_LOG_LEVEL=debug
 ```
 
 And restart `systemd-networkd` service:
 
-```sh
+```shell
 systemctl daemon-reload
 systemctl restart systemd-networkd
 journalctl -b -u systemd-networkd
@@ -192,9 +192,8 @@ systemd:
 
 ## Further reading
 
-If you're interested in more general networkd features, check out the [full documentation](http://www.freedesktop.org/software/systemd/man/systemd-networkd.service.html).
-
-<a class="btn btn-default" href="getting-started-with-systemd.md">Getting Started with systemd</a>
-<a class="btn btn-default" href="reading-the-system-log.md">Reading the System Log</a>
+- [networkd full documentation](http://www.freedesktop.org/software/systemd/man/systemd-networkd.service.html)
+- [Getting Started with systemd](getting-started-with-systemd.md)
+- [Reading the System Log](reading-the-system-log.md)
 
 [drop-ins]: using-systemd-drop-in-units.md

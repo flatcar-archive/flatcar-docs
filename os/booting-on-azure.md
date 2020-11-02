@@ -6,7 +6,7 @@ Follow the [installation and configuration guides][azure-cli] for the Microsoft 
 
 Instances on Microsoft Azure must be created within a resource group. Create a new resource group with the following command:
 
-```sh
+```shell
 az group create --name group-1 --location <location>
 ```
 
@@ -34,7 +34,7 @@ The following command will create a single instance through the Azure CLI.
         <p>The Stable channel should be used by production clusters. Versions of Flatcar Container Linux are battle-tested within
         the Beta and Alpha channels before being promoted. The current version is Flatcar Container Linux {{site.stable-channel}}.</p>
         <pre>
-$ az vm image list --all -p kinvolk -f flatcar -s stable  # Query the image name urn specifier 
+$ az vm image list --all -p kinvolk -f flatcar -s stable  # Query the image name urn specifier
 [
   {
     "offer": "flatcar-container-linux",
@@ -110,7 +110,8 @@ $ az vm create --name node-1 --resource-group group-1 --admin-username core --cu
 ## Uploading your own Image
 
 To automatically download the Flatcar image for Azure from the release page and upload it to your Azure account, run the following command:
-```sh
+
+```shell
 docker run -it --rm quay.io/kinvolk/azure-flatcar-image-upload \
   --resource-group <resource group> \
   --storage-account-name <storage account name>
@@ -126,19 +127,19 @@ uploading an image. It will then download the requested Flatcar Container Linux 
 
 If uploading fails with one of the following errors, it usually indicates a problem on Azure's side:
 
-```
+```text
 Put https://mystorage.blob.core.windows.net/vhds?restype=container: dial tcp: lookup iago-dev.blob.core.windows.net on 80.58.61.250:53: no such host
 ```
 
-```
+```text
 storage: service returned error: StatusCode=403, ErrorCode=AuthenticationFailed, ErrorMessage=Server failed to authenticate the request. Make sure the value of Authorization header is formed correctly including the signature. RequestId:a3ed1ebc-701e-010c-5258-0a2e84000000 Time:2019-05-14T13:26:00.1253383Z, RequestId=a3ed1ebc-701e-010c-5258-0a2e84000000, QueryParameterName=, QueryParameterValue=
 ```
-
 
 The command is idempotent and it is therefore safe to re-run it in case of failure.
 
 To see all available options, run:
-```sh
+
+```shell
 docker run -it --rm quay.io/kinvolk/azure-flatcar-image-upload --help
 
 Usage: /usr/local/bin/upload_images.sh [OPTION...]

@@ -27,7 +27,7 @@ storage:
           AuthenticationMethods publickey
 ```
 
-### Changing the sshd port
+### Changing the sshd port (cloud-config)
 
 Flatcar Container Linux ships with socket-activated SSH daemon by default. The configuration for this can be found at `/usr/lib/systemd/system/sshd.socket`. We're going to override some of the default settings for this in the Container Linux Config provided at boot:
 
@@ -93,7 +93,7 @@ To change how sshd listens, update the list of `ListenStream`s in the `[Socket]`
 
 To change just the listened-to port (in this example, port 222), create a dropin at `/etc/systemd/system/sshd.socket.d/10-sshd-listen-ports.conf`
 
-```
+```ini
 # /etc/systemd/system/sshd.socket.d/10-sshd-listen-ports.conf
 [Socket]
 ListenStream=
@@ -102,7 +102,7 @@ ListenStream=222
 
 To change the listened-to IP address (in this example, 10.20.30.40):
 
-```
+```ini
 # /etc/systemd/system/sshd.socket.d/10-sshd-listen-ports.conf
 [Socket]
 ListenStream=
@@ -116,7 +116,7 @@ You can specify both an IP and an alternate port in a single `ListenStream` line
 
 Multiple ListenStream lines can be specified, in which case `sshd` will listen on all the specified sockets:
 
-```
+```ini
 # /etc/systemd/system/sshd.socket.d/10-sshd-listen-ports.conf
 [Socket]
 ListenStream=
@@ -129,14 +129,14 @@ FreeBind=true
 
 After creating the dropin file, the changes can be activated by doing a daemon-reload and restarting `sshd.socket`
 
-```
-$ sudo systemctl daemon-reload
-$ sudo systemctl restart sshd.socket
+```shell
+sudo systemctl daemon-reload
+sudo systemctl restart sshd.socket
 ```
 
 We now see that systemd is listening on the new sockets:
 
-```
+```shell
 $ systemctl status sshd.socket
 ● sshd.socket - OpenSSH Server Socket
    Loaded: loaded (/etc/systemd/system/sshd.socket; disabled; vendor preset: disabled)
@@ -149,7 +149,7 @@ $ systemctl status sshd.socket
 
 And if we attempt to connect to port 22 on our public IP, the connection is rejected, but port 222 works:
 
-```
+```shell
 $ ssh core@[public IP]
 ssh: connect to host [public IP] port 22: Connection refused
 $ ssh -p 222 core@[public IP]
@@ -161,20 +161,19 @@ core@machine $
 
 Simply mask the systemd.socket unit:
 
-```
-# systemctl mask --now sshd.socket
+```shell
+systemctl mask --now sshd.socket
 ```
 
 Finally, restart the sshd.service unit:
 
-```
-# systemctl restart sshd.service
+```shell
+systemctl restart sshd.service
 ```
 
 ### Further reading on systemd units
 
 For more information about configuring Flatcar Container Linux hosts with `systemd`, see [Getting Started with systemd](getting-started-with-systemd.md).
-
 
 [openssh-manual]: http://www.openssh.com/cgi-bin/man.cgi?query=sshd_config
 [mozilla-ssh-rec]: https://wiki.mozilla.org/Security/Guidelines/OpenSSH#Modern_.28OpenSSH_6.7.2B.29

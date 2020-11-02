@@ -8,7 +8,6 @@ You can direct questions to the [IRC channel][irc] or [mailing list][flatcar-dev
 [qemuwiki]: http://wiki.qemu.org/Manual
 [qemudoc]: http://qemu.weilnetz.de/qemu-doc.html
 
-
 ## Install QEMU
 
 In addition to Linux it can be run on Windows and OS X but works best on Linux. It should be available on just about any distro.
@@ -17,7 +16,7 @@ In addition to Linux it can be run on Windows and OS X but works best on Linux. 
 
 Documentation for [Debian][qemudeb] has more details but to get started all you need is:
 
-```sh
+```shell
 sudo apt-get install qemu-system-x86 qemu-utils
 ```
 
@@ -27,7 +26,7 @@ sudo apt-get install qemu-system-x86 qemu-utils
 
 The Fedora wiki has a [quick howto][qemufed] but the basic install is easy:
 
-```sh
+```shell
 sudo yum install qemu-system-x86 qemu-img
 ```
 
@@ -37,7 +36,7 @@ sudo yum install qemu-system-x86 qemu-img
 
 This is all you need to get started:
 
-```sh
+```shell
 sudo pacman -S qemu
 ```
 
@@ -47,14 +46,12 @@ More details can be found on [Arch's QEMU wiki page](https://wiki.archlinux.org/
 
 As to be expected, Gentoo can be a little more complicated but all the required kernel options and USE flags are covered in the [Gentoo Wiki][qemugen]. Usually this should be sufficient:
 
-```sh
+```shell
 echo app-emulation/qemu qemu_softmmu_targets_x86_64 virtfs xattr >> /etc/portage/package.use
 emerge -av app-emulation/qemu
 ```
 
 [qemugen]: http://wiki.gentoo.org/wiki/QEMU
-
-
 ## Startup Flatcar Container Linux
 
 Once QEMU is installed you can download and start the latest Flatcar Container Linux image.
@@ -140,7 +137,7 @@ chmod +x flatcar_production_qemu.sh</pre>
 
 Starting is as simple as:
 
-```sh
+```shell
 ./flatcar_production_qemu.sh -nographic
 ```
 
@@ -148,7 +145,7 @@ Starting is as simple as:
 
 In order to log in to the virtual machine you will need to use ssh keys. If you don't already have a ssh key pair you can generate one simply by running the command `ssh-keygen`. The wrapper script will automatically look for public keys in ssh-agent if available and at the default locations `~/.ssh/id_dsa.pub` or `~/.ssh/id_rsa.pub`. If you need to provide an alternate location use the -a option:
 
-```sh
+```shell
 ./flatcar_production_qemu.sh -a ~/.ssh/authorized_keys -- -nographic
 ```
 
@@ -156,7 +153,7 @@ Note: Options such as `-a` for the wrapper script must be specified before any o
 
 Once the virtual machine has started you can log in via SSH:
 
-```sh
+```shell
 ssh -l core -p 2222 localhost
 ```
 
@@ -164,7 +161,7 @@ ssh -l core -p 2222 localhost
 
 To simplify this and avoid potential host key errors in the future add the following to `~/.ssh/config`:
 
-```sh
+```shell
 Host flatcar
 HostName localhost
 Port 2222
@@ -175,7 +172,7 @@ UserKnownHostsFile /dev/null
 
 Now you can log in to the virtual machine with:
 
-```sh
+```shell
 ssh flatcar
 ```
 
@@ -183,7 +180,7 @@ ssh flatcar
 
 Flatcar Container Linux allows you to configure machine parameters, configure networking, launch systemd units on startup, and more via Container Linux Configs. These configs are then transpiled into Ignition configs and given to booting machines. Head over to the [docs to learn about the supported features][cl-configs]. An Ignition config can be passed to the virtual machine using the QEMU Firmware Configuration Device. The wrapper script provides a method for doing so:
 
-```sh
+```shell
 ./flatcar_production_qemu.sh -i config.ign -- -nographic
 ```
 

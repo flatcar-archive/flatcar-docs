@@ -5,10 +5,12 @@ Recent Intel CPU vulnerabilities ([L1TF] and [MDS]) cannot be fully mitigated in
 In addition, the Intel [TAA] vulnerability cannot be fully mitigated without disabling either of SMT or the Transactional Synchronization Extensions (TSX). Disabling TSX generally has less performance impact, so is the preferred approach on systems that don't otherwise need to disable SMT. For compatibility reasons, TSX is enabled by default.
 
 SMT and TSX should be disabled on affected Intel processors under the following circumstances:
+
 1. A bare-metal host runs untrusted virtual machines, and [other arrangements][l1tf-mitigation] have not been made for mitigation.
 2. A bare-metal host runs untrusted code outside a virtual machine.
 
 SMT can be conditionally disabled by passing `mitigations=auto,nosmt` on the kernel command line. This will disable SMT only if required for mitigating a vulnerability. This approach has two caveats:
+
 1. It does not protect against unknown vulnerabilities in SMT.
 2. It allows future Flatcar Container Linux updates to disable SMT if needed to mitigate new vulnerabilities.
 
@@ -78,13 +80,13 @@ systemd:
 
 To add `mitigations=auto,nosmt tsx=auto` to the kernel command line on an existing system, add the following line to `/usr/share/oem/grub.cfg`:
 
-```
+```text
 set linux_append="$linux_append mitigations=auto,nosmt tsx=auto"
 ```
 
 For example, using SSH:
 
-```sh
+```shell
 ssh core@node01 'sudo sh -c "echo \"set linux_append=\\\"\\\$linux_append mitigations=auto,nosmt tsx=auto\\\"\" >> /usr/share/oem/grub.cfg && systemctl reboot"'
 ```
 

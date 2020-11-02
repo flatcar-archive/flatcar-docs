@@ -4,7 +4,7 @@
 
 Most Linux kernel modules get automatically loaded as-needed but there are a some situations where this doesn't work. Problems can arise if there is boot-time dependencies are sensitive to exactly when the module gets loaded. Module auto-loading can be broken all-together if the operation requiring the module happens inside of a container. `iptables` and other netfilter features can easily encounter both of these issues. To force a module to be loaded early during boot simply list them in a file under `/etc/modules-load.d`. The file name must end in `.conf`.
 
-```sh
+```shell
 echo nf_conntrack > /etc/modules-load.d/nf.conf
 ```
 
@@ -50,7 +50,7 @@ storage:
 
 The Linux kernel offers a plethora of knobs under `/proc/sys` to control the availability of different features and tune performance parameters. For one-shot changes values can be written directly to the files under `/proc/sys` but persistent settings must be written to `/etc/sysctl.d`:
 
-```sh
+```shell
 echo net.netfilter.nf_conntrack_max=131072 > /etc/sysctl.d/nf.conf
 sysctl --system
 ```
@@ -82,7 +82,7 @@ Further details can be found in the systemd man pages:
 
 The Flatcar Container Linux bootloader parses the configuration file `/usr/share/oem/grub.cfg`, where custom kernel boot options may be set.
 
-The `/usr/share/oem/grub.cfg` file can be configured with Ignition. Note that Ignition runs after GRUB. Therefore, the GRUB configuration won't take effect until the next reboot of the node. 
+The `/usr/share/oem/grub.cfg` file can be configured with Ignition. Note that Ignition runs after GRUB. Therefore, the GRUB configuration won't take effect until the next reboot of the node.
 
 Here's an example configuration:
 
@@ -107,7 +107,7 @@ storage:
 
 To login without a password on every boot, edit `/usr/share/oem/grub.cfg` to add the line:
 
-```
+```text
 set linux_append="$linux_append flatcar.autologin=tty1"
 ```
 
@@ -115,7 +115,7 @@ set linux_append="$linux_append flatcar.autologin=tty1"
 
 Edit `/usr/share/oem/grub.cfg` to add the following line, enabling systemd's most verbose `debug`-level logging:
 
-```
+```text
 set linux_append="$linux_append systemd.log_level=debug"
 ```
 
@@ -123,7 +123,7 @@ set linux_append="$linux_append systemd.log_level=debug"
 
 Completely disable the `systemd-networkd.service` unit by adding this line to `/usr/share/oem/grub.cfg`:
 
-```
+```text
 set linux_append="$linux_append systemd.mask=systemd-networkd.service"
 ```
 
@@ -131,7 +131,7 @@ set linux_append="$linux_append systemd.mask=systemd-networkd.service"
 
 When logging in interactively, a brief message (the "Message of the Day (MOTD)") reports the Flatcar Container Linux release channel, version, and a list of any services or systemd units that have failed. Additional text can be added by dropping text files into `/etc/motd.d`. The directory may need to be created first, and the drop-in file name must end in `.conf`. Flatcar Container Linux versions 555.0.0 and greater support customization of the MOTD.
 
-```sh
+```shell
 mkdir -p /etc/motd.d
 echo "This machine is dedicated to computing Pi" > /etc/motd.d/pi.conf
 ```
@@ -152,7 +152,7 @@ storage:
 
 The system boot messages that are printed to the console will be cleared when systemd starts a login prompt. In order to preserve these messages, the `getty` services will need to have their `TTYVTDisallocate` setting disabled. This can be achieved with a drop-in for the template unit, `getty@.service`. Note that the console will still scroll so the login prompt is at the top of the screen, but the boot messages will be available by scrolling.
 
-```sh
+```shell
 mkdir -p '/etc/systemd/system/getty@.service.d'
 echo -e '[Service]\nTTYVTDisallocate=no' > '/etc/systemd/system/getty@.service.d/no-disallocate.conf'
 ```

@@ -2,7 +2,6 @@
 
 _While we always welcome community contributions and fixes, please note that Vagrant is not an officially supported platform at this time. (See the [platform overview](/#getting-started).)_
 
-
 Running Flatcar Container Linux with Vagrant is one way to bring up a single machine or virtualize an entire cluster on your laptop. Since the true power of Flatcar Container Linux can be seen with a cluster, we're going to concentrate on that. Instructions for a single machine can be found [towards the end](#single-machine) of the guide.
 
 You can direct questions to the [IRC channel][irc] or [mailing list][flatcar-dev].
@@ -23,7 +22,7 @@ Make sure you download the signature (it's available in `https://${CHANNEL}.rele
 
 For example, to get the latest alpha:
 
-```
+```shell
 $ wget https://alpha.release.flatcar-linux.net/amd64-usr/current/flatcar_production_vagrant.box
 $ wget https://alpha.release.flatcar-linux.net/amd64-usr/current/flatcar_production_vagrant.box.sig
 $ gpg --verify flatcar_production_vagrant.box.sig
@@ -68,7 +67,7 @@ core@localhost ~ $
 
 You can configure your Vagrant machine by having a `Vagrantfile` example file:
 
-```
+```ruby
 ENV["TERM"] = "xterm-256color"
 ENV["LC_ALL"] = "en_US.UTF-8"
 
@@ -98,13 +97,13 @@ end
 
 Start the machine(s):
 
-```sh
+```shell
 vagrant up
 ```
 
 List the status of the running machines:
 
-```sh
+```shell
 $ vagrant status
 Current machine states:
 
@@ -119,7 +118,7 @@ VM, run `vagrant status NAME`.
 
 Connect to one of the machines:
 
-```sh
+```shell
 vagrant ssh core-01 -- -A
 ```
 
@@ -127,7 +126,7 @@ vagrant ssh core-01 -- -A
 
 If you have purchased the [VMware Vagrant provider](http://www.vagrantup.com/vmware), run the following commands:
 
-```sh
+```shell
 vagrant up --provider vmware_fusion
 vagrant ssh core-01 -- -A
 ```
@@ -138,13 +137,13 @@ To start a single machine, we need to provide some config parameters in cloud-co
 
 Start the machine:
 
-```sh
+```shell
 vagrant up
 ```
 
 Connect to the machine:
 
-```sh
+```shell
 vagrant ssh core-01 -- -A
 ```
 
@@ -152,7 +151,7 @@ vagrant ssh core-01 -- -A
 
 If you have purchased the [VMware Vagrant provider](http://www.vagrantup.com/vmware), run the following commands:
 
-```sh
+```shell
 vagrant up --provider vmware_fusion
 vagrant ssh core-01 -- -A
 ```
@@ -171,21 +170,20 @@ After a 'vagrant reload' you will be prompted for your local machine password.
 
 Flatcar Container Linux is a rolling release distribution and versions that are out of date will automatically update. If you want to start from the most up to date version you will need to make sure that you have the latest box file of Flatcar Container Linux. You can do this using `vagrant box update` - or, simply remove the old box file and Vagrant will download the latest one the next time you `vagrant up`.
 
-```sh
+```shell
 vagrant box remove flatcar-alpha vmware_fusion
 vagrant box remove flatcar-alpha virtualbox
 ```
 
 If you'd like to download the box separately, you can download the URL contained in the Vagrantfile and add it manually:
 
-```sh
+```shell
 vagrant box add flatcar-alpha <path-to-box-file>
 ```
 
 ## Using Flatcar Container Linux
 
 Now that you have a machine booted it is time to play around. Check out the [Flatcar Container Linux Quickstart](quickstart.md) guide, learn about [CoreOS Container Linux clustering with Vagrant](https://coreos.com/blog/coreos-clustering-with-vagrant/), or dig into [more specific topics](https://docs.flatcar-linux.org).
-
 
 [flatcar-dev]: https://groups.google.com/forum/#!forum/flatcar-linux-dev
 [irc]: irc://irc.freenode.org:6667/#flatcar

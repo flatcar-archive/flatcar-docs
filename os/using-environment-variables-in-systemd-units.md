@@ -26,7 +26,7 @@ EnvironmentFile similar to Environment directive but reads the environment varia
 
 For example, in Flatcar Container Linux, the `coreos-metadata.service` service creates `/run/metadata/coreos`. This environment file can be included by other services in order to inject dynamic configuration. Here's an example of the environment file when run on DigitalOcean (the IP addresses have been removed):
 
-```
+```shell
 COREOS_DIGITALOCEAN_IPV4_ANCHOR_0=X.X.X.X
 COREOS_DIGITALOCEAN_IPV4_PRIVATE_0=X.X.X.X
 COREOS_DIGITALOCEAN_HOSTNAME=test.example.com

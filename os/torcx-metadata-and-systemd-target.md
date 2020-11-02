@@ -9,7 +9,7 @@ In order to signal a successful run, Torcx writes a metadata file at most once p
 
 The metadata file is written to `/run/metadata/torcx` and contains a list of key-value pairs:
 
-```
+```shell
 $ cat /run/metadata/torcx
 
 TORCX_LOWER_PROFILES="vendor"
@@ -23,7 +23,7 @@ These values can be used to detect where assets have been unpacked and propagate
 
 Finally, the runtime profile can be inspected to detect which addons (and versions) are currently applied:
 
-```
+```shell
 $ cat /run/torcx/profile.json
 
 {
@@ -40,7 +40,7 @@ System services may depend on successful execution of Torcx generator. As such, 
 
 This target is not enabled by default, but can be referenced as a dependency by other units who want to introspect system status:
 
-```
+```shell
 $ sudo systemctl cat torcx-echo.service
 
 [Unit]
@@ -57,7 +57,7 @@ ExecStart=/usr/bin/echo "torcx: applied ${TORCX_UPPER_PROFILE}"
 WantedBy=multi-user.target
 ```
 
-```
+```shell
 $ sudo systemctl status torcx.target
 
 ● torcx.target - Verify torcx succeeded
@@ -65,7 +65,7 @@ $ sudo systemctl status torcx.target
    Active: active since [...]
 ```
 
-```
+```shell
 $ sudo journalctl -u torcx-echo.service
 
 localhost systemd[1]: Starting Sample unit relying on torcx run...

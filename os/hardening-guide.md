@@ -8,7 +8,7 @@ This guide covers the basics of securing a Flatcar Container Linux instance. Fla
 
 To disable sshd from listening you can stop the socket:
 
-```
+```shell
 systemctl mask sshd.socket --now
 ```
 
@@ -49,7 +49,6 @@ The [SMT on Container Linux guide][smt-guide] provides guidance and instructions
 SELinux is a fine-grained access control mechanism integrated into Flatcar Container Linux. Each container runs in its own independent SELinux context, increasing isolation between containers and providing another layer of protection should a container be compromised.
 
 Flatcar Container Linux implements SELinux, but currently does not enforce SELinux protections by default. The [SELinux on Flatcar Container Linux guide][selinux-guide] covers the process of checking containers for SELinux policy compatibility and switching SELinux into enforcing mode.
-
 
 [smt-guide]: disabling-smt.md
 [sshd-guide]: customizing-sshd.md

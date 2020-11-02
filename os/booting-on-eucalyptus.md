@@ -77,7 +77,7 @@ $ euca-run-instances emi-E4A33D45 -k flatcar -t m1.medium -g default
 
 Your first Flatcar Container Linux instance should now be running. The only thing left to do is find the IP and SSH in.
 
-```sh
+```shell
 $ euca-describe-instances | grep flatcar
 RESERVATION     r-BCF44206      498025213678    group-1380012085
 INSTANCE        i-22444094      emi-E4A33D45    euca-10-0-1-61.cloud.home       euca-172-16-0-56.cloud.internal running flatcar  0
@@ -87,7 +87,7 @@ INSTANCE        i-22444094      emi-E4A33D45    euca-10-0-1-61.cloud.home       
 
 Finally SSH into it, note that the user is `core`:
 
-```sh
+```shell
 $ chmod 400 core.pem
 $ ssh -i core.pem core@10.0.1.61
 core@10-0-0-3 ~ $
