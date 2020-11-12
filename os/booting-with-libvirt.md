@@ -106,7 +106,7 @@ semanage fcontext -a -t virt_content_t "/var/lib/libvirt/flatcar-linux/flatcar-l
 restorecon -R "/var/lib/libvirt/flatcar-linux/flatcar-linux1"
 ```
 
-If the host uses AppArmor, allow the qemu access to the config:
+If the host uses AppArmor, allow `qemu` to access the config files:
 
 ```sh
 echo "  # For ignition files" >> /etc/apparmor.d/abstractions/libvirt-qemu
