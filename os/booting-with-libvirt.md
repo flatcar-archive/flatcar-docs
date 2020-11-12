@@ -108,7 +108,7 @@ restorecon -R "/var/lib/libvirt/flatcar-linux/flatcar-linux1"
 
 If the host uses AppArmor, allow `qemu` to access the config files:
 
-```sh
+```shell
 echo "  # For ignition files" >> /etc/apparmor.d/abstractions/libvirt-qemu
 echo "  /var/lib/libvirt/flatcar-linux/** r," >> /etc/apparmor.d/abstractions/libvirt-qemu
 ```
