@@ -6,4 +6,4 @@ description: >
 weight: 100
 ---
 
-APIs and troubleshooting guides for working with Flatcar Container Linux.
+This section includes APIs and troubleshooting guides for working with Flatcar Container Linux.
