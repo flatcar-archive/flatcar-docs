@@ -235,5 +235,5 @@ For details, check out the [Container Linux Config examples][ct-examples].
 [quay-site]: https://quay.io/
 [rfc-2397]: https://tools.ietf.org/html/rfc2397
 [rkt-config]: https://docs.flatcar-linux.org/os/registry-authentication/#rkt
-[cl-configs]: provisioning.md
-[ct-examples]: https://github.com/flatcar-linux/container-linux-config-transpiler/blob/flatcar-master/doc/examples.md
+[cl-configs]: provisioning
+[ct-examples]: https://github.com/flatcar-linux/container-linux-config-transpiler/blob/flatcar-master/doc/examples

@@ -88,7 +88,7 @@ Done, please reboot now
 core@host ~ $ sudo systemctl reboot
 ```
 
-**Before you reboot, check that you migrated the variable names as written in [Migrating from CoreOS Container Linux](migrate-from-container-linux.md).**
+**Before you reboot, check that you migrated the variable names as written in [Migrating from CoreOS Container Linux](migrate-from-container-linux).**
 
 ## Going back to CoreOS Container Linux
 

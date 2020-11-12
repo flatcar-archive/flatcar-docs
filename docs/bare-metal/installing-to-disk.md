@@ -25,7 +25,7 @@ flatcar-install -d /dev/sda -i ignition.json -o vmware_raw
 
 ## Choose a channel
 
-Flatcar Container Linux is designed to be [updated automatically][update-strategies] with different schedules per channel. You can [disable this feature](update-strategies.md), although we don't recommend it. Read the [release notes](https://flatcar-linux.org/releases) for specific features and bug fixes.
+Flatcar Container Linux is designed to be [updated automatically][update-strategies] with different schedules per channel. You can [disable this feature](update-strategies), although we don't recommend it. Read the [release notes](https://flatcar-linux.org/releases) for specific features and bug fixes.
 
 <div id="install">
   <ul class="nav nav-tabs">
@@ -141,11 +141,11 @@ systemd:
 
 Now that you have a machine booted it is time to play around. Check out the [Flatcar Container Linux Quickstart][quickstart] guide or dig into [more specific topics][docs-root].
 
-[quickstart]: quickstart.md
+[quickstart]: quickstart
 [docs-root]: https://docs.flatcar-linux.org
 [update-strategies]: https://docs.flatcar-linux.org/os/update-strategies/
-[flatcar-iso]: booting-with-iso.md
+[flatcar-iso]: booting-with-iso
 [clc-section]: #container-linux-configs
 [flatcar-install]: https://raw.githubusercontent.com/flatcar-linux/init/flatcar-master/bin/flatcar-install
-[cl-configs]: provisioning.md
-[ct]: https://github.com/coreos/container-linux-config-transpiler/blob/master/doc/overview.md
+[cl-configs]: provisioning
+[ct]: https://github.com/coreos/container-linux-config-transpiler/blob/master/doc/overview

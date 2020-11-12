@@ -11,10 +11,10 @@ Flatcar Container Linux is designed to be updated automatically with different s
 The Exoscale Flatcar Container Linux image is built officially and each instance deployment is a unique fresh instance. By default, only the stable channel is deployed on Exoscale, you can easily [switch to Beta or Alpha channel][switching-channels].
 
 
-[reboot-docs]: update-strategies.md
-[switching-channels]: switching-channels.md
+[reboot-docs]: update-strategies
+[switching-channels]: switching-channels
 [release-notes]: https://flatcar-linux.org/releases
-[cloud-config-docs]: https://github.com/flatcar-linux/coreos-cloudinit/blob/master/Documentation/cloud-config.md
+[cloud-config-docs]: https://github.com/flatcar-linux/coreos-cloudinit/blob/master/Documentation/cloud-config
 
 ## Security groups
 
@@ -83,7 +83,7 @@ To log in to a Flatcar Container Linux instance after it's created click on its 
 ssh core@<ip address>
 ```
 
-Optionally, you may want to [configure your ssh-agent](https://github.com/flatcar-linux/fleet/blob/master/Documentation/using-the-client.md#remote-fleet-access) to more easily run [fleet commands](../fleet/launching-containers-fleet.md).
+Optionally, you may want to [configure your ssh-agent](https://github.com/flatcar-linux/fleet/blob/master/Documentation/using-the-client#remote-fleet-access) to more easily run [fleet commands](../fleet/launching-containers-fleet).
 
 ## Launching instances
 
@@ -147,5 +147,5 @@ Unlike other Exoscale images where the root password is randomly set at startup,
 
 Now that you have a machine booted it is time to play around. Check out the [Flatcar Container Linux Quickstart][quick-start] guide or dig into [more specific topics][docs].
 
-[quick-start]: quickstart.md
+[quick-start]: quickstart
 [docs]: https://docs.flatcar-linux.org

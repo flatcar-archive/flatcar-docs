@@ -195,10 +195,10 @@ For information on using Flatcar Container Linux check out the [Flatcar Containe
 
 [flatcar-user]: https://groups.google.com/forum/#!forum/flatcar-linux-user
 [etcd-docs]: https://github.com/flatcar-linux/etcd/tree/master/Documentation
-[quickstart]: quickstart.md
-[reboot-docs]: update-strategies.md
+[quickstart]: quickstart
+[reboot-docs]: update-strategies
 [azure-cli]: https://docs.microsoft.com/en-us/cli/azure/overview
-[cl-configs]: provisioning.md
+[cl-configs]: provisioning
 [irc]: irc://irc.freenode.org:6667/#flatcar
 [docs]: https://docs.flatcar-linux.org/
 [resource-group]: https://docs.microsoft.com/en-us/azure/architecture/best-practices/naming-conventions#naming-rules-and-restrictions

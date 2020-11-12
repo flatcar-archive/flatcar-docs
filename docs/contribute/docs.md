@@ -102,7 +102,7 @@ Flatcar documentation is written in [Markdown][mdhome], a simple way to annotate
 
 ### Source file naming and encoding
 
-Write Markdown source in UTF-encoded plain text files, named with a reasonable, lower case short form of the document's title, and suffixed with `.md`. Prefer hyphens to underscores in file names with two or more words. For example, instructions for DNS configuration are written to a file named [`configuring-dns.md`][configuring-dns].
+Write Markdown source in UTF-encoded plain text files, named with a reasonable, lower case short form of the document's title, and suffixed with ``. Prefer hyphens to underscores in file names with two or more words. For example, instructions for DNS configuration are written to a file named [`configuring-dns`][configuring-dns].
 
 ### Line wrapping considered harmful
 
@@ -203,18 +203,18 @@ Another paragraph may reference the [project introduction][readme],
 which link will likewise have its label defined at the document's foot.
 
 [mdlinks]: http://daringfireball.net/projects/markdown/syntax#link "Markdown link syntax"
-[readme]: README.md
+[readme]: README
 ```
 
 #### Relative URLs preferred
 
 Using relative URLs where possible helps portability among multiple presentation targets, as they remain valid even as the site root moves. Absolute linking is obviously necessary for resources external to the document's repository and/or the docs.flatcar-linux.org domain.
 
-For example, there are two ways to refer to the [CoreOS quick start guide][quickstart]'s location. The preferred way is a relative link from the current file's path to the target, which from this document is `os/quickstart.md`. An absolute link to the complete URL is less flexible, and more verbose: `https://github.com/flatcar-linux/docs/blob/master/os/quickstart.md`.
+For example, there are two ways to refer to the [CoreOS quick start guide][quickstart]'s location. The preferred way is a relative link from the current file's path to the target, which from this document is `os/quickstart`. An absolute link to the complete URL is less flexible, and more verbose: `https://github.com/flatcar-linux/docs/blob/master/os/quickstart`.
 
 #### Hyperlink deployment automation
 
-CoreOS documents have two major publication targets: the [docs.flatcar-linux.org documentation][flatcar-docs], and [GitHub's Markdown presentation][githubmd]. The deployment scripts used to build the CoreOS site handle some of the wrinkles arising between the two targets. These scripts expect links to other CoreOS project documentation to refer to the Markdown source; that is, to end with the `.md` file extension. The deployment scripts rewrite hyperlinks to replace that extension with `.html` for presentation. This allows the links to be valid in either context. External links are not rewritten.
+CoreOS documents have two major publication targets: the [docs.flatcar-linux.org documentation][flatcar-docs], and [GitHub's Markdown presentation][githubmd]. The deployment scripts used to build the CoreOS site handle some of the wrinkles arising between the two targets. These scripts expect links to other CoreOS project documentation to refer to the Markdown source; that is, to end with the `` file extension. The deployment scripts rewrite hyperlinks to replace that extension with `.html` for presentation. This allows the links to be valid in either context. External links are not rewritten.
 
 ## Example: Documenting code blocks
 
@@ -246,7 +246,7 @@ Some file types are commonly identified with more than one file name extension. 
 
 
 [command-line-grammar]: #command-line-grammar
-[configuring-dns]: os/configuring-dns.md
+[configuring-dns]: os/configuring-dns
 [flatcar-docs]: https://docs.flatcar-linux.org/
 [economist-hyphens]: http://www.economist.com/news/books-and-arts/21723088-hyphens-can-be-tricky-they-need-not-drive-you-crazy-hysteria-over-hyphens
 [eos]: https://faculty.washington.edu/heagerty/Courses/b572/public/StrunkWhite.pdf "The Elements of Style"
@@ -254,7 +254,7 @@ Some file types are commonly identified with more than one file name extension. 
 [headings]: #headings
 [hyperlink-considerations]: #hyperlink-considerations
 [mdhome]: https://daringfireball.net/projects/markdown/syntax
-[quickstart]: os/quickstart.md "Relative link from here to CoreOS Quick Start"
+[quickstart]: os/quickstart "Relative link from here to CoreOS Quick Start"
 [rfc2606s3]: https://tools.ietf.org/html/rfc2606#section-3
 [rfc5737]: https://tools.ietf.org/html/rfc5737
-[style]: STYLE.md "CoreOS Documentation Style"
+[style]: STYLE "CoreOS Documentation Style"

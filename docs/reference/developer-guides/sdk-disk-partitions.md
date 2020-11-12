@@ -21,7 +21,7 @@ Flatcar Container Linux is designed to be reliably updated via a continuous stre
 
 For more information, [read more about the disk layout][chromium disk format] used by Chromium and ChromeOS, which inspired the layout used by Flatcar Container Linux.
 
-[OEM docs]: notes-for-distributors.md
+[OEM docs]: notes-for-distributors
 [chromium disk format]: http://www.chromium.org/chromium-os/chromiumos-design-docs/disk-format
 
 ## Mounted filesystems
@@ -55,5 +55,5 @@ Due to the unique disk layout of Flatcar Container Linux, an `rm -rf --one-file-
 
 To [re-provision][provisioning] the node after such cleanup, use `touch /boot/flatcar/first_boot` to trigger Ignition [to run once][boot process] again on the next boot (if the machine was updated from CoreOS Container Linux, you need to use `/boot/coreos/first_boot`).
 
-[provisioning]: ../os/provisioning.md
-[boot process]: ../ignition/boot-process.md
+[provisioning]: ../os/provisioning
+[boot process]: ../ignition/boot-process

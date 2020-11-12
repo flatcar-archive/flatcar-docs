@@ -67,7 +67,7 @@ The `off` strategy is also straightforward. The update will be installed onto th
 
 PXE/iPXE machines download a new copy of Flatcar Container Linux every time they are started thus are dependent on the version of Flatcar Container Linux they are served. If you don't automatically load new Flatcar Container Linux images into your PXE/iPXE server, your machines will never have new features or security updates.
 
-An easy solution to this problem is to use iPXE and reference images [directly from the Flatcar Container Linux storage site](booting-with-ipxe.md#setting-up-ipxe-boot-script). The `alpha` URL is automatically pointed to the new version of Flatcar Container Linux as it is released.
+An easy solution to this problem is to use iPXE and reference images [directly from the Flatcar Container Linux storage site](booting-with-ipxe#setting-up-ipxe-boot-script). The `alpha` URL is automatically pointed to the new version of Flatcar Container Linux as it is released.
 
 ## Disable Automatic Updates Daemon
 
@@ -154,6 +154,6 @@ This will configure a Flatcar Container Linux machine to follow the `reboot` str
 
 For more information about the supported syntax, refer to the [Locksmith documentation][reboot-windows].
 
-[rollback]: manual-rollbacks.md
+[rollback]: manual-rollbacks
 [reboot-windows]: https://github.com/flatcar-linux/locksmith#reboot-windows
 [systemd-env-vars]: https://docs.flatcar-linux.org/os/using-environment-variables-in-systemd-units/#system-wide-environment-variables

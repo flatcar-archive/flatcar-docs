@@ -3,7 +3,7 @@ title: Overview of systemctl
 weight: 10
 ---
 
-`systemctl` is your interface to systemd, the init system used in Flatcar Container Linux. All processes on a single machine are started and managed by systemd, including your Docker containers. You can learn more in our [Getting Started with systemd](getting-started-with-systemd.md) guide. Let's explore a few helpful `systemctl` commands. You must run all of these commands locally on the Flatcar Container Linux machine:
+`systemctl` is your interface to systemd, the init system used in Flatcar Container Linux. All processes on a single machine are started and managed by systemd, including your Docker containers. You can learn more in our [Getting Started with systemd](getting-started-with-systemd) guide. Let's explore a few helpful `systemctl` commands. You must run all of these commands locally on the Flatcar Container Linux machine:
 
 ## Find the status of a container
 
@@ -75,6 +75,6 @@ sudo systemctl daemon-reload
 
 ## More information
 
-- [Getting Started with systemd](getting-started-with-systemd.md)
+- [Getting Started with systemd](clusters/management/getting-started-with-systemd)
 - [`systemd.service` Docs](http://www.freedesktop.org/software/systemd/man/systemd.service.html)
 - [`systemd.unit` Docs](http://www.freedesktop.org/software/systemd/man/systemd.unit.html)

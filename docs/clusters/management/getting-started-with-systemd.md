@@ -60,8 +60,8 @@ Feb 11 17:46:28 localhost docker[23470]: Hello World
 ...
 ```
 
-- [Overview of systemctl](overview-of-systemctl.md)
-- [Reading the System Log](reading-the-system-log.md)
+- [Overview of systemctl](clusters/management/overview-of-systemctl)
+- [Reading the System Log](clusters/debug/reading-the-system-log)
 
 ## Advanced unit files
 

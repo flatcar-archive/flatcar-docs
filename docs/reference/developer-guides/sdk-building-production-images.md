@@ -67,4 +67,4 @@ The generated production image is bootable as-is by qemu but for a larger ROOT p
 
 ## Tips and Tricks
 
-We've compiled a [list of tips and tricks](sdk-tips-and-tricks.md) that can make working with the SDK a bit easier.
+We've compiled a [list of tips and tricks](sdk-tips-and-tricks) that can make working with the SDK a bit easier.

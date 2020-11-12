@@ -46,7 +46,7 @@ The [style guide][style] prescribes the conventions of formatting and English st
 
 We happily accept accurate translations. Please send the documents as a pull request and follow two guidelines:
 
-1. Name the files identically to the originals, but put them beneath a directory named for the translation's `gettext` locale. For example: `JA_JP/doc.md`, `ZH_CN/doc.md,` or `KO_KN/doc.md`.
+1. Name the files identically to the originals, but put them beneath a directory named for the translation's `gettext` locale. For example: `JA_JP/doc`, `ZH_CN/doc,` or `KO_KN/doc`.
 
 2. Add an explanation about the translated document to the top of the file: "These documents were translated into Esperanto by Community Member <person@example.com> and last updated on 2015-12-01. If you find inaccuracies or problems please file an issue on GitHub."
 
@@ -55,4 +55,4 @@ We happily accept accurate translations. Please send the documents as a pull req
 [flatcar-docs]: https://docs.flatcar-linux.org
 [help-wanted]: https://github.com/flatcar-linux/docs/issues?q=is%3Aopen+label%3Ahelp-wanted
 [pull-requests]: https://help.github.com/articles/using-pull-requests/
-[style]: STYLE.md
+[style]: STYLE

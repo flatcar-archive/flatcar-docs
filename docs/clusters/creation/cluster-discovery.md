@@ -14,7 +14,7 @@ $ curl -w "\n" 'https://discovery.etcd.io/new?size=3'
 https://discovery.etcd.io/6a28e078895c5ec737174db2419bb2f3
 ```
 
-The discovery URL can be provided to each Flatcar Container Linux machine via [Container Linux Configs](provisioning.md). The rest of this guide will explain what's happening behind the scenes, but if you're trying to get clustered as quickly as possible, all you need to do is provide a _fresh, unique_ discovery token in your config.
+The discovery URL can be provided to each Flatcar Container Linux machine via [Container Linux Configs](provisioning). The rest of this guide will explain what's happening behind the scenes, but if you're trying to get clustered as quickly as possible, all you need to do is provide a _fresh, unique_ discovery token in your config.
 
 Boot each one of the machines with identical Container Linux Config and they should be automatically clustered:
 
@@ -134,8 +134,8 @@ The public discovery service is just an etcd cluster made available to the publi
 
 Since etcd is designed to this type of leader election, it was an obvious choice to use it for everyone's initial leader election. This means that it's easy to run your own etcd cluster for this purpose.
 
-If you're interested in how discovery API works behind the scenes in etcd, read about [etcd clustering](https://github.com/flatcar-linux/etcd/blob/master/Documentation/op-guide/clustering.md).
+If you're interested in how discovery API works behind the scenes in etcd, read about [etcd clustering](https://github.com/flatcar-linux/etcd/blob/master/Documentation/op-guide/clustering).
 
-[etcd-reconf]: https://github.com/flatcar-linux/etcd/blob/master/Documentation/op-guide/runtime-configuration.md
-[etcd-reconf-no-disc]: https://github.com/flatcar-linux/etcd/blob/master/Documentation/op-guide/runtime-reconf-design.md#do-not-use-public-discovery-service-for-runtime-reconfiguration
-[etcd-reconf-on-flatcar]: https://github.com/coreos/docs/blob/master/etcd/etcd-live-cluster-reconfiguration.md
+[etcd-reconf]: https://github.com/flatcar-linux/etcd/blob/master/Documentation/op-guide/runtime-configuration
+[etcd-reconf-no-disc]: https://github.com/flatcar-linux/etcd/blob/master/Documentation/op-guide/runtime-reconf-design#do-not-use-public-discovery-service-for-runtime-reconfiguration
+[etcd-reconf-on-flatcar]: https://github.com/coreos/docs/blob/master/etcd/etcd-live-cluster-reconfiguration

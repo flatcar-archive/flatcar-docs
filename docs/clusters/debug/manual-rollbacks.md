@@ -188,4 +188,5 @@ sudo systemctl restart update-engine
 update_engine_client -update
 ```
 
-[relchans]: switching-channels.md
+
+[relchans]: clusters/management/switching-channels

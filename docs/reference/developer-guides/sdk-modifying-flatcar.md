@@ -199,9 +199,9 @@ After `image_to_vm.sh` completes, run `./flatcar_production_qemu.sh -curses` to 
 
 You could instead use the `-nographic` option, `./flatcar_production_qemu.sh -nographic`, which gives you the ability to switch from the VM to the QEMU monitor console by pressing <kbd>CTRL</kbd>+<kbd>a</kbd> and then <kbd>c</kbd>. To close the Flatcar Container Linux Guest OS VM, run `sudo systemctl poweroff` inside the VM.
 
-You could also log in via SSH by running `./flatcar_production_qemu.sh` and then running `ssh core@127.0.0.1 -p 2222` to enter the guest OS. Running without the `-p 2222` option will arise a *ssh: connect to host 127.0.0.1 port 22: Connection refused* or *Permission denied (publickey,gssapi-keyex,gssapi-with-mic)* warning. Additionally, you can log in via SSH keys or with a different ssh port by running this example `./flatcar_production_qemu.sh -a ~/.ssh/authorized_keys -p 2223 -- -curses`. Refer to the [Booting with QEMU](booting-with-qemu.md#SSH-keys) guide for more information on this usage.
+You could also log in via SSH by running `./flatcar_production_qemu.sh` and then running `ssh core@127.0.0.1 -p 2222` to enter the guest OS. Running without the `-p 2222` option will arise a *ssh: connect to host 127.0.0.1 port 22: Connection refused* or *Permission denied (publickey,gssapi-keyex,gssapi-with-mic)* warning. Additionally, you can log in via SSH keys or with a different ssh port by running this example `./flatcar_production_qemu.sh -a ~/.ssh/authorized_keys -p 2223 -- -curses`. Refer to the [Booting with QEMU](booting-with-qemu#SSH-keys) guide for more information on this usage.
 
-The default login username is `core` and the [password is the one set in the `./set_shared_user_password`](sdk-modifying-flatcar.md#Building-an-image) step of this guide. If you forget your password, you will need to rerun `./set_shared_user_password` and then `./build_image` again.
+The default login username is `core` and the [password is the one set in the `./set_shared_user_password`](sdk-modifying-flatcar#Building-an-image) step of this guide. If you forget your password, you will need to rerun `./set_shared_user_password` and then `./build_image` again.
 
 ## Making changes
 
@@ -247,6 +247,6 @@ We've compiled a [list of tips and tricks][sdktips] that can make working with t
 [github-flatcar]: https://github.com/flatcar-linux/
 [irc]: irc://irc.freenode.org:6667/#flatcar
 [mantle]: https://github.com/flatcar-linux/mantle
-[prodimages]: sdk-building-production-images.md
+[prodimages]: sdk-building-production-images
 [repo-blog]: http://google-opensource.blogspot.com/2008/11/gerrit-and-repo-android-source.html
-[sdktips]: sdk-tips-and-tricks.md
+[sdktips]: sdk-tips-and-tricks

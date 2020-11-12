@@ -123,5 +123,5 @@ storage:
 See the [mounting storage docs][mounting-storage] for an example.
 
 [iscsi-wiki]: https://en.wikipedia.org/wiki/ISCSI
-[mounting-storage]: mounting-storage.md
-[cl-configs]: provisioning.md
+[mounting-storage]: mounting-storage
+[cl-configs]: provisioning

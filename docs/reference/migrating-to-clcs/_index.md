@@ -339,6 +339,6 @@ storage:
 ```
 
 [provisioning]: provisioning
-[dynamic-data]: https://github.com/coreos/container-linux-config-transpiler/blob/master/doc/dynamic-data.md
-[ct-config]: https://github.com/coreos/container-linux-config-transpiler/blob/master/doc/configuration.md
+[dynamic-data]: https://github.com/coreos/container-linux-config-transpiler/blob/master/doc/dynamic-data
+[ct-config]: https://github.com/coreos/container-linux-config-transpiler/blob/master/doc/configuration
 [ignition]: https://coreos.com/ignition

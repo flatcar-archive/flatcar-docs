@@ -9,7 +9,7 @@ These instructions walk through running Flatcar Container Linux on VMware Fusion
 
 ### Choosing a channel
 
-Flatcar Container Linux is designed to be updated automatically with different schedules per channel. You can [disable this feature](update-strategies.md), although we don't recommend it. Read the [release notes](https://flatcar-linux.org/releases) for specific features and bug fixes.
+Flatcar Container Linux is designed to be updated automatically with different schedules per channel. You can [disable this feature](update-strategies), although we don't recommend it. Read the [release notes](https://flatcar-linux.org/releases) for specific features and bug fixes.
 
 <div id="vmware-images">
   <ul class="nav nav-tabs">
@@ -144,7 +144,7 @@ With static IP addresses there is no network connectivity in the initramfs. Ther
 
 IP configuration specified via `guestinfo.interface.*` and `guestinfo.dns.*` variables is currently not supported with Ignition and will only work if you provide coreos-cloudinit data (cloud-config or a script) as userdata.
 
-[cl-configs]: provisioning.md
+[cl-configs]: provisioning
 
 ### Templating with Container Linux Configs and setting up metadata
 
@@ -152,7 +152,7 @@ On many cloud providers Ignition will run the [`coreos-metadata.service`](/ignit
 
 If you want to use dynamic data such as `{PRIVATE_IPV4}` and `{PUBLIC_IPV4}` in your Container Linux Config, you have to use the `--platform=custom` argument to the config transpiler and define your own `coreos-metadata.service`.
 
-In the following example we will use the [reserved variables](https://github.com/flatcar-linux/afterburn/blob/master/docs/container-linux-legacy.md) `COREOS_CUSTOM_PUBLIC_IPV4` and `COREOS_CUSTOM_PRIVATE_IPV4` known to the config transpiler so that Container Linux Configs which contain `{PUBLIC_IPV4}` in a systemd unit will use `${COREOS_CUSTOM_PUBLIC_IPV4}` instead by automatically sourcing it via `EnvironmentFile=/run/metadata/coreos`.
+In the following example we will use the [reserved variables](https://github.com/flatcar-linux/afterburn/blob/master/docs/container-linux-legacy) `COREOS_CUSTOM_PUBLIC_IPV4` and `COREOS_CUSTOM_PRIVATE_IPV4` known to the config transpiler so that Container Linux Configs which contain `{PUBLIC_IPV4}` in a systemd unit will use `${COREOS_CUSTOM_PUBLIC_IPV4}` instead by automatically sourcing it via `EnvironmentFile=/run/metadata/coreos`.
 
 ```yaml
 systemd:
@@ -188,7 +188,7 @@ For `$public_ipv4` and `$private_ipv4` substitutions to work you either need to 
 
 Besides applying the config itself `coreos-cloudinit` supports the `guestinfo.interface.*` variables and will generate a networkd unit from them stored in `/run/systemd/network/`.
 
-The guestinfo variables known to coreos-cloudinit are (taken from [here](https://github.com/flatcar-linux/coreos-cloudinit/blob/flatcar-master/Documentation/vmware-guestinfo.md#cloud-config-vmware-guestinfo-variables)), with `<n>`, `<m>`, `<l>` being numbers starting from 0:
+The guestinfo variables known to coreos-cloudinit are (taken from [here](https://github.com/flatcar-linux/coreos-cloudinit/blob/flatcar-master/Documentation/vmware-guestinfo#cloud-config-vmware-guestinfo-variables)), with `<n>`, `<m>`, `<l>` being numbers starting from 0:
 
 * `guestinfo.hostname` used for `hostnamectl set-hostname`
 * `guestinfo.interface.<n>.name` used in the `[Match]` section of the networkd unit (can include wildcards)
@@ -278,11 +278,11 @@ ssh core@YOURIP
 
 Now that you have a machine booted, it's time to explore. Check out the [Flatcar Container Linux Quickstart][quickstart] guide, or dig into [more specific topics][docs].
 
-[quickstart]: quickstart.md
+[quickstart]: quickstart
 [docs]: https://docs.flatcar-linux.org
-[PXE]: booting-with-pxe.md
-[ISO]: booting-with-iso.md
-[install]: installing-to-disk.md
+[PXE]: booting-with-pxe
+[ISO]: booting-with-iso
+[install]: installing-to-disk
 [vcloud director]: http://blogs.vmware.com/vsphere/2012/06/leveraging-vapp-vm-custom-properties-in-vcloud-director.html
 [ovf-selfconfig]: http://blogs.vmware.com/vapp/2009/07/selfconfiguration-and-the-ovf-environment.html
 [guestinfo]: #defining-the-ignition-config-or-coreos-cloudinit-cloud-config-in-guestinfo

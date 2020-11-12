@@ -69,7 +69,7 @@ The following command will create a single droplet. For more details, check out 
   </div>
 </div>
 
-[reboot-docs]: update-strategies.md
+[reboot-docs]: update-strategies
 [release-notes]: https://www.flatcar-linux.org/releases/
 
 ## Container Linux Configs
@@ -97,7 +97,7 @@ etcd:
   discovery:                   "https://discovery.etcd.io/<token>"
 ```
 
-[cl-configs]: provisioning.md
+[cl-configs]: provisioning
 
 ### Adding more machines
 
@@ -195,5 +195,5 @@ Note that DigitalOcean is not able to inject a root password into Flatcar Contai
 
 Now that you have a machine booted it is time to play around. Check out the [Flatcar Container Linux Quickstart][quick-start] guide or dig into [more specific topics][docs].
 
-[quick-start]: quickstart.md
+[quick-start]: quickstart
 [docs]: https://docs.flatcar-linux.org/

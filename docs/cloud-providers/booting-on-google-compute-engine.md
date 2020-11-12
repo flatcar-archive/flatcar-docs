@@ -16,7 +16,7 @@ This section is commented out until images have been made public
 
 ## Choosing a channel
 
-Flatcar Container Linux is designed to be updated automatically with different schedules per channel. You can [disable this feature](update-strategies.md), although we don't recommend it. Read the [release notes](https://flatcar-linux.org/releases) for specific features and bug fixes.
+Flatcar Container Linux is designed to be updated automatically with different schedules per channel. You can [disable this feature](update-strategies), although we don't recommend it. Read the [release notes](https://flatcar-linux.org/releases) for specific features and bug fixes.
 
 Create 3 instances from the image above using our Ignition from `example.ign`:
 
@@ -97,7 +97,7 @@ The Dockerfile for the `quay.io/kinvolk/google-cloud-flatcar-image-upload` image
 
 ## Upgrade from CoreOS Container Linux
 
-You can also [upgrade from an existing CoreOS Container Linux system](./update-from-container-linux.md).
+You can also [upgrade from an existing CoreOS Container Linux system](./update-from-container-linux).
 
 ## Container Linux Config
 
@@ -124,7 +124,7 @@ etcd:
   discovery:                   "https://discovery.etcd.io/<token>"
 ```
 
-[cl-configs]: provisioning.md
+[cl-configs]: provisioning
 
 ### Additional storage
 
@@ -151,7 +151,7 @@ systemd:
         RequiredBy=local-fs.target
 ```
 
-For more information about mounting storage, Google's [own documentation](https://developers.google.com/compute/docs/disks#attach_disk) is the best source. You can also read about [mounting storage on Flatcar Container Linux](mounting-storage.md).
+For more information about mounting storage, Google's [own documentation](https://developers.google.com/compute/docs/disks#attach_disk) is the best source. You can also read about [mounting storage on Flatcar Container Linux](mounting-storage).
 
 ### Adding more machines
 
@@ -196,4 +196,4 @@ When disabling OS Login functionality on the instance, it is also recommended to
 
 ## Using Flatcar Container Linux
 
-Now that you have a machine booted it is time to play around. Check out the [Flatcar Container Linux Quickstart](quickstart.md) guide or dig into [more specific topics](https://docs.flatcar-linux.org).
+Now that you have a machine booted it is time to play around. Check out the [Flatcar Container Linux Quickstart](quickstart) guide or dig into [more specific topics](https://docs.flatcar-linux.org).

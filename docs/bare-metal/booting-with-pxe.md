@@ -3,7 +3,7 @@ title: Booting Flatcar Container Linux via PXE
 weight: 10
 ---
 
-These instructions will walk you through booting Flatcar Container Linux via PXE on real or virtual hardware. By default, this will run Flatcar Container Linux completely out of RAM. Flatcar Container Linux can also be [installed to disk](installing-to-disk.md).
+These instructions will walk you through booting Flatcar Container Linux via PXE on real or virtual hardware. By default, this will run Flatcar Container Linux completely out of RAM. Flatcar Container Linux can also be [installed to disk](installing-to-disk).
 
 A minimum of 3 GB of RAM is required to boot Flatcar Container Linux via PXE.
 
@@ -63,7 +63,7 @@ passwd:
 
 ### Choose a channel
 
-Flatcar Container Linux is designed to be updated automatically with different schedules per channel. You can [disable this feature](update-strategies.md), although we don't recommend it. Read the [release notes](https://flatcar-linux.org/releases) for specific features and bug fixes.
+Flatcar Container Linux is designed to be updated automatically with different schedules per channel. You can [disable this feature](update-strategies), although we don't recommend it. Read the [release notes](https://flatcar-linux.org/releases) for specific features and bug fixes.
 
 PXE booted machines cannot currently update themselves when new versions are released to a channel. To update to the latest version of Flatcar Container Linux download/verify these files again and reboot.
 
@@ -78,7 +78,7 @@ PXE booted machines cannot currently update themselves when new versions are rel
     <div class="tab-pane" id="alpha-create">
       <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Flatcar Container Linux {{< param alpha_channel >}}.</p>
       <p>In the config above you can see that a Kernel image and a initramfs file is needed. Download these two files into your tftp root.</p>
-      <p>The <code>flatcar_production_pxe.vmlinuz.sig</code> and <code>flatcar_production_pxe_image.cpio.gz.sig</code> files can be used to <a href="notes-for-distributors.md#importing-images">verify the downloaded files</a>.</p>
+      <p>The <code>flatcar_production_pxe.vmlinuz.sig</code> and <code>flatcar_production_pxe_image.cpio.gz.sig</code> files can be used to <a href="notes-for-distributors#importing-images">verify the downloaded files</a>.</p>
       <pre>
 cd /var/lib/tftpboot
 wget https://alpha.release.flatcar-linux.net/amd64-usr/current/flatcar_production_pxe.vmlinuz
@@ -92,7 +92,7 @@ gpg --verify flatcar_production_pxe_image.cpio.gz.sig
     <div class="tab-pane" id="beta-create">
       <p>The Beta channel consists of promoted Alpha releases. The current version is Flatcar Container Linux {{< param beta_channel >}}.</p>
       <p>In the config above you can see that a Kernel image and a initramfs file is needed. Download these two files into your tftp root.</p>
-      <p>The <code>flatcar_production_pxe.vmlinuz.sig</code> and <code>flatcar_production_pxe_image.cpio.gz.sig</code> files can be used to <a href="notes-for-distributors.md#importing-images">verify the downloaded files</a>.</p>
+      <p>The <code>flatcar_production_pxe.vmlinuz.sig</code> and <code>flatcar_production_pxe_image.cpio.gz.sig</code> files can be used to <a href="notes-for-distributors#importing-images">verify the downloaded files</a>.</p>
       <pre>
 cd /var/lib/tftpboot
 wget https://beta.release.flatcar-linux.net/amd64-usr/current/flatcar_production_pxe.vmlinuz
@@ -106,7 +106,7 @@ gpg --verify flatcar_production_pxe_image.cpio.gz.sig
     <div class="tab-pane" id="edge-create">
       <p>The Edge channel includes bleeding-edge features with the newest versions of the Linux kernel, systemd and other core packages. Can be highly unstable. The current version is Flatcar Container Linux {{< param edge_channel >}}.</p>
       <p>In the config above you can see that a Kernel image and a initramfs file is needed. Download these two files into your tftp root.</p>
-      <p>The <code>flatcar_production_pxe.vmlinuz.sig</code> and <code>flatcar_production_pxe_image.cpio.gz.sig</code> files can be used to <a href="notes-for-distributors.md#importing-images">verify the downloaded files</a>.</p>
+      <p>The <code>flatcar_production_pxe.vmlinuz.sig</code> and <code>flatcar_production_pxe_image.cpio.gz.sig</code> files can be used to <a href="notes-for-distributors#importing-images">verify the downloaded files</a>.</p>
       <pre>
 cd /var/lib/tftpboot
 wget https://edge.release.flatcar-linux.net/amd64-usr/current/flatcar_production_pxe.vmlinuz
@@ -120,7 +120,7 @@ gpg --verify flatcar_production_pxe_image.cpio.gz.sig
     <div class="tab-pane active" id="stable-create">
       <p>The Stable channel should be used by production clusters. Versions of Flatcar Container Linux are battle-tested within the Beta and Alpha channels before being promoted. The current version is Flatcar Container Linux {{< param stable_channel >}}.</p>
       <p>In the config above you can see that a Kernel image and a initramfs file is needed. Download these two files into your tftp root.</p>
-      <p>The <code>flatcar_production_pxe.vmlinuz.sig</code> and <code>flatcar_production_pxe_image.cpio.gz.sig</code> files can be used to <a href="notes-for-distributors.md#importing-images">verify the downloaded files</a>.</p>
+      <p>The <code>flatcar_production_pxe.vmlinuz.sig</code> and <code>flatcar_production_pxe_image.cpio.gz.sig</code> files can be used to <a href="notes-for-distributors#importing-images">verify the downloaded files</a>.</p>
       <pre>
 cd /var/lib/tftpboot
 wget https://stable.release.flatcar-linux.net/amd64-usr/current/flatcar_production_pxe.vmlinuz
@@ -240,8 +240,8 @@ Now that you have a machine booted it is time to play around. Check out the [Fla
 [docs]: https://docs.flatcar-linux.org
 [ignition]: https://coreos.com/ignition/docs/latest
 [ignition-kargs-ip]: https://coreos.com/ignition/docs/latest/network-configuration.html#using-static-ip-addresses-with-ignition
-[install-to-disk]: installing-to-disk.md
-[cl-configs]: provisioning.md
+[install-to-disk]: installing-to-disk
+[cl-configs]: provisioning
 [irc]: irc://irc.freenode.org:6667/#flatcar
-[oem]: notes-for-distributors.md#image-customization
-[qs]: quickstart.md
+[oem]: notes-for-distributors#image-customization
+[qs]: quickstart

@@ -109,10 +109,10 @@ systemd:
             Environment=SYSTEMD_LOG_LEVEL=debug
 ```
 
-[drop-ins]: using-systemd-drop-in-units.md
-[ct-configs]: provisioning.md
+[drop-ins]: using-systemd-drop-in-units
+[ct-configs]: provisioning
 
 ## More information
 
-<a class="btn btn-default" href="getting-started-with-systemd.md">Getting Started with systemd</a>
-<a class="btn btn-default" href="network-config-with-networkd.md">Network Configuration with networkd</a>
+<a class="btn btn-default" href="getting-started-with-systemd">Getting Started with systemd</a>
+<a class="btn btn-default" href="network-config-with-networkd">Network Configuration with networkd</a>

@@ -3,7 +3,7 @@ title: Booting Flatcar Container Linux via iPXE
 weight: 10
 ---
 
-These instructions will walk you through booting Flatcar Container Linux via iPXE on real or virtual hardware. By default, this will run Flatcar Container Linux completely out of RAM. Flatcar Container Linux can also be [installed to disk](installing-to-disk.md).
+These instructions will walk you through booting Flatcar Container Linux via iPXE on real or virtual hardware. By default, this will run Flatcar Container Linux completely out of RAM. Flatcar Container Linux can also be [installed to disk](installing-to-disk).
 
 A minimum of 3 GB of RAM is required to boot Flatcar Container Linux via PXE.
 
@@ -30,7 +30,7 @@ When configuring the Flatcar Container Linux iPXE boot script there are a few ke
 
 ### Choose a Channel
 
-Flatcar Container Linux is designed to be updated automatically with different schedules per channel. You can [disable this feature](update-strategies.md), although we don't recommend it. Read the [release notes](https://flatcar-linux.org/releases) for specific features and bug fixes.
+Flatcar Container Linux is designed to be updated automatically with different schedules per channel. You can [disable this feature](update-strategies), although we don't recommend it. Read the [release notes](https://flatcar-linux.org/releases) for specific features and bug fixes.
 
 ### Setting up the Boot Script
 
@@ -123,18 +123,18 @@ Since Flatcar Container Linux's upgrade process requires a disk, this image does
 
 ## Installation
 
-Flatcar Container Linux can be completely installed on disk or run from RAM but store user data on disk. Read more in our [Installing Flatcar Container Linux guide](booting-with-pxe.md#installation).
+Flatcar Container Linux can be completely installed on disk or run from RAM but store user data on disk. Read more in our [Installing Flatcar Container Linux guide](booting-with-pxe#installation).
 
 ## Adding a custom OEM
 
-Similar to the [OEM partition][oem] in Flatcar Container Linux disk images, iPXE images can be customized with an [Ignition config][ignition] bundled in the initramfs. You can view the [instructions on the PXE docs](booting-with-pxe.md#adding-a-custom-oem).
+Similar to the [OEM partition][oem] in Flatcar Container Linux disk images, iPXE images can be customized with an [Ignition config][ignition] bundled in the initramfs. You can view the [instructions on the PXE docs](booting-with-pxe#adding-a-custom-oem).
 
-[oem]: notes-for-distributors.md#image-customization
+[oem]: notes-for-distributors#image-customization
 
 ## Using Flatcar Container Linux
 
-Now that you have a machine booted it is time to play around. Check out the [Flatcar Container Linux Quickstart](quickstart.md) guide or dig into [more specific topics](https://docs.flatcar-linux.org).
+Now that you have a machine booted it is time to play around. Check out the [Flatcar Container Linux Quickstart](quickstart) guide or dig into [more specific topics](https://docs.flatcar-linux.org).
 
-[cl-configs]: provisioning.md
+[cl-configs]: provisioning
 [ignition]: https://coreos.com/ignition/docs/latest
 [ignition-kargs-ip]: https://coreos.com/ignition/docs/latest/network-configuration.html#using-static-ip-addresses-with-ignition

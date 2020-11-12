@@ -31,13 +31,13 @@ sudo flatcar-install -d /dev/vda -c cloud-config.yaml
 sudo reboot
 ```
 
-Please be sure to check out [Using Cloud-Config](https://github.com/flatcar-linux/coreos-cloudinit/blob/master/Documentation/cloud-config.md).
+Please be sure to check out [Using Cloud-Config](https://github.com/flatcar-linux/coreos-cloudinit/blob/master/Documentation/cloud-config).
 
-You must add to your ssh public key to your `cloud-config`'s [ssh authorized keys](https://github.com/flatcar-linux/coreos-cloudinit/blob/master/Documentation/cloud-config.md#ssh_authorized_keys) so you'll be able to log in.
+You must add to your ssh public key to your `cloud-config`'s [ssh authorized keys](https://github.com/flatcar-linux/coreos-cloudinit/blob/master/Documentation/cloud-config#ssh_authorized_keys) so you'll be able to log in.
 
 ## Choosing a channel
 
-Flatcar Container Linux is designed to be updated automatically with different schedules per channel. You can [disable this feature](update-strategies.md), although we don't recommend it. Read the [release notes](https://flatcar-linux.org/releases) for specific features and bug fixes.
+Flatcar Container Linux is designed to be updated automatically with different schedules per channel. You can [disable this feature](update-strategies), although we don't recommend it. Read the [release notes](https://flatcar-linux.org/releases) for specific features and bug fixes.
 
 <div id="vultr-images">
   <ul class="nav nav-tabs">
@@ -100,7 +100,7 @@ boot</pre>
 
 Go to My Servers > Startup Scripts > Add Startup Script, select type "PXE", and input your script. Be sure to replace the cloud-config-url with that of the shell script you created above.
 
-Additional reading can be found at [Booting Flatcar Container Linux with iPXE](booting-with-ipxe.md) and [Embedded scripts for iPXE](http://ipxe.org/embed).
+Additional reading can be found at [Booting Flatcar Container Linux with iPXE](booting-with-ipxe) and [Embedded scripts for iPXE](http://ipxe.org/embed).
 
 ## Create the VPS
 
@@ -131,4 +131,4 @@ core@localhost ~ $
 
 ## Using Flatcar Container Linux
 
-Check out the [Flatcar Container Linux Quickstart](quickstart.md) guide or dig into [more specific topics](https://docs.flatcar-linux.org).
+Check out the [Flatcar Container Linux Quickstart](quickstart) guide or dig into [more specific topics](https://docs.flatcar-linux.org).

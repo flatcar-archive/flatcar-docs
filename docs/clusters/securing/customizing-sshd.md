@@ -88,7 +88,7 @@ At this point, any configuration changes can easily be applied by editing the fi
 
 ### Changing the sshd port
 
-The sshd.socket unit may be configured via systemd [dropins](using-systemd-drop-in-units.md).
+The sshd.socket unit may be configured via systemd [dropins](using-systemd-drop-in-units).
 
 To change how sshd listens, update the list of `ListenStream`s in the `[Socket]` section of the dropin.
 
@@ -176,8 +176,8 @@ systemctl restart sshd.service
 
 ### Further reading on systemd units
 
-For more information about configuring Flatcar Container Linux hosts with `systemd`, see [Getting Started with systemd](getting-started-with-systemd.md).
+For more information about configuring Flatcar Container Linux hosts with `systemd`, see [Getting Started with systemd](getting-started-with-systemd).
 
 [openssh-manual]: http://www.openssh.com/cgi-bin/man.cgi?query=sshd_config
 [mozilla-ssh-rec]: https://wiki.mozilla.org/Security/Guidelines/OpenSSH#Modern_.28OpenSSH_6.7.2B.29
-[cl-configs]: provisioning.md
+[cl-configs]: provisioning

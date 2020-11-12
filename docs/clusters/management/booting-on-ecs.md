@@ -9,7 +9,7 @@ Your Flatcar Container Linux machines communicate with ECS via an agent. The age
 
 ## Set up a new cluster
 
-When booting your [Flatcar Container Linux Machines on EC2](booting-on-ec2.md), configure the ECS agent to be started via [Ignition][ignition-docs].
+When booting your [Flatcar Container Linux Machines on EC2](booting-on-ec2), configure the ECS agent to be started via [Ignition][ignition-docs].
 
 Be sure to change `ECS_CLUSTER` to the cluster name you've configured via the ECS CLI or leave it empty for the default. Here's a full config example:
 
@@ -89,7 +89,7 @@ If you want to configure SSH keys in order to log in, mount disks or configure o
 
 For more information on using ECS, check out the [official Amazon documentation](http://aws.amazon.com/documentation/ecs/).
 
-[cl-configs]: provisioning.md
+[cl-configs]: provisioning
 [ignition-docs]: https://coreos.com/ignition/docs/latest
 
 For more information on using ECS, check out the [official Amazon documentation](http://aws.amazon.com/documentation/ecs/).
