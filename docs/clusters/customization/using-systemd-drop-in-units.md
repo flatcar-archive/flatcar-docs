@@ -146,9 +146,9 @@ systemd-delta --type=extended
 
 For another real systemd examples, check out these documents:
 
-[Customizing Docker](customizing-docker.md#using-a-dockercfg-file-for-authentication)
-[Customizing the SSH Daemon](customizing-sshd.md#changing-the-sshd-port)
-[Using Environment Variables In systemd Units](using-environment-variables-in-systemd-units.md)
+[Customizing Docker](customizing-docker#using-a-dockercfg-file-for-authentication)
+[Customizing the SSH Daemon](customizing-sshd#changing-the-sshd-port)
+[Using Environment Variables In systemd Units](using-environment-variables-in-systemd-units)
 
 ## More Information
 

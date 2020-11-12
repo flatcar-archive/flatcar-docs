@@ -57,7 +57,7 @@ The following Flatcar Container Linux repositories are used:
 Use `repo start` to create a work branch before making any changes.
 
 ```sh
-~/trunk/src/scripts $ repo start my_package_update --all 
+~/trunk/src/scripts $ repo start my_package_update --all
 ```
 
 You can use `scripts/update_ebuilds` to fetch unmodified packages into `src/third_party/portage-stable` and add the files to git. The package argument should be in the format of `category/package-name`, e.g.:
@@ -104,7 +104,7 @@ The new package will now be built and installed as part of the normal build flow
 
 If tests are successful, commit the changes, push to your GitHub fork and create a pull request.
 
-[CONTRIBUTING]: https://github.com/flatcar-linux/etcd/blob/master/CONTRIBUTING.md
+[CONTRIBUTING]: https://github.com/flatcar-linux/etcd/blob/master/CONTRIBUTING
 
 ### Packaging references
 
@@ -226,7 +226,7 @@ In some cases such a file can pin an exact version of a specific package, which 
 
 ## Use binary packages from a shared build store
 
-Some packages like `coreos-modules` take a long time to build. Use 
+Some packages like `coreos-modules` take a long time to build. Use
 
 ```
 ./build_packages --getbinpkgver=$(gsutil cat gs://…/boards/amd64-usr/current-master/version.txt |& sed -n 's/^FLATCAR_VERSION=//p')

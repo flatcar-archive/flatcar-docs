@@ -60,8 +60,8 @@ Feb 11 17:46:28 localhost docker[23470]: Hello World
 ...
 ```
 
-<a class="btn btn-default" href="overview-of-systemctl.md">Overview of systemctl</a>
-<a class="btn btn-default" href="reading-the-system-log.md">Reading the System Log</a>
+<a class="btn btn-default" href="overview-of-systemctl">Overview of systemctl</a>
+<a class="btn btn-default" href="reading-the-system-log">Reading the System Log</a>
 
 ## Advanced unit files
 

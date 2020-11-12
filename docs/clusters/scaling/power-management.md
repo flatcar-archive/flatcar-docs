@@ -47,4 +47,4 @@ systemd:
 
 More information on further tuning each governor is available in the [Kernel Documentation](https://www.kernel.org/doc/Documentation/cpu-freq/governors.txt)
 
-[cl-configs]: provisioning.md
+[cl-configs]: provisioning

@@ -42,7 +42,7 @@ Flatcar Container Linux (beta)
 
 The first building block of Flatcar Container Linux is service discovery with **etcd** ([docs][etcd-docs]). Data stored in etcd is distributed across all of your machines running Flatcar Container Linux. For example, each of your app containers can announce itself to a proxy container, which would automatically know which machines should receive traffic. Building service discovery into your application allows you to add more machines and scale your services seamlessly.
 
-If you used an example [Container Linux Config][cl-configs] or [cloud-config](https://github.com/flatcar-linux/coreos-cloudinit/blob/master/Documentation/cloud-config.md) from a guide linked in the first paragraph, etcd is automatically started on boot.
+If you used an example [Container Linux Config][cl-configs] or [cloud-config](https://github.com/flatcar-linux/coreos-cloudinit/blob/master/Documentation/cloud-config) from a guide linked in the first paragraph, etcd is automatically started on boot.
 
 A good starting point for a Container Linux Config would be something like:
 
@@ -116,18 +116,18 @@ docker run -i -t busybox /bin/sh
 [docker-docs]: https://docs.docker.com/
 [etcd-docs]: https://etcd.io/
 [running-container-linux]: https://docs.flatcar-linux.org/#getting-started
-[ec2-docs]: booting-on-ec2.md
-[azure-docs]: booting-on-azure.md
-[gce-docs]: booting-on-google-compute-engine.md
-[vagrant-docs]: booting-on-vagrant.md
-[vmware-docs]: booting-on-vmware.md
-[virtualbox-docs]: booting-on-virtualbox.md
-[qemu-docs]: booting-with-qemu.md
-[libvirt-docs]: booting-with-libvirt.md
-[packet-docs]: booting-on-packet.md
-[pxe-docs]: booting-with-pxe.md
-[ipxe-docs]: booting-with-ipxe.md
-[iso-docs]: booting-with-iso.md
-[install-docs]: installing-to-disk.md
+[ec2-docs]: booting-on-ec2
+[azure-docs]: booting-on-azure
+[gce-docs]: booting-on-google-compute-engine
+[vagrant-docs]: booting-on-vagrant
+[vmware-docs]: booting-on-vmware
+[virtualbox-docs]: booting-on-virtualbox
+[qemu-docs]: booting-with-qemu
+[libvirt-docs]: booting-with-libvirt
+[packet-docs]: booting-on-packet
+[pxe-docs]: booting-with-pxe
+[ipxe-docs]: booting-with-ipxe
+[iso-docs]: booting-with-iso
+[install-docs]: installing-to-disk
 [ignition]: https://coreos.com/ignition/docs/latest/
-[cl-configs]: provisioning.md
+[cl-configs]: provisioning

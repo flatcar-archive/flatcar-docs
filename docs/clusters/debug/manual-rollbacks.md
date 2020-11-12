@@ -192,4 +192,4 @@ $ update_engine_client -update
 ```
 
 
-[relchans]: switching-channels.md
+[relchans]: switching-channels

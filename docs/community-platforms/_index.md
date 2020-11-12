@@ -24,14 +24,14 @@ The platforms and providers listed below each provide support and documentation 
 * [VMware][vmware]
 
 
-[exoscale]: booting-on-exoscale.md
-[openstack]: booting-on-openstack.md
-[packet]: booting-on-packet.md
-[rackspace]: booting-on-rackspace.md
-[vultr]: booting-on-vultr.md
-[eucalyptus]: booting-on-eucalyptus.md
-[libvirt]: booting-with-libvirt.md
-[vagrant]: booting-on-vagrant.md
-[virtualbox]: booting-on-virtualbox.md
-[vmware]: booting-on-vmware.md
+[exoscale]: booting-on-exoscale
+[openstack]: booting-on-openstack
+[packet]: booting-on-packet
+[rackspace]: booting-on-rackspace
+[vultr]: booting-on-vultr
+[eucalyptus]: booting-on-eucalyptus
+[libvirt]: booting-with-libvirt
+[vagrant]: booting-on-vagrant
+[virtualbox]: booting-on-virtualbox
+[vmware]: booting-on-vmware
 [official-support]: https://docs.flatcar-linux.org/

@@ -60,10 +60,10 @@ The latest Flatcar Container Linux ISOs can be downloaded from the image storage
 
 ## Install to disk
 
-The most common use-case for this ISO is to install Flatcar Container Linux to disk. You can [find those instructions here](installing-to-disk.md).
+The most common use-case for this ISO is to install Flatcar Container Linux to disk. You can [find those instructions here](installing-to-disk).
 
 ## No authentication on console
 
 The ISO is configured to start a shell on the console without prompting for a password. This is convenient for installation and troubleshooting, but use caution.
 
-[cl-configs]: provisioning.md
+[cl-configs]: provisioning

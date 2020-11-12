@@ -120,14 +120,14 @@ For more systemd examples, check out these documents:
 [Using systemd Drop-In Units][drop-in]
 [etcd Cluster Runtime Reconfiguration on Flatcar Container Linux][etcd-cluster-reconfiguration]
 
-[drop-in]: using-systemd-drop-in-units.md
-[customizing-sshd]: customizing-sshd.md#changing-the-sshd-port
-[customizing-etcd]: customize-etcd-unit.md
-[customizing-docker]: customizing-docker.md#using-a-dockercfg-file-for-authentication
-[cl-configs]: provisioning.md
-[etcd-discovery]: cluster-discovery.md
-[systemd-udev]: using-systemd-and-udev-rules.md
-[etcd-cluster-reconfiguration]: https://github.com/coreos/docs/blob/master/etcd/etcd-live-cluster-reconfiguration.md
+[drop-in]: using-systemd-drop-in-units
+[customizing-sshd]: customizing-sshd#changing-the-sshd-port
+[customizing-etcd]: customize-etcd-unit
+[customizing-docker]: customizing-docker#using-a-dockercfg-file-for-authentication
+[cl-configs]: provisioning
+[etcd-discovery]: cluster-discovery
+[systemd-udev]: using-systemd-and-udev-rules
+[etcd-cluster-reconfiguration]: https://github.com/coreos/docs/blob/master/etcd/etcd-live-cluster-reconfiguration
 
 ## More Information
 
