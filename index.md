@@ -2,14 +2,13 @@
 
 Welcome to Flatcar Container Linux documentation
 
+## Getting Started
 
-### Getting Started
 Flatcar Container Linux runs on most cloud providers, virtualization platforms and bare metal servers. Running a local VM on your laptop is a great dev environment. Following the [Quick Start guide][quick-start] is the fastest way to get set up.
 
 Ignition is the recommended way to provision Flatcar Container Linux at first boot.
 Ignition uses a JSON configuration file, and it is recommended to generate it from the Container Linux Config YAML format, which has additional features.
 The Container Linux Config Transpiler converts a Container Linux Config to an Ignition config.
-
 
 Provisioning                                                                                      | Cloud Providers
 --------------                                                                                    | -------------
@@ -32,8 +31,8 @@ Bare Metal                                              | Upgrading from CoreOS 
 [Booting from ISO][boot-iso]                            |
 [Root filesystem placement][filesystem-placement]
 
+## Working with Clusters
 
-### Working with Clusters
 Follow these guides to connect your machines together as a cluster. Configure machine parameters, create users, inject multiple SSH keys, and more with Container Linux Config.
 
 Creating Clusters                                               | Customizing Clusters
@@ -46,16 +45,16 @@ Creating Clusters                                               | Customizing Cl
                                                                 | [Adding users][users]
                                                                 | [Kernel modules / sysctl parameters][parameters]
 
-Managing Clusters                                                      | Scaling Clusters                    
--------------                                                          | --------------                      
-[Registry authentication][registry-authentication]                     | [Adding disk space][disk-space]     
+Managing Clusters                                                      | Scaling Clusters
+-------------                                                          | --------------
+[Registry authentication][registry-authentication]                     | [Adding disk space][disk-space]
 [iSCSI configuration][iscsi]                                           | [Mounting storage][mounting-storage]
 [Adding swap][swap]                                                    | [Power management][power-management]
-[Amazon EC2 Container Service][ec2-container-service]                  |                                     
-[Using systemd to manage Docker containers][manage-docker-containers]  |                                     
-[Using systemd and udev rules][udev-rules]                             |                                     
-[Switching release channels][release-channels]                         |                                     
-[Scheduling tasks with systemd][tasks-with-systemd]                    |                                     
+[Amazon EC2 Container Service][ec2-container-service]                  |
+[Using systemd to manage Docker containers][manage-docker-containers]  |
+[Using systemd and udev rules][udev-rules]                             |
+[Switching release channels][release-channels]                         |
+[Scheduling tasks with systemd][tasks-with-systemd]                    |
 
 Securing Clusters                                               | Debugging Clusters
 --------------                                                  | --------------
@@ -65,10 +64,10 @@ Securing Clusters                                               | Debugging Clus
 [Trusted Computing Hardware Requirements][hardware-requirements]| [Collecting crash logs][crash-log]
 [Adding Cert Authorities][cert-authorities]                     | [Manual Flatcar Container Linux rollbacks][container-linux-rollbacks]
 [Using SELinux][selinux]                                        |
-[Disabling SMT][disabling-smt]                                    |
-
+[Disabling SMT][disabling-smt]                                  |
 
 ### Container Runtimes
+
 Flatcar Container Linux supports all of the popular methods for running containers, and you can choose to interact with the containers at a low-level, or use a higher level orchestration framework. Listed below are your options from the highest level abstraction down to the lowest level, the container runtime.
 
 Docker |
@@ -77,6 +76,7 @@ Docker |
 [Customizing Docker][customizing-docker] |
 
 ### Reference
+
 APIs and troubleshooting guides for working with Flatcar Container Linux.
 
 [Developer guides][developer-guides]
