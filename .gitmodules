@@ -1,4 +1,4 @@
 [submodule "container-linux-config-transpiler"]
 	path = container-linux-config-transpiler
-	url = git@github.com:flatcar-linux/container-linux-config-transpiler.git
+	url = git@github.com:kinvolk/container-linux-config-transpiler.git
 	branch = flatcar-master
