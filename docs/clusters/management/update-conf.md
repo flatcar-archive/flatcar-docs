@@ -10,7 +10,7 @@ Flatcar Container Linux uses [`update_engine`][update_engine] to check and fetch
 
 ## Location
 
-The client-side configuration these updates is stored in `/etc/flatcar/update.conf`.
+The client-side configuration of these updates is stored in `/etc/flatcar/update.conf`.
 (there is a legacy symlink of `/etc/coreos -> /etc/flatcar` for compatibility with third-party integrations).
 This file is in the user writable partition by default.
 
