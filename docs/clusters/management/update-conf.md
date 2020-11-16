@@ -30,7 +30,7 @@ Next order of client-side configurations that are checked are:
 
 ## Fields
 
-Default installs of Flatcar will likely only have `GROUP=` set.
+Default installs of Flatcar will likely not need custom settings, and an empty or non-existing `/etc/flatcar/update.conf` file is sufficient.
 
 * `GROUP`
   * The channel/group this host will pull updates from
