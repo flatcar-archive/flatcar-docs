@@ -40,7 +40,7 @@ Default installs of Flatcar will likely not need custom settings, and an empty o
   * The update server to reach for updates
   * default community server is: https://public.update.flatcar-linux.net/v1/update/
 * `FLATCAR_RELEASE_VERSION`
-  * The current version of this machine's version
+  * The current version of this machine
 * `FLATCAR_RELEASE_BOARD`
   * The board build is determined by the architecture of the machine
 * `FLATCAR_RELEASE_APPID`
