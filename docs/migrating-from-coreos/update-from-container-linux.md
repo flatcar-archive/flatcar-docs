@@ -8,7 +8,7 @@ If you already have CoreOS Container Linux clusters and can't or don't want to f
 
 **NOTE:** General differences when [migrating from CoreOS Container Linux](migrate-from-container-linux) also apply.
 
-At [the end of the section](#all-steps-in-one-script) you can find the [update-to-flatcar.sh](/update-to-flatcar.sh) script that does all steps for you.
+At [the end of the section](#all-steps-in-one-script) you can find the [update-to-flatcar.sh](https://raw.githubusercontent.com/kinvolk/flatcar-docs/main/update-to-flatcar.sh) script that does all steps for you.
 
 ## Getting the public update key
 
@@ -75,11 +75,11 @@ sudo systemctl reboot
 
 ## All steps in one script
 
-The [update-to-flatcar.sh](/update-to-flatcar.sh) script does all required steps mentioned above for you:
+The [update-to-flatcar.sh](https://raw.githubusercontent.com/kinvolk/flatcar-docs/main/update-to-flatcar.sh) script does all required steps mentioned above for you:
 
 ```shell
 # To be run on the node via SSH
-core@host ~ $ wget https://docs.flatcar-linux.org/update-to-flatcar.sh
+core@host ~ $ wget https://raw.githubusercontent.com/kinvolk/flatcar-docs/main/update-to-flatcar.sh
 core@host ~ $ less update-to-flatcar.sh # Double check the content of the script
 core@host ~ $ chmod +x update-to-flatcar.sh
 core@host ~ $ ./update-to-flatcar.sh
