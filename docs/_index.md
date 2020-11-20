@@ -3,11 +3,6 @@ content_type: flatcar
 title: Flatcar Container Linux
 main_menu: true
 weight: 40
-cascade:
-  alpha_channel: 2605.0.0
-  stable_channel: 2512.3.0
-  beta_channel: 2512.3.0
-  edge_channel: 2466.99.0
 ---
 
 Welcome to Flatcar Container Linux documentation
