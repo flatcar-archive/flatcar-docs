@@ -23,184 +23,36 @@ Flatcar Container Linux is designed to be updated automatically with different s
   <div class="tab-content coreos-docs-image-table">
     <div class="tab-pane" id="alpha">
       <div class="channel-info">
-        <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Flatcar Container Linux {{< param alpha_channel >}}.</p>
-        View as json feed: <a class="btn btn-link btn-icon-left co-p-docs-rss" href="https://alpha.release.flatcar-linux.net/amd64-usr/current/flatcar_production_ami_all.json"><span class="fa fa-rss"></span>amd64</a>
-        {% if site.data.alpha-channel-arm.amis.size > 0 %}
-        <a class="btn btn-link btn-icon-left co-p-docs-rss" href="https://alpha.release.flatcar-linux.net/arm64-usr/current/flatcar_production_ami_all.json"><span class="fa fa-rss"></span>arm64</a>
-        {% endif %}
+        <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Flatcar Container Linux {{< param alpha-channel >}}.</p>
+        View as json feed: {{< docs_amis_feed "alpha" >}}
       </div>
-      <table>
-        <thead>
-          <tr>
-            <th>EC2 Region</th>
-            <th>AMI Type</th>
-            <th>AMI ID</th>
-            <th>CloudFormation</th>
-          </tr>
-        </thead>
-        <tbody>
-        {% for region in site.data.alpha-channel.amis %}
-        {% capture region_domain %}{% if region.name == 'us-gov-west-1' %}amazonaws-us-gov.com{% elsif region.name == 'cn-north-1' or region.name == 'cn-northwest-1' %}amazonaws.cn{% else %}aws.amazon.com{% endif %}{% endcapture %}
-        <tr>
-          <td rowspan="2">{{ region.name }}</td>
-          <td class="dashed"><a href="http://aws.amazon.com/amazon-linux-ami/instance-type-matrix/">HVM (amd64)</a></td>
-          <td class="dashed"><a href="https://console.{{ region_domain }}/ec2/home?region={{ region.name }}#launchAmi={{ region.hvm }}">{{ region.hvm }}</a></td>
-          <td class="dashed"><a href="https://console.{{ region_domain }}/cloudformation/home?region={{ region.name }}#/stacks/new?stackName=Flatcar-alpha&templateURL=https://flatcar-prod-ami-import-eu-central-1.s3.amazonaws.com/dist/aws/flatcar-alpha-hvm.template" target="_blank"><img src="https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png" alt="Launch Stack"/></a></td>
-        </tr>
-        <tr>
-          {% for region_arm in site.data.alpha-channel-arm.amis %}
-          {% if region_arm.name == region.name %}
-          <td class="rowspan-padding"><a href="http://aws.amazon.com/amazon-linux-ami/instance-type-matrix/">HVM (arm64)</a></td>
-          <td><a href="https://console.{{ region_domain }}/ec2/home?region={{ region.name }}#launchAmi={{ region_arm.hvm }}">{{ region_arm.hvm }}</a></td>
-          <td><a href="https://console.{{ region_domain }}/cloudformation/home?region={{ region.name }}#/stacks/new?stackName=Flatcar-alpha&templateURL=https://flatcar-prod-ami-import-eu-central-1.s3.amazonaws.com/dist/aws/flatcar-alpha-arm64-hvm.template" target="_blank"><img src="https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png" alt="Launch Stack"/></a></td>
-          {% endif %}
-          {% endfor %}
-        </tr>
-        {% endfor %}
-        </tbody>
-      </table>
+      {{< docs_amis_table "alpha" >}}
     </div>
     <div class="tab-pane" id="beta">
       <div class="channel-info">
-        <p>The Beta channel consists of promoted Alpha releases. The current version is Flatcar Container Linux {{< param beta_channel >}}.</p>
-        View as json feed: <a class="btn btn-link btn-icon-left co-p-docs-rss" href="https://beta.release.flatcar-linux.net/amd64-usr/current/flatcar_production_ami_all.json"><span class="fa fa-rss"></span>amd64</a>
-        {% if site.data.beta-channel-arm.amis.size > 0 %}
-        <a class="btn btn-link btn-icon-left co-p-docs-rss" href="https://beta.release.flatcar-linux.net/arm64-usr/current/flatcar_production_ami_all.json"><span class="fa fa-rss"></span>arm64</a>
-        {% endif %}
+        <p>The Beta channel consists of promoted Alpha releases. The current version is Flatcar Container Linux {{< param beta-channel >}}.</p>
+        View as json feed: {{< docs_amis_feed "beta" >}}
       </div>
-      <table>
-        <thead>
-          <tr>
-            <th>EC2 Region</th>
-            <th>AMI Type</th>
-            <th>AMI ID</th>
-            <th>CloudFormation</th>
-          </tr>
-        </thead>
-        <tbody>
-        {% for region in site.data.beta-channel.amis %}
-        {% capture region_domain %}{% if region.name == 'us-gov-west-1' %}amazonaws-us-gov.com{% elsif region.name == 'cn-north-1' or region.name == 'cn-northwest-1' %}amazonaws.cn{% else %}aws.amazon.com{% endif %}{% endcapture %}
-        <tr>
-          <td rowspan="2">{{ region.name }}</td>
-          <td class="dashed"><a href="http://aws.amazon.com/amazon-linux-ami/instance-type-matrix/">HVM (amd64)</a></td>
-          <td class="dashed"><a href="https://console.{{ region_domain }}/ec2/home?region={{ region.name }}#launchAmi={{ region.hvm }}">{{ region.hvm }}</a></td>
-          <td class="dashed"><a href="https://console.{{ region_domain }}/cloudformation/home?region={{ region.name }}#/stacks/new?stackName=Flatcar-beta&templateURL=https://flatcar-prod-ami-import-eu-central-1.s3.amazonaws.com/dist/aws/flatcar-beta-hvm.template" target="_blank"><img src="https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png" alt="Launch Stack"/></a></td>
-        </tr>
-        <tr>
-          {% for region_arm in site.data.beta-channel-arm.amis %}
-          {% if region_arm.name == region.name %}
-          <td class="rowspan-padding"><a href="http://aws.amazon.com/amazon-linux-ami/instance-type-matrix/">HVM (arm64)</a></td>
-          <td><a href="https://console.{{ region_domain }}/ec2/home?region={{ region.name }}#launchAmi={{ region_arm.hvm }}">{{ region_arm.hvm }}</a></td>
-          <td><a href="https://console.{{ region_domain }}/cloudformation/home?region={{ region.name }}#/stacks/new?stackName=Flatcar-beta&templateURL=https://flatcar-prod-ami-import-eu-central-1.s3.amazonaws.com/dist/aws/flatcar-beta-arm64-hvm.template" target="_blank"><img src="https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png" alt="Launch Stack"/></a></td>
-          {% endif %}
-          {% endfor %}
-        </tr>
-        {% endfor %}
-        </tbody>
-      </table>
+      {{< docs_amis_table "beta" >}}
     </div>
     <div class="tab-pane" id="edge">
       <div class="channel-info">
-        <p>The Edge channel includes bleeding-edge features with the newest versions of the Linux kernel, systemd and other core packages. Can be highly unstable. The current version is Flatcar Container Linux {{< param edge_channel >}}.</p>
+        <p>The Edge channel includes bleeding-edge features with the newest versions of the Linux kernel, systemd and other core packages. Can be highly unstable. The current version is Flatcar Container Linux {{< param edge-channel >}}.</p>
       </div>
-      <table>
-        <thead>
-          <tr>
-            <th>EC2 Region</th>
-            <th>AMI Type</th>
-            <th>AMI ID</th>
-            <th>CloudFormation</th>
-          </tr>
-        </thead>
-        <tbody>
-        {% for region in site.data.edge-channel.amis %}
-        {% capture region_domain %}{% if region.name == 'us-gov-west-1' %}amazonaws-us-gov.com{% elsif region.name == 'cn-north-1' %}amazonaws.cn{% else %}aws.amazon.com{% endif %}{% endcapture %}
-        <tr>
-          <td rowspan="2">{{ region.name }}</td>
-          <td class="dashed"><a href="http://aws.amazon.com/amazon-linux-ami/instance-type-matrix/">HVM (amd64)</a></td>
-          <td class="dashed"><a href="https://console.{{ region_domain }}/ec2/home?region={{ region.name }}#launchAmi={{ region.hvm }}">{{ region.hvm }}</a></td>
-          <td class="dashed"><a href="https://console.{{ region_domain }}/cloudformation/home?region={{ region.name }}#/stacks/new?stackName=Flatcar-edge&templateURL=https://flatcar-prod-ami-import-eu-central-1.s3.amazonaws.com/dist/aws/flatcar-edge-hvm.template" target="_blank"><img src="https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png" alt="Launch Stack"/></a></td>
-        </tr>
-        <tr>
-          {% for region_arm in site.data.edge-channel-arm.amis %}
-          {% if region_arm.name == region.name %}
-          <td class="rowspan-padding"><a href="http://aws.amazon.com/amazon-linux-ami/instance-type-matrix/">HVM (arm64)</a></td>
-          <td><a href="https://console.{{ region_domain }}/ec2/home?region={{ region.name }}#launchAmi={{ region_arm.hvm }}">{{ region_arm.hvm }}</a></td>
-          <td><a href="https://console.{{ region_domain }}/cloudformation/home?region={{ region.name }}#/stacks/new?stackName=Flatcar-edge&templateURL=https://flatcar-prod-ami-import-eu-central-1.s3.amazonaws.com/dist/aws/flatcar-edge-arm64-hvm.template" target="_blank"><img src="https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png" alt="Launch Stack"/></a></td>
-          {% endif %}
-          {% endfor %}
-        </tr>
-        {% endfor %}
-        </tbody>
-      </table>
+      {{< docs_amis_table "edge" >}}
     </div>
     <div class="tab-pane active" id="stable">
       <div class="channel-info">
-        <p>The Stable channel should be used by production clusters. Versions of Flatcar Container Linux are battle-tested within the Beta and Alpha channels before being promoted. The current version is Flatcar Container Linux {{< param stable_channel >}}.</p>
-        View as json feed: <a class="btn btn-link btn-icon-left co-p-docs-rss" href="https://stable.release.flatcar-linux.net/amd64-usr/current/flatcar_production_ami_all.json"><span class="fa fa-rss"></span>amd64</a>
-        {% if site.data.stable-channel-arm.amis.size > 0 %}
-        <a class="btn btn-link btn-icon-left co-p-docs-rss" href="https://stable.release.flatcar-linux.net/arm64-usr/current/flatcar_production_ami_all.json"><span class="fa fa-rss"></span>arm64</a>
-        {% endif %}
+        <p>The Stable channel should be used by production clusters. Versions of Flatcar Container Linux are battle-tested within the Beta and Alpha channels before being promoted. The current version is Flatcar Container Linux {{< param stable-channel >}}.</p>
+        View as json feed: {{< docs_amis_feed "stable" >}}
       </div>
-      <table>
-        <thead>
-          <tr>
-            <th>EC2 Region</th>
-            <th>AMI Type</th>
-            <th>AMI ID</th>
-            <th>CloudFormation</th>
-          </tr>
-        </thead>
-        <tbody>
-        {% for region in site.data.stable-channel.amis %}
-        {% capture region_domain %}{% if region.name == 'us-gov-west-1' %}amazonaws-us-gov.com{% elsif region.name == 'cn-north-1' or region.name == 'cn-northwest-1' %}amazonaws.cn{% else %}aws.amazon.com{% endif %}{% endcapture %}
-        <tr>
-          <td rowspan="2">{{ region.name }}</td>
-          <td class="dashed"><a href="http://aws.amazon.com/amazon-linux-ami/instance-type-matrix/">HVM (amd64)</a></td>
-          <td class="dashed"><a href="https://console.{{ region_domain }}/ec2/home?region={{ region.name }}#launchAmi={{ region.hvm }}">{{ region.hvm }}</a></td>
-          <td class="dashed"><a href="https://console.{{ region_domain }}/cloudformation/home?region={{ region.name }}#/stacks/new?stackName=Flatcar-stable&templateURL=https://flatcar-prod-ami-import-eu-central-1.s3.amazonaws.com/dist/aws/flatcar-stable-hvm.template" target="_blank"><img src="https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png" alt="Launch Stack"/></a></td>
-        </tr>
-        <tr>
-          {% for region_arm in site.data.stable-channel-arm.amis %}
-          {% if region_arm.name == region.name %}
-          <td class="rowspan-padding"><a href="http://aws.amazon.com/amazon-linux-ami/instance-type-matrix/">HVM (arm64)</a></td>
-          <td><a href="https://console.{{ region_domain }}/ec2/home?region={{ region.name }}#launchAmi={{ region_arm.hvm }}">{{ region_arm.hvm }}</a></td>
-          <td><a href="https://console.{{ region_domain }}/cloudformation/home?region={{ region.name }}#/stack/new?stackName=Flatcar-stable&templateURL=https://flatcar-prod-ami-import-eu-central-1.s3.amazonaws.com/dist/aws/flatcar-stable-arm64-hvm.template" target="_blank"><img src="https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png" alt="Launch Stack"/></a></td>
-          {% endif %}
-          {% endfor %}
-        </tr>
-        {% endfor %}
-        </tbody>
-      </table>
+      {{< docs_amis_table "stable" >}}
       <div class="channel-info">
       <h4>AWS China AMIs maintained by <a href="https://www.giantswarm.io/" target="_blank">Giant Swarm</a></h4>
       <p>The following AMIs are not part of the official Flatcar Container Linux release process and may lag behind (<a href="https://flatcar-prod-ami-import-cn-north-1.s3.cn-north-1.amazonaws.com.cn/version.txt" target="_blank">query version</a>).</p>
-      View as json feed: <a class="btn btn-link btn-icon-left co-p-docs-rss" href="https://flatcar-prod-ami-import-cn-north-1.s3.cn-north-1.amazonaws.com.cn/stable-amd64-usr.json"><span class="fa fa-rss"></span>amd64</a>
+      View as json feed: <a href="https://flatcar-prod-ami-import-cn-north-1.s3.cn-north-1.amazonaws.com.cn/stable-amd64-usr.json"><span class="fa fa-rss"></span>amd64</a>
       </div>
-      <table>
-        <thead>
-          <tr>
-            <th>EC2 Region</th>
-            <th>AMI Type</th>
-            <th>AMI ID</th>
-            <th>CloudFormation</th>
-          </tr>
-        </thead>
-        <tbody>
-        {% for region in site.data.stable-channel.china_amis %}
-        {% capture region_domain %}{% if region.name == 'us-gov-west-1' %}amazonaws-us-gov.com{% elsif region.name == 'cn-north-1' or region.name == 'cn-northwest-1' %}amazonaws.cn{% else %}aws.amazon.com{% endif %}{% endcapture %}
-        <tr>
-          <td rowspan="2">{{ region.name }}</td>
-          <td class="dashed"><a href="http://aws.amazon.com/amazon-linux-ami/instance-type-matrix/">HVM (amd64)</a></td>
-          <td class="dashed"><a href="https://console.{{ region_domain }}/ec2/home?region={{ region.name }}#launchAmi={{ region.hvm }}">{{ region.hvm }}</a></td>
-          <td class="dashed"><a href="https://console.{{ region_domain }}/cloudformation/home?region={{ region.name }}#/stacks/new?stackName=Flatcar-stable&templateURL=https://flatcar-prod-ami-import-eu-central-1.s3.amazonaws.com/dist/aws/flatcar-stable-hvm.template" target="_blank"><img src="https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png" alt="Launch Stack"/></a></td>
-        </tr>
-        <tr>
-          <!-- No stable-channel-arm.china_amis -->
-        </tr>
-        {% endfor %}
-        </tbody>
-      </table>
+      {{< docs_amis_table "stable_china" >}}
     </div>
   </div>
 </div>
@@ -331,7 +183,7 @@ First we need to create a security group to allow Flatcar Container Linux instan
       <p>We will be launching three instances, with a few parameters in the User Data, and selecting our security group.</p>
       <ol>
         <li>
-        {% for region in site.data.alpha-channel.amis %}
+        {% for region in site.data.alpha_channel.amis %}
           {% if region.name == 'us-east-1' %}
             Open the <a href="https://console.aws.amazon.com/ec2/home?region={{region.name}}#launchAmi={{region.hvm}}" target="_blank">quick launch wizard</a> to boot {{region.hvm}} (amd64).
           {% endif %}
@@ -405,7 +257,7 @@ First we need to create a security group to allow Flatcar Container Linux instan
       <p>We will be launching three instances, with a few parameters in the User Data, and selecting our security group.</p>
       <ol>
         <li>
-        {% for region in site.data.beta-channel.amis %}
+        {% for region in site.data.beta_channel.amis %}
           {% if region.name == 'us-east-1' %}
             Open the <a href="https://console.aws.amazon.com/ec2/home?region={{region.name}}#launchAmi={{region.hvm}}" target="_blank">quick launch wizard</a> to boot {{region.hvm}} (amd64).
           {% endif %}
@@ -479,7 +331,7 @@ First we need to create a security group to allow Flatcar Container Linux instan
       <p>We will be launching three instances, with a few parameters in the User Data, and selecting our security group.</p>
       <ol>
         <li>
-        {% for region in site.data.stable-channel.amis %}
+        {% for region in site.data.stable_channel.amis %}
           {% if region.name == 'us-east-1' %}
             Open the <a href="https://console.aws.amazon.com/ec2/home?region={{region.name}}#launchAmi={{region.hvm}}" target="_blank">quick launch wizard</a> to boot {{region.hvm}} (amd64).
           {% endif %}
