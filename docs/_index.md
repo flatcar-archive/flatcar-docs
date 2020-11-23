@@ -60,6 +60,7 @@ Managing Clusters                                                      | Scaling
 [Using systemd and udev rules][udev-rules]                             |
 [Switching release channels][release-channels]                         |
 [Scheduling tasks with systemd][tasks-with-systemd]                    |
+[Flatcar update configuration][update-conf]                            |
 
 Securing Clusters                                               | Debugging Clusters
 --------------                                                  | --------------
@@ -139,6 +140,7 @@ APIs and troubleshooting guides for working with Flatcar Container Linux.
 [ec2-container-service]: clusters/management/booting-on-ecs/
 [manage-docker-containers]: clusters/management/getting-started-with-systemd
 [udev-rules]: clusters/management/using-systemd-and-udev-rules
+[update-conf]: clusters/management/update-conf
 [release-channels]: clusters/management/switching-channels
 [tasks-with-systemd]: clusters/management/scheduling-tasks-with-systemd-timers
 [ssh-daemon]: clusters/securing/customizing-sshd
