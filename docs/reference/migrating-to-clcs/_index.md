@@ -251,6 +251,17 @@ storage:
         inline: coreos1
 ```
 
+If your cloud provider uses a meta-data service, you can get the hostname from it. For example with openstack:
+
+```yaml
+storage:
+  files:
+    - path:       "/etc/hostname"
+      contents:
+        remote:
+          url: http://169.254.169.254/latest/meta-data/hostname
+```
+
 ### users
 
 The `users` section in a cloud-config can be used to add users and specify many properties about them, from groups the user should be in to what the user's shell should be.
