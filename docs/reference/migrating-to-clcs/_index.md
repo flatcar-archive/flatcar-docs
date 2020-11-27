@@ -251,7 +251,7 @@ storage:
         inline: coreos1
 ```
 
-If your cloud provider uses a meta-data service, you can get the hostname from it. For example with openstack:
+On a cloud having an `http` metadata service, the hostname can be retrieved automatically. For example with openstack:
 
 ```yaml
 storage:
