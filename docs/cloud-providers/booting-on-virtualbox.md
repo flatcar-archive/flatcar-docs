@@ -16,7 +16,7 @@ The script is located on [GitHub](https://github.com/flatcar-linux/scripts/blob/
 As first step, you must download the script and make it executable.
 
 ```shell
-wget https://raw.githubusercontent.com/flatcar-linux/scripts/flatcar-master/contrib/create-coreos-vdi
+wget https://raw.githubusercontent.com/flatcar-linux/scripts/main/contrib/create-coreos-vdi
 chmod +x create-coreos-vdi
 ```
 
