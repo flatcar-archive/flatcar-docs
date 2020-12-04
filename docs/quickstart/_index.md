@@ -129,5 +129,5 @@ docker run -i -t busybox /bin/sh
 [ipxe-docs]: booting-with-ipxe
 [iso-docs]: booting-with-iso
 [install-docs]: installing-to-disk
-[ignition]: https://coreos.com/ignition/docs/latest/
+[ignition]: https://kinvolk.io/docs/flatcar-container-linux/latest/ignition/
 [cl-configs]: provisioning
