@@ -11,7 +11,7 @@ These instructions will walk you through running Flatcar Container Linux on Orac
 
 There is a script that simplifies building the VDI image. It downloads a bare-metal image, verifies it with GPG, and converts that image to a VDI image.
 
-The script is located on [GitHub](https://github.com/flatcar-linux/scripts/blob/flatcar-master/contrib/create-coreos-vdi). The running host must support VirtualBox tools.
+The script is located on [GitHub](https://github.com/flatcar-linux/scripts/blob/main/contrib/create-coreos-vdi). The running host must support VirtualBox tools.
 
 As first step, you must download the script and make it executable.
 
