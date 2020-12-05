@@ -80,6 +80,7 @@ Docker |
 -------------- |
 [Getting started with Docker][docker] |
 [Customizing Docker][customizing-docker] |
+[Switching from Docker to containerd for Kubernetes][containerd-for-kubernetes] |
 
 ### Reference
 APIs and troubleshooting guides for working with Flatcar Container Linux.
@@ -160,3 +161,4 @@ APIs and troubleshooting guides for working with Flatcar Container Linux.
 [developer-guides]: reference/developer-guides/
 [integrations]: reference/integrations/
 [migrating-from-cloud-config]: reference/migrating-to-clcs/
+[containerd-for-kubernetes]: container-runtimes/switching-from-docker-to-containerd-for-kubernetes
