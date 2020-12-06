@@ -42,7 +42,7 @@ Flatcar Container Linux (beta)
 
 The first building block of Flatcar Container Linux is service discovery with **etcd** ([docs][etcd-docs]). Data stored in etcd is distributed across all of your machines running Flatcar Container Linux. For example, each of your app containers can announce itself to a proxy container, which would automatically know which machines should receive traffic. Building service discovery into your application allows you to add more machines and scale your services seamlessly.
 
-If you used an example [Container Linux Config][cl-configs] or [cloud-config](https://github.com/flatcar-linux/coreos-cloudinit/blob/master/Documentation/cloud-config) from a guide linked in the first paragraph, etcd is automatically started on boot.
+If you used an example [Container Linux Config][cl-configs] or [cloud-config](https://github.com/flatcar-linux/coreos-cloudinit/blob/master/Documentation/cloud-config.md) from a guide linked in the first paragraph, etcd is automatically started on boot.
 
 A good starting point for a Container Linux Config would be something like:
 

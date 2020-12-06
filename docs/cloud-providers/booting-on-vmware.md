@@ -152,7 +152,7 @@ On many cloud providers Ignition will run the [`coreos-metadata.service`](/ignit
 
 If you want to use dynamic data such as `{PRIVATE_IPV4}` and `{PUBLIC_IPV4}` in your Container Linux Config, you have to use the `--platform=custom` argument to the config transpiler and define your own `coreos-metadata.service`.
 
-In the following example we will use the [reserved variables](https://github.com/flatcar-linux/afterburn/blob/master/docs/container-linux-legacy) `COREOS_CUSTOM_PUBLIC_IPV4` and `COREOS_CUSTOM_PRIVATE_IPV4` known to the config transpiler so that Container Linux Configs which contain `{PUBLIC_IPV4}` in a systemd unit will use `${COREOS_CUSTOM_PUBLIC_IPV4}` instead by automatically sourcing it via `EnvironmentFile=/run/metadata/coreos`.
+In the following example we will use the [reserved variables](https://github.com/flatcar-linux/afterburn/blob/master/docs/container-linux-legacy.md) `COREOS_CUSTOM_PUBLIC_IPV4` and `COREOS_CUSTOM_PRIVATE_IPV4` known to the config transpiler so that Container Linux Configs which contain `{PUBLIC_IPV4}` in a systemd unit will use `${COREOS_CUSTOM_PUBLIC_IPV4}` instead by automatically sourcing it via `EnvironmentFile=/run/metadata/coreos`.
 
 ```yaml
 systemd:
@@ -188,7 +188,7 @@ For `$public_ipv4` and `$private_ipv4` substitutions to work you either need to 
 
 Besides applying the config itself `coreos-cloudinit` supports the `guestinfo.interface.*` variables and will generate a networkd unit from them stored in `/run/systemd/network/`.
 
-The guestinfo variables known to coreos-cloudinit are (taken from [here](https://github.com/flatcar-linux/coreos-cloudinit/blob/flatcar-master/Documentation/vmware-guestinfo#cloud-config-vmware-guestinfo-variables)), with `<n>`, `<m>`, `<l>` being numbers starting from 0:
+The guestinfo variables known to coreos-cloudinit are (taken from [here](https://github.com/flatcar-linux/coreos-cloudinit/blob/flatcar-master/Documentation/vmware-guestinfo.md#cloud-config-vmware-guestinfo-variables)), with `<n>`, `<m>`, `<l>` being numbers starting from 0:
 
 * `guestinfo.hostname` used for `hostnamectl set-hostname`
 * `guestinfo.interface.<n>.name` used in the `[Match]` section of the networkd unit (can include wildcards)

@@ -73,7 +73,7 @@ flatcar:
 
 The `$private_ipv4` and `$public_ipv4` substitution variables are fully supported in cloud-config on Rackspace.
 
-[cloud-config-docs]: https://github.com/flatcar-linux/coreos-cloudinit/blob/master/Documentation/cloud-config
+[cloud-config-docs]: https://github.com/flatcar-linux/coreos-cloudinit/blob/master/Documentation/cloud-config.md
 
 ### Mount data disk
 

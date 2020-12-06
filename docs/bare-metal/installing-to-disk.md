@@ -148,4 +148,4 @@ Now that you have a machine booted it is time to play around. Check out the [Fla
 [clc-section]: #container-linux-configs
 [flatcar-install]: https://raw.githubusercontent.com/flatcar-linux/init/flatcar-master/bin/flatcar-install
 [cl-configs]: provisioning
-[ct]: https://github.com/coreos/container-linux-config-transpiler/blob/master/doc/overview
+[ct]: https://github.com/coreos/container-linux-config-transpiler/blob/master/doc/overview.md

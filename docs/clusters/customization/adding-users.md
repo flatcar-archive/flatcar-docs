@@ -7,7 +7,7 @@ You can create user accounts on a Flatcar Container Linux machine manually with 
 
 ## Add Users via Container Linux Configs
 
-In your Container Linux Config, you can specify many [different parameters](https://github.com/coreos/container-linux-config-transpiler/blob/master/doc/configuration) for each user. Here's an example:
+In your Container Linux Config, you can specify many [different parameters](https://github.com/coreos/container-linux-config-transpiler/blob/master/doc/configuration.md) for each user. Here's an example:
 
 ```yaml
 passwd:
