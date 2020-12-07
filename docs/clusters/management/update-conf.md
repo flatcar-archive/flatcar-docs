@@ -54,6 +54,9 @@ Default installs of Flatcar will likely not need custom settings, and an empty o
 * `DOWNLOAD_PASSWORD`
   * Authentication password for fetching the update payload
   * As the update server can redirect to a payload download that may require its own authentication
+* `MACHINE_ALIAS`
+  * Optional human-friendly name for the machine in addition to the machine ID from `/etc/machine-id`, to be displayed in the update server UI, should be unique but this is not enforced
+  * Set this dynamically by running, e.g., `sudo sed -i "/MACHINE_ALIAS=.*/d" /etc/flatcar/update.conf ;  echo "MACHINE_ALIAS=$(hostname)" | sudo tee -a /etc/flatcar/update.conf` for the output of the `hostname` command (as with the other variables, restarting `update-engine.service` is not needed)
 
 _(for future-proofing, calling `git grep GetConfValue\(\"` in the [`update_engine`][update_engine] repo)_
 
