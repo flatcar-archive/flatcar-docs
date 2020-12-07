@@ -46,10 +46,10 @@ The [full list of supported platforms][supported-platforms] is provided and will
 
 Ignition is under active development. Expect to see support for more images in the coming months.
 
-[examples]: https://github.com/flatcar-linux/ignition/blob/flatcar-master/doc/examples
+[examples]: https://github.com/flatcar-linux/ignition/blob/flatcar-master/doc/examples.md
 [cloudinit]: https://github.com/flatcar-linux/coreos-cloudinit
 [network-config]: network-configuration
-[custom-agent]: https://github.com/flatcar-linux/ignition/blob/flatcar-master/doc/examples#custom-metadata-agent
-[supported-platforms]: https://github.com/flatcar-linux/ignition/blob/flatcar-master/doc/supported-platforms
+[custom-agent]: https://github.com/flatcar-linux/ignition/blob/flatcar-master/doc/examples.md#custom-metadata-agent
+[supported-platforms]: https://github.com/flatcar-linux/ignition/blob/flatcar-master/doc/supported-platforms.md
 [systemd-generator]: http://www.freedesktop.org/software/systemd/man/systemd.generator.html
 [initramfs]: https://www.kernel.org/doc/Documentation/filesystems/ramfs-rootfs-initramfs.txt

@@ -127,7 +127,7 @@ For more systemd examples, check out these documents:
 [cl-configs]: provisioning
 [etcd-discovery]: cluster-discovery
 [systemd-udev]: using-systemd-and-udev-rules
-[etcd-cluster-reconfiguration]: https://github.com/coreos/docs/blob/master/etcd/etcd-live-cluster-reconfiguration
+[etcd-cluster-reconfiguration]: https://github.com/coreos/docs/blob/master/etcd/etcd-live-cluster-reconfiguration.md
 
 ## More Information
 

@@ -18,4 +18,4 @@ The setup process for any of these use-cases is the same:
 
 [Generate Self-Signed Certificates](generate-self-signed-certificates)
 
-[etcd Security Model](https://github.com/flatcar-linux/etcd/blob/master/Documentation/op-guide/security)
+[etcd Security Model](https://github.com/flatcar-linux/etcd/blob/master/Documentation/op-guide/security.md)

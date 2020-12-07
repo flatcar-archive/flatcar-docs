@@ -134,8 +134,8 @@ The public discovery service is just an etcd cluster made available to the publi
 
 Since etcd is designed to this type of leader election, it was an obvious choice to use it for everyone's initial leader election. This means that it's easy to run your own etcd cluster for this purpose.
 
-If you're interested in how discovery API works behind the scenes in etcd, read about [etcd clustering](https://github.com/flatcar-linux/etcd/blob/master/Documentation/op-guide/clustering).
+If you're interested in how discovery API works behind the scenes in etcd, read about [etcd clustering](https://github.com/flatcar-linux/etcd/blob/master/Documentation/op-guide/clustering.md).
 
-[etcd-reconf]: https://github.com/flatcar-linux/etcd/blob/master/Documentation/op-guide/runtime-configuration
-[etcd-reconf-no-disc]: https://github.com/flatcar-linux/etcd/blob/master/Documentation/op-guide/runtime-reconf-design#do-not-use-public-discovery-service-for-runtime-reconfiguration
-[etcd-reconf-on-flatcar]: https://github.com/coreos/docs/blob/master/etcd/etcd-live-cluster-reconfiguration
+[etcd-reconf]: https://github.com/flatcar-linux/etcd/blob/master/Documentation/op-guide/runtime-configuration.md
+[etcd-reconf-no-disc]: https://github.com/flatcar-linux/etcd/blob/master/Documentation/op-guide/runtime-reconf-design.md#do-not-use-public-discovery-service-for-runtime-reconfiguration
+[etcd-reconf-on-flatcar]: https://github.com/coreos/docs/blob/master/etcd/etcd-live-cluster-reconfiguration.md
