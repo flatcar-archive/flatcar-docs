@@ -46,7 +46,7 @@ The [full list of supported platforms][supported-platforms] is provided and will
 
 Ignition is under active development. Expect to see support for more images in the coming months.
 
-[examples]: https://github.com/flatcar-linux/ignition/blob/flatcar-master/doc/examples.d
+[examples]: https://github.com/flatcar-linux/ignition/blob/flatcar-master/doc/examples.md
 [cloudinit]: https://github.com/flatcar-linux/coreos-cloudinit
 [network-config]: network-configuration
 [custom-agent]: https://github.com/flatcar-linux/ignition/blob/flatcar-master/doc/examples.md#custom-metadata-agent
