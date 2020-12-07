@@ -43,7 +43,7 @@ $ sudo cgpt show /dev/xvda
 
 Flatcar Container Linux images ship with the `USR-B` partition empty to reduce the image filesize. The first Flatcar Container Linux update will populate it and start the normal active/passive scheme.
 
-The OEM partition is also mounted as read-only at `/usr/share/oem`.
+The OEM partition is mounted at `/usr/share/oem`.
 
 ### Stateful root
 
