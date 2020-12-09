@@ -114,6 +114,12 @@ $ az vm create --name node-1 --resource-group group-1 --admin-username core --cu
   </div>
 </div>
 
+### Flatcar Pro Images
+
+Flatcar Pro images in the marketplace are paid images and come with commercial support and extra features. They are published for the Stable and Beta channels. The Pro image for Azure has support for NVidia GPUs.
+
+Using the Azure CLI you can list the Pro images for, e.g., the Stable channel, with `az vm image list --all -p kinvolk -f flatcar_pro -s stable`.
+
 ## Uploading your own Image
 
 To automatically download the Flatcar image for Azure from the release page and upload it to your Azure account, run the following command:
