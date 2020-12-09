@@ -172,7 +172,7 @@ via a Container Linux Config. Head over to the [provisioning docs][cl-configs] t
 Note that Microsoft Azure doesn't allow an instance's userdata to be modified after the instance had been launched. This
 isn't a problem since Ignition, the tool that consumes the userdata, only runs on the first boot.
 
-You can provide a raw Ignition config (produced from a Container Linux Config) to Flatcar Container Linux via the Azure CLI using the `----custom-data` flag.
+You can provide a raw Ignition config (produced from a Container Linux Config) to Flatcar Container Linux via the Azure CLI using the `--custom-data` flag.
 
 As an example, the following config will configure and start etcd:
 
