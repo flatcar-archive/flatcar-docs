@@ -1,5 +1,5 @@
 ---
-title: Customizing docker
+title: Customizing Docker
 weight: 10
 ---
 
