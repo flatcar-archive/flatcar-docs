@@ -61,7 +61,7 @@ systemd:
         # exists and systemd currently does not support the cgroup feature set required
         # for containers run by docker
         Environment=PATH=/opt/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin
-        ExecStart=/opt/bin/dockerd --host=fd:// --containerd=/run/containerd/containerd.sock $DOCKER_SELINUX $DOCKER_OPTS $DOCKER_CGROUPS $DOCKER_OPT_BIP $DOCKER_OPT_MTU $DOCKER_OPT_IPMASQ
+        ExecStart=/opt/bin/dockerd --host=fd:// --containerd=/run/docker/libcontainerd/docker-containerd.sock $DOCKER_SELINUX $DOCKER_OPTS $DOCKER_CGROUPS $DOCKER_OPT_BIP $DOCKER_OPT_MTU $DOCKER_OPT_IPMASQ
         ExecReload=/bin/kill -s HUP $MAINPID
         LimitNOFILE=1048576
         # Having non-zero Limit*s causes performance problems due to accounting overhead
