@@ -1,9 +1,25 @@
 ---
-title: Customizing docker
+title: Customizing Docker
 weight: 10
 ---
 
-The Docker systemd unit can be customized by overriding the unit that ships with the default Flatcar Container Linux settings. Common use-cases for doing this are covered below.
+The Docker systemd unit can be customized by overriding the unit that ships with the default Flatcar Container Linux settings or through a drop-in unit. Common use-cases for doing this are covered below.
+
+For switching to using containerd with Kubernetes, there is an [extra guide](../switching-from-docker-to-containerd-for-kubernetes/).
+
+## Use a custom containerd configuration
+
+The default configuration under `/run/torcx/unpack/docker/usr/share/containerd/config.toml` can't be changed but you can copy it to `/etc/containerd/config.toml` and modify it.
+Then create a `/etc/systemd/system/containerd.service.d/10-use-custom-config.conf` unit drop-in file to select the new configuration:
+
+```ini
+[Service]
+Environment=CONTAINERD_CONFIG=/etc/containerd/config.toml
+ExecStart=
+ExecStart=/usr/bin/env PATH=${TORCX_BINDIR}:${PATH} ${TORCX_BINDIR}/containerd --config ${CONTAINERD_CONFIG}
+```
+
+On a running system, execute `systemctl daemon-reload ; systemctl restart containerd` for it to take effect.
 
 ## Enable the remote API on a new socket
 
