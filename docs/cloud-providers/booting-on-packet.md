@@ -4,7 +4,7 @@ linktitle: Running on Packet
 weight: 10
 ---
 
-Packet is a bare metal cloud hosting provider. Flatcar Container Linux is installable as one of the default operating system options. You can deploy Flatcar Container Linux servers via the Packet portal or API.
+Packet is a bare metal cloud hosting provider. Flatcar Container Linux is installable as one of the default operating system options. You can deploy Flatcar Container Linux servers via the Packet portal or API. At the end of the document there are instructions for deploying with Terraform.
 
 ## Deployment instructions
 
@@ -80,3 +80,153 @@ etcd:
 ## Using Flatcar Container Linux
 
 Now that you have a machine booted it is time to play around. Check out the [Flatcar Container Linux Quickstart](quickstart) guide or dig into [more specific topics](https://docs.flatcar-linux.org).
+
+## Terraform
+
+The [`packet`](https://registry.terraform.io/providers/packethost/packet/latest/docs) Terraform Provider allows to deploy machines in a declarative way.
+Read more about using Terraform and Flatcar [here](../../terraform/).
+
+The following Terraform v0.13 module may serve as a base for your own setup.
+
+Start with a `packet-machines.tf` file that contains the main declarations:
+
+```
+terraform {
+  required_version = ">= 0.13"
+  required_providers {
+    packet = {
+      source  = "packethost/packet"
+      version = "3.1.0"
+    }
+    ct = {
+      source  = "poseidon/ct"
+      version = "0.7.1"
+    }
+    template = {
+      source  = "hashicorp/template"
+      version = "~> 2.2.0"
+    }
+  }
+}
+
+resource "packet_device" "machine" {
+  for_each         = toset(var.machines)
+  hostname         = "${var.cluster_name}-${each.key}"
+  plan             = var.plan
+  facilities       = var.facilities
+  operating_system = "flatcar_stable"
+  billing_cycle    = "hourly"
+  project_id       = var.project_id
+  user_data        = data.ct_config.machine-ignitions[each.key].rendered
+}
+
+data "ct_config" "machine-ignitions" {
+  for_each = toset(var.machines)
+  content  = data.template_file.machine-configs[each.key].rendered
+}
+
+data "template_file" "machine-configs" {
+  for_each = toset(var.machines)
+  template = file("${path.module}/machine-${each.key}.yaml.tmpl")
+
+  vars = {
+    ssh_keys = jsonencode(var.ssh_keys)
+    name     = each.key
+  }
+}
+```
+
+Create a `variables.tf` file that declares the variables used above:
+
+```
+variable "machines" {
+  type        = list(string)
+  description = "Machine names, corresponding to machine-NAME.yaml.tmpl files"
+}
+
+variable "cluster_name" {
+  type        = string
+  description = "Cluster name used as prefix for the machine names"
+}
+
+variable "ssh_keys" {
+  type        = list(string)
+  description = "SSH public keys for user 'core', only needed if you don't have it specified in the Equinix Metal Project"
+}
+
+variable "facilities" {
+  type        = list(string)
+  default     = ["sjc1"]
+  description = "List of facility codes with deployment preferences"
+}
+
+variable "plan" {
+  type        = string
+  default     = "t1.small.x86"
+  description = "The device plan slug"
+}
+
+variable "project_id" {
+  type        = string
+  description = "The Equinix Metal Project to deploy in (in the web UI URL after /projects/)"
+}
+```
+
+An `outputs.tf` file shows the resulting IP addresses:
+
+```
+output "ip-addresses" {
+  value = {
+    for key in var.machines :
+    "${var.cluster_name}-${key}" => packet_device.machine[key].access_public_ipv4
+  }
+}
+```
+
+Now you can use the module by declaring the variables and a Container Linux Configuration for a machine.
+First create a `terraform.tfvars` file with your settings:
+
+```
+cluster_name = "mycluster"
+machines     = ["mynode"]
+plan         = "t1.small.x86"
+facilities   = ["sjc1"]
+project_id   = "1...-2...-3...-4...-5..."
+ssh_keys     = ["ssh-rsa AA... me@mail.net"]
+```
+
+Create the configuration for `mynode` in the file `machine-mynode.yaml.tmpl`:
+
+```yaml
+---
+passwd:
+  users:
+    - name: core
+      ssh_authorized_keys: ${ssh_keys}
+storage:
+  files:
+    - path: /home/core/works
+      filesystem: root
+      mode: 0755
+      contents:
+        inline: |
+          #!/bin/bash
+          set -euo pipefail
+          hostname="$(hostname)"
+          echo My name is ${name} and the hostname is $${hostname}
+
+```
+
+Finally, run Terraform v0.13 as follows to create the machine:
+
+```
+export PACKET_AUTH_TOKEN=...
+terraform init
+terraform apply
+```
+
+Log in via `ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null core@IPADDRESS` with the printed IP address.
+
+When you make a change to `machine-mynode.yaml.tmpl` and run `terraform apply` again, the machine will be replaced.
+
+It is recommended to register your SSH key in the Equinix Metal Project to use the out-of-band console. Since Flatcar will fetch this key, too, you can remove it from the YAML config.

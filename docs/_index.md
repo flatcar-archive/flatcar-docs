@@ -24,6 +24,7 @@ Provisioning                                                                    
 [CL Config Dynamic Metadata][config-dynamic-data], [Ignition Dynamic Metadata][ignition-metadata] | [Packet][packet]
 [CL ct][config-intro], [CL Config Examples][config-examples]                                      | [QEMU][qemu], [libVirt][libvirt], [VirtualBox][virtualbox]¹, [Vagrant][vagrant]¹
 [CL Config Spec][config-spec], [CL Config Notes][config-notes]                                    | [VMware][vmware]
+[Terraform][terraform]                                                                            | [Hetzner][hetzner]
 
 _¹ These platforms are not officially supported and releases are not tested._
 
@@ -164,3 +165,5 @@ APIs and troubleshooting guides for working with Flatcar Container Linux.
 [integrations]: reference/integrations/
 [migrating-from-cloud-config]: reference/migrating-to-clcs/
 [containerd-for-kubernetes]: container-runtimes/switching-from-docker-to-containerd-for-kubernetes
+[terraform]: terraform/
+[hetzner]: cloud-providers/booting-on-hetzner
