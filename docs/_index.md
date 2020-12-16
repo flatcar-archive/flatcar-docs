@@ -21,7 +21,7 @@ Provisioning                                                                    
 [Ignition vs coreos-cloudinit][ignition-what], [Boot Process][ignition-boot]                      | [DigitalOcean][digital-ocean]
 [Ignition Network Config][ignition-network]                                                       | [Google Compute Engine][gce]
 [Container Linux Config Transpiler][config-transpiler]                                            | [Microsoft Azure][azure]
-[CL Config Dynamic Metadata][config-dynamic-data], [Ignition Dynamic Metadata][ignition-metadata] | [Packet][packet]
+[CL Config Dynamic Metadata][config-dynamic-data], [Ignition Dynamic Metadata][ignition-metadata] | [Equinix Metal][equinix-metal]
 [CL ct][config-intro], [CL Config Examples][config-examples]                                      | [QEMU][qemu], [libVirt][libvirt], [VirtualBox][virtualbox]¹, [Vagrant][vagrant]¹
 [CL Config Spec][config-spec], [CL Config Notes][config-notes]                                    | [VMware][vmware]
 [Terraform][terraform]                                                                            | [Hetzner][hetzner]
@@ -118,7 +118,7 @@ APIs and troubleshooting guides for working with Flatcar Container Linux.
 [gce]: cloud-providers/booting-on-google-compute-engine
 [azure]: cloud-providers/booting-on-azure
 [qemu]: cloud-providers/booting-with-qemu
-[packet]: cloud-providers/booting-on-packet
+[equinix-metal]: cloud-providers/booting-on-packet
 [libvirt]: cloud-providers/booting-with-libvirt
 [virtualbox]: cloud-providers/booting-on-virtualbox
 [vagrant]: cloud-providers/booting-on-vagrant

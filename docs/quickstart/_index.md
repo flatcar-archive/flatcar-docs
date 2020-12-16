@@ -4,7 +4,7 @@ linktitle: Quick start
 weight: 2
 ---
 
-If you don't have a Flatcar Container Linux machine running, check out the guides on [running Flatcar Container Linux][running-container-linux] on most cloud providers ([EC2][ec2-docs], [Azure][azure-docs], [GCE][gce-docs], [Packet][packet-docs]), virtualization platforms ([Vagrant][vagrant-docs], [VMware][vmware-docs], [VirtualBox][virtualbox-docs] [QEMU/KVM][qemu-docs]/[libVirt][libvirt-docs]) and bare metal servers ([PXE][pxe-docs], [iPXE][ipxe-docs], [ISO][iso-docs], [Installer][install-docs]). With any of these guides you will have machines up and running in a few minutes.
+If you don't have a Flatcar Container Linux machine running, check out the guides on [running Flatcar Container Linux][running-container-linux] on most cloud providers ([EC2][ec2-docs], [Azure][azure-docs], [GCE][gce-docs], [Equinix Metal][equinix-metal-docs]), virtualization platforms ([Vagrant][vagrant-docs], [VMware][vmware-docs], [VirtualBox][virtualbox-docs] [QEMU/KVM][qemu-docs]/[libVirt][libvirt-docs]) and bare metal servers ([PXE][pxe-docs], [iPXE][ipxe-docs], [ISO][iso-docs], [Installer][install-docs]). With any of these guides you will have machines up and running in a few minutes.
 
 It's highly recommended that you set up a cluster of at least 3 machines &mdash; it's not as much fun on a single machine. If you don't want to break the bank, [Vagrant][vagrant-docs] allows you to run an entire cluster on your laptop. For a cluster to be properly bootstrapped, you have to provide ideally an [Ignition config][ignition] (generated from a [Container Linux Config][cl-configs]), or possibly a cloud-config, via user-data, which is covered in each platform's guide.
 
@@ -124,7 +124,7 @@ docker run -i -t busybox /bin/sh
 [virtualbox-docs]: booting-on-virtualbox
 [qemu-docs]: booting-with-qemu
 [libvirt-docs]: booting-with-libvirt
-[packet-docs]: booting-on-packet
+[equinix-metal-docs]: booting-on-packet
 [pxe-docs]: booting-with-pxe
 [ipxe-docs]: booting-with-ipxe
 [iso-docs]: booting-with-iso

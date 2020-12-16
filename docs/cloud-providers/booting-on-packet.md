@@ -1,18 +1,18 @@
 ---
-title: Running Flatcar Container Linux on Packet
-linktitle: Running on Packet
+title: Running Flatcar Container Linux on Equinix Metal
+linktitle: Running on Equinix Metal
 weight: 10
 ---
 
-Packet is a bare metal cloud hosting provider. Flatcar Container Linux is installable as one of the default operating system options. You can deploy Flatcar Container Linux servers via the Packet portal or API. At the end of the document there are instructions for deploying with Terraform.
+Equinix Metal (formerly known as Packet) is a bare metal cloud hosting provider. Flatcar Container Linux is installable as one of the default operating system options. You can deploy Flatcar Container Linux servers via the web portal or API. At the end of the document there are instructions for deploying with Terraform.
 
 ## Deployment instructions
 
-The first step in deploying any devices on Packet is to first create an account and decide if you'd like to deploy via our portal or API. The portal is appropriate for small clusters of machines that won't change frequently. If you'll be deploying a lot of machines, or expect your workload to change frequently it is much more efficient to use the API. You can generate an API token through the portal once you've set up an account and payment method.
+The first step in deploying any devices on Equinix Metal is to first create an account and decide if you'd like to deploy via our portal or API. The portal is appropriate for small clusters of machines that won't change frequently. If you'll be deploying a lot of machines, or expect your workload to change frequently it is much more efficient to use the API. You can generate an API token through the portal once you've set up an account and payment method.
 
 ### Projects
 
-Packet has a concept of 'projects' that represent a grouping of machines that defines several other aspects of the service. A project defines who on the team has access to manage the machines in your account. Projects also define your private network; all machines in a given project will automatically share backend network connectivity. The SSH keys of all team members associated with a project will be installed to all newly provisioned machines in a project. All servers need to be in a project, even if there is only one server in that project.
+Equinix Metal has a concept of 'projects' that represent a grouping of machines that defines several other aspects of the service. A project defines who on the team has access to manage the machines in your account. Projects also define your private network; all machines in a given project will automatically share backend network connectivity. The SSH keys of all team members associated with a project will be installed to all newly provisioned machines in a project. All servers need to be in a project, even if there is only one server in that project.
 
 ### Portal instructions
 
@@ -20,7 +20,7 @@ Once logged into the portal you will be able to click the 'New server' button an
 
 ### API instructions
 
-If you select to use the API to provision machines on Packet you should consider using [one of the language libraries](https://www.packet.com/developers/libraries/) to code against. As an example, this is how you would launch a single Type 1 machine in a curl command. [Packet API Documentation](https://www.packet.com/developers/api/).
+If you select to use the API to provision machines on Equinix Metal you should consider using [one of the language libraries](https://www.packet.com/developers/libraries/) to code against. As an example, this is how you would launch a single Type 1 machine in a curl command. [API Documentation](https://www.packet.com/developers/api/).
 
 ```shell
 # Replace items in brackets (<EXAMPLE>) with the appropriate values.
@@ -38,7 +38,7 @@ Double quotes in the `<USERDATA>` value must be escaped such that the request bo
 ## iPXE booting
 
 If you need to run a Flatcar Container Linux image which is not available through the OS option in the API, you can boot via 'Custom iPXE'.
-This is the case for ARM64 images which are just published in the Alpha and Edge channels right now and not available via Packet's API.
+This is the case for ARM64 images which are just published in the Alpha and Edge channels right now and not available via Equinix Metal's API.
 
 Assuming you want to run boot an Alpha image via iPXE on a `c2.large.arm` machine, you have to provide this URL for 'Custom iPXE Settings':
 
@@ -46,15 +46,15 @@ Assuming you want to run boot an Alpha image via iPXE on a `c2.large.arm` machin
 https://alpha.release.flatcar-linux.net/arm64-usr/current/flatcar_production_packet.ipxe
 ```
 
-Do not forget to provide an Ignition config with your SSH key because the PXE images don't have any OEM packages which could fetch the Packet project's SSH keys after booting.
+Do not forget to provide an Ignition config with your SSH key because the PXE images don't have any OEM packages which could fetch the Equinix Metal Project's SSH keys after booting.
 
 If not configured elsewise, iPXE booting will only done at the first boot because you are expected to install the operating system to the hard disk yourself.
 
 ## Container Linux Configs
 
-Flatcar Container Linux allows you to configure machine parameters, configure networking, launch systemd units on startup, and more via Container Linux Configs. These configs are then transpiled into Ignition configs and given to booting machines. Head over to the [docs to learn about the supported features][cl-configs]. Note that Packet doesn't allow an instance's userdata to be modified after the instance has been launched. This isn't a problem since Ignition only runs on the first boot.
+Flatcar Container Linux allows you to configure machine parameters, configure networking, launch systemd units on startup, and more via Container Linux Configs. These configs are then transpiled into Ignition configs and given to booting machines. Head over to the [docs to learn about the supported features][cl-configs]. Note that Equinix Metal doesn't allow an instance's userdata to be modified after the instance has been launched. This isn't a problem since Ignition only runs on the first boot.
 
-You can provide a raw Ignition config to Flatcar Container Linux via Packet's userdata field.
+You can provide a raw Ignition config to Flatcar Container Linux via Equinix Metal's userdata field.
 
 As an example, this config will configure and start etcd:
 
