@@ -10,7 +10,6 @@ The platforms and providers listed below each provide support and documentation 
 ## Cloud providers
 
 * [Exoscale][exoscale]
-* [Packet][packet]
 * [Rackspace Cloud][rackspace]
 * [Vultr VPS][vultr]
 
@@ -25,7 +24,6 @@ The platforms and providers listed below each provide support and documentation 
 
 [exoscale]: community-platforms/booting-on-exoscale
 [openstack]: community-platforms/booting-on-openstack
-[packet]: community-platforms/booting-on-packet
 [rackspace]: community-platforms/booting-on-rackspace
 [vultr]: community-platforms/booting-on-vultr
 [eucalyptus]: community-platforms/booting-on-eucalyptus

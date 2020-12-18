@@ -7,6 +7,7 @@ This guide explains how to run Flatcar Container Linux with libvirt using the QE
 file can be used (for example) with `virsh` or `virt-manager`. The guide assumes
 that you already have a running libvirt setup and `virt-install` tool. If you
 don’t have that, other solutions are most likely easier.
+At the end of the document there are instructions for deploying with Terraform.
 
 You can direct questions to the [IRC channel][irc] or [mailing list][flatcar-dev].
 
@@ -328,6 +329,215 @@ ssh flatcar-linux1
 ## Using Flatcar Container Linux
 
 Now that you have a machine booted it is time to play around. Check out the [Flatcar Container Linux Quickstart](quickstart) guide or dig into [more specific topics](https://docs.flatcar-linux.org).
+
+## Terraform
+
+The [`libvirt` Terraform Provider](https://github.com/dmacvicar/terraform-provider-libvirt/) allows to quickly deploy machines in a declarative way.
+This is especially useful for local development of a configuration that is also in use on a cloud provider.
+Read more about using Terraform and Flatcar [here](../../terraform/).
+
+The following Terraform v0.13 module may serve as a base for your own setup.
+A new disk volume pool will be created in `/var/tmp` as precaution to not modify the base image by accident.
+
+First, prepare the base image and make sure you don't boot it via the [`flatcar_production_qemu.sh`](https://stable.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu.sh) script or similar:
+
+```sh
+cd ~/Downloads
+wget https://stable.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu_image.img.bz2
+bunzip2 flatcar_production_qemu_image.img.bz2
+mv flatcar_production_qemu_image-libvirt-import.img
+# optional, increase the image by 5 GB:
+qemu-img resize flatcar_production_qemu_image-libvirt-import.img +5G
+```
+
+It will only be used once for the import and can be deleted afterwards even when new VMs are added.
+
+Start with a `libvirt-machines.tf` file that contains the main declarations:
+
+```
+terraform {
+  required_version = ">= 0.13"
+  required_providers {
+    libvirt = {
+      source  = "dmacvicar/libvirt"
+      version = "0.6.3"
+    }
+    ct = {
+      source  = "poseidon/ct"
+      version = "0.7.1"
+    }
+    template = {
+      source  = "hashicorp/template"
+      version = "~> 2.2.0"
+    }
+  }
+}
+
+provider "libvirt" {
+  uri = "qemu:///system"
+}
+
+resource "libvirt_pool" "volumetmp" {
+  name = "${var.cluster_name}-pool"
+  type = "dir"
+  path = "/var/tmp/${var.cluster_name}-pool"
+}
+
+resource "libvirt_volume" "base" {
+  name   = "flatcar-base"
+  source = var.base_image
+  pool   = libvirt_pool.volumetmp.name
+  format = "qcow2"
+}
+
+resource "libvirt_volume" "vm-disk" {
+  for_each = toset(var.machines)
+  # workaround: depend on libvirt_ignition.ignition[each.key], otherwise the VM will use the old disk when the user-data changes
+  name           = "${var.cluster_name}-${each.key}-${md5(libvirt_ignition.ignition[each.key].id)}.qcow2"
+  base_volume_id = libvirt_volume.base.id
+  pool           = libvirt_pool.volumetmp.name
+  format         = "qcow2"
+}
+
+resource "libvirt_ignition" "ignition" {
+  for_each = toset(var.machines)
+  name     = "${var.cluster_name}-${each.key}-ignition"
+  pool     = libvirt_pool.volumetmp.name
+  content  = data.ct_config.vm-ignitions[each.key].rendered
+}
+
+resource "libvirt_domain" "machine" {
+  for_each = toset(var.machines)
+  name     = "${var.cluster_name}-${each.key}"
+  vcpu     = var.virtual_cpus
+  memory   = var.virtual_memory
+
+  fw_cfg_name     = "opt/org.flatcar-linux/config"
+  coreos_ignition = libvirt_ignition.ignition[each.key].id
+
+  disk {
+    volume_id = libvirt_volume.vm-disk[each.key].id
+  }
+
+  graphics {
+    listen_type = "address"
+  }
+
+  # dynamic IP assignment on the bridge, NAT for Internet access
+  network_interface {
+    network_name   = "default"
+    wait_for_lease = true
+  }
+}
+
+data "ct_config" "vm-ignitions" {
+  for_each = toset(var.machines)
+  content  = data.template_file.vm-configs[each.key].rendered
+}
+
+data "template_file" "vm-configs" {
+  for_each = toset(var.machines)
+  template = file("${path.module}/machine-${each.key}.yaml.tmpl")
+
+  vars = {
+    ssh_keys = jsonencode(var.ssh_keys)
+    name     = each.key
+  }
+}
+```
+
+Create a `variables.tf` file that declares the variables used above:
+
+```
+variable "machines" {
+  type        = list(string)
+  description = "Machine names, corresponding to machine-NAME.yaml.tmpl files"
+}
+
+variable "cluster_name" {
+  type        = string
+  description = "Cluster name used as prefix for the machine names"
+}
+
+variable "ssh_keys" {
+  type        = list(string)
+  description = "SSH public keys for user 'core'"
+}
+
+variable "base_image" {
+  type        = string
+  description = "Path to unpacked Flatcar Container Linux image flatcar_production_qemu_image.img (probably after a qemu-img resize IMG +5G)"
+}
+
+variable "virtual_memory" {
+  type        = number
+  default     = 2048
+  description = "Virtual RAM in MB"
+}
+
+variable "virtual_cpus" {
+  type        = number
+  default     = 1
+  description = "Number of virtual CPUs"
+}
+```
+
+An `outputs.tf` file shows the resulting IP addresses:
+
+```
+output "ip-addresses" {
+  value = {
+    for key in var.machines :
+    "${var.cluster_name}-${key}" => libvirt_domain.machine[key].network_interface.0.addresses.*
+  }
+  # or instead of outputs, use dig CLUSTERNAME-VMNAME @192.168.122.1
+}
+```
+
+Now you can use the module by declaring the variables and a Container Linux Configuration for a machine.
+First create a `terraform.tfvars` file with your settings:
+
+```
+base_image     = "file:///home/myself/Downloads/flatcar_production_qemu_image-libvirt-import.img"
+cluster_name  = "mycluster"
+machines     = ["mynode"]
+virtual_memory = 768
+ssh_keys     = ["ssh-rsa AA... me@mail.net"]
+```
+
+Create the configuration for `mynode` in the file `machine-mynode.yaml.tmpl`:
+
+```yaml
+---
+passwd:
+  users:
+    - name: core
+      ssh_authorized_keys: ${ssh_keys}
+storage:
+  files:
+    - path: /home/core/works
+      filesystem: root
+      mode: 0755
+      contents:
+        inline: |
+          #!/bin/bash
+          set -euo pipefail
+          hostname="$(hostname)"
+          echo My name is ${name} and the hostname is $${hostname}
+```
+
+Finally, run Terraform v0.13 as follows to create the machine:
+
+```
+terraform init
+terraform apply
+```
+
+View the VMs in `virt-manager` where you can see the VGA console.
+Log in via `ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null core@IPADDRESS` with the printed IP address.
+
+When you make a change to `machine-mynode.yaml.tmpl` and run `terraform apply` again, the instance and its disk will be replaced.
+
 
 [flatcar-dev]: https://groups.google.com/forum/#!forum/flatcar-linux-dev
 [irc]: irc://irc.freenode.org:6667/#flatcar
