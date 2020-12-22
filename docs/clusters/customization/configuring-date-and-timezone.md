@@ -1,6 +1,8 @@
 ---
 title: Configuring date and time zone
 weight: 10
+aliases:
+    - ../../os/configuring-date-and-timezone
 ---
 
 By default, Flatcar Container Linux machines keep time in the Coordinated Universal Time (UTC) zone and synchronize their clocks with the Network Time Protocol (NTP). This page contains information about customizing those defaults, explains the change in NTP client daemons in recent Flatcar Container Linux versions, and offers advice on best practices for timekeeping in Flatcar Container Linux clusters.

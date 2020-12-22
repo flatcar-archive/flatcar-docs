@@ -2,6 +2,8 @@
 title: Running Flatcar Container Linux on QEMU
 title: Running on QEMU
 weight: 30
+aliases:
+    - ../os/booting-with-qemu
 ---
 
 These instructions will bring up a single Flatcar Container Linux instance under QEMU, the small Swiss Army knife of virtual machine and CPU emulators. If you need to do more such as [configuring networks][qemunet] differently refer to the [QEMU Wiki][qemuwiki] and [User Documentation][qemudoc].

@@ -1,6 +1,8 @@
 ---
 title: Installing Flatcar Container Linux to disk
 weight: 10
+aliases:
+    - ../os/installing-to-disk
 ---
 
 ## Install script

@@ -1,6 +1,8 @@
 ---
 title: Configuring SSSD on Flatcar Container Linux
 weight: 10
+aliases:
+    - ../../os/sssd
 ---
 
 Flatcar Container Linux ships with the System Security Services Daemon, allowing integration between Flatcar Container Linux and enterprise authentication services.

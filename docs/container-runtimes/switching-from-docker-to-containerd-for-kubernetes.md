@@ -1,6 +1,8 @@
 ---
 title: Switching from Docker to containerd for Kubernetes
 weight: 10
+aliases:
+    - ../os/switching-from-docker-to-containerd-for-kubernetes
 ---
 
 In Kubernetes v1.20, `dockershim` will be deprecated and eventually removed in next releases.

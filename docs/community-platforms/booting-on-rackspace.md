@@ -2,6 +2,8 @@
 title: Running Flatcar Container Linux on Rackspace
 linktitle: Running on Rackspace
 weight: 10
+aliases:
+    - ../os/booting-on-rackspace
 ---
 
 These instructions will walk you through running Flatcar Container Linux on the Rackspace OpenStack cloud, which differs slightly from the generic OpenStack instructions. There are two ways to launch a Flatcar Container Linux cluster: launch an entire cluster with Heat or launch machines with Nova.

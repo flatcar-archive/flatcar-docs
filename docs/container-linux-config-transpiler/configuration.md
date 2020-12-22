@@ -1,6 +1,8 @@
 ---
 title: Configuration Specification
 weight: 80
+aliases:
+    - ../os/configuration
 ---
 
 A Container Linux Configuration, to be processed by ct, is a YAML document conforming to the following specification:

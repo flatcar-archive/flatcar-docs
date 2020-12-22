@@ -1,6 +1,8 @@
 ---
 title: Network configuration with networkd
 weight: 10
+aliases:
+    - ../../os/network-config-with-networkd
 ---
 
 Flatcar Container Linux machines are preconfigured with [networking customized](notes-for-distributors) for each platform. You can write your own networkd units to replace or override the units created for each platform. This article covers a subset of networkd functionality. You can view the [full docs here](http://www.freedesktop.org/software/systemd/man/systemd-networkd.service.html).

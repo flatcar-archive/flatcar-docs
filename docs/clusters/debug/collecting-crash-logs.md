@@ -1,6 +1,8 @@
 ---
 title: Collecting crash logs
 weight: 10
+aliases:
+    - ../../os/collecting-crash-logs
 ---
 
 In the unfortunate case that an OS crashes, it's often extremely helpful to gather information about the event. There are two popular tools used to accomplished this goal: kdump and pstore. Flatcar Container Linux relies on pstore, a persistent storage abstraction provided by the Linux kernel, to store logs in the event of a kernel panic. Since this mechanism is just an abstraction, it depends on hardware support to actually persist the data across reboots. If the hardware support is absent, the pstore will remain empty. On AMD64 machines, pstore is typically backed by the ACPI error record serialization table (ERST).

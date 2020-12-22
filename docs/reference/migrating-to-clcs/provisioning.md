@@ -1,6 +1,8 @@
 ---
 title: Provisioning
 weight: 10
+aliases:
+    - ../../os/provisioning
 ---
 
 Flatcar Container Linux automates machine provisioning with a specialized system for applying initial configuration. This system implements a process of (trans)compilation and validation for machine configs, and an atomic service to apply validated configurations to machines.

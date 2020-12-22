@@ -1,6 +1,8 @@
 ---
 title: Building production images
 weight: 10
+aliases:
+    - ../../os/sdk-building-production-images
 ---
 
 ## This document is not maintained

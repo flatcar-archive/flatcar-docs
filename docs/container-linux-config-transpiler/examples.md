@@ -1,6 +1,8 @@
 ---
 title: Examples
 weight: 20
+aliases:
+    - ../os/examples
 ---
 
 

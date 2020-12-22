@@ -1,6 +1,8 @@
 ---
 title: iSCSI on Flatcar Container Linux
 weight: 10
+aliases:
+    - ../../os/iscsi
 ---
 
 [iSCSI][iscsi-wiki] is a protocol which provides block-level access to storage devices over IP.

@@ -1,6 +1,8 @@
 ---
 title: Architectures
 weight: 10
+aliases:
+    - ../../os/cluster-architectures
 ---
 
 ## Overview

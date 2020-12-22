@@ -2,6 +2,8 @@
 title: Running Flatcar Container Linux on Vagrant
 linktitle: Running on Vagrant
 weight: 30
+aliases:
+    - ../os/booting-on-vagrant
 ---
 
 _While we always welcome community contributions and fixes, please note that Vagrant is not an officially supported platform at this time. (See the [platform overview](/#getting-started).)_

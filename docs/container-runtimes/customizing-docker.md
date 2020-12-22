@@ -1,6 +1,8 @@
 ---
 title: Customizing Docker
 weight: 10
+aliases:
+    - ../os/customizing-docker
 ---
 
 The Docker systemd unit can be customized by overriding the unit that ships with the default Flatcar Container Linux settings or through a drop-in unit. Common use-cases for doing this are covered below.

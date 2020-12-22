@@ -1,6 +1,8 @@
 ---
 title: Tuning Flatcar Container Linux power management
 weight: 10
+aliases:
+    - ../../os/power-management
 ---
 
 ## CPU governor

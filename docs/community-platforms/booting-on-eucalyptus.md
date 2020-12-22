@@ -2,6 +2,8 @@
 title: Running Flatcar Container Linux on Eucalyptus 3.4
 linktitle: Running on Eucalyptus 3.4
 weight: 10
+aliases:
+    - ../os/booting-on-eucalyptus
 ---
 
 These instructions will walk you through downloading Flatcar Container Linux, bundling the image, and running an instance from it.

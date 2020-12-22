@@ -1,6 +1,8 @@
 ---
 title: Using systemd and udev rules
 weight: 10
+aliases:
+    - ../../os/using-systemd-and-udev-rules
 ---
 
 In our example we will use libvirt VM with Flatcar Container Linux and run systemd unit on disk attach event. First of all we have to create systemd unit file `/etc/systemd/system/device-attach.service`:

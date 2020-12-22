@@ -2,6 +2,8 @@
 title: Running Flatcar Container Linux on Exoscale
 linktitle: Running on Exoscale
 weight: 10
+aliases:
+    - ../os/booting-on-exoscale
 ---
 
 ## Choosing a channel

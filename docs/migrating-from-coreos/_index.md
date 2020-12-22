@@ -2,6 +2,8 @@
 title: Migration from CoreOS Container Linux
 linktitle: Migrating from CoreOS
 weight: 110
+aliases:
+    - os/migrate-from-container-linux
 ---
 
 While Flatcar is compatible with CoreOS Container Linux there are some naming differences you need to be aware of.

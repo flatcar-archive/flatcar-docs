@@ -2,6 +2,8 @@
 title: Running Flatcar Container Linux on a Vultr VPS
 linktitle: Running on a Vultr VPS
 weight: 10
+aliases:
+    - ../os/booting-on-vultr
 ---
 
 These instructions will walk you through running a single Flatcar Container Linux node. This guide assumes:

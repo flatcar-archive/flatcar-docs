@@ -1,6 +1,8 @@
 ---
 title: Cluster discovery
 weight: 10
+aliases:
+    - ../../os/cluster-discovery
 ---
 
 ## Overview

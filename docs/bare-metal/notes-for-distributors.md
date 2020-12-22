@@ -1,6 +1,8 @@
 ---
 title: Notes for distributors
 weight: 10
+aliases:
+    - ../os/notes-for-distributors
 ---
 
 ## Importing images

@@ -1,6 +1,8 @@
 ---
 title: Using authentication for a registry
 weight: 10
+aliases:
+    - ../../os/registry-authentication
 ---
 
 Many container image registries require authentication. This document explains how to configure container management software like Docker, Kubernetes, rkt, and Mesos to authenticate with and pull containers from registries like [Quay][quay-site] and [Docker Hub][docker-hub-site].
