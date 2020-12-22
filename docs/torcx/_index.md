@@ -1,6 +1,6 @@
 ---
 title: Torcx
-weight: 40
+weight: 100
 ---
 
 [Torcx][gh-torcx] is a boot-time addon manager designed specifically for container OSs like Flatcar Container Linux. At the most basic level, it is a tool for applying ephemeral changes to an immutable system during early boot. This includes providing third-party binary addons and installing systemd units, which can vary across environments and boots. On every boot, Torcx reads its configuration from local disk and propagates specific assets provided by addon packages (which must be available in local stores).

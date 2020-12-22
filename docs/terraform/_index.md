@@ -2,7 +2,7 @@
 title: Terraform
 description: >
   Provision Flatcar Container Linux with an Ignition Configuration through Terraform
-weight: 40
+weight: 80
 ---
 
 Flatcar Container Linux fits well with Terraform for the principle of Immutable Infrastructure where you deploy a node and, instead of making changes via SSH, you destroy it and deploy a new node.
