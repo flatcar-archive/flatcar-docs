@@ -1,5 +1,6 @@
 ---
 title: Running Flatcar Container Linux on Microsoft Azure
+linktitle: Running on Microsoft Azure
 weight: 10
 ---
 

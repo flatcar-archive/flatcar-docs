@@ -1,6 +1,7 @@
 ---
 title: Running Flatcar Container Linux on DigitalOcean
-weight: 10
+linktitle: Running on DigitalOcean
+weight: 20
 ---
 
 On Digital Ocean, users can upload Flatcar Container Linux as a [custom image](https://www.digitalocean.com/docs/images/custom-images/). Digital Ocean offers a [quick start guide](https://www.digitalocean.com/docs/images/custom-images/quickstart/) that walks you through the process.

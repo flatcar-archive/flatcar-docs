@@ -1,5 +1,6 @@
 ---
 title: Running Flatcar Container Linux on VMware
+linktitle: Running on VMware
 weight: 10
 ---
 

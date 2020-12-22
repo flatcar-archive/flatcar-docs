@@ -1,5 +1,6 @@
 ---
 title: Running Flatcar Container Linux on Google Compute Engine
+linktitle: Running on Google Compute Engine
 weight: 10
 ---
 

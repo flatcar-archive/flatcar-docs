@@ -1,5 +1,6 @@
 ---
 title: Running Flatcar Container Linux on EC2
+title: Running on AWS EC2
 weight: 10
 ---
 

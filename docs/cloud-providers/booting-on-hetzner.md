@@ -1,7 +1,7 @@
 ---
 title: Running Flatcar Container Linux on Hetzner
 linktitle: Running on Hetzner
-weight: 10
+weight: 20
 ---
 
 [Hetzner Cloud](https://www.hetzner.com/cloud) is a cloud hosting provider.

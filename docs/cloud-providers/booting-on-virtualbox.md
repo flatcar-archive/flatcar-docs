@@ -1,6 +1,7 @@
 ---
 title: Running Flatcar Container Linux on VirtualBox
-weight: 10
+title: Running on VirtualBox
+weight: 30
 ---
 
 _While we always welcome community contributions and fixes, please note that VirtualBox is not an officially supported platform at this time. (See the [platform overview](/#getting-started).)_

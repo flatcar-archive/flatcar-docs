@@ -1,6 +1,7 @@
 ---
 title: Running Flatcar Container Linux on libvirt
-weight: 10
+linktitle: Running on libvirt
+weight: 30
 ---
 
 This guide explains how to run Flatcar Container Linux with libvirt using the QEMU driver. The libvirt configuration
