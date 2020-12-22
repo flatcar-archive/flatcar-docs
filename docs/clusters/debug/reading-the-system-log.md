@@ -1,6 +1,8 @@
 ---
 title: Reading the system log
 weight: 10
+aliases:
+    - ../../os/reading-the-system-log
 ---
 
 `journalctl` is your interface into a single machine's journal/logging. All service files insert data into the systemd journal. There are a few helpful commands to read the journal:

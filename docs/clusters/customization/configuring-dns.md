@@ -1,6 +1,8 @@
 ---
 title: DNS Configuration
 weight: 10
+aliases:
+    - ../../os/configuring-dns
 ---
 
 By default, DNS resolution on Flatcar Container Linux is handled through `/etc/resolv.conf`, which is a symlink to `/run/systemd/resolve/resolv.conf`. This file is managed by [systemd-resolved][systemd-resolved]. Normally, `systemd-resolved` gets DNS IP addresses from [systemd-networkd][systemd-networkd], either via DHCP or static configuration. DNS IP addresses can also be set via `systemd-resolved`'s [resolved.conf][resolved.conf]. See [Network configuration with networkd](network-config-with-networkd) for more information on `systemd-networkd`.

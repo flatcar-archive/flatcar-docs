@@ -1,6 +1,9 @@
 ---
 title: Running Flatcar Container Linux on Microsoft Azure
+linktitle: Running on Microsoft Azure
 weight: 10
+aliases:
+    - ../os/booting-on-azure
 ---
 
 ## Creating resource group via Microsoft Azure CLI

@@ -1,6 +1,8 @@
 ---
 title: Tips and tricks
 weight: 10
+aliases:
+    - ../../os/sdk-tips-and-tricks
 ---
 
 ## Finding all open pull requests and issues

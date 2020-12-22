@@ -1,6 +1,8 @@
 ---
 title: Flatcar Container Linux disk layout
 weight: 10
+aliases:
+    - ../../os/sdk-disk-partitions
 ---
 
 Flatcar Container Linux is designed to be reliably updated via a continuous stream of updates. The operating system has 9 different disk partitions, utilizing a subset of those to make each update safe and enable a roll-back to a previous version if anything goes wrong.

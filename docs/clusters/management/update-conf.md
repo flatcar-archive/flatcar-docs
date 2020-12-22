@@ -4,6 +4,8 @@ title: update.conf
 description: >
   Definitions for Flatcar update configuration.
 weight: 100
+aliases:
+    - ../../os/update-conf
 ---
 
 Flatcar Container Linux uses [`update_engine`][update_engine] to check and fetch new updates from the [Nebraska Update Service](https://github.com/kinvolk/nebraska).

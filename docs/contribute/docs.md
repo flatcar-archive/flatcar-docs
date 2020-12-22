@@ -2,6 +2,8 @@
 title: Documentation Style and Formatting
 linktitle: Docs Style & Formatting
 weight: 10
+aliases:
+    - ../os/docs
 ---
 
 ## English style

@@ -1,6 +1,8 @@
 ---
 title: Configuring Root Filesystem Placement
 weight: 10
+aliases:
+    - ../os/root-filesystem-placement
 ---
 
 Flatcar Container Linux supports composite disk devices such as RAID arrays. If the root filesystem is placed on a composite device, special care must be taken to ensure Flatcar Container Linux can find and mount the filesystem early in the boot process. GPT partition entries have a [partition type GUID](https://en.wikipedia.org/wiki/GUID_Partition_Table#Partition_type_GUIDs) that specifies what type of partition it is (e.g. Linux filesystem); Flatcar Container Linux uses special type GUIDs to indicate that a partition is a component of a composite device containing the root filesystem.

@@ -1,6 +1,8 @@
 ---
 title: Use a custom Docker or containerd version
 weight: 10
+aliases:
+    - ../os/use-a-custom-docker-or-containerd-version
 ---
 
 Some system tooling can't be run on Container Linux via containers and this is especially true for the container runtime itself.

@@ -1,6 +1,8 @@
 ---
 title: Building custom kernel modules
 weight: 10
+aliases:
+    - ../../os/kernel-modules
 ---
 
 ## Create a writable overlay

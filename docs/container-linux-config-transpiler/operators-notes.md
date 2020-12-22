@@ -1,6 +1,8 @@
 ---
 title: Operator Notes
 weight: 70
+aliases:
+    - ../os/operators-notes
 ---
 
 ## Type GUID aliases

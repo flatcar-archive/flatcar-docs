@@ -1,6 +1,8 @@
 ---
 title: Tips and other settings
 weight: 10
+aliases:
+    - ../../os/other-settings
 ---
 
 ## Loading kernel modules

@@ -1,6 +1,8 @@
 ---
 title: Checking hardware and firmware support for Flatcar Container Linux Trusted Computing
 weight: 10
+aliases:
+    - ../../os/trusted-computing-hardware-requirements
 ---
 
 Trusted Computing requires support in both system hardware and firmware. This document specifies the required support and explains how to determine if a physical machine has the features needed to enable Trusted Computing in Flatcar Container Linux.

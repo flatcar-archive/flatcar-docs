@@ -1,6 +1,8 @@
 ---
 title: Using environment variables in systemd units
 weight: 10
+aliases:
+    - ../../os/using-environment-variables-in-systemd-units
 ---
 
 ## Environment directive

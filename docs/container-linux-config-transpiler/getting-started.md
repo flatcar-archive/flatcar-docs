@@ -1,6 +1,8 @@
 ---
 title: Getting Started
 weight: 10
+aliases:
+    - ../os/getting-started
 ---
 
 

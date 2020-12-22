@@ -1,4 +1,10 @@
-# Deploying Flatcar Container Linux using Google Cloud Launcher
+---
+title: Deploying Flatcar Container Linux using Google Cloud Launcher
+linktitle: Using Google Cloud Launcher
+weight: 15
+aliases:
+    - ../os/using-google-cloud-launcher
+---
 
 You can deploy Flatcar Container Linux instances in a really easy way,
 using the Google Cloud Launcher.  Before proceeding, you will need a GCE

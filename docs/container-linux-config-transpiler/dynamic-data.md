@@ -1,6 +1,8 @@
 ---
 title: Referencing dynamic data
 weight: 40
+aliases:
+    - ../os/dynamic-data
 ---
 
 ## Overview

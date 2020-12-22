@@ -1,6 +1,8 @@
 ---
 title: Flatcar Container Linux hardening guide
 weight: 10
+aliases:
+    - ../../os/hardening-guide
 ---
 
 This guide covers the basics of securing a Flatcar Container Linux instance. Flatcar Container Linux has a very slim network profile and the only service that listens by default on Flatcar Container Linux is sshd on port 22 on all interfaces. There are also some defaults for local users and services that should be considered.

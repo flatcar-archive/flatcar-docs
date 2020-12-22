@@ -1,6 +1,8 @@
 ---
 title: Booting Flatcar Container Linux via PXE
 weight: 10
+aliases:
+    - ../os/booting-with-pxe
 ---
 
 These instructions will walk you through booting Flatcar Container Linux via PXE on real or virtual hardware. By default, this will run Flatcar Container Linux completely out of RAM. Flatcar Container Linux can also be [installed to disk](installing-to-disk).

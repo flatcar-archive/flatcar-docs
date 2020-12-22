@@ -1,6 +1,8 @@
 ---
 title: Booting Flatcar Container Linux from an ISO
 weight: 10
+aliases:
+    - ../os/booting-with-iso
 ---
 
 The latest Flatcar Container Linux ISOs can be downloaded from the image storage site:

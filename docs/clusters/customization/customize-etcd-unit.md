@@ -1,6 +1,8 @@
 ---
 title: Customizing the etcd unit
 weight: 10
+aliases:
+    - ../../os/customize-etcd-unit
 ---
 
 The etcd systemd unit can be customized by overriding the unit that ships with the default Flatcar Container Linux settings. Common use-cases for doing this are covered below.
