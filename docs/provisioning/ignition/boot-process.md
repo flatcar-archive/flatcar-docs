@@ -1,6 +1,9 @@
 ---
 title: Flatcar Container Linux startup process
+linktitle: Boot process overview
 weight: 10
+aliases:
+    - ../../ignition/boot-process
 ---
 
 The Flatcar Container Linux startup process is built on the standard [Linux startup process][linux-startup]. Since this process is already well documented and generally well understood, this document will focus on aspects specific to booting Flatcar Container Linux.

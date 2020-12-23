@@ -2,7 +2,8 @@
 title: Operator Notes
 weight: 70
 aliases:
-    - ../os/operators-notes
+    - ../../container-linux-config-transpiler/doc/operators-notes
+    - ../../container-linux-config-transpiler/operators-notes
 ---
 
 ## Type GUID aliases
@@ -16,4 +17,4 @@ The Config Transpiler supports several aliases for GPT partition type GUIDs. The
 | `swap_partition` | `0657fd6d-a4ab-43c4-84e5-0933c84b4f4f` |
 | `raid_partition` | `a19d880f-05fc-4d3b-a006-743f0f84911e` |
 
-See the [Root Filesystem Placement](https://coreos.com/os/docs/latest/root-filesystem-placement.html) documentation for when to use `raid_containing_root`.
+See the [Using RAID for the Root Filesystem](../../installing/bare-metal/root-filesystem-placement/) documentation for when to use `raid_containing_root`.

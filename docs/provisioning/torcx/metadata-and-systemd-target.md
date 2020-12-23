@@ -1,8 +1,10 @@
 ---
 title: Torcx metadata and systemd target
+linktitle: Metadata and systemd target
 weight: 10
 aliases:
-    - ../os/torcx-metadata-and-systemd-target
+    - ../../os/torcx-metadata-and-systemd-target
+    - ../../torcx/torcx-metadata-and-systemd-target
 ---
 
 In many cases, it is desirable to inspect the state of a system booted with Torcx and to verify the details of the configuration that has been applied.

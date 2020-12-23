@@ -1,6 +1,9 @@
 ---
-title: Metadata
-weight: 10
+title: Using Metadata with Ignition
+linktitle: Using Metadata
+weight: 20
+aliases:
+    - ../../ignition/metadata
 ---
 
 In many cases, it is desirable to inject dynamic data into services written by Ignition. Because Ignition itself is static and cannot inject dynamic data into configs, this must be done as the system starts. Flatcar Container Linux ships with a small utility, `coreos-metadata`, which fetches information specific to the environment in which Flatcar Container Linux is running. While this utility works only on officially supported platforms, it is possible to use the same paradigm to write a custom utility.

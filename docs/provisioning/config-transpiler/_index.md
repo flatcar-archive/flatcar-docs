@@ -1,12 +1,14 @@
 ---
 content_type: clct
 title: Container Linux Config Transpiler
-linktitle: Container Linux Config Transpiler
+linktitle: Config Transpiler
+description: Transforms Container Linux Config files into Ignition configuration
 main_menu: true
-weight: 90
+weight: 30
+aliases:
+    - ../container-linux-config-transpiler/doc/overview
+    - ../container-linux-config-transpiler
 ---
-
-# Config transpiler overview
 
 The [Config Transpiler][ct], ct, is the utility responsible for transforming a user-provided Container Linux Configuration into an [Ignition][ignition] configuration. The resulting Ignition config can then be provided to a Container Linux machine when it first boots in order to provision it.
 

@@ -2,10 +2,12 @@
 content_type: ignition
 title: Ignition
 linktitle: Ignition
+description: Provisioning utility specially designed for Container OSs
 main_menu: true
-weight: 70
+weight: 10
 aliases:
-    - ignition/what-is-ignition
+    - ../ignition/what-is-ignition
+    - ../ignition
 ---
 
 Ignition is a new provisioning utility designed specifically for container OSs like Flatcar Container Linux, which allows you to manipulate disks during early boot. This includes partitioning disks, formatting partitions, writing files (regular files, systemd units, networkd units, and more), and configuring users. On the first boot, Ignition reads its configuration from a source-of-truth (remote URL, network metadata service, or hypervisor bridge, for example) and applies the configuration.

@@ -1,12 +1,16 @@
 ---
-title: Examples
+title: Container Linux Config Examples
+linktitle: Examples
 weight: 20
 aliases:
-    - ../os/examples
+    - ../../container-linux-config-transpiler/doc/examples
+    - ../../container-linux-config-transpiler/examples
 ---
 
-
-Here you can find a bunch of simple examples for using ct, with some explanations about what they do. The examples here are in no way comprehensive, for a full list of all the options present in ct check out the [configuration specification][spec].
+Here you can find a bunch of simple examples for using Container Linux
+configs, with some explanations about what they do. The examples here are
+in no way comprehensive, for a full list of all the available check out the
+[config-transpiler specification](../config-transpiler/configuration).
 
 ## Users and groups
 

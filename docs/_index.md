@@ -67,6 +67,7 @@ Container Linux Config to an Ignition config.
  * [Configuring the Network with Ignition][ignition-network]
  * [Using metadata during provisioning][ignition-metadata]
  * [Getting started with Container Linux Config][config-intro]
+ * [Examples of using Container Linux Config][config-examples]
  * [Platform agnostic metadata in Container Linux Config][config-dynamic-data]
  * [Using Terraform to provision Flatcar Container Linux][terraform]
 
@@ -145,17 +146,15 @@ APIs and troubleshooting guides for working with Flatcar Container Linux.
 [Migrating from cloud-config to Container Linux Config][migrating-from-cloud-config]
 
 [quick-start]: installing
-[ignition-what]: ignition/
-[ignition-boot]: ignition/boot-process
-[ignition-network]: ignition/network-configuration
-[ignition-metadata]: ignition/metadata
-[container-linux-config]: reference/migrating-to-clcs/provisioning/
-[config-transpiler]: container-linux-config-transpiler/
-[config-intro]: container-linux-config-transpiler/getting-started
-[config-dynamic-data]: container-linux-config-transpiler/dynamic-data
-[config-examples]: container-linux-config-transpiler/examples
-[config-spec]: container-linux-config-transpiler/configuration
-[config-notes]: container-linux-config-transpiler/operators-notes
+[ignition-what]: provisioning/ignition/
+[ignition-boot]: provisioning/ignition/boot-process
+[ignition-network]: provisioning/ignition/network-configuration
+[ignition-metadata]: provisioning/ignition/metadata
+[container-linux-config]: provisioning/cl-config/
+[config-transpiler]: provisioning/config-transpiler/
+[config-intro]: provisioning/config-transpiler/getting-started
+[config-dynamic-data]: provisioning/config-transpiler/dynamic-data
+[config-examples]: provisioning/cl-config/examples
 [matchbox]: https://matchbox.psdn.io/
 [ipxe]: installing/bare-metal/booting-with-ipxe
 [pxe]: installing/bare-metal/booting-with-pxe
@@ -214,7 +213,7 @@ APIs and troubleshooting guides for working with Flatcar Container Linux.
 [use-a-custom-docker-or-containerd-version]: container-runtimes/use-a-custom-docker-or-containerd-version
 [developer-guides]: reference/developer-guides/
 [integrations]: reference/integrations/
-[migrating-from-cloud-config]: reference/migrating-to-clcs/
+[migrating-from-cloud-config]: provisioning/cl-config/from-cloud-config
 [containerd-for-kubernetes]: container-runtimes/switching-from-docker-to-containerd-for-kubernetes
-[terraform]: terraform/
+[terraform]: provisioning/terraform/
 [hetzner]: installing/cloud/hetzner

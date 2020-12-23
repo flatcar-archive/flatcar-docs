@@ -1,8 +1,10 @@
 ---
 title: Torcx
+description: Addon manager for applying ephemeral changes
 weight: 100
 aliases:
-    - os/torcx-overview
+    - ../os/torcx-overview
+    - ../torcx
 ---
 
 [Torcx][gh-torcx] is a boot-time addon manager designed specifically for container OSs like Flatcar Container Linux. At the most basic level, it is a tool for applying ephemeral changes to an immutable system during early boot. This includes providing third-party binary addons and installing systemd units, which can vary across environments and boots. On every boot, Torcx reads its configuration from local disk and propagates specific assets provided by addon packages (which must be available in local stores).
@@ -31,7 +33,7 @@ By the same token, this should be read as a warning against abusing Torcx in the
 For further details on design and goals, Torcx repository contains extensive [developer documentation][devdocs].
 
 [gh-torcx]: https://github.com/flatcar-linux/torcx
-[ignition]: https://docs.flatcar-linux.org/ignition/what-is-ignition/
+[ignition]: ../ignition
 [systemd]: https://www.freedesktop.org/wiki/Software/systemd/
 [systemd-generator]: http://www.freedesktop.org/software/systemd/man/systemd.generator.html
 [devdocs]: https://github.com/flatcar-linux/torcx/blob/master/Documentation

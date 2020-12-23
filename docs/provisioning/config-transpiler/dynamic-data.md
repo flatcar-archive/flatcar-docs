@@ -2,7 +2,8 @@
 title: Referencing dynamic data
 weight: 40
 aliases:
-    - ../os/dynamic-data
+    - ../../container-linux-config-transpiler/doc/dynamic-data
+    - ../../container-linux-config-transpiler/dynamic-data
 ---
 
 ## Overview

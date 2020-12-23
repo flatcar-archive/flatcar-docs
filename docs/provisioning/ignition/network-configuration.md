@@ -1,6 +1,8 @@
 ---
 title: Network configuration
-weight: 10
+weight: 20
+aliases:
+    - ../../ignition/network-configuration
 ---
 
 Configuring networkd with Ignition is a very straightforward task. Because Ignition runs before networkd starts, configuration is just a matter of writing the desired config to disk. The Ignition config has a specific section dedicated to this.

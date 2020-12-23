@@ -1,8 +1,11 @@
 ---
-title: Provisioning
-weight: 10
+title: Using Container Linux Config
+linktitle: Container Linux Config
+description: YAML configuration format used to generate Ignition configs.
+weight: 20
 aliases:
-    - ../../os/provisioning
+    - ../os/provisioning
+    - ../reference/migrating-to-clcs/provisioning
 ---
 
 Flatcar Container Linux automates machine provisioning with a specialized system for applying initial configuration. This system implements a process of (trans)compilation and validation for machine configs, and an atomic service to apply validated configurations to machines.
