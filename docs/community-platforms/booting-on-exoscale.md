@@ -122,14 +122,14 @@ Be sure to specify your SSH key to be able to access the machine. Management of 
 3. Choose the Flatcar Container Linux template
 <div class="row">
   <div class="col-lg-8 col-md-10 col-sm-8 col-xs-12">
-    <img src="img/exoscale-template.png" class="screenshot" />
+    <img src="../img/exoscale-template.png" class="screenshot" />
     <div class="caption">Choosing Exoscale template</div>
   </div>
 </div>
 4. Choose the instance size
 <div class="row">
   <div class="col-lg-8 col-md-10 col-sm-8 col-xs-12">
-    <img src="img/exoscale-size.png" class="screenshot" />
+    <img src="../img/exoscale-size.png" class="screenshot" />
     <div class="caption">Choosing Exoscale instance size</div>
   </div>
 </div>
@@ -137,7 +137,7 @@ Be sure to specify your SSH key to be able to access the machine. Management of 
 6. Add your your optional cloud-config.
 <div class="row">
   <div class="col-lg-8 col-md-10 col-sm-8 col-xs-12">
-    <img src="img/exoscale-userdata.png" class="screenshot" />
+    <img src="../img/exoscale-userdata.png" class="screenshot" />
     <div class="caption">Exoscale cloud-config</div>
   </div>
 </div>
