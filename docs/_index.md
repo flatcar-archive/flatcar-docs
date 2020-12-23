@@ -144,7 +144,7 @@ APIs and troubleshooting guides for working with Flatcar Container Linux.
 
 [Migrating from cloud-config to Container Linux Config][migrating-from-cloud-config]
 
-[quick-start]: quickstart
+[quick-start]: installing
 [ignition-what]: ignition/
 [ignition-boot]: ignition/boot-process
 [ignition-network]: ignition/network-configuration
@@ -157,23 +157,23 @@ APIs and troubleshooting guides for working with Flatcar Container Linux.
 [config-spec]: container-linux-config-transpiler/configuration
 [config-notes]: container-linux-config-transpiler/operators-notes
 [matchbox]: https://matchbox.psdn.io/
-[ipxe]: bare-metal/booting-with-ipxe
-[pxe]: bare-metal/booting-with-pxe
-[install-to-disk]: bare-metal/installing-to-disk
-[boot-iso]: bare-metal/booting-with-iso
-[filesystem-placement]: bare-metal/root-filesystem-placement
+[ipxe]: installing/bare-metal/booting-with-ipxe
+[pxe]: installing/bare-metal/booting-with-pxe
+[install-to-disk]: installing/bare-metal/installing-to-disk
+[boot-iso]: installing/bare-metal/booting-with-iso
+[filesystem-placement]: installing/bare-metal/root-filesystem-placement
 [migrate-from-container-linux]: migrating-from-coreos/
 [update-from-container-linux]: migrating-from-coreos/update-from-container-linux
-[ec2]: cloud-providers/booting-on-ec2
-[digital-ocean]: cloud-providers/booting-on-digitalocean
-[gce]: cloud-providers/booting-on-google-compute-engine
-[azure]: cloud-providers/booting-on-azure
-[qemu]: cloud-providers/booting-with-qemu
-[equinix-metal]: cloud-providers/booting-on-packet
-[libvirt]: cloud-providers/booting-with-libvirt
-[virtualbox]: cloud-providers/booting-on-virtualbox
-[vagrant]: cloud-providers/booting-on-vagrant
-[vmware]: cloud-providers/booting-on-vmware
+[ec2]: installing/cloud/aws-ec2
+[digital-ocean]: installing/cloud/digitalocean
+[gce]: installing/cloud/gcp
+[azure]: installing/cloud/azure
+[qemu]: installing/vms/qemu
+[equinix-metal]: installing/cloud/equinix-metal
+[libvirt]: installing/vms/libvirt
+[virtualbox]: installing/vms/virtualbox
+[vagrant]: installing/vms/vagrant
+[vmware]: installing/cloud/vmware
 [cluster-architectures]: clusters/creation/cluster-architectures
 [update-strategies]: clusters/creation/update-strategies
 [clustering-machines]: clusters/creation/cluster-discovery
@@ -217,4 +217,4 @@ APIs and troubleshooting guides for working with Flatcar Container Linux.
 [migrating-from-cloud-config]: reference/migrating-to-clcs/
 [containerd-for-kubernetes]: container-runtimes/switching-from-docker-to-containerd-for-kubernetes
 [terraform]: terraform/
-[hetzner]: cloud-providers/booting-on-hetzner
+[hetzner]: installing/cloud/hetzner
