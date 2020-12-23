@@ -172,21 +172,21 @@ For more details, check out [DigitalOcean's API documentation][do-api-docs].
 2. Give the machine a hostname, select the size, and choose a region.
 <div class="row">
   <div class="col-lg-8 col-md-10 col-sm-8 col-xs-12 co-m-screenshot">
-    <img src="img/size.png" />
+    <img src="../img/size.png" />
     <div class="co-m-screenshot-caption">Choosing a size and hostname</div>
   </div>
 </div>
 3. Enable User Data and add your Ignition config in the text box.
 <div class="row">
   <div class="col-lg-8 col-md-10 col-sm-8 col-xs-12 co-m-screenshot">
-    <img src="img/settings.png" />
+    <img src="../img/settings.png" />
     <div class="co-m-screenshot-caption">Droplet settings for networking and Ignition</div>
   </div>
 </div>
 4. Choose your [preferred channel](#choosing-a-channel) of Container Linux.
 <div class="row">
   <div class="col-lg-8 col-md-10 col-sm-8 col-xs-12 co-m-screenshot">
-    <img src="img/image.png" />
+    <img src="../img/image.png" />
     <div class="co-m-screenshot-caption">Choosing a Container Linux channel</div>
   </div>
 </div>
