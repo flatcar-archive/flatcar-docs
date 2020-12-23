@@ -1,8 +1,10 @@
 ---
 title: Generate self-signed certificates
-weight: 10
+description: How to create a certificate authority and generate certificates for servers, peers, and clients.
+weight: 30
 aliases:
-    - ../os/generate-self-signed-certificates
+    - ../../os/generate-self-signed-certificates
+    - ../../container-runtimes/generate-self-signed-certificates
 ---
 
 If you build Flatcar Container Linux cluster on top of public networks it is recommended to enable encryption for Flatcar Container Linux services to prevent traffic interception and man-in-the-middle attacks. For these purposes you have to use Certificate Authority (CA), private keys and certificates signed by CA. Let's use [cfssl][cfssl] and walk through the whole process to create all these components.

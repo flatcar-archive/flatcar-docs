@@ -1,5 +1,6 @@
 ---
 title: Getting started with Docker
+description: Basic Docker operations on Flatcar
 weight: 10
 aliases:
     - ../os/getting-started-with-docker
@@ -7,11 +8,11 @@ aliases:
 
 Docker is an open-source project that makes creating and managing Linux containers really easy. Containers are like extremely lightweight VMs – they allow code to run in isolation from other containers but safely share the machine’s resources, all without the overhead of a hypervisor.
 
-Docker containers can boot extremely fast (in milliseconds!) which gives you unprecedented flexibility in managing load across your cluster. For example, instead of running chef on each of your VMs, it’s faster and more reliable to have your build system create a container and launch it on the appropriate number of Flatcar Container Linux hosts. This guide will show you how to launch a container, install some software on it, commit that container, and optionally launch it on another Flatcar Container Linux machine. Before starting, make sure you've got at least one Flatcar Container Linux machine up and running &mdash; try it on [Amazon EC2](booting-on-ec2) or locally with [Vagrant](booting-on-vagrant).
+Docker containers can boot extremely fast (in milliseconds!) which gives you unprecedented flexibility in managing load across your cluster. For example, instead of running chef on each of your VMs, it’s faster and more reliable to have your build system create a container and launch it on the appropriate number of Flatcar Container Linux hosts. This guide will show you how to launch a container, install some software on it, commit that container, and optionally launch it on another Flatcar Container Linux machine. Before starting, make sure you've got at least one Flatcar Container Linux machine up and running &mdash; try it on [Amazon EC2][aws-ec2] or locally with [Vagrant][vagrant].
 
 ## Docker CLI basics
 
-Docker has a [straightforward CLI](https://docs.docker.com/engine/reference/commandline/cli/) that allows you to do almost everything you could want to a container. All of these commands use the image id (ex. be29975e0098), the image name (ex. myusername/webapp) and the container id (ex. 72d468f455ea) interchangeably depending on the operation you are trying to do. This is confusing at first, so pay special attention to what you're using.
+Docker has a [straightforward CLI][docker-cli] that allows you to do almost everything you could want to a container. All of these commands use the image id (ex. be29975e0098), the image name (ex. myusername/webapp) and the container id (ex. 72d468f455ea) interchangeably depending on the operation you are trying to do. This is confusing at first, so pay special attention to what you're using.
 
 ## Launching a container
 
@@ -35,9 +36,9 @@ After that completes, we need to `commit` these changes to our container with th
 
 To find the container ID, open another shell (so the container is still running) and read the ID using `docker ps`.
 
-The image name is in the format of `username/name`. We're going to use `flatcar` as our username in this example but you should [sign up for a Docker.IO user account](https://hub.docker.com/account/signup/) and use that instead.
+The image name is in the format of `username/name`. We're going to use `flatcar` as our username in this example but you should [sign up for a Docker.IO user account][docker-signup] and use that instead.
 
-It's important to note that you can commit using any username and image name locally, but to push an image to the public registry, the username must be a valid [Docker.IO user account](https://hub.docker.com/account/signup/).
+It's important to note that you can commit using any username and image name locally, but to push an image to the public registry, the username must be a valid [Docker.IO user account][docker-signup].
 
 Commit the container with the container ID, your username, and the name `apache`:
 
@@ -69,7 +70,7 @@ When running Docker containers manually, the most important option is to run the
 docker run -d flatcar/apache [process]
 ```
 
-After you are comfortable with the mechanics of running containers by hand, it's recommended to use [systemd units](getting-started-with-systemd) to run your containers on a cluster of Flatcar Container Linux machines.
+After you are comfortable with the mechanics of running containers by hand, it's recommended to use [systemd units][systemd-getting-started] to run your containers on a cluster of Flatcar Container Linux machines.
 
 Do not run containers with detached mode inside of systemd unit files. Detached mode prevents your init system, in our case systemd, from monitoring the process that owns the container because detached mode forks it into the background. To prevent this issue, just omit the `-d` flag if you aren't running something manually.
 
@@ -91,7 +92,7 @@ docker run -d flatcar/apache /usr/sbin/apache2ctl -D FOREGROUND
 
 While the sections above explained how to run a container when configuring it, for a production setup, you should not manually start and babysit containers.
 
-Instead, create a systemd unit file to make systemd keep that container running. See the [Getting Started with systemd](getting-started-with-systemd) for details.
+Instead, create a systemd unit file to make systemd keep that container running. See [Getting Started with systemd][systemd-getting-started] for details.
 
 Alternatively, Docker also has a feature to start existing containers on boot, when the container has the `restart` attribute set to `always`.
 This requires the Docker service to get started on boot instead of using the default socket activation that starts on-demand.
@@ -146,5 +147,11 @@ docker run -d -p 80:80 registry.example.com:5000/apache /usr/sbin/apache2ctl -D 
 
 ## More information
 
-- [Docker Website](http://www.docker.com/)
-- [docker's Getting Started Guide](https://docs.docker.com/mac/started/)
+ * [Docker Website](http://www.docker.com/)
+ * [docker's Getting Started Guide](https://docs.docker.com/mac/started/)
+
+[aws-ec2]: ../installing/cloud/aws-ec2
+[vagrant]: ../installing/vms/vagrant
+[docker-cli]: https://docs.docker.com/engine/reference/commandline/cli/
+[docker-signup]: https://hub.docker.com/account/signup/
+[systemd-getting-started]: ../setup/systemd/getting-started

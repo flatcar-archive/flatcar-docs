@@ -1,10 +1,10 @@
 ---
 title: Authenticating to Container Registries
 description: Configuration examples for authenticating to different container registries.
-weight: 10
+weight: 50
 aliases:
-    - ../../os/registry-authentication
-    - ../../clusters/management/registry-authentication
+    - ../os/registry-authentication
+    - ../clusters/management/registry-authentication
 ---
 
 Many container image registries require authentication. This document explains how to configure container management software like Docker, Kubernetes, rkt, and Mesos to authenticate with and pull containers from registries like [Quay][quay-site] and [Docker Hub][docker-hub-site].
@@ -238,6 +238,6 @@ For details, check out the [Container Linux Config examples][ct-examples].
 [quay-robot]: https://docs.quay.io/glossary/robot-accounts.html
 [quay-site]: https://quay.io/
 [rfc-2397]: https://tools.ietf.org/html/rfc2397
-[rkt-config]: https://docs.flatcar-linux.org/os/registry-authentication/#rkt
-[cl-configs]: provisioning
-[ct-examples]: https://github.com/flatcar-linux/container-linux-config-transpiler/blob/flatcar-master/doc/examples.md
+[rkt-config]: registry-authentication/#rkt
+[cl-configs]: ../provisioning/cl-config
+[ct-examples]: ../provisioning/cl-config/examples

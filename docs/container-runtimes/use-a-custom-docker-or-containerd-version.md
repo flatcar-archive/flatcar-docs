@@ -1,6 +1,8 @@
 ---
-title: Use a custom Docker or containerd version
-weight: 10
+title: Using a custom Docker or containerd version
+linktitle: Using custom versions
+description: How to download and run a different version of docker or containerd than the one shipped by Flatcar.
+weight: 30
 aliases:
     - ../os/use-a-custom-docker-or-containerd-version
 ---
@@ -8,9 +10,9 @@ aliases:
 Some system tooling can't be run on Container Linux via containers and this is especially true for the container runtime itself.
 As with other special binaries you want to bring to the system you can use an Ignition config that downloads the binaries.
 
-For custom Docker binaries you can consider to use the [Torcx](../../torcx/) addon manager when you build your own Torcx image and profile.
+For custom Docker binaries you can consider to use the [Torcx](../provisioning/torcx/) addon manager when you build your own Torcx image and profile.
 However, since the Torcx makes certain assumtions about the files being shipped you may find it too limiting (e.g., the wrapper scripts under `/usr/bin/` exist for only a fixed set of binaries).
-In this case you can directly place the custom binaries to `/opt/bin/` as done by the following Container Linux Config which you can transpile to an Ignition config with [`ct`](../../container-linux-config-transpiler/).
+In this case you can directly place the custom binaries to `/opt/bin/` as done by the following Container Linux Config which you can transpile to an Ignition config with [`ct`](../provisioning/config-transpiler/).
 
 This replicates the Docker setup as of Flatcar Container Linux 2605.9.0 but under `/etc` and `/opt/bin/`. You can modify it to use different socket paths or plugins, or even only ship `containerd` if you don't need Docker.
 

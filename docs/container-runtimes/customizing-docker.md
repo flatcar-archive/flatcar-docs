@@ -1,6 +1,9 @@
 ---
 title: Customizing Docker
-weight: 10
+description: >
+  How to select which runtime to use, make docker available on a
+  TCP socket, enable TLS, and other customizations.
+weight: 30
 aliases:
     - ../os/customizing-docker
 ---

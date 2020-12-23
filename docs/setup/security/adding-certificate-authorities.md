@@ -1,7 +1,7 @@
 ---
 title: Custom certificate authorities
-description: How to add your own CAs.
-weight: 10
+description: How to add and configure your own CAs.
+weight: 30
 aliases:
     - ../../os/adding-certificate-authorities
     - ../../clusters/securing/adding-certificate-authorities
