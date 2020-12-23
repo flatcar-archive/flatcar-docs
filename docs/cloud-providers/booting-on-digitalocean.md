@@ -14,7 +14,7 @@ The following command will create a single droplet. For more details, check out 
 
 <div id="do-images">
   <ul class="nav nav-tabs">
-    <li class="active"><a href="#stable" data-toggle="tab">Stable Channel</a></li>
+    <li><a class="active show" href="#stable" data-toggle="tab">Stable Channel</a></li>
     <li><a href="#beta" data-toggle="tab">Beta Channel</a></li>
     <li><a href="#alpha" data-toggle="tab">Alpha Channel</a></li>
   </ul>
