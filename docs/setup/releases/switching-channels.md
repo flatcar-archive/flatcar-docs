@@ -11,7 +11,7 @@ Flatcar Container Linux is designed to be updated automatically with different s
 
 By design, the Flatcar Container Linux update engine does not execute downgrades. If you're switching from a channel with a higher Flatcar Container Linux version than the new channel, your machine won't be updated again until the new channel contains a higher version number.
 
-![Update Timeline](img/update-timeline.png)
+![Update Timeline](../../img/update-timeline.png)
 
 ## Customizing channel configuration
 

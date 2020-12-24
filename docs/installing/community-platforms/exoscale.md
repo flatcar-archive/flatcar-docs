@@ -14,10 +14,10 @@ Flatcar Container Linux is designed to be updated automatically with different s
 The Exoscale Flatcar Container Linux image is built officially and each instance deployment is a unique fresh instance. By default, only the stable channel is deployed on Exoscale, you can easily [switch to Beta or Alpha channel][switching-channels].
 
 
-[reboot-docs]: update-strategies
-[switching-channels]: switching-channels
+[reboot-docs]: ../../setup/releases/update-strategies
+[switching-channels]: ../../setup/releases/switching-channels
 [release-notes]: https://flatcar-linux.org/releases
-[cloud-config-docs]: https://github.com/flatcar-linux/coreos-cloudinit/blob/master/Documentation/cloud-config.md
+[cloud-config-docs]: https://github.com/kinvolk/coreos-cloudinit/blob/master/Documentation/cloud-config.md
 
 ## Security groups
 
@@ -86,7 +86,7 @@ To log in to a Flatcar Container Linux instance after it's created click on its 
 ssh core@<ip address>
 ```
 
-Optionally, you may want to [configure your ssh-agent](https://github.com/flatcar-linux/fleet/blob/master/Documentation/using-the-client.md#remote-fleet-access) to more easily run [fleet commands](../fleet/launching-containers-fleet).
+Optionally, you may want to [configure your ssh-agent](https://github.com/kinvolk/fleet/blob/master/Documentation/using-the-client.md#remote-fleet-access) to more easily run [fleet commands](../fleet/launching-containers-fleet).
 
 ## Launching instances
 
@@ -123,14 +123,14 @@ Be sure to specify your SSH key to be able to access the machine. Management of 
 3. Choose the Flatcar Container Linux template
 <div class="row">
   <div class="col-lg-8 col-md-10 col-sm-8 col-xs-12">
-    <img src="../img/exoscale-template.png" class="screenshot" />
+    <img src="../../img/exoscale-template.png" class="screenshot" />
     <div class="caption">Choosing Exoscale template</div>
   </div>
 </div>
 4. Choose the instance size
 <div class="row">
   <div class="col-lg-8 col-md-10 col-sm-8 col-xs-12">
-    <img src="../img/exoscale-size.png" class="screenshot" />
+    <img src="../../img/exoscale-size.png" class="screenshot" />
     <div class="caption">Choosing Exoscale instance size</div>
   </div>
 </div>
@@ -138,7 +138,7 @@ Be sure to specify your SSH key to be able to access the machine. Management of 
 6. Add your your optional cloud-config.
 <div class="row">
   <div class="col-lg-8 col-md-10 col-sm-8 col-xs-12">
-    <img src="../img/exoscale-userdata.png" class="screenshot" />
+    <img src="../../img/exoscale-userdata.png" class="screenshot" />
     <div class="caption">Exoscale cloud-config</div>
   </div>
 </div>
@@ -148,7 +148,7 @@ Unlike other Exoscale images where the root password is randomly set at startup,
 
 ## Using Flatcar Container Linux
 
-Now that you have a machine booted it is time to play around. Check out the [Flatcar Container Linux Quickstart][quick-start] guide or dig into [more specific topics][docs].
+Now that you have a machine booted it is time to play around. Check out the [Flatcar Container Linux Quickstart][quickstart] guide or dig into [more specific topics][doc-index].
 
-[quick-start]: quickstart
-[docs]: https://docs.flatcar-linux.org
+[quickstart]: ../
+[doc-index]: ../../

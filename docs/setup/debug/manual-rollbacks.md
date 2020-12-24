@@ -194,4 +194,4 @@ update_engine_client -update
 ```
 
 
-[relchans]: clusters/management/switching-channels
+[relchans]: ../releases/switching-channels

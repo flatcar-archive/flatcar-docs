@@ -32,8 +32,8 @@ By the same token, this should be read as a warning against abusing Torcx in the
 
 For further details on design and goals, Torcx repository contains extensive [developer documentation][devdocs].
 
-[gh-torcx]: https://github.com/flatcar-linux/torcx
+[gh-torcx]: https://github.com/kinvolk/torcx
 [ignition]: ../ignition
 [systemd]: https://www.freedesktop.org/wiki/Software/systemd/
 [systemd-generator]: http://www.freedesktop.org/software/systemd/man/systemd.generator.html
-[devdocs]: https://github.com/flatcar-linux/torcx/blob/master/Documentation
+[devdocs]: https://github.com/kinvolk/torcx/blob/master/Documentation

@@ -7,7 +7,7 @@ aliases:
     - ../../cloud-providers/booting-on-virtualbox
 ---
 
-_While we always welcome community contributions and fixes, please note that VirtualBox is not an officially supported platform at this time. (See the [platform overview](/#getting-started).)_
+_While we always welcome community contributions and fixes, please note that VirtualBox is not an officially supported platform at this time. (See the [platform overview](/#installing-flatcar).)_
 
 These instructions will walk you through running Flatcar Container Linux on Oracle VM VirtualBox.
 
@@ -15,7 +15,7 @@ These instructions will walk you through running Flatcar Container Linux on Orac
 
 There is a script that simplifies building the VDI image. It downloads a bare-metal image, verifies it with GPG, and converts that image to a VDI image.
 
-The script is located on [GitHub](https://github.com/flatcar-linux/scripts/blob/main/contrib/create-coreos-vdi). The running host must support VirtualBox tools.
+The script is located on [GitHub](https://github.com/kinvolk/scripts/blob/main/contrib/create-coreos-vdi). The running host must support VirtualBox tools.
 
 As first step, you must download the script and make it executable.
 
@@ -32,7 +32,7 @@ To run the script, you can specify a destination location and the Flatcar Contai
 
 ## Choose a channel
 
-Choose a channel to base your disk image on. Specific versions of Flatcar Container Linux can also be referenced by version number.
+Flatcar Container Linux is designed to be updated automatically with different schedules per channel. You can [disable this feature][update-strategies], although we don't recommend it. Read the [release notes][release-notes] for specific features and bug fixes.
 
 <div id="virtualbox-create">
   <ul class="nav nav-tabs">
@@ -73,16 +73,16 @@ coreos_production_stable.vdi
 
 ## Creating a config-drive
 
-Cloud-config can be specified by attaching a [config-drive](https://github.com/flatcar-linux/coreos-cloudinit/blob/master/Documentation/config-drive.md) with the label `config-2`. This is commonly done through whatever interface allows for attaching CD-ROMs or new drives.
+Cloud-config can be specified by attaching a [config-drive](https://github.com/kinvolk/coreos-cloudinit/blob/master/Documentation/config-drive.md) with the label `config-2`. This is commonly done through whatever interface allows for attaching CD-ROMs or new drives.
 
 Note that the config-drive standard was originally an OpenStack feature, which is why you'll see strings containing `openstack`. This filepath needs to be retained, although Flatcar Container Linux supports config-drive on all platforms.
 
-For more information on customization that can be done with cloud-config, head on over to the [cloud-config guide](https://github.com/flatcar-linux/coreos-cloudinit/blob/master/Documentation/cloud-config.md).
+For more information on customization that can be done with cloud-config, head on over to the [cloud-config guide](https://github.com/kinvolk/coreos-cloudinit/blob/master/Documentation/cloud-config.md).
 
 You need a config-drive to configure at least one SSH key to access the virtual machine. If you are in hurry, you can create a basic config-drive with following steps:
 
 ```shell
-wget https://raw.github.com/flatcar-linux/scripts/main/contrib/create-basic-configdrive
+wget https://raw.github.com/kinvolk/scripts/main/contrib/create-basic-configdrive
 chmod +x create-basic-configdrive
 ./create-basic-configdrive -H my_vm01 -S ~/.ssh/id_rsa.pub
 ```
@@ -125,4 +125,10 @@ ssh core@192.168.56.101
 
 ## Using Flatcar Container Linux
 
-Now that the machine has booted, it is time to play around. Check out the [Flatcar Container Linux Quickstart](quickstart) guide or dig into [more specific topics](https://docs.flatcar-linux.org).
+Now that you have a machine booted it is time to play around. Check out the [Flatcar Container Linux Quickstart][quickstart] guide or dig into [more specific topics][doc-index].
+
+[update-strategies]: ../../setup/releases/update-strategies
+[release-notes]: https://flatcar-linux.org/releases
+[quickstart]: ../
+[doc-index]: ../../
+

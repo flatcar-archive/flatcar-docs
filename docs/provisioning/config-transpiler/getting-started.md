@@ -38,7 +38,7 @@ The method by which this file is provided to a Container Linux machine depends o
 
 To see some examples for what else ct can do, head over to the [examples][3].
 
-[1]: configuration.md
-[2]: https://coreos.com/ignition/docs/latest/supported-platforms.html
-[3]: examples.md
-[4]: https://github.com/flatcar-linux/container-linux-config-transpiler/releases
+[1]: ../config-transpiler/configuration
+[2]: https://github.com/kinvolk/ignition/blob/flatcar-master/doc/supported-platforms.md
+[3]: examples
+[4]: https://github.com/kinvolk/container-linux-config-transpiler/releases

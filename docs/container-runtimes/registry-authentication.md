@@ -234,7 +234,7 @@ For details, check out the [Container Linux Config examples][ct-examples].
 [k8s-image-pull]: https://kubernetes.io/docs/user-guide/images/
 [k8s-secrets]: https://kubernetes.io/docs/user-guide/secrets/
 [mesos-registry]: https://mesosphere.github.io/marathon/docs/native-docker-private-registry.html
-[quay-bot-img]: img/quay-robot-screen.png
+[quay-bot-img]: ../img/quay-robot-screen.png
 [quay-robot]: https://docs.quay.io/glossary/robot-accounts.html
 [quay-site]: https://quay.io/
 [rfc-2397]: https://tools.ietf.org/html/rfc2397

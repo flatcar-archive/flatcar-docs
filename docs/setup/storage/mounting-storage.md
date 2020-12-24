@@ -7,14 +7,9 @@ aliases:
     - ../../clusters/scaling/mounting-storage
 ---
 
-Container Linux Configs can be used to format and attach additional filesystems to Flatcar Container Linux nodes, whether such storage is provided by an underlying cloud platform, physical disk, SAN, or NAS system. This is done by specifying how partitions should be mounted in the config, and then using a _systemd mount unit_ to mount the partition. By [systemd convention](http://www.freedesktop.org/software/systemd/man/systemd.mount.html), mount unit names derive from the target mount point, with interior slashes replaced by dashes, and the `.mount` extension appended. A unit mounting onto `/var/www` is thus named `var-www.mount`.
+Container Linux Configs can be used to format and attach additional filesystems to Flatcar Container Linux nodes, whether such storage is provided by an underlying cloud platform, physical disk, SAN, or NAS system. This is done by specifying how partitions should be mounted in the config, and then using a _systemd mount unit_ to mount the partition. By [systemd convention][systemd-mount-man], mount unit names derive from the target mount point, with interior slashes replaced by dashes, and the `.mount` extension appended. A unit mounting onto `/var/www` is thus named `var-www.mount`.
 
-Mount units name the source filesystem and target mount point, and
-optionally the filesystem type. *Systemd* mounts filesystems defined in
-such units at boot time. The following example formats an [EC2 ephemeral
-disk](../../installing/cloud/aws-ec2#instance-storage) and then mounts it
-at the node's `/media/ephemeral` directory. The mount unit is therefore
-named `media-ephemeral.mount`.
+Mount units name the source filesystem and target mount point, and optionally the filesystem type. *Systemd* mounts filesystems defined in such units at boot time. The following example formats an [EC2 ephemeral disk][ec2-disk] and then mounts it at the node's `/media/ephemeral` directory. The mount unit is therefore named `media-ephemeral.mount`.
 
 ```yaml
 storage:
@@ -145,9 +140,8 @@ If the mount fails, dependent units will not start.
 
 ## Further reading
 
-Check the [`systemd mount`
-docs](http://www.freedesktop.org/software/systemd/man/systemd.mount.html)
-to learn about the available options. Examples specific to
-[EC2](../../installing/cloud/aws-ec2#instance-storage), [Google Compute
-Engine](../../installing/cloud/gcp#additional-storage) can be used as a
-starting point.
+Check the [`systemd mount` docs][systemd-mount-man] to learn about the available options. Examples specific to [EC2][ec2-disk], [Google Compute Engine][gcp-disk] can be used as a starting point.
+
+[ec2-disk]: ../../installing/cloud/aws-ec2#instance-storage
+[gcp-disk]: ../../installing/cloud/gcp#additional-storage
+[systemd-mount-man]: http://www.freedesktop.org/software/systemd/man/systemd.mount.html

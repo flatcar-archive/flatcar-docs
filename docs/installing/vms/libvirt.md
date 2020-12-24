@@ -23,7 +23,7 @@ to substitute that path if you use another one.
 
 ### Choosing a channel
 
-Flatcar Container Linux is designed to be updated automatically with different schedules per channel. You can [disable this feature](update-strategies), although we don't recommend it. Read the [release notes](https://flatcar-linux.org/releases) for specific features and bug fixes.
+Flatcar Container Linux is designed to be updated automatically with different schedules per channel. You can [disable this feature][update-strategies], although we don't recommend it. Read the [release notes][release-notes] for specific features and bug fixes.
 
 <div id="libvirt-create">
   <ul class="nav nav-tabs">
@@ -96,7 +96,7 @@ This configuration can be done in the following steps:
 
 #### Create the Ignition config
 
-Typically you won't write Ignition files yourself, rather you will typically use a tool like the [config transpiler](/container-linux-config-transpiler/doc/overview/) to generate them.
+Typically you won't write Ignition files yourself, rather you will typically use a tool like the [config transpiler][config-transpiler] to generate them.
 
 However the Ignition file is created, it should be placed in a location which qemu can access. In this example, we'll place it in `/var/lib/libvirt/flatcar-linux/flatcar-linux1/provision.ign`.
 
@@ -138,7 +138,7 @@ passwd:
         - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC0g+ZTxC7weoIJLUafOgrm+h..."
 ```
 
-Assuming that you save this as `example.yaml` (and replace the dummy key with public key), you can convert it to an Ignition config with the [config transpiler](/container-linux-config-transpiler/doc/getting-started/).
+Assuming that you save this as `example.yaml` (and replace the dummy key with public key), you can convert it to an Ignition config with the [config transpiler][config-transpiler].
 Here we run it from a Docker image:
 
 ```shell
@@ -332,13 +332,13 @@ ssh flatcar-linux1
 
 ## Using Flatcar Container Linux
 
-Now that you have a machine booted it is time to play around. Check out the [Flatcar Container Linux Quickstart](quickstart) guide or dig into [more specific topics](https://docs.flatcar-linux.org).
+Now that you have a machine booted it is time to play around. Check out the [Flatcar Container Linux Quickstart][quickstart] guide or dig into [more specific topics][doc-index].
 
 ## Terraform
 
 The [`libvirt` Terraform Provider](https://github.com/dmacvicar/terraform-provider-libvirt/) allows to quickly deploy machines in a declarative way.
 This is especially useful for local development of a configuration that is also in use on a cloud provider.
-Read more about using Terraform and Flatcar [here](../../terraform/).
+Read more about using Terraform and Flatcar [here](../../provisioning/terraform/).
 
 The following Terraform v0.13 module may serve as a base for your own setup.
 A new disk volume pool will be created in `/var/tmp` as precaution to not modify the base image by accident.
@@ -542,6 +542,10 @@ Log in via `ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null core
 
 When you make a change to `machine-mynode.yaml.tmpl` and run `terraform apply` again, the instance and its disk will be replaced.
 
-
 [flatcar-dev]: https://groups.google.com/forum/#!forum/flatcar-linux-dev
 [irc]: irc://irc.freenode.org:6667/#flatcar
+[config-transpiler]: ../../provisioning/config-transpiler
+[update-strategies]: ../../setup/releases/update-strategies
+[release-notes]: https://flatcar-linux.org/releases
+[quickstart]: ../
+[doc-index]: ../../

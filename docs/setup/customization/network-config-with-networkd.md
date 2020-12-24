@@ -165,7 +165,7 @@ If you've faced some problems with networkd you can enable debug mode following 
 mkdir -p /etc/systemd/system/systemd-networkd.service.d/
 ```
 
-Create [Drop-In][drop-ins] `/etc/systemd/system/systemd-networkd.service.d/10-debug.conf` with following content:
+Create a [Drop-In][drop-ins] `/etc/systemd/system/systemd-networkd.service.d/10-debug.conf` with following content:
 
 ```shell
 [Service]
@@ -195,12 +195,11 @@ systemd:
             Environment=SYSTEMD_LOG_LEVEL=debug
 ```
 
-[cl-configs]: ../../provisioning/cl-config
-
 ## Further reading
 
 - [networkd full documentation](http://www.freedesktop.org/software/systemd/man/systemd-networkd.service.html)
-- [Getting Started with systemd](../management/getting-started-with-systemd)
+- [Getting Started with systemd](../systemd/getting-started)
 - [Reading the System Log](../debug/reading-the-system-log)
 
-[drop-ins]: using-systemd-drop-in-units
+[cl-configs]: ../../provisioning/cl-config
+[drop-ins]: ../systemd/drop-in-units

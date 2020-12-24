@@ -45,7 +45,7 @@ Flatcar Container Linux (beta)
 
 The first building block of Flatcar Container Linux is service discovery with **etcd** ([docs][etcd-docs]). Data stored in etcd is distributed across all of your machines running Flatcar Container Linux. For example, each of your app containers can announce itself to a proxy container, which would automatically know which machines should receive traffic. Building service discovery into your application allows you to add more machines and scale your services seamlessly.
 
-If you used an example [Container Linux Config][cl-configs] or [cloud-config](https://github.com/flatcar-linux/coreos-cloudinit/blob/master/Documentation/cloud-config.md) from a guide linked in the first paragraph, etcd is automatically started on boot.
+If you used an example [Container Linux Config][cl-configs] or [cloud-config](https://github.com/kinvolk/coreos-cloudinit/blob/master/Documentation/cloud-config.md) from a guide linked in the first paragraph, etcd is automatically started on boot.
 
 A good starting point for a Container Linux Config would be something like:
 
@@ -118,19 +118,19 @@ docker run -i -t busybox /bin/sh
 
 [docker-docs]: https://docs.docker.com/
 [etcd-docs]: https://etcd.io/
-[running-container-linux]: https://docs.flatcar-linux.org/#getting-started
-[ec2-docs]: booting-on-ec2
-[azure-docs]: booting-on-azure
-[gce-docs]: booting-on-google-compute-engine
-[vagrant-docs]: booting-on-vagrant
-[vmware-docs]: booting-on-vmware
-[virtualbox-docs]: booting-on-virtualbox
-[qemu-docs]: booting-with-qemu
-[libvirt-docs]: booting-with-libvirt
-[equinix-metal-docs]: booting-on-packet
-[pxe-docs]: booting-with-pxe
-[ipxe-docs]: booting-with-ipxe
-[iso-docs]: booting-with-iso
-[install-docs]: installing-to-disk
-[ignition]: https://kinvolk.io/docs/flatcar-container-linux/latest/ignition/
-[cl-configs]: provisioning
+[running-container-linux]: ../#installing-flatcar
+[ec2-docs]: cloud/aws-ec2
+[azure-docs]: cloud/azure
+[gce-docs]: cloud/gcp
+[vagrant-docs]: vms/vagrant
+[vmware-docs]: cloud/vmware
+[virtualbox-docs]: vms/virtualbox
+[qemu-docs]: vms/qemu
+[libvirt-docs]: vms/libvirt
+[equinix-metal-docs]: cloud/equinix-metal
+[pxe-docs]: bare-metal/booting-with-pxe
+[ipxe-docs]: bare-metal/booting-with-ipxe
+[iso-docs]: bare-metal/booting-with-iso
+[install-docs]: bare-metal/installing-to-disk
+[ignition]: ../provisioning/ignition/
+[cl-configs]: ../provisioning/cl-config

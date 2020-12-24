@@ -198,15 +198,15 @@ etcd:
 For information on using Flatcar Container Linux check out the [Flatcar Container Linux quickstart guide][quickstart] or dive into [more specific topics][docs].
 
 [flatcar-user]: https://groups.google.com/forum/#!forum/flatcar-linux-user
-[etcd-docs]: https://github.com/flatcar-linux/etcd/tree/master/Documentation
-[quickstart]: quickstart
-[reboot-docs]: update-strategies
+[etcd-docs]: https://etcd.io/docs
+[quickstart]: ../
+[reboot-docs]: ../../setup/releases/update-strategies
 [azure-cli]: https://docs.microsoft.com/en-us/cli/azure/overview
-[cl-configs]: provisioning
+[cl-configs]: ../../provisioning/cl-config
 [irc]: irc://irc.freenode.org:6667/#flatcar
-[docs]: https://docs.flatcar-linux.org/
+[docs]: ../../
 [resource-group]: https://docs.microsoft.com/en-us/azure/architecture/best-practices/naming-conventions#naming-rules-and-restrictions
 [storage-account]: https://docs.microsoft.com/en-us/azure/storage/common/storage-account-overview#naming-storage-accounts
 [azure-flatcar-image-upload]: https://github.com/kinvolk/flatcar-cloud-image-uploader/blob/master/azure-flatcar-image-upload
 [release-notes]: https://flatcar-linux.org/releases
-[update-docs]: https://docs.flatcar-linux.org/os/update-strategies
+[update-docs]: ../../setup/releases/update-strategies

@@ -7,11 +7,11 @@ aliases:
     - ../../clusters/customization/adding-users
 ---
 
-You can create user accounts on a Flatcar Container Linux machine manually with `useradd` or via a Container Linux Config when the machine is created.
+You can create user accounts on a Flatcar Container Linux machine manually with `useradd` or via a [Container Linux Config][cl-config] when the machine is created.
 
 ## Add Users via Container Linux Configs
 
-In your Container Linux Config, you can specify many [different parameters](../../provisioning/config-transpiler/configuration) for each user. Here's an example:
+In your Container Linux Config, you can specify many [different parameters][config-spec] for each user. Here's an example:
 
 ```yaml
 passwd:
@@ -73,3 +73,6 @@ cat: /etc/sudoers.d/user1: Permission denied
 $ sudo cat /etc/sudoers.d/user1
 user1 ALL=(ALL) NOPASSWD: ALL
 ```
+
+[cl-config]: ../../provisioning/cl-config
+[config-spec]: ../../provisioning/config-transpiler/configuration

@@ -84,4 +84,4 @@ ExecStart=/usr/bin/bash -c 'echo "CUSTOM_EC2_IPV4_PUBLIC=$(curl\
 ```
 
 
-[metadata-docs]: https://github.com/flatcar-linux/afterburn/blob/master/docs/container-linux-legacy.md
+[metadata-docs]: https://github.com/kinvolk/afterburn/blob/master/docs/container-linux-legacy.md

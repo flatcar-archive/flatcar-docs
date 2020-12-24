@@ -1,6 +1,9 @@
 ---
 title: Deploying Flatcar Container Linux using Google Cloud Launcher
 linktitle: Using Google Cloud Launcher
+description: >
+  How to use the Google Cloud Launcher Marketplace feature to launch
+  Flatcar Container Linux on GCP
 weight: 15
 aliases:
     - ../../os/using-google-cloud-launcher
@@ -15,24 +18,24 @@ account ([GCE free trial][free-trial]).
 
 To start the deployment, go to
 <https://console.cloud.google.com/marketplace/details/kinvolk-public/flatcar-container-linux>
-![GCL landing page](../img/gcl-landingpage.png)
+![GCL landing page](../../img/gcl-landingpage.png)
 Click "Launch".
 
 This will bring up a page where you can choose the parameters for your
 Flatcar Container Linux instance:
-![GCL launcher config](../img/gcl-launcherconfig.png)
+![GCL launcher config](../../img/gcl-launcherconfig.png)
 You can use the default values already filled in for you, or customize them
 for your needs. When you're happy with the settings, click "Deploy"
 
 This will start deploying your instance, showing you the progress as the
 resources get assigned.
-![GCL deploying](../img/gcl-deploying.png)
+![GCL deploying](../../img/gcl-deploying.png)
 And that's it! Your new Flatcar Container Linux is deploying.
 
 ## Inspecting your instance
 
 When complete you should see:
-![GCL deployed](../img/gcl-deployed.png)
+![GCL deployed](../../img/gcl-deployed.png)
 
 Flatcar supports automatic resizing on first boot, the installation will
 use all the available space. So, you can ignore the warning about the image
@@ -53,7 +56,7 @@ username that matches your account.
 ### Using the web UI
 
 The easiest way to launch an SSH client is directly from the web UI
-![GCL ssh](../img/gcl-ssh.png)
+![GCL ssh](../../img/gcl-ssh.png)
 
 This will connect with your user, which has some basic permissions. You
 will be able to inspect the machine and have a look around.
@@ -104,4 +107,7 @@ When disabling OS Login functionality on the instance, it is also recommended to
 
 ## Using Flatcar Container Linux
 
-Now that you have a machine booted it is time to play around. Check out the [Flatcar Container Linux Quickstart](quickstart) guide or dig into [more specific topics](https://docs.flatcar-linux.org).
+Now that you have a machine booted it is time to play around. Check out the [Flatcar Container Linux Quickstart][quickstart] guide or dig into [more specific topics][doc-index].
+
+[quickstart]: ../
+[doc-index]: ../../

@@ -6,7 +6,7 @@ aliases:
     - ../../container-linux-config-transpiler/configuration
 ---
 
-A Container Linux Configuration, to be processed by ct, is a YAML document conforming to the following specification:
+A Container Linux Configuration, to be processed by `ct`, is a YAML document conforming to the following specification:
 
 _Note: all fields are optional unless otherwise marked_
 
@@ -178,4 +178,4 @@ _Note: all fields are optional unless otherwise marked_
 
 [part-types]: http://en.wikipedia.org/wiki/GUID_Partition_Table#Partition_type_GUIDs
 [rfc2397]: https://tools.ietf.org/html/rfc2397
-[ignition-fs-reuse]: https://github.com/coreos/ignition/blob/master/doc/operator-notes.md#filesystem-reuse-semantics
+[ignition-fs-reuse]: https://github.com/kinvolk/ignition/blob/master/doc/operator-notes.md#filesystem-reuse-semantics

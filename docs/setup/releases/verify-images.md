@@ -2,7 +2,7 @@
 title: Verify Flatcar Container Linux images with GPG
 linktitle: Verifying Images
 description: How to verify the authenticity of Flatcar Container Linux images, using GPG.
-weight: 10
+weight: 40
 aliases:
     - ../../os/verify-images
     - ../../clusters/creation/verify-images

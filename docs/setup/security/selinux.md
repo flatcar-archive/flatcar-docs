@@ -1,7 +1,7 @@
 ---
 title: SELinux on Flatcar Container Linux
 linktitle: SELinux
-description: How to configure, enable or disabling SELinux.
+description: How to configure, enable or disable SELinux.
 weight: 10
 aliases:
     - ../../os/selinux
@@ -27,7 +27,7 @@ semodule -DB
 systemctl restart audit-rules
 ```
 
-Now run your container. Check the system logs for any messages containing `avc: denied`. Such messages indicate that an `enforcing` SELinux would prevent the container from performing the logged operation. Please open an issue at [flatcar-linux/Flatcar](https://github.com/flatcar-linux/Flatcar/issues), including the full avc log message.
+Now run your container. Check the system logs for any messages containing `avc: denied`. Such messages indicate that an `enforcing` SELinux would prevent the container from performing the logged operation. Please open an issue on [github][gh-flatcar], including the full avc log message.
 
 ## Enable SELinux enforcement
 
@@ -48,3 +48,6 @@ Now, edit `/etc/selinux/config` to replace `SELINUX=permissive` with `SELINUX=en
 ## Limitations
 
 SELinux enforcement is currently incompatible with Btrfs volumes and volumes that are shared between multiple containers.
+
+
+[gh-flatcar]: https://github.com/kinvolk/Flatcar/issues

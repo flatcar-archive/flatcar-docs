@@ -58,7 +58,7 @@ SELinux is a fine-grained access control mechanism integrated into Flatcar Conta
 
 Flatcar Container Linux implements SELinux, but currently does not enforce SELinux protections by default. The [SELinux on Flatcar Container Linux guide][selinux-guide] covers the process of checking containers for SELinux policy compatibility and switching SELinux into enforcing mode.
 
-[smt-guide]: clusters/securing/disabling-smt
-[sshd-guide]: clusters/securing/customizing-sshd
-[etcd-sec-guide]: https://github.com/flatcar-linux/etcd/blob/v3.2.11/Documentation/op-guide/security.md
-[selinux-guide]: clusters/securing/selinux
+[smt-guide]: disabling-smt
+[sshd-guide]: customizing-sshd
+[etcd-sec-guide]: https://etcd.io/docs/v3.4.0/op-guide/security/
+[selinux-guide]: selinux

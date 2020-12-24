@@ -13,7 +13,7 @@ The etcd systemd unit can be customized by overriding the unit that ships with t
 
 etcd supports client certificates as a way to provide secure communication between clients &#8596; leader and internal traffic between etcd peers in the cluster. Configuring certificates for both scenarios is done through the etcd section in a Container Linux Config. Options provided here will augment the unit that ships with Flatcar Container Linux.
 
-Please follow the [instruction](generate-self-signed-certificates) to know how to create self-signed certificates and private keys.
+Please follow the [instructions][self-signed-howto] on how to create self-signed certificates and private keys.
 
 ```yaml
 etcd:
@@ -87,3 +87,5 @@ storage:
           DvHKTdD9MDAunZlQIgO2zotmgVh2LBerGMbsdsTQ268sARY02MLV/Q5erASYdCxk
           -----END RSA PRIVATE KEY-----
 ```
+
+[self-signed-howto]: ../security/generate-self-signed-certificates

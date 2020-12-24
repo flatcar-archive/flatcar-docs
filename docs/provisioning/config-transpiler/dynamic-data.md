@@ -8,13 +8,13 @@ aliases:
 
 ## Overview
 
-Sometimes it can be useful to refer to data in a Container Linux Config that isn't known until a machine boots, like its network address. This can be accomplished with [coreos-metadata][coreos-metadata]. coreos-metadata is a very basic utility that fetches information about the current machine and makes it available for consumption. By making it a dependency of services which requires this information, systemd will ensure that coreos-metadata has successfully completed before starting these services. These services can then simply source the fetched information and let systemd perform the environment variable expansions.
+Sometimes it can be useful to refer to data in a Container Linux Config that isn't known until a machine boots, like its network address. This can be accomplished with [afterburn][afterburn] (previously called `coreos-metadata`). Afterburn is a very basic utility that fetches information about the current machine and makes it available for consumption. By making it a dependency of services which requires this information, systemd will ensure that coreos-metadata has successfully completed before starting these services. These services can then simply source the fetched information and let systemd perform the environment variable expansions.
 
 As of version 0.2.0, ct has support for making this easy for users. In specific sections of a config, users can enter in dynamic data between `{}`, and ct will handle enabling the coreos-metadata service and using the information it provides.
 
 The available information varies by provider, and is expressed in different variables by coreos-metadata. If this feature is used a `--provider` flag must be passed to ct. Currently, the `etcd` and `flannel` sections are the only ones which support this feature.
 
-[coreos-metadata]: https://github.com/coreos/coreos-metadata/
+[afterburn]: https://github.com/kinvolk/afterburn/
 
 ## Supported data by provider
 

@@ -1,6 +1,6 @@
 ---
 title: Using systemd and udev rules
-description: How to run untis when specific udev events trigger.
+description: How to run units when specific udev events trigger.
 weight: 35
 aliases:
     - ../../os/using-systemd-and-udev-rules
@@ -73,13 +73,13 @@ systemd:
 
 For more systemd examples, check out these documents:
 
- * [Customizing Docker][../../container-runtimes/customizing-docker]
- * [Customizing the SSH Daemon][../security/customizing-sshd]
+ * [Customizing Docker][customizing-docker]
+ * [Customizing the SSH Daemon][customizing-sshd]
  * [Using systemd Drop-In Units][drop-in]
 
-[drop-in]: using-systemd-drop-in-units
-[customizing-sshd]: customizing-sshd#changing-the-sshd-port
-[customizing-docker]: customizing-docker#using-a-dockercfg-file-for-authentication
+[drop-in]: drop-in-units
+[customizing-sshd]: ../security/customizing-sshd#changing-the-sshd-port
+[customizing-docker]: ../../container-runtimes/customizing-docker#using-a-dockercfg-file-for-authentication
 
 ## More information
 

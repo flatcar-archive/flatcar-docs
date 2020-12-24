@@ -205,19 +205,19 @@ networkd:
         Gateway=10.0.0.1
 ```
 
-[ct-download]: https://github.com/flatcar-linux/container-linux-config-transpiler
-[ignition-getting-started]: https://coreos.com/ignition/docs/latest/getting-started.html
-[ignition-supported]: https://coreos.com/ignition/docs/latest/supported-platforms.html
-[flatcar-qemu]: https://docs.flatcar-linux.org/os/booting-with-qemu/
+[ct-download]: https://github.com/kinvolk/container-linux-config-transpiler
+[ignition-getting-started]: https://github.com/kinvolk/ignition/blob/flatcar-master/doc/getting-started.md
+[ignition-supported]: https://github.com/kinvolk/ignition/blob/flatcar-master/doc/supported-platforms.md
+[flatcar-qemu]: ../../installing/vms/qemu
 [minikube]: https://github.com/kubernetes/minikube
 [nebraska-update]: https://github.com/kinvolk/nebraska
 [flatcar-channels]: https://www.flatcar-linux.org/releases/
-[flatcar-supported]: https://docs.flatcar-linux.org/
+[flatcar-supported]: ../../
 [flatcar-managed]: https://kinvolk.io/flatcar-container-linux/#kinvolk-update-service
-[flatcar-ec2]: https://docs.flatcar-linux.org/os/booting-on-ec2/
-[flatcar-equinix-metal]: https://docs.flatcar-linux.org/os/booting-on-packet/
-[flatcar-azure]: https://docs.flatcar-linux.org/os/booting-on-azure/
-[flatcar-gce]: https://docs.flatcar-linux.org/os/booting-on-google-compute-engine/
-[flatcar-do]: https://docs.flatcar-linux.org/os/booting-on-digitalocean/
-[flatcar-bm]: https://docs.flatcar-linux.org/os/booting-with-ipxe/
+[flatcar-ec2]: ../../installing/cloud/aws-ec2
+[flatcar-equinix-metal]: ../../installing/cloud/equinix-metal
+[flatcar-azure]: ../../installing/cloud/azure
+[flatcar-gce]: ../../installing/cloud/gcp
+[flatcar-do]: ../../installing/cloud/digitalocean
+[flatcar-bm]: ../../installing/bare-metal/booting-with-ipxe
 [typhoon]: https://github.com/poseidon/typhoon

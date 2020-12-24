@@ -1,6 +1,9 @@
 ---
 title: Installing Flatcar Container Linux to disk
 linktitle: Using flatcar-install script
+description: >
+  How to use the flatcar-install script to install Flatcar from
+  a running system.
 weight: 10
 aliases:
     - ../../os/installing-to-disk
@@ -29,7 +32,7 @@ flatcar-install -d /dev/sda -i ignition.json -o vmware_raw
 
 ## Choose a channel
 
-Flatcar Container Linux is designed to be [updated automatically][update-strategies] with different schedules per channel. You can [disable this feature](update-strategies), although we don't recommend it. Read the [release notes](https://flatcar-linux.org/releases) for specific features and bug fixes.
+Flatcar Container Linux is designed to be [updated automatically][update-strategies] with different schedules per channel. You can [disable this feature][update-strategies], although we don't recommend it. Read the [release notes][release-notes] for specific features and bug fixes.
 
 <div id="install">
   <ul class="nav nav-tabs">
@@ -145,11 +148,12 @@ systemd:
 
 Now that you have a machine booted it is time to play around. Check out the [Flatcar Container Linux Quickstart][quickstart] guide or dig into [more specific topics][docs-root].
 
-[quickstart]: quickstart
-[docs-root]: https://docs.flatcar-linux.org
-[update-strategies]: https://docs.flatcar-linux.org/os/update-strategies/
+[quickstart]: ../
+[docs-root]: ../../
+[update-strategies]: ../../setup/releases/update-strategies
+[release-notes]: https://flatcar-linux.org/releases
 [flatcar-iso]: booting-with-iso
 [clc-section]: #container-linux-configs
 [flatcar-install]: https://raw.githubusercontent.com/flatcar-linux/init/flatcar-master/bin/flatcar-install
-[cl-configs]: provisioning
-[ct]: https://github.com/coreos/container-linux-config-transpiler/blob/master/doc/overview.md
+[cl-configs]: ../../provisioning/cl-config
+[ct]: ../../provisioning/config-transpiler

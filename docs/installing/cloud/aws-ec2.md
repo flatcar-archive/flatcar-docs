@@ -1,6 +1,6 @@
 ---
-title: Running Flatcar Container Linux on EC2
-title: Running on AWS EC2
+title: Running Flatcar Container Linux on AWS EC2
+linktitle: Running on AWS EC2
 weight: 10
 aliases:
     - ../../os/booting-on-ec2
@@ -15,7 +15,7 @@ After publishing, releases will remain available as public AMIs on AWS for 9 mon
 
 ## Choosing a channel
 
-Flatcar Container Linux is designed to be updated automatically with different schedules per channel. You can [disable this feature](../../clusters/creation/update-strategies), although we don't recommend it. Read the [release notes](https://flatcar-linux.org/releases) for specific features and bug fixes.
+Flatcar Container Linux is designed to be updated automatically with different schedules per channel. You can [disable this feature][update-strategies], although we don't recommend it. Read the [release notes][release-notes] for specific features and bug fixes.
 
 <div id="ec2-images">
   <ul class="nav nav-tabs">
@@ -88,8 +88,10 @@ etcd:
   discovery:                   "https://discovery.etcd.io/<token>"
 ```
 
+[update-strategies]: ../../setup/releases/update-strategies
+[release-notes]: https://flatcar-linux.org/releases
 [ec2-user-data]: http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/user-data.html
-[cl-configs]: ../../reference/migrating-to-clcs/provisioning
+[cl-configs]: ../../provisioning/cl-config
 
 ### Instance storage
 
@@ -117,7 +119,7 @@ systemd:
         RequiredBy=local-fs.target
 ```
 
-For more information about mounting storage, Amazon's [own documentation](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/InstanceStorage.html) is the best source. You can also read about [mounting storage on Flatcar Container Linux](../../clusters/scaling/mounting-storage).
+For more information about mounting storage, Amazon's [own documentation](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/InstanceStorage.html) is the best source. You can also read about [mounting storage on Flatcar Container Linux](../../setup/storage/mounting-storage).
 
 ### Adding more machines
 
@@ -426,9 +428,11 @@ To make it work, use `/dev/sda2` as the "Root device name" and you probably want
 
 ## Using Flatcar Container Linux
 
-Now that you have a machine booted it is time to play around. Check out the [Flatcar Container Linux Quickstart](../../quickstart) guide or dig into [more specific topics](https://docs.flatcar-linux.org).
+Now that you have a machine booted it is time to play around. Check out the [Flatcar Container Linux Quickstart][quickstart] guide or dig into [more specific topics][doc-index].
 
+[quickstart]: ../
+[doc-index]: ../../
 [flatcar-user]: https://groups.google.com/forum/#!forum/flatcar-linux-user
 [docker-docs]: https://docs.docker.io
-[etcd-docs]: https://github.com/flatcar-linux/etcd/tree/master/Documentation
+[etcd-docs]: https://etcd.io/docs
 [irc]: irc://irc.freenode.org:6667/#flatcar

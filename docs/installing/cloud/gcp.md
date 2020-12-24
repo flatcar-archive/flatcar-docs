@@ -124,7 +124,7 @@ etcd:
   discovery:                   "https://discovery.etcd.io/<token>"
 ```
 
-[cl-configs]: provisioning
+[cl-configs]: ../../provisioning/cl-config
 
 ### Additional storage
 
@@ -151,7 +151,7 @@ systemd:
         RequiredBy=local-fs.target
 ```
 
-For more information about mounting storage, Google's [own documentation](https://developers.google.com/compute/docs/disks#attach_disk) is the best source. You can also read about [mounting storage on Flatcar Container Linux](mounting-storage).
+For more information about mounting storage, Google's [own documentation](https://developers.google.com/compute/docs/disks#attach_disk) is the best source. You can also read about [mounting storage on Flatcar Container Linux][mounting-storage].
 
 ### Adding more machines
 
@@ -196,4 +196,8 @@ When disabling OS Login functionality on the instance, it is also recommended to
 
 ## Using Flatcar Container Linux
 
-Now that you have a machine booted it is time to play around. Check out the [Flatcar Container Linux Quickstart](quickstart) guide or dig into [more specific topics](https://docs.flatcar-linux.org).
+Now that you have a machine booted it is time to play around. Check out the [Flatcar Container Linux Quickstart][quickstart] guide or dig into [more specific topics][doc-index].
+
+[mounting-storage]: ../../setup/storage/mounting-storage
+[quickstart]: ../
+[doc-index]: ../../

@@ -11,7 +11,7 @@ Many cloud services allow to provide _User Data_ for a node in an extra attribut
 
 ## Terraform Providers for the different Cloud Services
 
-How to use the Terraform Providers of each cloud service is explained on the respective documentation page under [Cloud Providers](../cloud-providers/).
+How to use the Terraform Providers of each cloud service is explained on the respective documentation page under [Cloud Providers][cloud].
 
 ## Changing the Ignition Configuration
 
@@ -28,10 +28,10 @@ It is also advisable to separate the persistent data from the disposable nodes t
 
 ## Generating the Ignition Configuration within Terraform
 
-To convert the Container Linux Config in YAML to the final Igniton Config in JSON you don't need to run [`ct`](../container-linux-config-transpiler/) manually. Instead, you can directly do this within Terraform, through the [`terraform-ct-provider`](https://registry.terraform.io/providers/poseidon/ct/latest).
+To convert the Container Linux Config in YAML to the final Igniton Config in JSON you don't need to run [`ct`][ct] manually. Instead, you can directly do this within Terraform, through the [`terraform-ct-provider`][terraform-ct-provider].
 Combined with the `template-provider` you can reference Terraform variables in the YAML template.
 
-An alternative is the [`terraform-ignition-provider`](https://www.terraform.io/docs/providers/ignition/index.html) that allows to assemble the Ignition Config from Terraform declarations.
+An alternative is the [`terraform-ignition-provider`][terraform-ignition-provider] that allows to assemble the Ignition Config from Terraform declarations.
 
 The following snippet demonstrates the use of the `terraform-ct-provider` and the `template-provider` to specify the User Data attribute on a Packet (now Equinix Metal) instance:
 
@@ -59,7 +59,7 @@ When using a template be careful to refer to the Terraform variables via `${vari
 Sometimes you want to take the declarative approach of Terraform but can't accept that nodes are destroyed and recreated for configuration changes.
 This is the case for nodes that have a manual or slow bring-up process, much data that can't be moved easily, or where the IP address should not change.
 
-Ignition can be told to run again through `touch /boot/flatcar/first_boot` but it [won't clean up any old state](../ignition/boot-process/#reprovisioning).
+Ignition can be told to run again through `touch /boot/flatcar/first_boot` but it [won't clean up any old state][boot-process].
 You have to reformat the root filesystem with Ignition to ensure that no old state is present.
 Persistent data should be stored on another partition.
 
@@ -103,4 +103,12 @@ resource "null_resource" "reboot-when-ignition-changes" {
 
 ## Examples
 
-You can find the full code for working examples in this [git repository](https://github.com/pothos/flatcar-terraform-examples).
+You can find the full code for working examples in this [git repository][example-repo].
+
+
+[cloud]: ../../installing/cloud/
+[ct]: ../container-linux-config-transpiler/
+[terraform-ct-provider]: https://registry.terraform.io/providers/poseidon/ct/latest
+[terraform-ignition-provider]: https://www.terraform.io/docs/providers/ignition/index.html
+[boot-process]: ../ignition/boot-process/#reprovisioning
+[example-repo]: https://github.com/pothos/flatcar-terraform-examples

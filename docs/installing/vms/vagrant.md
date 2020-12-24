@@ -7,7 +7,7 @@ aliases:
     - ../../cloud-providers/booting-on-vagrant
 ---
 
-_While we always welcome community contributions and fixes, please note that Vagrant is not an officially supported platform at this time. (See the [platform overview](/#getting-started).)_
+_While we always welcome community contributions and fixes, please note that Vagrant is not an officially supported platform at this time. (See the [platform overview](/#installing-flatcar).)_
 
 Running Flatcar Container Linux with Vagrant is one way to bring up a single machine or virtualize an entire cluster on your laptop. Since the true power of Flatcar Container Linux can be seen with a cluster, we're going to concentrate on that. Instructions for a single machine can be found [towards the end](#single-machine) of the guide.
 
@@ -190,7 +190,9 @@ vagrant box add flatcar-alpha <path-to-box-file>
 
 ## Using Flatcar Container Linux
 
-Now that you have a machine booted it is time to play around. Check out the [Flatcar Container Linux Quickstart](quickstart) guide, learn about [CoreOS Container Linux clustering with Vagrant](https://coreos.com/blog/coreos-clustering-with-vagrant/), or dig into [more specific topics](https://docs.flatcar-linux.org).
+Now that you have a machine booted it is time to play around. Check out the [Flatcar Container Linux Quickstart][quickstart] guide, learn about [CoreOS Container Linux clustering with Vagrant](https://coreos.com/blog/coreos-clustering-with-vagrant/), or dig into [more specific topics][doc-index].
 
 [flatcar-dev]: https://groups.google.com/forum/#!forum/flatcar-linux-dev
 [irc]: irc://irc.freenode.org:6667/#flatcar
+[quickstart]: ../
+[doc-index]: ../../

@@ -7,10 +7,7 @@ aliases:
     - ../../container-linux-config-transpiler/examples
 ---
 
-Here you can find a bunch of simple examples for using Container Linux
-configs, with some explanations about what they do. The examples here are
-in no way comprehensive, for a full list of all the available check out the
-[config-transpiler specification](../config-transpiler/configuration).
+Here you can find a bunch of simple examples for using Container Linux configs, with some explanations about what they do. The examples here are in no way comprehensive, for a full list of all the available fields check out the [config-transpiler specification][spec].
 
 ## Users and groups
 
@@ -211,7 +208,7 @@ locksmith:
 
 This example configures the Container Linux instance to be a member of the beta group, configures locksmithd to acquire a lock in etcd before rebooting for an update, and only allows reboots during a 2 hour window starting at 1 AM on Sundays.
 
-[spec]: configuration.md
-[dropins]: https://coreos.com/os/docs/latest/using-systemd-drop-in-units.html
-[networkd]: https://coreos.com/os/docs/latest/network-config-with-networkd.html
-[dynamic-data]: dynamic-data.md
+[spec]: ../config-transpiler/configuration
+[dropins]: ../../setup/systemd/drop-in-units
+[networkd]: ../../setup/customization/network-config-with-networkd
+[dynamic-data]: ../config-transpiler/dynamic-data

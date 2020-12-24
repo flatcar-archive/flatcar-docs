@@ -7,7 +7,7 @@ aliases:
     - ../../bare-metal/booting-with-pxe
 ---
 
-These instructions will walk you through booting Flatcar Container Linux via PXE on real or virtual hardware. By default, this will run Flatcar Container Linux completely out of RAM. Flatcar Container Linux can also be [installed to disk](installing-to-disk).
+These instructions will walk you through booting Flatcar Container Linux via PXE on real or virtual hardware. By default, this will run Flatcar Container Linux completely out of RAM. Flatcar Container Linux can also be [installed to disk][installing-to-disk].
 
 A minimum of 3 GB of RAM is required to boot Flatcar Container Linux via PXE.
 
@@ -30,7 +30,7 @@ When configuring the Flatcar Container Linux pxelinux.cfg there are a few kernel
 - **sshkey**: Add the given SSH public key to the `core` user's authorized_keys file. Replace the example key below with your own (it is usually in `~/.ssh/id_rsa.pub`)
 - **console**: Enable kernel output and a login prompt on a given tty. The default, `tty0`, generally maps to VGA. Can be used multiple times, e.g. `console=tty0 console=ttyS0`
 - **flatcar.autologin**: Drop directly to a shell on a given console without prompting for a password. Useful for troubleshooting but use with caution. For any console that doesn't normally get a login prompt by default be sure to combine with the `console` option, e.g. `console=tty0 console=ttyS0 flatcar.autologin=tty1 flatcar.autologin=ttyS0`. Without any argument it enables access on all consoles. Note that for the VGA console the login prompts are on virtual terminals (`tty1`, `tty2`, etc), not the VGA console itself (`tty0`).
-- **flatcar.first_boot=1**: Download an Ignition config and use it to provision your booted system. Ignition configs are generated from Container Linux Configs. See the [config transpiler documentation][cl-configs] for more information. If a local filesystem is used for the root partition, pass this parameter only on the first boot.
+- **flatcar.first_boot=1**: Download an Ignition config and use it to provision your booted system. Ignition configs are generated from Container Linux Configs. See the [Container Linux Config documentation][cl-configs] for more information. If a local filesystem is used for the root partition, pass this parameter only on the first boot.
 - **ignition.config.url**: Download the Ignition config from the specified URL. `http`, `https`, `s3`, and `tftp` schemes are supported.
 - **ip**: Configure temporary static networking for initramfs. This parameter does not influence the final network configuration of the node and is mostly useful for first-boot provisioning of systems in DHCP-less environments. See [Ignition documentation][ignition-kargs-ip] for the complete syntax.
 
@@ -67,7 +67,7 @@ passwd:
 
 ### Choose a channel
 
-Flatcar Container Linux is designed to be updated automatically with different schedules per channel. You can [disable this feature](update-strategies), although we don't recommend it. Read the [release notes](https://flatcar-linux.org/releases) for specific features and bug fixes.
+Flatcar Container Linux is designed to be updated automatically with different schedules per channel. You can [disable this feature][update-strategies], although we don't recommend it. Read the [release notes][release-notes] for specific features and bug fixes.
 
 PXE booted machines cannot currently update themselves when new versions are released to a channel. To update to the latest version of Flatcar Container Linux download/verify these files again and reboot.
 
@@ -237,15 +237,18 @@ kernel flatcar_production_pxe.vmlinuz flatcar.first_boot=1
 
 ## Using Flatcar Container Linux
 
-Now that you have a machine booted it is time to play around. Check out the [Flatcar Container Linux Quickstart][qs] guide or dig into [more specific topics][docs].
+Now that you have a machine booted it is time to play around. Check out the [Flatcar Container Linux Quickstart][quickstart] guide or dig into [more specific topics][doc-index].
 
 [append-initrd]: http://www.syslinux.org/wiki/index.php?title=SYSLINUX#INITRD_initrd_file
 [flatcar-user]: https://groups.google.com/forum/#!forum/flatcar-linux-user
-[docs]: https://docs.flatcar-linux.org
-[ignition]: https://coreos.com/ignition/docs/latest
-[ignition-kargs-ip]: https://coreos.com/ignition/docs/latest/network-configuration.html#using-static-ip-addresses-with-ignition
-[install-to-disk]: installing-to-disk
-[cl-configs]: provisioning
 [irc]: irc://irc.freenode.org:6667/#flatcar
-[oem]: notes-for-distributors#image-customization
-[qs]: quickstart
+[cl-configs]: ../../provisioning/cl-config
+[ignition]: ../../provisioning/ignition
+[ignition-kargs-ip]: ../../provisioning/ignition/network-configuration/#using-static-ip-addresses-with-ignition
+[oem]: ../community-platforms/notes-for-distributors#image-customization
+[installing-to-disk]: installing-to-disk
+[update-strategies]: ../../setup/releases/update-strategies
+[release-notes]: https://flatcar-linux.org/releases
+[quickstart]: ../
+[doc-index]: ../../
+

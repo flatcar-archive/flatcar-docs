@@ -11,7 +11,7 @@ These instructions will walk you through running Flatcar Container Linux on the 
 
 ## Choosing a channel
 
-Flatcar Container Linux is designed to be updated automatically with different schedules per channel. You can [disable this feature](update-strategies), although we don't recommend it. Read the [release notes](https://flatcar-linux.org/releases) for specific features and bug fixes.
+Flatcar Container Linux is designed to be updated automatically with different schedules per channel. You can [disable this feature][update-strategies], although we don't recommend it. Read the [release notes][release-notes] for specific features and bug fixes.
 
 <div id="rax-images">
   <ul class="nav nav-tabs">
@@ -76,7 +76,7 @@ flatcar:
 
 The `$private_ipv4` and `$public_ipv4` substitution variables are fully supported in cloud-config on Rackspace.
 
-[cloud-config-docs]: https://github.com/flatcar-linux/coreos-cloudinit/blob/master/Documentation/cloud-config.md
+[cloud-config-docs]: https://github.com/kinvolk/coreos-cloudinit/blob/master/Documentation/cloud-config.md
 
 ### Mount data disk
 
@@ -97,7 +97,7 @@ flatcar:
 
 Mounting Cloud Block Storage can be done with a mount unit, but should not be included in cloud-config unless the disk is present on the first boot.
 
-For more general information, check out [mounting storage on Flatcar Container Linux](mounting-storage).
+For more general information, check out [mounting storage on Flatcar Container Linux][mounting-storage].
 
 ## Launch with Nova
 
@@ -220,4 +220,10 @@ You can also launch servers with either the `alpha` and `beta` channel versions 
 
 ## Using Flatcar Container Linux
 
-Now that you have a machine booted it is time to play around. Check out the [Flatcar Container Linux Quickstart](quickstart) guide or dig into [more specific topics](https://docs.flatcar-linux.org).
+Now that you have a machine booted it is time to play around. Check out the [Flatcar Container Linux Quickstart][quickstart] guide or dig into [more specific topics][doc-index].
+
+[update-strategies]: ../../setup/releases/update-strategies
+[release-notes]: https://flatcar-linux.org/releases
+[quickstart]: ../
+[doc-index]: ../../
+[mounting-storage]: ../../setup/storage/mounting-storage

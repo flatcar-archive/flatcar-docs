@@ -293,10 +293,10 @@ openssl x509 -in client.pem -text -noout
 
 ## More information
 
-For another examples, check out these documents:
+For more examples, check out these documents:
 
-[Custom Certificate Authorities](adding-certificate-authorities)
-[etcd Security Model](https://github.com/flatcar-linux/etcd/blob/master/Documentation/op-guide/security.md)
+ * [Custom Certificate Authorities](adding-certificate-authorities)
+ * [etcd Security Model](https://etcd.io/docs/v3.4.0/op-guide/security/)
 
 [cfssl]: https://github.com/cloudflare/cfssl
 [cfssl-bin]: https://pkg.cfssl.org

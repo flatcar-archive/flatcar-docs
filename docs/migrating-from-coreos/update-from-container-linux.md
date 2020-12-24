@@ -8,7 +8,7 @@ aliases:
 
 If you already have CoreOS Container Linux clusters and can't or don't want to freshly install Flatcar Container Linux, you can update to Flatcar Container Linux directly from CoreOS Container Linux by performing the following steps.
 
-**NOTE:** General differences when [migrating from CoreOS Container Linux](migrate-from-container-linux) also apply.
+**NOTE:** General differences when [migrating from CoreOS Container Linux][migrate-from-container-linux] also apply.
 
 At [the end of the section](#all-steps-in-one-script) you can find the [update-to-flatcar.sh](https://raw.githubusercontent.com/kinvolk/flatcar-docs/main/update-to-flatcar.sh) script that does all steps for you.
 
@@ -35,7 +35,7 @@ sudo mv /etc/coreos /etc/flatcar
 sudo ln -s flatcar /etc/coreos
 ```
 
-Now, you need to point update_engine to Flatcar's update server by setting the `SERVER` configuration option in `/etc/flatcar/update.conf`:
+Now, you need to point `update_engine` to Flatcar's update server by setting the `SERVER` configuration option in `/etc/flatcar/update.conf`:
 
 ```shell
 SERVER=https://public.update.flatcar-linux.net/v1/update/
@@ -109,7 +109,7 @@ sudo cgpt prioritize "$(sudo cgpt find -t flatcar-usr | grep --invert-match "$(r
 Now you can reboot and you'll be back to CoreOS Container Linux.
 Remember to undo your changes in your `/etc/coreos/update.conf` after rolling back if you want to keep getting CoreOS Container Linux updates.
 
-For more information about manual rollbacks, check [Performing a manual rollback](/os/manual-rollbacks/#performing-a-manual-rollback).
+For more information about manual rollbacks, check [Performing a manual rollback][manual-rollback].
 
 ### Force an update to CoreOS Container Linux
 
@@ -161,3 +161,6 @@ The system will reboot into CoreOS Container Linux:
 sudo systemctl restart update-engine
 sudo update_engine_client -update
 ```
+
+[migrate-from-container-linux]: _index.md
+[manual-rollback]: ../setup/debug/manual-rollbacks/#performing-a-manual-rollback

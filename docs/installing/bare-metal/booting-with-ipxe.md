@@ -7,7 +7,7 @@ aliases:
     - ../../bare-metal/booting-with-ipxe
 ---
 
-These instructions will walk you through booting Flatcar Container Linux via iPXE on real or virtual hardware. By default, this will run Flatcar Container Linux completely out of RAM. Flatcar Container Linux can also be [installed to disk](installing-to-disk).
+These instructions will walk you through booting Flatcar Container Linux via iPXE on real or virtual hardware. By default, this will run Flatcar Container Linux completely out of RAM. Flatcar Container Linux can also be [installed to disk][installing-to-disk].
 
 A minimum of 3 GB of RAM is required to boot Flatcar Container Linux via PXE.
 
@@ -25,7 +25,7 @@ When configuring the Flatcar Container Linux iPXE boot script there are a few ke
 - **rootfstype=tmpfs**: Use tmpfs for the writable root filesystem. This is the default behavior.
 - **rootfstype=btrfs**: Use btrfs in RAM for the writable root filesystem. The filesystem will consume more RAM as it grows, up to a max of 50%. The limit isn't currently configurable.
 - **root**: Use a local filesystem for root instead of one of two in-ram options above. The filesystem must be formatted (perhaps using Ignition) but may be completely blank; it will be initialized on boot. The filesystem may be specified by any of the usual ways including device, label, or UUID; e.g: `root=/dev/sda1`, `root=LABEL=ROOT` or `root=UUID=2c618316-d17a-4688-b43b-aa19d97ea821`.
-- **sshkey**: Add the given SSH public key to the `core` user's authorized_keys file. Replace the example key below with your own (it is usually in `~/.ssh/id_rsa.pub`)
+- **sshkey**: Add the given SSH public key to the `core` user's `authorized_keys` file. Replace the example key below with your own (it is usually in `~/.ssh/id_rsa.pub`)
 - **console**: Enable kernel output and a login prompt on a given tty. The default, `tty0`, generally maps to VGA. Can be used multiple times, e.g. `console=tty0 console=ttyS0`
 - **flatcar.autologin**: Drop directly to a shell on a given console without prompting for a password. Useful for troubleshooting but use with caution. For any console that doesn't normally get a login prompt by default be sure to combine with the `console` option, e.g. `console=tty0 console=ttyS0 flatcar.autologin=tty1 flatcar.autologin=ttyS0`. Without any argument it enables access on all consoles. Note that for the VGA console the login prompts are on virtual terminals (`tty1`, `tty2`, etc), not the VGA console itself (`tty0`).
 - **flatcar.first_boot=1**: Download an Ignition config and use it to provision your booted system. Ignition configs are generated from Container Linux Configs. See the [config transpiler documentation][cl-configs] for more information. If a local filesystem is used for the root partition, pass this parameter only on the first boot.
@@ -34,7 +34,7 @@ When configuring the Flatcar Container Linux iPXE boot script there are a few ke
 
 ### Choose a Channel
 
-Flatcar Container Linux is designed to be updated automatically with different schedules per channel. You can [disable this feature](update-strategies), although we don't recommend it. Read the [release notes](https://flatcar-linux.org/releases) for specific features and bug fixes.
+Flatcar Container Linux is designed to be updated automatically with different schedules per channel. You can [disable this feature][update-strategies], although we don't recommend it. Read the [release notes][release-notes] for specific features and bug fixes.
 
 ### Setting up the Boot Script
 
@@ -127,18 +127,26 @@ Since Flatcar Container Linux's upgrade process requires a disk, this image does
 
 ## Installation
 
-Flatcar Container Linux can be completely installed on disk or run from RAM but store user data on disk. Read more in our [Installing Flatcar Container Linux guide](booting-with-pxe#installation).
+Flatcar Container Linux can be completely installed on disk or run from RAM but store user data on disk. Read more in our [Installing Flatcar Container Linux guide][pxe-installation].
 
 ## Adding a custom OEM
 
-Similar to the [OEM partition][oem] in Flatcar Container Linux disk images, iPXE images can be customized with an [Ignition config][ignition] bundled in the initramfs. You can view the [instructions on the PXE docs](booting-with-pxe#adding-a-custom-oem).
-
-[oem]: notes-for-distributors#image-customization
+Similar to the [OEM partition][oem] in Flatcar Container Linux disk images, iPXE images can be customized with an [Ignition config][ignition] bundled in the initramfs. You can view the [instructions on the PXE docs][pxe-custom-oem].
 
 ## Using Flatcar Container Linux
 
-Now that you have a machine booted it is time to play around. Check out the [Flatcar Container Linux Quickstart](quickstart) guide or dig into [more specific topics](https://docs.flatcar-linux.org).
+Now that you have a machine booted it is time to play around. Check out the [Flatcar Container Linux Quickstart][quickstart] guide or dig into [more specific topics][doc-index].
 
-[cl-configs]: provisioning
-[ignition]: https://coreos.com/ignition/docs/latest
-[ignition-kargs-ip]: https://coreos.com/ignition/docs/latest/network-configuration.html#using-static-ip-addresses-with-ignition
+[cl-configs]: ../../provisioning/cl-config
+[ignition]: ../../provisioning/ignition
+[ignition-kargs-ip]: ../../provisioning/ignition/network-configuration/#using-static-ip-addresses-with-ignition
+[oem]: ../community-platforms/notes-for-distributors#image-customization
+[installing-to-disk]: installing-to-disk
+[update-strategies]: ../../setup/releases/update-strategies
+[release-notes]: https://flatcar-linux.org/releases
+[pxe-installation]: booting-with-pxe#installation
+[pxe-oem]: booting-with-pxe#adding-a-custom-oem
+[quickstart]: ../
+[doc-index]: ../../
+
+

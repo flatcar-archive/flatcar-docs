@@ -34,13 +34,13 @@ sudo flatcar-install -d /dev/vda -c cloud-config.yaml
 sudo reboot
 ```
 
-Please be sure to check out [Using Cloud-Config](https://github.com/flatcar-linux/coreos-cloudinit/blob/master/Documentation/cloud-config.md).
+Please be sure to check out [Using Cloud-Config](https://github.com/kinvolk/coreos-cloudinit/blob/master/Documentation/cloud-config.md).
 
-You must add to your ssh public key to your `cloud-config`'s [ssh authorized keys](https://github.com/flatcar-linux/coreos-cloudinit/blob/master/Documentation/cloud-config.md#ssh_authorized_keys) so you'll be able to log in.
+You must add to your ssh public key to your `cloud-config`'s [ssh authorized keys](https://github.com/kinvolk/coreos-cloudinit/blob/master/Documentation/cloud-config.md#ssh_authorized_keys) so you'll be able to log in.
 
 ## Choosing a channel
 
-Flatcar Container Linux is designed to be updated automatically with different schedules per channel. You can [disable this feature](update-strategies), although we don't recommend it. Read the [release notes](https://flatcar-linux.org/releases) for specific features and bug fixes.
+Flatcar Container Linux is designed to be updated automatically with different schedules per channel. You can [disable this feature][update-strategies], although we don't recommend it. Read the [release notes][release-notes] for specific features and bug fixes.
 
 <div id="vultr-images">
   <ul class="nav nav-tabs">
@@ -117,9 +117,9 @@ Once you receive the "Subscription Activated" email the VPS will be ready to use
 
 ## Accessing the VPS
 
-You can now log in to Flatcar Container Linux using the associated private key on your local computer. You may need to specify its location using ```-i LOCATION```. If you need additional details on how to specify the location of your private key file see [here](http://www.cyberciti.biz/faq/force-ssh-client-to-use-given-private-key-identity-file/).
+You can now log in to Flatcar Container Linux using the associated private key on your local computer. You may need to specify its location using `-i LOCATION`. If you need additional details on how to specify the location of your private key file see [here](http://www.cyberciti.biz/faq/force-ssh-client-to-use-given-private-key-identity-file/).
 
-SSH to the IP of your VPS, and specify the "core" user: ```ssh core@IP```
+SSH to the IP of your VPS, and specify the "core" user: `ssh core@IP`
 
 ```shell
 $ ssh core@IP
@@ -134,4 +134,9 @@ core@localhost ~ $
 
 ## Using Flatcar Container Linux
 
-Check out the [Flatcar Container Linux Quickstart](quickstart) guide or dig into [more specific topics](https://docs.flatcar-linux.org).
+Now that you have a machine booted it is time to play around. Check out the [Flatcar Container Linux Quickstart][quickstart] guide or dig into [more specific topics][doc-index].
+
+[update-strategies]: ../../setup/releases/update-strategies
+[release-notes]: https://flatcar-linux.org/releases
+[quickstart]: ../
+[doc-index]: ../../

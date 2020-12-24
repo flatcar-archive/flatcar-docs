@@ -65,7 +65,7 @@ Once QEMU is installed you can download and start the latest Flatcar Container L
 
 ### Choosing a channel
 
-Flatcar Container Linux is designed to be updated automatically with different schedules per channel. You can [disable this feature](update-strategies), although we don't recommend it. Read the [release notes](https://flatcar-linux.org/releases) for specific features and bug fixes.
+Flatcar Container Linux is designed to be updated automatically with different schedules per channel. You can [disable this feature][update-strategies], although we don't recommend it. Read the [release notes][release-notes] for specific features and bug fixes.
 
 <div id="qemu-images">
   <ul class="nav nav-tabs">
@@ -193,11 +193,14 @@ Flatcar Container Linux allows you to configure machine parameters, configure ne
 
 This will pass the contents of `config.ign` through to Ignition, which runs in the virtual machine.
 
-[cl-configs]: provisioning
-
 ## Using Flatcar Container Linux
 
-Now that you have a machine booted it is time to play around. Check out the [Flatcar Container Linux Quickstart](quickstart) guide or dig into [more specific topics](https://docs.flatcar-linux.org).
+Now that you have a machine booted it is time to play around. Check out the [Flatcar Container Linux Quickstart][quickstart] guide or dig into [more specific topics][doc-index].
 
+[update-strategies]: ../../setup/releases/update-strategies
+[release-notes]: https://flatcar-linux.org/releases
+[quickstart]: ../
+[doc-index]: ../../
 [flatcar-dev]: https://groups.google.com/forum/#!forum/flatcar-linux-dev
 [irc]: irc://irc.freenode.org:6667/#flatcar
+[cl-configs]: ../../provisioning/cl-config

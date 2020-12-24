@@ -82,7 +82,7 @@ If you've faced some problems with journald you can enable debug mode following 
 mkdir -p /etc/systemd/system/systemd-journald.service.d/
 ```
 
-Create [Drop-In][drop-ins] `/etc/systemd/system/systemd-journald.service.d/10-debug.conf` with following content:
+Create a [Drop-In][drop-ins] `/etc/systemd/system/systemd-journald.service.d/10-debug.conf` with following content:
 
 ```shell
 [Service]
@@ -112,8 +112,8 @@ systemd:
             Environment=SYSTEMD_LOG_LEVEL=debug
 ```
 
-[drop-ins]: using-systemd-drop-in-units
-[ct-configs]: provisioning
+[drop-ins]: ../systemd/drop-in-units
+[ct-configs]: ../../provisioning/cl-config
 
 ## More information
 

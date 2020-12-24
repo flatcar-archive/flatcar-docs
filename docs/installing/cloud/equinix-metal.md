@@ -78,16 +78,19 @@ etcd:
   discovery:                   "https://discovery.etcd.io/<token>"
 ```
 
-[cl-configs]: provisioning
+[cl-configs]: ../../provisioning/cl-config
 
 ## Using Flatcar Container Linux
 
-Now that you have a machine booted it is time to play around. Check out the [Flatcar Container Linux Quickstart](quickstart) guide or dig into [more specific topics](https://docs.flatcar-linux.org).
+Now that you have a machine booted it is time to play around. Check out the [Flatcar Container Linux Quickstart][quickstart] guide or dig into [more specific topics][doc-index].
+
+[quickstart]: ../
+[doc-index]: ../../
 
 ## Terraform
 
 The [`packet`](https://registry.terraform.io/providers/packethost/packet/latest/docs) Terraform Provider allows to deploy machines in a declarative way.
-Read more about using Terraform and Flatcar [here](../../terraform/).
+Read more about using Terraform and Flatcar [here](../../provisioning/terraform/).
 
 The following Terraform v0.13 module may serve as a base for your own setup.
 

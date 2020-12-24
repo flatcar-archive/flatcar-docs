@@ -19,7 +19,5 @@ The setup process for any of these use-cases is the same:
 2. Run the `update-ca-certificates` script to update the system bundle of Certificate Authorities. All programs running on the system will now trust the added CA.
 
 ## More information
-
-[Generate Self-Signed Certificates](generate-self-signed-certificates)
-
-[etcd Security Model](https://github.com/flatcar-linux/etcd/blob/master/Documentation/op-guide/security.md)
+ * [Generate Self-Signed Certificates](generate-self-signed-certificates)
+ * [etcd Security Model](https://etcd.io/docs/v3.4.0/op-guide/security/)

@@ -212,7 +212,7 @@ which link will likewise have its label defined at the document's foot.
 
 Using relative URLs where possible helps portability among multiple presentation targets, as they remain valid even as the site root moves. Absolute linking is obviously necessary for resources external to the document's repository and/or the docs.flatcar-linux.org domain.
 
-For example, there are two ways to refer to the [CoreOS quick start guide][quickstart]'s location. The preferred way is a relative link from the current file's path to the target, which from this document is `os/quickstart`. An absolute link to the complete URL is less flexible, and more verbose: `https://github.com/flatcar-linux/docs/blob/master/os/quickstart.md`.
+For example, there are two ways to refer to the [Flatcar quick start guide][quickstart]'s location. The preferred way is a relative link from the current file's path to the target, which from this document is `os/quickstart`. An absolute link to the complete URL is less flexible, and more verbose: `https://github.com/kinvolk/docs/blob/master/os/quickstart.md`.
 
 #### Hyperlink deployment automation
 

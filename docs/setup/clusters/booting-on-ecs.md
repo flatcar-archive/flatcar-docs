@@ -8,13 +8,13 @@ aliases:
     - ../../clusters/management/booting-on-ecs
 ---
 
-[Amazon EC2 Container Service (ECS)](http://aws.amazon.com/ecs/) is a container management service which provides a set of APIs for scheduling container workloads across EC2 clusters. It supports Flatcar Container Linux with Docker containers.
+[Amazon EC2 Container Service (ECS)][aws-ecs] is a container management service which provides a set of APIs for scheduling container workloads across EC2 clusters. It supports Flatcar Container Linux with Docker containers.
 
 Your Flatcar Container Linux machines communicate with ECS via an agent. The agent interacts with Docker to start new containers and gather information about running containers.
 
 ## Set up a new cluster
 
-When booting your [Flatcar Container Linux Machines on EC2](../../installing/cloud/aws-ec2), configure the ECS agent to be started via [Ignition][ignition-docs].
+When booting your [Flatcar Container Linux Machines on EC2][boot-ec2], configure the ECS agent to be started via [Ignition][ignition-docs].
 
 Be sure to change `ECS_CLUSTER` to the cluster name you've configured via the ECS CLI or leave it empty for the default. Here's a full config example:
 
@@ -92,9 +92,10 @@ The example above pulls the latest official Amazon ECS agent container from the 
 
 If you want to configure SSH keys in order to log in, mount disks or configure other options, see the [Container Linux Configs documentation][cl-configs].
 
-For more information on using ECS, check out the [official Amazon documentation](http://aws.amazon.com/documentation/ecs/).
+For more information on using ECS, check out the [official Amazon documentation][ecs-docs].
 
+[aws-ecs]: http://aws.amazon.com/ecs/
+[boot-ec2]: ../../installing/cloud/aws-ec2
 [cl-configs]: ../../provisioning/cl-config
-[ignition-docs]: https://coreos.com/ignition/docs/latest
-
-For more information on using ECS, check out the [official Amazon documentation](http://aws.amazon.com/documentation/ecs/).
+[ignition-docs]: ../../provisioning/ignition
+[ecs-docs]: http://aws.amazon.com/documentation/ecs/

@@ -35,7 +35,7 @@ The signing key is rotated annually. We will announce upcoming rotations of the 
 
 ## Image customization
 
-There are two predominant ways that a Flatcar Container Linux image can be easily customized for a specific operating environment: through Ignition, a first-boot provisioning tool that runs during a machine's boot process, and through [cloud-config](https://github.com/flatcar-linux/coreos-cloudinit/blob/master/Documentation/cloud-config), an older tool that runs every time a machine boots.
+There are two predominant ways that a Flatcar Container Linux image can be easily customized for a specific operating environment: through Ignition, a first-boot provisioning tool that runs during a machine's boot process, and through [cloud-config](https://github.com/kinvolk/coreos-cloudinit/blob/master/Documentation/cloud-config), an older tool that runs every time a machine boots.
 
 ### Ignition
 
@@ -45,21 +45,23 @@ Use Ignition to handle platform specific configuration such as custom networking
 
 Additionally, it is recommended that providers ensure that [coreos-metadata][coreos-metadata] and [ct][ct] have support for their platform. This will allow a nicer user experience, as coreos-metadata will be able to install users' ssh keys and users will be able to reference dynamic data in their Container Linux Configs.
 
-[ignition]: https://coreos.com/blog/introducing-ignition.html
-[ign-platforms]: https://github.com/flatcar-linux/ignition/blob/master/doc/supported-platforms.md
-[coreos-metadata]: https://github.com/flatcar-linux/coreos-metadata/
-[ct]: https://github.com/coreos/container-linux-config-transpiler
+[ignition]: ../../provisioning/ignition
+[ign-platforms]: https://github.com/kinvolk/ignition/blob/master/doc/supported-platforms.md
+[coreos-metadata]: https://github.com/kinvolk/afterburn/
+[ct]: https://github.com/kinvolk/container-linux-config-transpiler
 
 ### Cloud config
 
-A Flatcar Container Linux image can also be customized using [cloud-config](https://github.com/flatcar-linux/coreos-cloudinit/blob/master/Documentation/cloud-config.md). Users are recommended to instead use Container Linux Configs (that are converted into Ignition configs with [ct][ct]), for reasons [outlined in the blog post that introduced Ignition][ignition].
+A Flatcar Container Linux image can also be customized using [cloud-config](https://github.com/kinvolk/coreos-cloudinit/blob/master/Documentation/cloud-config.md). Users are recommended to instead use Container Linux Configs (that are converted into Ignition configs with [ct][ct]), for reasons [outlined in the blog post that introduced Ignition][ignition-blog].
 
 Providers that previously supported cloud-config should continue to do so, as not all users have switched over to Container Linux Configs. New platforms do not need to support cloud-config.
 
 Flatcar Container Linux will automatically parse and execute `/usr/share/oem/cloud-config.yml` if it exists.
 
+[ignition-blog]: https://coreos.com/blog/introducing-ignition.html
+
 ## Handling end-user Ignition files
 
 End-users should be able to provide an Ignition file to your platform while specifying their VM's parameters. This file should be made available to Flatcar Container Linux at the time of boot (e.g. at known network address, injected directly onto disk). Examples of these data sources can be found in the [Ignition documentation][providers].
 
-[providers]: https://github.com/flatcar-linux/ignition/blob/master/doc/supported-platforms.md
+[providers]: https://github.com/kinvolk/ignition/blob/master/doc/supported-platforms.md

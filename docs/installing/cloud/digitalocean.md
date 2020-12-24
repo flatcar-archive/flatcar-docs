@@ -73,7 +73,7 @@ The following command will create a single droplet. For more details, check out 
   </div>
 </div>
 
-[reboot-docs]: update-strategies
+[reboot-docs]: ../../setup/releases/update-strategies
 [release-notes]: https://www.flatcar-linux.org/releases/
 
 ## Container Linux Configs
@@ -101,7 +101,7 @@ etcd:
   discovery:                   "https://discovery.etcd.io/<token>"
 ```
 
-[cl-configs]: provisioning
+[cl-configs]: ../../provisioning/cl-config
 
 ### Adding more machines
 
@@ -173,21 +173,21 @@ For more details, check out [DigitalOcean's API documentation][do-api-docs].
 2. Give the machine a hostname, select the size, and choose a region.
 <div class="row">
   <div class="col-lg-8 col-md-10 col-sm-8 col-xs-12 co-m-screenshot">
-    <img src="../img/size.png" />
+    <img src="../../img/size.png" />
     <div class="co-m-screenshot-caption">Choosing a size and hostname</div>
   </div>
 </div>
 3. Enable User Data and add your Ignition config in the text box.
 <div class="row">
   <div class="col-lg-8 col-md-10 col-sm-8 col-xs-12 co-m-screenshot">
-    <img src="../img/settings.png" />
+    <img src="../../img/settings.png" />
     <div class="co-m-screenshot-caption">Droplet settings for networking and Ignition</div>
   </div>
 </div>
-4. Choose your [preferred channel](#choosing-a-channel) of Container Linux.
+4. Choose your preferred channel of Container Linux.
 <div class="row">
   <div class="col-lg-8 col-md-10 col-sm-8 col-xs-12 co-m-screenshot">
-    <img src="../img/image.png" />
+    <img src="../../img/image.png" />
     <div class="co-m-screenshot-caption">Choosing a Container Linux channel</div>
   </div>
 </div>
@@ -199,5 +199,5 @@ Note that DigitalOcean is not able to inject a root password into Flatcar Contai
 
 Now that you have a machine booted it is time to play around. Check out the [Flatcar Container Linux Quickstart][quick-start] guide or dig into [more specific topics][docs].
 
-[quick-start]: quickstart
-[docs]: https://docs.flatcar-linux.org/
+[quick-start]: ../
+[docs]: ../../

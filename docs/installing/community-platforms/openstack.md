@@ -15,7 +15,7 @@ These steps will download the Flatcar Container Linux image, uncompress it, and 
 
 ## Choosing a channel
 
-Flatcar Container Linux is designed to be updated automatically with different schedules per channel. You can [disable this feature](update-strategies), although we don't recommend it. Read the [release notes](https://flatcar-linux.org/releases) for specific features and bug fixes.
+Flatcar Container Linux is designed to be updated automatically with different schedules per channel. You can [disable this feature][update-strategies], although we don't recommend it. Read the [release notes][release-notes] for specific features and bug fixes.
 
 <div id="openstack-create">
   <ul class="nav nav-tabs">
@@ -187,6 +187,10 @@ If you would like to create multiple clusters you'll need to generate and use a 
 
 ## Using Flatcar Container Linux
 
-Now that you have instances booted it is time to play around. Check out the [Flatcar Container Linux Quickstart](quickstart) guide or dig into [more specific topics](https://docs.flatcar-linux.org).
+Now that you have a machine booted it is time to play around. Check out the [Flatcar Container Linux Quickstart][quickstart] guide or dig into [more specific topics][doc-index].
 
-[cl-configs]: provisioning
+[update-strategies]: ../../setup/releases/update-strategies
+[release-notes]: https://flatcar-linux.org/releases
+[quickstart]: ../
+[doc-index]: ../../
+[cl-configs]: ../../provisioning/cl-config
