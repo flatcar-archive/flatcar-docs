@@ -14,25 +14,24 @@ account ([GCE free trial][free-trial]).
 
 To start the deployment, go to
 <https://console.cloud.google.com/marketplace/details/kinvolk-public/flatcar-container-linux>
-
-![GCL landing page](./img/gcl-landingpage.png)
-
+![GCL landing page](../img/gcl-landingpage.png)
 Click "Launch".
 
-![GCL launcher config](./img/gcl-launcherconfig.png)
-
+This will bring up a page where you can choose the parameters for your
+Flatcar Container Linux instance:
+![GCL launcher config](../img/gcl-launcherconfig.png)
 You can use the default values already filled in for you, or customize them
 for your needs. When you're happy with the settings, click "Deploy"
 
-![GCL deploying](./img/gcl-deploying.png)
-
+This will start deploying your instance, showing you the progress as the
+resources get assigned.
+![GCL deploying](../img/gcl-deploying.png)
 And that's it! Your new Flatcar Container Linux is deploying.
 
 ## Inspecting your instance
 
 When complete you should see:
-
-![GCL deployed](./img/gcl-deployed.png)
+![GCL deployed](../img/gcl-deployed.png)
 
 Flatcar supports automatic resizing on first boot, the installation will
 use all the available space. So, you can ignore the warning about the image
@@ -53,8 +52,7 @@ username that matches your account.
 ### Using the web UI
 
 The easiest way to launch an SSH client is directly from the web UI
-
-![GCL ssh](./img/gcl-ssh.png)
+![GCL ssh](../img/gcl-ssh.png)
 
 This will connect with your user, which has some basic permissions. You
 will be able to inspect the machine and have a look around.
