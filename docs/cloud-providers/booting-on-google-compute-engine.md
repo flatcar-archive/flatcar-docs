@@ -14,9 +14,6 @@ Before proceeding, you will need a GCE account ([GCE free trial][free-trial]) an
 
 After installation, log into your account with `gcloud auth login` and enter your project ID when prompted.
 
-<!--
-This section is commented out until images have been made public
-
 ## Choosing a channel
 
 Flatcar Container Linux is designed to be updated automatically with different schedules per channel. You can [disable this feature](update-strategies), although we don't recommend it. Read the [release notes](https://flatcar-linux.org/releases) for specific features and bug fixes.
@@ -33,28 +30,27 @@ Create 3 instances from the image above using our Ignition from `example.ign`:
   <div class="tab-content coreos-docs-image-table">
     <div class="tab-pane active" id="stable-create">
       <p>The Stable channel should be used by production clusters. Versions of Flatcar Container Linux are battle-tested within the Beta and Alpha channels before being promoted. The current version is Flatcar Container Linux {{< param stable_channel >}}.</p>
-      <pre>gcloud compute instances create flatcar1 flatcar2 flatcar3 --image-project flatcar-cloud --image-family flatcar-stable --zone us-central1-a --machine-type n1-standard-1 --metadata-from-file user-data=config.ign</pre>
+      <pre>gcloud compute instances create flatcar1 flatcar2 flatcar3 --image-project kinvolk-public --image-family flatcar-stable --zone us-central1-a --machine-type n1-standard-1 --metadata-from-file user-data=config.ign</pre>
     </div>
     <div class="tab-pane" id="beta-create">
       <p>The Beta channel consists of promoted Alpha releases. The current version is Flatcar Container Linux {{< param beta_channel >}}.</p>
-      <pre>gcloud compute instances create flatcar1 flatcar2 flatcar3 --image-project flatcar-cloud --image-family flatcar-beta --zone us-central1-a --machine-type n1-standard-1 --metadata-from-file user-data=config.ign</pre>
+      <pre>gcloud compute instances create flatcar1 flatcar2 flatcar3 --image-project kinvolk-public --image-family flatcar-beta --zone us-central1-a --machine-type n1-standard-1 --metadata-from-file user-data=config.ign</pre>
     </div>
     <div class="tab-pane" id="alpha-create">
       <p>The Alpha channel closely tracks master and is released frequently. The newest versions of system libraries and utilities will be available for testing. The current version is Flatcar Container Linux {{< param alpha_channel >}}.</p>
-      <pre>gcloud compute instances create flatcar1 flatcar2 flatcar3 --image-project flatcar-cloud --image-family flatcar-alpha --zone us-central1-a --machine-type n1-standard-1 --metadata-from-file user-data=config.ign</pre>
+      <pre>gcloud compute instances create flatcar1 flatcar2 flatcar3 --image-project kinvolk-public --image-family flatcar-alpha --zone us-central1-a --machine-type n1-standard-1 --metadata-from-file user-data=config.ign</pre>
     </div>
     <div class="tab-pane" id="edge-create">
       <p>The Edge channel includes bleeding-edge features with the newest versions of the Linux kernel, systemd
       and other core packages. Can be highly unstable. The current version is Flatcar Container Linux {{< param edge_channel >}}.</p>
-      <pre>gcloud compute instances create flatcar1 flatcar2 flatcar3 --image-project flatcar-cloud --image-family flatcar-edge --zone us-central1-a --machine-type n1-standard-1 --metadata-from-file user-data=config.ign</pre>
+      <pre>gcloud compute instances create flatcar1 flatcar2 flatcar3 --image-project kinvolk-public --image-family flatcar-edge --zone us-central1-a --machine-type n1-standard-1 --metadata-from-file user-data=config.ign</pre>
     </div>
   </div>
 </div>
--->
 
 ## Uploading an Image
 
-Official Flatcar Container Linux images are not available on Google Cloud at the moment. However, you can run Flatcar Container Linux today by uploading an image to your account.
+If you prefer, you can also run Flatcar Container Linux by uploading a custom image to your account.
 
 To do so, run the following command:
 
