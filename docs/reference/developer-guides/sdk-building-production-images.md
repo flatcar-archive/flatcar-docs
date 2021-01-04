@@ -20,7 +20,7 @@ In general the automated process should always be used but in a pinch putting to
 * default.xml -> master.xml
 * release.xml -> build-115.xml
 
-[flatcar-manifest]: https://github.com/flatcar-linux/manifest
+[flatcar-manifest]: https://github.com/kinvolk/manifest
 
 ## Tagging releases
 

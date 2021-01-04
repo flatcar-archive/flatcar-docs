@@ -52,7 +52,7 @@ We happily accept accurate translations. Please send the documents as a pull req
 
 
 [asl]: LICENSE
-[flatcar-docs]: https://docs.flatcar-linux.org
-[help-wanted]: https://github.com/flatcar-linux/docs/issues?q=is%3Aopen+label%3Ahelp-wanted
+[flatcar-docs]: https://kinvolk.io/docs/flatcar-container-linux/latest/
+[help-wanted]: https://github.com/kinvolk/docs/issues?q=is%3Aopen+label%3Ahelp-wanted
 [pull-requests]: https://help.github.com/articles/using-pull-requests/
 [style]: STYLE

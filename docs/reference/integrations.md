@@ -5,7 +5,7 @@ aliases:
     - ../os/integrations
 ---
 
-This document tracks projects that integrate with Flatcar Container Linux. [Join the community](https://github.com/coreos/docs/), and help us keep the list current.
+This document tracks projects that integrate with Flatcar Container Linux. Please help us keep the list current by letting us know of other projects that use Flatcar Container Linux.
 
 ## Projects
 

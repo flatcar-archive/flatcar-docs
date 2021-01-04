@@ -1,6 +1,8 @@
 ---
 title: Switching from Docker to containerd for Kubernetes
-weight: 10
+linktitle: Switching to containerd
+description: How to setup containerd to be the default or the only container runtime.
+weight: 20
 aliases:
     - ../os/switching-from-docker-to-containerd-for-kubernetes
 ---

@@ -3,6 +3,7 @@ title: Flatcar Container Linux developer SDK guide
 weight: 10
 aliases:
     - ../../os/sdk-modifying-flatcar
+    - ../../os/sdk-modifying-coreos
 ---
 
 These are the instructions for building Flatcar Container Linux itself. By the end of the guide you will build a developer image that you can run under KVM and have tools for making changes to the code.
@@ -36,7 +37,7 @@ git config --global user.name "Your Name"
 
 ### Using Cork
 
-The `cork` utility, included in the Flatcar Container Linux [mantle](https://github.com/flatcar-linux/mantle) project, is used to create and work with an SDK chroot.
+The `cork` utility, included in the Flatcar Container Linux [mantle](https://github.com/kinvolk/mantle) project, is used to create and work with an SDK chroot.
 
 First, download the cork utility and verify it with the signature:
 
@@ -245,9 +246,9 @@ We've compiled a [list of tips and tricks][sdktips] that can make working with t
 
 [android-repo-git]: https://source.android.com/source/developing.html
 [flatcar-dev]: https://groups.google.com/forum/#!forum/flatcar-linux-dev
-[github-flatcar]: https://github.com/flatcar-linux/
+[github-flatcar]: https://github.com/kinvolk/Flatcar
 [irc]: irc://irc.freenode.org:6667/#flatcar
-[mantle]: https://github.com/flatcar-linux/mantle
+[mantle]: https://github.com/kinvolk/mantle
 [prodimages]: sdk-building-production-images
 [repo-blog]: http://google-opensource.blogspot.com/2008/11/gerrit-and-repo-android-source.html
 [sdktips]: sdk-tips-and-tricks
