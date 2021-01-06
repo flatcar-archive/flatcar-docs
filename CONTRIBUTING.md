@@ -15,6 +15,10 @@ Submit fixes and additions in the form of [GitHub *Pull Requests* (PRs)][pull-re
 
 Cognizance of the tribal customs described and linked to below will help get your contributions incorporated with the greatest of ease.
 
+## Code of Conduct
+
+Please refer to the Kinvolk [Code of Conduct](https://github.com/kinvolk/contribution/blob/master/CODE_OF_CONDUCT.md).
+
 ## Clear commit messages
 
 Commit messages follow a format that makes clear **what** changed and **why** it changed. The first line of each commit message should clearly state what module or file changed, summarize the change very briefly, and should end, without a period, somewhere short of 70 characters. After a blank line, the body of the commit message should then explain why the change was needed, with lines wrapped at 72 characters wide and sentences normally punctuated. Cite related issues or previous revisions as appropriate. For example:
