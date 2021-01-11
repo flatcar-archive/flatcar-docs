@@ -14,7 +14,7 @@ For custom Docker binaries you can consider to use the [Torcx](../provisioning/t
 However, since the Torcx makes certain assumtions about the files being shipped you may find it too limiting (e.g., the wrapper scripts under `/usr/bin/` exist for only a fixed set of binaries).
 In this case you can directly place the custom binaries to `/opt/bin/` as done by the following Container Linux Config which you can transpile to an Ignition config with [`ct`](../provisioning/config-transpiler/).
 
-This replicates the Docker setup as of Flatcar Container Linux 2605.9.0 but under `/etc` and `/opt/bin/`. You can modify it to use different socket paths or plugins, or even only ship `containerd` if you don't need Docker.
+This replicates the Docker setup as of Flatcar Container Linux 2605.10.0 but under `/etc` and `/opt/bin/`, and with additional support for the upstream Containerd socket location. You can modify it to use different socket paths or plugins, or even only ship `containerd` if you don't need Docker.
 
 ```
 systemd:
@@ -96,6 +96,8 @@ systemd:
         [Service]
         Delegate=yes
         Environment=PATH=/opt/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin
+        ExecStartPre=mkdir -p /run/docker/libcontainerd
+        ExecStartPre=ln -fs /run/containerd/containerd.sock /run/docker/libcontainerd/docker-containerd.sock
         ExecStart=/opt/bin/containerd --config /etc/containerd/config.toml
         KillMode=process
         Restart=always
@@ -122,16 +124,15 @@ storage:
           # persistent data location
           root = "/var/lib/containerd"
           # runtime state information
-          state = "/run/docker/libcontainerd/containerd"
+          state = "/run/containerd"
           # set containerd as a subreaper on linux when it is not running as PID 1
           subreaper = true
           # set containerd's OOM score
           oom_score = -999
-          # CRI plugin listens on a TCP port by default
-          disabled_plugins = ["cri"]
+          disabled_plugins = []
           # grpc configuration
           [grpc]
-          address = "/run/docker/libcontainerd/docker-containerd.sock"
+          address = "/run/containerd/containerd.sock"
           # socket uid
           uid = 0
           # socket gid
@@ -144,8 +145,6 @@ storage:
           # do not use a shim when starting containers, saves on memory but
           # live restore is not supported
           no_shim = false
-          # display shim logs in the containerd daemon's log output
-          shim_debug = true
 ```
 
 While the system services have a `PATH` variable that prefers `/opt/bin/` by placing it first, you have to run the following command on every interactive login shell (also after `sudo` or `su`) to make sure you use the correct binaries.
