@@ -154,6 +154,7 @@ You can also rely on SSH key detection which normally works well when booting th
 #### Selecting the architecture to build
 
 `amd64-usr` and `arm64-usr` are the only targets supported by Flatcar.
+When setting up a new build target you can select it as default architecture, otherwise you need to specify the architecture for each step.
 
 ##### 64 bit AMD: The amd64-usr target
 
@@ -162,15 +163,40 @@ The `--board` option can be set to one of a few known target architectures, or s
 To create a root filesystem for the `amd64-usr` target beneath the directory `/build/amd64-usr/`:
 
 ```shell
-./setup_board --default --board=amd64-usr
+./setup_board [--default] --board=amd64-usr
 ```
+
+##### 64 bit ARM: The arm64-usr target
+
+The SDK runs on an amd64 host system, relying on cross-compilation to create arm64 binaries.
+Still, during the compilation phase many build systems perform compiler tests by running a compiled binary or invoke compiled helper binaries.
+This requires the host system to use binary translation for seamlessly running arm64 binaries.
+
+On a Fedora/Debian host system there is a `qemu-user-static` package that sets everything up.
+If you have troubles or use a different host system, check that a statically compiled aarch64 qemu-user binary is referenced with the `:F` flag for pinning it into the kernel so that it is not needed in every chroot:
+
+```shell
+$ cat /usr/lib/binfmt.d/qemu-aarch64-static.conf
+:qemu-aarch64:M::\x7fELF\x02\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x00\xb7\x00:\xff\xff\xff\xff\xff\xff\xff\x00\xff\xff\xff\xff\xff\xff\xff\xff\xfe\xff\xff\xff:/usr/bin/qemu-aarch64-static:F
+$ sudo systemctl restart systemd-binfmt.service
+```
+
+You can run `docker run --rm -ti arm64v8/alpine` on your host system as an easy check to verify everything is ready.
+
+Once in the SDK, create a root filesystem for the `arm64-usr` target beneath the directory `/build/arm64-usr/`:
+
+```shell
+./setup_board [--default] --board=arm64-usr
+```
+
+The SDK will set up the `QEMU_LD_PREFIX` environment variable, allowing to run any binaries under `/build/arm64-usr/`, without an additional `chroot` command.
 
 #### Compile and link system binaries
 
 Build all of the target binary packages:
 
 ```shell
-./build_packages
+./build_packages [--board=...]
 ```
 
 You can make sure that a package is rebuilt with your changes by running emerge manually.
@@ -182,7 +208,7 @@ with `PACKAGE` being either `CATEGORY/PACKAGEFOLDER` or just `PACKAGEFOLDER`.
 Build a production image based on the binary packages built above:
 
 ```shell
-./build_image
+./build_image [--board=...]
 ```
 
 After `build_image` completes, it prints commands for converting the raw bin into a bootable virtual machine. Run the `image_to_vm.sh` command.
