@@ -111,4 +111,4 @@ You can find the full code for working examples in this [git repository][example
 [terraform-ct-provider]: https://registry.terraform.io/providers/poseidon/ct/latest
 [terraform-ignition-provider]: https://www.terraform.io/docs/providers/ignition/index.html
 [boot-process]: ../ignition/boot-process/#reprovisioning
-[example-repo]: https://github.com/pothos/flatcar-terraform-examples
+[example-repo]: https://github.com/kinvolk/flatcar-terraform
