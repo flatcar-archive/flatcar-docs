@@ -83,7 +83,7 @@ iscsiadm -m node --targetname=custom_target --login
 If you want to connect to iSCSI targets automatically at boot you first need to enable the systemd service:
 
 ```shell
-systemctl enable iscsid
+systemctl enable iscsi
 ```
 
 ## Automatic iSCSI configuration
@@ -106,7 +106,7 @@ discovery.sendtargets.auth.password = my_secret_password
 ```yaml
 systemd:
   units:
-    - name: iscsid.service
+    - name: iscsi.service
       enable: true
 storage:
   files:
