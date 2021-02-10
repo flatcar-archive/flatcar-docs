@@ -32,7 +32,7 @@ shutdown -r +1 # reboot into Flatcar
 ## Terraform
 
 The [`hcloud`](https://registry.terraform.io/providers/hetznercloud/hcloud/latest/docs) Terraform Provider allows to deploy machines in a declarative way.
-Read more about using Terraform and Flatcar [here](../../terraform/).
+Read more about using Terraform and Flatcar [here](../../provisioning/terraform/).
 
 The following Terraform v0.13 module may serve as a base for your own setup.
 It will also take care of registering your SSH key at Hetzner.
