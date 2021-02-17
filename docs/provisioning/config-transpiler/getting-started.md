@@ -40,5 +40,5 @@ To see some examples for what else ct can do, head over to the [examples][3].
 
 [1]: ../config-transpiler/configuration
 [2]: https://github.com/kinvolk/ignition/blob/flatcar-master/doc/supported-platforms.md
-[3]: examples
+[3]: ../cl-config/examples
 [4]: https://github.com/kinvolk/container-linux-config-transpiler/releases
