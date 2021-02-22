@@ -266,7 +266,7 @@ Both Ignition and coreos-cloudinit support it but Ignition relies on DHCP in the
 
 ## Logging in
 
-The VGA console will have autologin enabled for releases after 2020/04/28.
+The VGA console has autologin enabled.
 
 Networking can take some time to start under VMware. Once it does, you will see the IP when typing `ip a` or in the VM info that VMware displays.
 
@@ -274,6 +274,29 @@ You can login to the host at that IP using your SSH key, or the password set in 
 
 ```shell
 ssh core@YOURIP
+```
+
+## Disabling autologin
+
+In case you want to disable the autologin on the console, you can use the following directive in your Container Linux Config.
+To take effect it requires an additional reboot.
+
+```yaml
+storage:
+  filesystems:
+    - name: oem
+      mount:
+        device: /dev/disk/by-label/OEM
+        format: ext4
+        label: OEM
+  files:
+    - path: /grub.cfg
+      filesystem: oem
+      mode: 0644
+      contents:
+        inline: |
+          set oem_id="vmware"
+          set linux_append=""
 ```
 
 ## Using Flatcar Container Linux
