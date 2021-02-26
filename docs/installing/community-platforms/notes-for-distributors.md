@@ -58,7 +58,7 @@ Providers that previously supported cloud-config should continue to do so, as no
 
 Flatcar Container Linux will automatically parse and execute `/usr/share/oem/cloud-config.yml` if it exists.
 
-[ignition-blog]: https://coreos.com/blog/introducing-ignition.html
+[ignition-blog]: https://www.toddpigram.com/2016/04/introducing-ignition-new-coreos-machine.html
 
 ## Handling end-user Ignition files
 
