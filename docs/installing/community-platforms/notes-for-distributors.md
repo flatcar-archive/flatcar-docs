@@ -52,13 +52,11 @@ Additionally, it is recommended that providers ensure that [coreos-metadata][cor
 
 ### Cloud config
 
-A Flatcar Container Linux image can also be customized using [cloud-config](https://github.com/kinvolk/coreos-cloudinit/blob/master/Documentation/cloud-config.md). Users are recommended to instead use Container Linux Configs (that are converted into Ignition configs with [ct][ct]), for reasons [outlined in the blog post that introduced Ignition][ignition-blog].
+A Flatcar Container Linux image can also be customized using [cloud-config](https://github.com/kinvolk/coreos-cloudinit/blob/master/Documentation/cloud-config.md). Users are recommended to instead use Container Linux Configs (that are converted into Ignition configs with [ct][ct]), for reasons [outlined in the blog post that introduced Ignition](https://www.toddpigram.com/2016/04/introducing-ignition-new-coreos-machine.html).
 
 Providers that previously supported cloud-config should continue to do so, as not all users have switched over to Container Linux Configs. New platforms do not need to support cloud-config.
 
 Flatcar Container Linux will automatically parse and execute `/usr/share/oem/cloud-config.yml` if it exists.
-
-[ignition-blog]: https://coreos.com/blog/introducing-ignition.html
 
 ## Handling end-user Ignition files
 
