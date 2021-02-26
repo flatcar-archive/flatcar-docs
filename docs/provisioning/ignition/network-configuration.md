@@ -41,6 +41,7 @@ When the system boots, networkd will read this config and assign the IP address 
 
 Because Ignition writes network configuration to disk for networkd to use later, statically-configured interfaces will be brought online only after Ignition has run. If static IP configuration is required to download remote configs before Ignition has run, use one of the following two forms of supported kernel command-line arguments.
 
+##### Single-Interface Format
 This format can configure a static IP address on the named interface, or on all interfaces when unspecified.
 
 * `ip=` to specify the IP address, for example `ip=10.0.2.42`
@@ -48,6 +49,7 @@ This format can configure a static IP address on the named interface, or on all 
 * `gateway=` to specify the gateway address, for example `gateway=10.0.2.2`
 * `ksdevice=` (optional) to limit configuration to the named interface, for example `ksdevice=eth0`
 
+##### Multi-Interface Format
 This format can be specified multiple times to apply unique static configuration to different interfaces. Omitting the `<iface>` parameter will apply the configuration to all interfaces that have not yet been configured.
 
 * `ip=<ip>::<gateway>:<netmask>:<hostname>:<iface>:none[:<dns1>[:<dns2>]]`, for example `ip=10.0.2.42::10.0.2.2:255.255.255.0::eth0:none:8.8.8.8:8.8.4.4`
