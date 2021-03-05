@@ -37,30 +37,7 @@ Get a tree view of the SDK dependencies:
 emerge --emptytree -p -v --tree coreos-base/hard-host-depends coreos-devel/sdk-depends
 ```
 
-## Add new upstream package
-
-An overview on contributing new packages to Flatcar Container Linux:
-
-- create a git branch for the work
-- fetch the the target package(s) from upstream (Gentoo)
-- make any necessary changes for Flatcar Container Linux
-- add the package(s) as a dependency of `coreos-base/coreos`
-- build the package(s) and test
-- commit changes to git
-- push the branch to your GitHub account and create a pull request
-
-See [CONTRIBUTING] for guidelines before you push.
-
-The following Flatcar Container Linux repositories are used:
-
-- Packages that will work unmodified are versioned in ```src/third_party/portage-stable```
-- Packages with Container-Linux-specific changes are versioned in ```src/third_party/coreos-overlay```
-
-Use `repo start` to create a work branch before making any changes.
-
-```shell
-~/trunk/src/scripts $ repo start my_package_update --all
-```
+### Import ebuilds from Gentoo
 
 You can use `scripts/update_ebuilds` to fetch unmodified packages into `src/third_party/portage-stable` and add the files to git. The package argument should be in the format of `category/package-name`, e.g.:
 
@@ -120,6 +97,19 @@ References:
 [Gentoo Development Guide]: http://devmanual.gentoo.org/
 [Package Manager Specification]: https://wiki.gentoo.org/wiki/Package_Manager_Specification
 
+
+#### Set a password for the core user (when building your own images)
+
+Your SSH keys should be detected and added automatically by the image build process. Optionally, you can set a password for the `core` user which you can use later for ssh authentication, should SSH pubkey authentication not work for you.
+
+After entering the chroot via `cork` for the first time, you can set user `core`'s password:
+
+```shell
+$ ./set_shared_user_password.sh
+```
+
+This is the password you will use to log into the console of images built with the SDK.
+
 ## Creating SDK with different options
 
 To create SDK from a non-default manifest branch, for example, `new-sdk`:
@@ -132,6 +122,21 @@ To create SDK with a non-default SDK version, for example, `2229.0.0`:
 
 ```shell
 ~/flatcar-sdk $ cork create --sdk-version=2229.0.0
+```
+
+### Use the latest nightly build SDK / Flatcar packages from the "main" branch
+
+Get the latest nightly tag from [https://github.com/flatcar-linux/manifest-builds/tags](https://github.com/flatcar-linux/manifest-builds/tags). The tags are in the format `dev-main-nightly-[ID]`. Then create the SDK with `cork`:
+```shell
+$ cork create --manifest-branch refs/tags/dev-main-nightly-[ID] \
+     --manifest-url http://github.com/flatcar-linux/manifest-builds.git \
+     --sdk-url-path /flatcar-jenkins/developer/sdk
+```
+and run the following to set yourself up with the latest nightly, including the corresponding binary package cache (so you don't need to rebuild everything on your own):
+```shell
+$ cork enter
+$ ./set_version --dev-board --board-version amd64-usr/BRANCH-nightly --dev-sdk --sdk-version sdk-main-nightly
+$ ./update_chroot --toolchain_boards=amd64-usr --dev_builds_sdk=https://storage.googleapis.com/flatcar-jenkins/developer/sdk
 ```
 
 ## Caching git https passwords
