@@ -126,26 +126,25 @@ To create SDK with a non-default SDK version, for example, `2229.0.0`:
 
 ### Use the nightly build SDK / Flatcar packages for the development branches
 
-Get the latest nightly tag from [https://github.com/flatcar-linux/manifest-builds/tags](https://github.com/flatcar-linux/manifest-builds/tags). The tags are in the format `dev-main-nightly-[ID]`. Then create the SDK with `cork`:
+While the most recent Alpha release should be a good base for the majority of changes (like package additions and kernel updates), sometimes more daring users might want to use work-in-progress branches of upcoming releases. Please note that while we run nightly builds and a limited set of automated tests on these branches, neither functionality nor stability are guaranteed.
+
+In general, there are two "flavours" of nightlies:
+1. Nightly builds of the maintenance branches of existing releases. These cover the most recent Alpha, Beta, and Stable release versions and contain changed to be released with the next patch-level update.
+2. Nightly builds of the "main" branch - aka "Alpha-next". This branch contains major changes for the next upcoming Alpha major release.
+
+For maintenance branches, use
+
 ```shell
-# for main:
-$ cork create
-# for the maintenance branch of a major version:
 $ cork create --manifest-branch flatcar-CHANNEL-x.y.z --manifest-name maintenance.xml
 $ cork enter
-# setup the nightly binary package cache for the main branch:
-$  ./set_version --dev-board --board-version amd64-usr/main-nightly --dev-sdk --sdk-version sdk-main-nightly
-# setup the nightly binary package cache for a maintenance branch of a major version:
 $  ./set_version --dev-board --board-version amd64-usr/flatcar-MAJOR-nightly --no-dev-sdk --sdk-version MAJOR.0.0
-
-     --manifest-url http://github.com/flatcar-linux/manifest-builds.git \
-     --sdk-url-path /flatcar-jenkins/developer/sdk
 ```
-and run the following to set yourself up with the latest nightly, including the corresponding binary package cache (so you don't need to rebuild everything on your own):
+
+For the main branch, use
 ```shell
+$ cork create
 $ cork enter
-$ ./set_version --dev-board --board-version amd64-usr/BRANCH-nightly --dev-sdk --sdk-version sdk-main-nightly
-$ `./set_version --dev-board --board-version amd64-usr/main-nightly --dev-sdk --sdk-version sdk-main-nightly`
+$  ./set_version --dev-board --board-version amd64-usr/main-nightly --dev-sdk --sdk-version sdk-main-nightly
 ```
 
 ## Caching git https passwords
