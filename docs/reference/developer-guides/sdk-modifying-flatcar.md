@@ -132,7 +132,7 @@ $ rm -rf chroot
 $ cork create ...   # same options as above, but it will use the cached SDK (i.e. not download again)
 ```
 
-As discussed above you most probably want to base your work on the latest Alpha release. Technically, you could use any release - for instance, if you want to fix a bug in Beta or Stable - by using the appropriate `--manifest-branch` option. Basing your work on the development branches for filing PRs to `main` or the `flatcar-MAJOR` maintenance branches is not covered here. For the given release manifest the SDK checks out the right git branches with matching ebuild files and you should not change them unless you follow the instructions on setting up the nightly binary package URLs.
+As discussed above you most probably want to base your work on the latest Alpha release. Technically, you could use any release - for instance, if you want to fix a bug in Beta or Stable - by using the appropriate `--manifest-branch` option. Basing your work on the development branches for filing PRs to `main` or the `flatcar-MAJOR` maintenance branches is not covered here but under [the section for using nightly packages][sdktips]. For the given release manifest the SDK checks out the right git branches with matching ebuild files and you should not change them unless you follow the instructions on setting up the nightly binary package URLs.
 ```shell
 $ cork create --verbose --manifest-branch flatcar-stable-2765.2.0
 ```
