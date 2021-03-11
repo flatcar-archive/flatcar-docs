@@ -124,11 +124,20 @@ To create SDK with a non-default SDK version, for example, `2229.0.0`:
 ~/flatcar-sdk $ cork create --sdk-version=2229.0.0
 ```
 
-### Use the latest nightly build SDK / Flatcar packages from the "main" branch
+### Use the nightly build SDK / Flatcar packages for the development branches
 
 Get the latest nightly tag from [https://github.com/flatcar-linux/manifest-builds/tags](https://github.com/flatcar-linux/manifest-builds/tags). The tags are in the format `dev-main-nightly-[ID]`. Then create the SDK with `cork`:
 ```shell
-$ cork create --manifest-branch refs/tags/dev-main-nightly-[ID] \
+# for main:
+$ cork create
+# for the maintenance branch of a major version:
+$ cork create --manifest-branch flatcar-CHANNEL-x.y.z --manifest-name maintenance.xml
+$ cork enter
+# setup the nightly binary package cache for the main branch:
+$  ./set_version --dev-board --board-version amd64-usr/main-nightly --dev-sdk --sdk-version sdk-main-nightly
+# setup the nightly binary package cache for a maintenance branch of a major version:
+$  ./set_version --dev-board --board-version amd64-usr/flatcar-MAJOR-nightly --no-dev-sdk --sdk-version MAJOR.0.0
+
      --manifest-url http://github.com/flatcar-linux/manifest-builds.git \
      --sdk-url-path /flatcar-jenkins/developer/sdk
 ```
@@ -136,7 +145,7 @@ and run the following to set yourself up with the latest nightly, including the 
 ```shell
 $ cork enter
 $ ./set_version --dev-board --board-version amd64-usr/BRANCH-nightly --dev-sdk --sdk-version sdk-main-nightly
-$ ./update_chroot --toolchain_boards=amd64-usr --dev_builds_sdk=https://storage.googleapis.com/flatcar-jenkins/developer/sdk
+$ `./set_version --dev-board --board-version amd64-usr/main-nightly --dev-sdk --sdk-version sdk-main-nightly`
 ```
 
 ## Caching git https passwords

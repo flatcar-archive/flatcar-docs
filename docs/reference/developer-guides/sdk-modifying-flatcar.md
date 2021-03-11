@@ -132,9 +132,9 @@ $ rm -rf chroot
 $ cork create ...   # same options as above, but it will use the cached SDK (i.e. not download again)
 ```
 
-As discussed above you most probably want to base your work on the latest Alpah release. Technically, you could use any release - for instance, if you want to fix a bug in Beta or Stable - by using the appropriate `--manifest-branch` option. For releases other than Aplha, you would additionally want to set the `--manifest-name` parameter to `maintenance.xml`, e.g.
+As discussed above you most probably want to base your work on the latest Alpha release. Technically, you could use any release - for instance, if you want to fix a bug in Beta or Stable - by using the appropriate `--manifest-branch` option. Basing your work on the development branches for filing PRs to `main` or the `flatcar-MAJOR` maintenance branches is not covered here. For the given release manifest the SDK checks out the right git branches with matching ebuild files and you should not change them unless you follow the instructions on setting up the nightly binary package URLs.
 ```shell
-$ cork create --verbose --manifest-branch flatcar-stable-2765.2.0  --manifest-name maintenance.xml
+$ cork create --verbose --manifest-branch flatcar-stable-2765.2.0
 ```
 to base your work on the Stable 2765.2.0 release published on March 3rd, 2021.
 
@@ -160,7 +160,7 @@ To use the SDK chroot in the future, run `cork enter` from the directory you ins
 
 ### A brief introduction to Gentoo
 
-Flatcar Container Linux is based on ChromionOS, which is based on Gentoo. While the ChromiumOS heritage has faded and is barely visible nowadays, we heavily leverage Gentoo processes and tools.
+Flatcar Container Linux is based on ChromiumOS, which is based on Gentoo. While the ChromiumOS heritage has faded and is barely visible nowadays, we heavily leverage Gentoo processes and tools.
 
 Contrary to traditional Linux distributions, Gentoo applications and “packages” are compiled at installation time. Gentoo itself does not ship packages - instead, it consists of a massive number of ebuild files to build applications at installation time (that’s an oversimplification as there are binary package caches, but that’s beyond the scope of this document).
 
@@ -185,7 +185,7 @@ The SDK chroot you just entered is self-sustained and has all necessary "host" b
 
 In other words, you'll be dealing with two levels of chroot:
 * The top-level SDK chroot, activated by `cork enter`, consisting of the build chroot with ebuild file sources (`src/` in the SDK directory) mounted in
-* The image chroot, in `/]build/>arch>` in the SDK
+* The image chroot, in `/build/<arch>` in the SDK
 
 Both chroots use Gentoo's portage to manage the packages: `sudo emerge` is used to manage SDK packages, and `emerge-<arch>` (`emerge-amd64-usr` or `emerge-arm64-usr`, without sudo) is used to do the same for the OS image roots.
 
