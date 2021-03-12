@@ -1,5 +1,5 @@
 ---
-title: Developer guide to building customised Flatcar images
+title: Guide to building customised Flatcar images
 weight: 10
 aliases:
     - ../../os/sdk-modifying-flatcar
@@ -408,7 +408,7 @@ $ ./build_image --board=amd64-usr
 
 Next, we’ll look into changing the kernel configuration - e.g. for adding a kernel module or a core kernel feature not shipped with stock Flatcar. This will give you a low level deep dive into the Gentoo build system.
 
-Our first step is to set you all up with a pre-configured stock Flatcar Linux kernel to base your modifications on. The Flatcar Linux kernel build is split over multiple gentoo ebuild files which all reside in <code>[coreos-overlay/sys-kernel/](https://github.com/kinvolk/coreos-overlay/tree/main/sys-kernel):
+Our first step is to set you all up with a pre-configured stock Flatcar Linux kernel to base your modifications on. The Flatcar Linux kernel build is split over multiple gentoo ebuild files which all reside in <code>[coreos-overlay/sys-kernel/](https://github.com/kinvolk/coreos-overlay/tree/main/sys-kernel)</code>:
 
 *   `coreos-sources/` for pulling the kernel sources from git.kernel.org
 *   `coreos-kernel/` for building the main kernel (vmlinuz)
@@ -499,7 +499,7 @@ $ emerge-amd64-usr sys-kernel/coreos-modules
 $ ./build_image --board=amd64-usr
 $ ./image_to_vm.sh --from=../build/images/amd64-usr/latest --board=amd64-usr --format qemu
 $ ../build/images/amd64-usr/latest/flatcar_production_qemu.sh
-$ ssh core@localhost -p 2222`
+$ ssh core@localhost -p 2222
 ```
 
 ## Tips and tricks
