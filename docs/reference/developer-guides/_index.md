@@ -11,6 +11,7 @@ Most users will never have to build Flatcar Container Linux from source or modif
 * [Building production images][production-images]
 * [Building custom kernel modules][kernel-modules]
 * [SDK tips and tricks][sdk-tips]
+* [SDK build process][sdk-bootstrapping]
 * [Disk layout][disk-layout]
 * [Kola integration testing framework][mantle-utils]
 
@@ -19,4 +20,5 @@ Most users will never have to build Flatcar Container Linux from source or modif
 [production-images]: sdk-building-production-images
 [mod-cl]: sdk-modifying-flatcar
 [kernel-modules]: kernel-modules
+[sdk-bootstrapping]: sdk-bootstrapping
 [mantle-utils]: https://github.com/kinvolk/mantle/blob/master/README.md#kola
