@@ -129,7 +129,7 @@ To create SDK with a non-default SDK version, for example, `2229.0.0`:
 While the most recent Alpha release should be a good base for the majority of changes (like package additions and kernel updates), sometimes more daring users might want to use work-in-progress branches of upcoming releases. Please note that while we run nightly builds and a limited set of automated tests on these branches, neither functionality nor stability are guaranteed.
 
 In general, there are two "flavours" of nightlies:
-1. Nightly builds of the maintenance branches of existing releases. These cover the most recent Alpha, Beta, and Stable release versions and contain changed to be released with the next patch-level update.
+1. Nightly builds of the maintenance branches of existing releases ("flatcar-MAJOR"). These cover the most recent Alpha, Beta, and Stable release versions and contain changed to be released with the next patch-level update.
 2. Nightly builds of the "main" branch - aka "Alpha-next". This branch contains major changes for the next upcoming Alpha major release.
 
 For maintenance branches, use
