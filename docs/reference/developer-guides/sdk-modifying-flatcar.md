@@ -265,13 +265,13 @@ To create a qemu image for local testing, run
 $ ./image_to_vm.sh --format=qemu --from=../build/images/arm64-usr/developer-latest [--board=...]
 ```
 
-In general, `image_to_vm.sh` will read the generic disk image, install any vendor specific tools to the OEM partition where applicable (e.g. Azure VM tools for the Azure VM), and produce a vendor specific image. In the case of QEMU, a qcow2 image is produced. QEmu does not require vendor specific tooling in the OEM partition.
+In general, `image_to_vm.sh` will read the generic disk image, install any vendor specific tools to the OEM partition where applicable (e.g. Azure VM tools for the Azure VM), and produce a vendor specific image. In the case of QEMU, a qcow2 image is produced. QEMU does not require vendor specific tooling in the OEM partition.
 
 ### Booting
 
 `image_to_vm.sh` for the qemu format the will also generate a wrapper script to launch a Flatcar VM with qemu. You can boot the VM with
 ```shell
-$ ../build/images/arm64-usr/developer-latest/flatcar_production_qemu.sh`
+$ ../build/images/arm64-usr/developer-latest/flatcar_production_qemu.sh
 ```
 
 After the VM is running you should be able to SSH into Flatcar (using port 2222):
