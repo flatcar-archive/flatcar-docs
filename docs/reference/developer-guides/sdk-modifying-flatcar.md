@@ -350,7 +350,7 @@ Lastly, the SDK might lack unmasks if the respective architecture is masked in t
 ```
 The keywords and unmasks can be added automatically to your local SDK by running
 ```shell
-$  emerge-amd64-usr --newuse <group>/<package> --autounmask-write --ask
+$  emerge-amd64-usr --newuse <group>/<package> --autounmask=y --autounmask-write --ask
 ```
 
 which will print the changes and prompt you before writing them. Run `emerge-amd64-usr --newuse <group>/<package>` again to proceed.
