@@ -28,13 +28,13 @@ Note: this could take some time.
 Get a view into what the base system will contain and why it will contain those things with the emerge tree view:
 
 ```shell
-emerge-amd64-usr --emptytree -p -v --tree coreos-base/coreos-dev
+equery-amd64-usr depgraph --depth 1 coreos-base/coreos-dev
 ```
 
 Get a tree view of the SDK dependencies:
 
 ```shell
-emerge --emptytree -p -v --tree coreos-base/hard-host-depends coreos-devel/sdk-depends
+equery depgraph --depth 1 coreos-base/hard-host-depends coreos-devel/sdk-depends
 ```
 
 ### Import ebuilds from Gentoo
