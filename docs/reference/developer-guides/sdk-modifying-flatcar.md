@@ -93,7 +93,7 @@ You may want to add the `PATH` export to your shell profile (e.g. `.bashrc`).
 If you want to build cork from sources instead of using an official release, you'll need golang installed as mantle is written in go.
 
 ```shell
-$ git clone git@github.com:flatcar-linux/mantle.git
+$ git clone git@github.com:kinvolk/mantle.git
 $ cd mantle
 $ ./build cork
 ```
@@ -181,7 +181,7 @@ It is one of the three repositories that define a Flatcar build:
 2. `~/trunk/src/third_party/portage-stable` contains ebuild files of all packages close to (or identical to) Gentoo upstream.
 3. `~/trunk/src/third_party/coreos-overlay` contains Flatcar specific packages like ignition and mayday, as well as Gentoo packages which were significantly modified for Flatcar.
 
-The SDK chroot you just entered is self-sustained and has all necessary "host" binaries installed to build Flatcar packages. Flatcar OS image packages are "cross-compiled" (even when host machine equals target machine, e.g. buidling an x86 image on an x86 host). The OS image packages have their own root within the SDK - `/build/amd64-usr/` for x86_64 and `/build/arm64-usr` for ARM64, depending on which _board_ you initialised (see below).
+The SDK chroot you just entered is self-sustained and has all necessary "host" binaries installed to build Flatcar packages. Flatcar OS image packages are "cross-compiled" (even when host machine equals target machine, e.g. building an x86 image on an x86 host). The OS image packages have their own root within the SDK - `/build/amd64-usr/` for x86_64 and `/build/arm64-usr/` for ARM64, depending on which _board_ you initialised (see below).
 
 In other words, you'll be dealing with two levels of chroot:
 * The top-level SDK chroot, activated by `cork enter`, consisting of the build chroot with ebuild file sources (`src/` in the SDK directory) mounted in
@@ -279,7 +279,7 @@ After the VM is running you should be able to SSH into Flatcar (using port 2222)
 $ ssh core@localhost -p 2222
 ```
 
-You should be able to log in either with your SSH public key (i.e. automatically) or - optionally - with the password you set above.
+You should be able to log in either with your SSH public key (i.e. automatically).
 
 If you encounter errors with KVM, verify that virtualization is supported by your CPU by running `egrep '(vmx|svm)' /proc/cpuinfo`. The `/dev/kvm` directory will be in your host OS when virtualization is enabled in the BIOS.
 
@@ -290,9 +290,6 @@ After `image_to_vm.sh` completes, run `./flatcar_production_qemu.sh -curses` to 
 You could instead use the `-nographic` option, `./flatcar_production_qemu.sh -nographic`, which gives you the ability to switch from the VM to the QEMU monitor console by pressing <kbd>CTRL</kbd>+<kbd>a</kbd> and then <kbd>c</kbd>. To close the Flatcar Container Linux Guest OS VM, run `sudo systemctl poweroff` inside the VM.
 
 You can log in via SSH keys or with a different ssh port by running this example `./flatcar_production_qemu.sh -a ~/.ssh/authorized_keys -p 2223 -- -curses`. Refer to the [Booting with QEMU](booting-with-qemu#SSH-keys) guide for more information on this usage.
-
-The default login username is `core` and the [password is the one set in the `./set_shared_user_password`](sdk-modifying-flatcar#Building-an-image) step of this guide. If you forget your password, you will need to rerun `./set_shared_user_password` and then `./build_image` again.
-
 
 ## Making changes
 
@@ -480,7 +477,8 @@ These packages can now be picked up by the image builder script. Let’s build a
 ```shell
 $ ./build_image --board=amd64-usr
 $ ./image_to_vm.sh --from=../build/images/amd64-usr/latest --board=amd64-usr --format qemu
-$ ../build/images/amd64-usr/latest/flatcar_production_qemu.sh $ ssh core@localhost -p 2222
+$ ../build/images/amd64-usr/latest/flatcar_production_qemu.sh
+$ ssh core@localhost -p 2222
 ```
 
 After we’ve verified that our modifications work as expected, let’s persist the changes into the ebuild file - in `sys-kernel/coreos-modules` (as previously mentioned).
