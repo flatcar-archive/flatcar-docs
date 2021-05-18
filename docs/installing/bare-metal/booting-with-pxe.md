@@ -164,7 +164,7 @@ Since our upgrade process requires a disk, this image does not have the option t
 
 ## Installation
 
-Once booted it is possible to [install Flatcar Container Linux on a local disk][install-to-disk] or to just use local storage for the writable root filesystem while continuing to boot Flatcar Container Linux itself via PXE.
+Once booted it is possible to [install Flatcar Container Linux on a local disk][installing-to-disk] or to just use local storage for the writable root filesystem while continuing to boot Flatcar Container Linux itself via PXE.
 
 If you plan on using Docker we recommend using a local ext4 filesystem with overlayfs, however, btrfs is also available to use if needed.
 
