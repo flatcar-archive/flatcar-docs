@@ -145,7 +145,7 @@ Now that you have a machine booted it is time to play around. Check out the [Fla
 [update-strategies]: ../../setup/releases/update-strategies
 [release-notes]: https://flatcar-linux.org/releases
 [pxe-installation]: booting-with-pxe#installation
-[pxe-oem]: booting-with-pxe#adding-a-custom-oem
+[pxe-custom-oem]: booting-with-pxe#adding-a-custom-oem
 [quickstart]: ../
 [doc-index]: ../../
 
