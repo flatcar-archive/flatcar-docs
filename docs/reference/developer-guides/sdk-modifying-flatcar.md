@@ -269,9 +269,9 @@ In general, `image_to_vm.sh` will read the generic disk image, install any vendo
 
 ### Booting
 
-`image_to_vm.sh` for the qemu format the will also generate a wrapper script to launch a Flatcar VM with qemu. You can boot the VM with
+`image_to_vm.sh` will also generate a wrapper script to launch a Flatcar VM with qemu. In a new terminal, without entering the SDK, you can boot the VM with:
 ```shell
-$ ../build/images/arm64-usr/developer-latest/flatcar_production_qemu.sh
+$ src/build/images/arm64-usr/developer-latest/flatcar_production_qemu.sh
 ```
 
 After the VM is running you should be able to SSH into Flatcar (using port 2222):
