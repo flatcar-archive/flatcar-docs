@@ -21,4 +21,4 @@ Most users will never have to build Flatcar Container Linux from source or modif
 [mod-cl]: sdk-modifying-flatcar
 [kernel-modules]: kernel-modules
 [sdk-bootstrapping]: sdk-bootstrapping
-[mantle-utils]: https://github.com/kinvolk/mantle/blob/master/README.md#kola
+[mantle-utils]: https://github.com/kinvolk/mantle/blob/flatcar-master/README.md#kola
