@@ -110,6 +110,8 @@ $ mkdir flatcar-sdk
 $ cd flatcar-sdk
 ```
 
+**NOTE** if you are considering installing the SDK to `/tmp` or any directory mounted with `nodev`, then the SDK will not be properly installed. You must remount the directory without `nodev` specified. Errors such as `permission denied` upon `cork install` otherwise will be seen and it will prevent you from getting the SDK up and running.
+
 Before we download and install the SDK, we need to pick a release. Generally it is recommended that people base their work on the latest Alpha release (both SDK and OS image). This guarantees a sane, known-good base to get started with - as Alpha releases are required to pass the full range of release tests - while at the same time staying reasonably current for, e.g., filing a PR later.
 
 Get a list of all Alpha releases:
