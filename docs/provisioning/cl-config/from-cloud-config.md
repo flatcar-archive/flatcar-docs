@@ -5,6 +5,7 @@ weight: 40
 aliases:
     - ../../os/migrating-to-clcs
     - ../../reference/migrating-to-clcs
+    - migrating-to-clcs
 ---
 
 Flatcar Container Linux started as a fork of CoreOS Container Linux. Historically, the recommended way to provision a CoreOS Container Linux machine was with a cloud-config. This was a YAML file specifying things like systemd units to run, users that should exist, and files that should be written. This file would be given to a CoreOS Container Linux machine, and saved on disk. Then a utility called coreos-cloudinit running in a systemd unit would read this file, look at the system state, and make necessary changes on every boot.
