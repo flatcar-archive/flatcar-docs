@@ -147,7 +147,7 @@ Now that the basics of Container Linux Configs have been covered, a good next st
 [locksmith]: https://github.com/kinvolk/locksmith
 [matchbox]: https://github.com/coreos/matchbox
 [metadata]: ../ignition/metadata
-[migrating]: migrating-to-clcs
+[migrating]: from-cloud-config
 [rkt]: https://github.com/rkt/rkt
 [troubleshooting]: https://github.com/kinvolk/ignition/blob/master/doc/getting-started.md#troubleshooting
 [vs]: ../ignition/what-is-ignition#ignition-vs-coreos-cloudinit
