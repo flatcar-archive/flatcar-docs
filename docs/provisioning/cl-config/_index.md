@@ -19,7 +19,7 @@ The following examples demonstrate the simplicity of the Container Linux Config 
 This extremely simple Container Linux Config will fetch and run the current release of etcd:
 
 ```yaml
-etcd:
+etcd: {}
 ```
 
 Extend the definition to specify the version of etcd to run. The following example will provision a new Flatcar Container Linux machine to fetch and run the etcd service, version 3.1.6:
