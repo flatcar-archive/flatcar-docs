@@ -63,4 +63,21 @@ or adding a `docker.service` drop-in at `/etc/systemd/system/docker.service.d/10
 [Service]
 Environment="DOCKER_CGROUPS=--exec-opt native.cgroupdriver=systemd"
 ```
+
+# Kubernetes Container Runtimes
+
+When deploying Kubernetes through `kubeadm`, the default container runtime on Flatcar will be `dockershim`. In this setup, `kubelet` talks to `dockershim`, which talks to `docker`, which interfaces with `containerd`. The `SystemdCgroup` setting in `containerd`'s `config.toml` is ignored. `docker`'s cgroup driver and `kubelet` cgroup driver settings must match. Starting with Kubernetes v1.22, `kubeadm` will default to the `systemd` `cgroupDriver` setting if no setting is provided explicitly. Out of the box, Flatcar defaults are compatible with Docker and Kubernetes defaults - everything will use `systemd` cgroup driver.
+
+If users choose the `containerd` runtime, they must ensure that `containerd`'s support for `SystemdCgroups` is enabled. To do that, follow the instructions on
+[how to customize containerd configuration](customizing-docker) and add the following to `config.toml`:
+```toml
+[plugins.cri.containerd.runtimes.runc]
+  [plugins.cri.containerd.runtimes.runc.options]
+    SystemdCgroup = true
+ ```
+ Ensure `kubelet` uses the `systemd` cgroup driver.
+ 
+For a more detailed discussion of container runtimes, see the [Kubernetes documentation][kube-runtime-docs].
+
 [kube-cgroup-docs]: https://kubernetes.io/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/#migrating-to-the-systemd-driver
+[kube-runtime-docs]: https://kubernetes.io/docs/setup/production-environment/container-runtimes/
