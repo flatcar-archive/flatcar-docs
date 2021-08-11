@@ -19,7 +19,7 @@ migrate such nodes to cgroup v2, either remove the line or change it to
 `systemd.unified_cgroup_hierarchy=1`.
 
 Newly deployed nodes will default to cgroup v2.  To revert to cgroup v1 on such
-nodes, use the following ignition snippet:
+nodes, use the following Ignition snippet (here as CLC YAML to be transpiled to Ignition JSON):
 
 ```yaml
 storage:
@@ -38,7 +38,7 @@ storage:
           set linux_append="$linux_append systemd.unified_cgroup_hierarchy=0"
 ```
 
-A reboot is required before the snippet becomes active.
+However, this setting doesn't take effect on the first boot, and a reboot is required before the snippet becomes active.
 
 Beware that over time it is expected that upstream projects will drop support for cgroup v1.
 
