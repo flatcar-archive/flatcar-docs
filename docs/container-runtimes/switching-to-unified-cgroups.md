@@ -25,7 +25,7 @@ Flatcar version, a post update script does two things:
 To undo the changes performed by the post update script, execute the following commands as root (or using `sudo`):
 
 ```bash
-rm /etc/system/system/containerd.service.d/10-use-cgroupfs.conf
+rm /etc/systemd/system/containerd.service.d/10-use-cgroupfs.conf
 sed -i -e '/systemd.unified_cgroup_hierarchy=0/d' /usr/share/oem/grub.cfg
 sed -i -e '/systemd.legacy_systemd_cgroup_controller/d' /usr/share/oem/grub.cfg
 reboot
@@ -104,8 +104,9 @@ cgroupDriver: systemd
 
 ## Containerd
 
-If users choose the `containerd` runtime, they must ensure that `containerd`'s setting for `SystemdCgroup` is consistent with `kubelet` and `docker` settings. Flatcar enables `SystemdCgroup` by default for `containerd`. Users may change the setting to suit their deployment. To do that, follow the instructions on
-[how to customize containerd configuration](customizing-docker) and add the relevant lines to your `config.toml`:
+If users choose the `containerd` runtime, they must ensure that `containerd`'s setting for `SystemdCgroup` is consistent with `kubelet` and `docker` settings. Flatcar enables `SystemdCgroup` by default for `containerd`. Users may change the setting to suit their deployment.
+If you maintain your own containerd configuration or did follow the instructions on
+[how to customize containerd configuration](customizing-docker), you should add the relevant lines to your `config.toml`:
 ```toml
 # for version = 2 config files
 [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
