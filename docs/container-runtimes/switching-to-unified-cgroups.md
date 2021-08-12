@@ -27,6 +27,7 @@ To undo the changes performed by the post update script, execute the following c
 ```bash
 rm /etc/system/system/containerd.service.d/10-use-cgroupfs.conf
 sed -i -e '/systemd.unified_cgroup_hierarchy=0/d' /usr/share/oem/grub.cfg
+sed -i -e '/systemd.legacy_systemd_cgroup_controller/d' /usr/share/oem/grub.cfg
 reboot
 ```
 
