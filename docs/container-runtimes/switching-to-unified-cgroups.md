@@ -6,19 +6,19 @@ weight: 20
 aliases:
 ---
 
-With the upgrade to Systemd v248, Flatcar Linux has migrated to the unified
+Beginning with Flatcar version 2970.0.0, Flatcar Linux has migrated to the unified
 cgroup hierarchy (aka cgroup v2). Much of the container ecosystem has already
-moved to default to cgroup v2. Cgroup v2 brings new and exciting features in
+moved to default to cgroup v2. Cgroup v2 brings exciting new features in
 areas such as eBPF and rootless containers.
 
-Flatcar nodes deployed prior to this change will be kept on cgroup v1 (legacy
+Flatcar nodes deployed prior to this change will be kept on cgroups v1 (legacy
 hierarchy) and will require manual migration. During an update from an older
 Flatcar version, a post update script does two things:
 
 * adds the kernel command line parameters `systemd.unified_cgroup_hierarchy=0 systemd.legacy_systemd_cgroup_controller`
   to `/usr/share/oem/grub.cfg`
 * creates a systemd drop-in unit at `/etc/systemd/system/containerd.service.d/10-use-cgroupfs.conf` that
-  configures `containerd` to use systemd for cgroups.
+  configures `containerd` to keep using cgroupfs for cgroups.
 
 # Migrating old nodes to unified cgroups
 
@@ -62,7 +62,7 @@ systemd:
 
 However, the kernel commandline setting doesn't take effect on the first boot, and a reboot is required before the snippet becomes active.
 
-Beware that over time it is expected that upstream projects will drop support for cgroup v1.
+Beware that over time it is expected that upstream projects will drop support for cgroups v1.
 
 # Kubernetes
 
@@ -76,7 +76,7 @@ cgroups v2 should be careful when migrating. Depending on the deployment method,
 the `cgroupfs` cgroup driver may be hardcoded in the `kubelet` configuration.
 Cgroups v2 are only supported with the `systemd` cgroup driver. See [configuring a cgroup driver][kube-cgroup-docs] in the Kubernetes documentation for a discussion of cgroup drivers and how to migrate nodes. We recommend redeploying Kubernetes on fresh nodes instead of migrating inplace.
 
-The cgroup driver used by `kubelet` should be the same as the one used by `docker` daemon. `docker` defaults to `systemd` cgroup driver when started on a system running cgroup v2 and `cgroupfs` when running on a system with cgroup v1. The cgroup driver can be explicitly configured for `docker` by either creating/extending `/etc/docker/daemon.json`:
+The cgroup driver used by `kubelet` should be the same as the one used by `docker` daemon. `docker` defaults to `systemd` cgroup driver when started on a system running cgroup v2 and `cgroupfs` when running on a system with cgroup v1. The cgroup driver can be explicitly configured for `docker` by extending `/etc/docker/daemon.json`:
 ```json
 {
   "exec-opts": ["native.cgroupdriver=systemd"]
@@ -90,7 +90,7 @@ Environment="DOCKER_CGROUPS=--exec-opt native.cgroupdriver=systemd"
 
 ## Container Runtimes
 
-When deploying Kubernetes through `kubeadm`, the default container runtime on Flatcar will be `dockershim`. In this setup, `kubelet` talks to `dockershim`, which talks to `docker`, which interfaces with `containerd`. The `SystemdCgroup` setting in `containerd`'s `config.toml` is ignored. `docker`'s cgroup driver and `kubelet` cgroup driver settings must match. Starting with Kubernetes v1.22, `kubeadm` will default to the `systemd` `cgroupDriver` setting if no setting is provided explicitly. Out of the box, Flatcar defaults are compatible with Docker and Kubernetes defaults - everything will use `systemd` cgroup driver.
+When deploying Kubernetes through `kubeadm`, the default container runtime on Flatcar is currently `dockershim`. In this setup, `kubelet` talks to `dockershim`, which talks to `docker`, which interfaces with `containerd`. The `SystemdCgroup` setting in `containerd`'s `config.toml` is ignored. `docker`'s cgroup driver and `kubelet` cgroup driver settings must match. Starting with Kubernetes v1.22, `kubeadm` will default to the `systemd` `cgroupDriver` setting if no setting is provided explicitly. Out of the box, Flatcar defaults are compatible with Docker and Kubernetes defaults - everything will use `systemd` cgroup driver.
 
 When using `kubeadm`, add the snippet to your `kubeadm-config.yaml` to configure the `kubelet` cgroup driver:
 
