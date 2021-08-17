@@ -6,7 +6,7 @@ weight: 20
 aliases:
 ---
 
-Beginning with Flatcar version 2970.0.0, Flatcar Linux has migrated to the unified
+Beginning with Flatcar version 2969.0.0, Flatcar Linux has migrated to the unified
 cgroup hierarchy (aka cgroup v2). Much of the container ecosystem has already
 moved to default to cgroup v2. Cgroup v2 brings exciting new features in
 areas such as eBPF and rootless containers.
