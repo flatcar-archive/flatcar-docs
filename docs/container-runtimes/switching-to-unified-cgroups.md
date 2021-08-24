@@ -108,12 +108,13 @@ If users choose the `containerd` runtime, they must ensure that `containerd`'s s
 If you maintain your own containerd configuration or did follow the instructions on
 [how to customize containerd configuration](customizing-docker), you should add the relevant lines to your `config.toml`:
 ```toml
-# for version = 2 config files
-[plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
-  SystemdCgroup = true
-# or for version = 1 config files
-[plugins.cri.containerd.runtimes.runc.options]
-  SystemdCgroup = true
+version = 2
+
+[plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]
+  # setting runc.options unsets parent settings
+  runtime_type = "io.containerd.runc.v2"
+  [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
+    SystemdCgroup = true
  ```
  
 For a more detailed discussion of container runtimes, see the [Kubernetes documentation][kube-runtime-docs].
