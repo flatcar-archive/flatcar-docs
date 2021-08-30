@@ -60,7 +60,8 @@ url="https://${GROUP:-stable}.release.flatcar-linux.net/${FLATCAR_RELEASE_BOARD}
 Download, decompress, and verify the development container image.
 
 ```shell
-gpg2 --keyserver pool.sks-keyservers.net --recv-keys F88CFEDEFF29A5B4D9523864E25D9AED0593B34A  # Fetch the buildbot key if necessary.
+curl -LO https://www.flatcar-linux.org/security/image-signing-key/Flatcar_Image_Signing_Key.asc
+gpg2 --import Flatcar_Image_Signing_Key.asc
 curl -L "${url}" |
     tee >(bzip2 -d > flatcar_developer_container.bin) |
     gpg2 --verify <(curl -Ls "${url}.sig") -
