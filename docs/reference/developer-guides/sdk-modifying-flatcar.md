@@ -59,8 +59,8 @@ After the installation finished, `cork enter` may be used to enter the SDK chroo
 First, download the cork utility and verify it with the signature:
 
 ```shell
-$ curl -L -o cork https://github.com/kinvolk/mantle/releases/download/v0.15.2/cork-0.15.2-amd64
-$ curl -L -o cork.sig https://github.com/kinvolk/mantle/releases/download/v0.15.2/cork-0.15.2-amd64.sig
+$ curl -L -o cork https://github.com/kinvolk/mantle/releases/download/v0.16.0/cork-0.16.0-amd64
+$ curl -L -o cork.sig https://github.com/kinvolk/mantle/releases/download/v0.16.0/cork-0.16.0-amd64.sig
 $ curl -LO https://www.flatcar-linux.org/security/image-signing-key/Flatcar_Image_Signing_Key.asc
 $ gpg --import Flatcar_Image_Signing_Key.asc
 $ rm Flatcar_Image_Signing_Key.asc
