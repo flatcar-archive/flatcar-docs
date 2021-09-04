@@ -9,6 +9,20 @@ aliases:
     - ../../os/installing-to-disk
     - ../../bare-metal/installing-to-disk
 ---
+## Required Binaries
+The following Binaries are required to run the flatcar-install script:
+```
+lbzip2 or bzip2 
+wget
+coreutils (gnu core utils package)
+udev (for alpine images it's eudev)
+```
+Some optional binaries are:
+```
+gnupg2
+gawk
+```
+
 
 ## Install script
 
