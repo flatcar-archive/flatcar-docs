@@ -9,6 +9,20 @@ aliases:
     - ../../os/installing-to-disk
     - ../../bare-metal/installing-to-disk
 ---
+## Required Dependencies
+If you want to use the `flatcar-install` script on some other environment than Flatcar Container Linux, ensure that the following binaries are present:
+```
+bash
+lbzip2 or bzip2 
+mount, lsblk  (often found in the util-linux packaage)
+wget
+grep
+cp, dd, mkfifo, mkdir, rm, tee (often found in the GNU coreutils package or as part of busybox)
+udevadm (found in systemd-udev package, or for Alpine images in eudev)
+gpg, gpg2 (found in gnupg2)
+gawk (often found in GNU gawk package) 
+```
+
 
 ## Install script
 
