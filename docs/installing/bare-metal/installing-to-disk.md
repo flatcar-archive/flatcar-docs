@@ -17,7 +17,7 @@ lbzip2 or bzip2
 mount, lsblk  (often found in the util-linux packaage)
 wget
 grep
-cp, dd, mkfifo, mkdir, rm, tee (found in coreutils or gnu core utils package)
+cp, dd, mkfifo, mkdir, rm, tee (often found in the GNU coreutils package or as part of busybox)
 udevadm (found in systemd-udev package, or for Alpine images in eudev)
 gpg, gpg2 (found in gnupg2)
 gawk (often found in GNU gawk package) 
