@@ -264,9 +264,10 @@ After `build_image` completes, it prints commands for converting the raw bin int
 
 To create a qemu image for local testing, run
 ```shell
-$ ./image_to_vm.sh --format=qemu --from=../build/images/arm64-usr/developer-latest [--board=...]
+$ ./image_to_vm.sh --from=../build/images/arm64-usr/developer-latest [--board=...]
 ```
 
+For other vendor images, pass the `--format=` parameter (see `./image_to_vm.sh --help`).
 In general, `image_to_vm.sh` will read the generic disk image, install any vendor specific tools to the OEM partition where applicable (e.g. Azure VM tools for the Azure VM), and produce a vendor specific image. In the case of QEMU, a qcow2 image is produced. QEMU does not require vendor specific tooling in the OEM partition.
 
 ### Booting
