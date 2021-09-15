@@ -45,9 +45,12 @@ After all of the tasks in the initramfs complete, the machine pivots into user s
 To trigger a new Ignition run, either manually set `flatcar.first_boot=1` as temporary kernel command line parameter in GRUB or create the flag file `touch /boot/flatcar/first_boot` (or `/boot/coreos/first_boot` if the machine was updated from CoreOS CL).
 
 Be aware that if you changed the Ignition config in the mean time, old files not known to the new Ignition config will be kept, and any other runtime data, too.
-Systemd service presets are also not reevaluated automatically. This means that newly declared service units won't be enabled unless you also create the symlinks for their targets.
+Systemd service presets are also not reevaluated automatically. This means that newly declared service units won't be enabled unless you also invalidate the machine ID or create the symlinks for the service targets.
 
-Here is an example config with an additional `link` entry that ensures that the new service unit is enabled if this config is used for reprovisioning:
+To ensure that the systemd service presets are reevaluated you should invalidate the machine ID executing `sudo rm /etc/machine-id` before the reboot. This will give the node a new machine ID.
+
+If you can't do this, you have to create the symlinks for the service target through Ignition `links` entries.
+Here is an example config with an additional `links` entry that ensures that the new service unit is enabled if this config is used for reprovisioning:
 
 ```
 {
