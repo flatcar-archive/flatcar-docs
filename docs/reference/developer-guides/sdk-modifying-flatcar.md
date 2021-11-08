@@ -59,9 +59,9 @@ After the installation finished, `cork enter` may be used to enter the SDK chroo
 First, download the cork utility and verify it with the signature:
 
 ```shell
-$ curl -L -o cork https://github.com/kinvolk/mantle/releases/download/v0.16.0/cork-0.16.0-amd64
-$ curl -L -o cork.sig https://github.com/kinvolk/mantle/releases/download/v0.16.0/cork-0.16.0-amd64.sig
-$ curl -LO https://kinvolk.io/flatcar-container-linux/security/image-signing-key/Flatcar_Image_Signing_Key.asc
+$ curl -L -o cork https://github.com/kinvolk/mantle/releases/download/v0.17.0/cork-0.17.0-amd64
+$ curl -L -o cork.sig https://github.com/kinvolk/mantle/releases/download/v0.17.0/cork-0.17.0-amd64.sig
+$ curl -LO https://flatcar-linux.org/security/image-signing-key/Flatcar_Image_Signing_Key.asc
 $ gpg --import Flatcar_Image_Signing_Key.asc
 $ rm Flatcar_Image_Signing_Key.asc
 $ gpg --verify cork.sig cork
@@ -70,11 +70,11 @@ $ gpg --verify cork.sig cork
 The `gpg --verify` command should output something like this:
 
 ```shell
-gpg: Signature made Mon 07 Jan 2019 14:51:50 CET
-gpg:                using RSA key 84C8E771C0DF83DFBFCAAAF03ADA89DEC2507883
-gpg: Good signature from "Flatcar Application Signing Key <buildbot@flatcar-linux.org>" [unknown]
-Primary key fingerprint: C1C0 B82A 2F75 90B2 E369  822B E52F 0DB3 9145 3C45
-     Subkey fingerprint: 84C8 E771 C0DF 83DF BFCA  AAF0 3ADA 89DE C250 7883
+gpg: Signature made Tue Oct  5 12:57:37 2021 -00
+gpg:                using RSA key 858A560F97C9AEB22EC1C732961DDDD5250D4A42
+gpg: Good signature from "Flatcar Buildbot (Official Builds) <buildbot@flatcar-linux.org>" [unknown]
+Primary key fingerprint: F88C FEDE FF29 A5B4 D952  3864 E25D 9AED 0593 B34A
+     Subkey fingerprint: 858A 560F 97C9 AEB2 2EC1  C732 961D DDD5 250D 4A42
 ```
 
 Then proceed with the installation of the cork binary to a location on your path:
@@ -116,15 +116,15 @@ Before we download and install the SDK, we need to pick a release. Generally it 
 
 Get a list of all Alpha releases:
 ```shell
-$ curl -s https://kinvolk.io/flatcar-container-linux/releases-json/releases.json \
+$ curl -s https://www.flatcar-linux.org/releases-json/releases.json \
          | jq -r 'to_entries[] | "\(.value | .channel) tag: v\(.key) - kernel \(.value | .major_software.kernel[0]), released \(.value | .release_date)"' \
          | grep 'alpha tag'
 ```
 
-Then you can use the "alpha tag" value (without leading 'v') with cork's `--manifest-branch flatcar-alpha-[VERSION]` option to install that SDK version. E.g. to install Alpha release 2801.0.0, run
+Then you can use the "alpha tag" value (without leading 'v') with cork's `--manifest-branch flatcar-alpha-[VERSION]` option to install that SDK version. E.g. to install Alpha release 3033.0.0, run
 
 ```shell
-$ cork create --verbose --manifest-branch flatcar-alpha-2801.0.0    # Be prepared: This will request root permisions via sudo after downoad!
+$ cork create --verbose --manifest-branch flatcar-alpha-3033.0.0    # Be prepared: This will request root permisions via sudo after downoad!
 $ cork enter   # This will also request root permisions via sudo
 ```
 
@@ -136,9 +136,9 @@ $ cork create ...   # same options as above, but it will use the cached SDK (i.e
 
 As discussed above you most probably want to base your work on the latest Alpha release. Technically, you could use any release - for instance, if you want to fix a bug in Beta or Stable - by using the appropriate `--manifest-branch` option. Basing your work on the development branches for filing PRs to `main` or the `flatcar-MAJOR` maintenance branches is not covered here but under [the section for using nightly packages][sdktips]. For the given release manifest the SDK checks out the right git branches with matching ebuild files and you should not change them unless you follow the instructions on setting up the nightly binary package URLs.
 ```shell
-$ cork create --verbose --manifest-branch flatcar-stable-2765.2.0
+$ cork create --verbose --manifest-branch flatcar-stable-2905.2.6
 ```
-to base your work on the Stable 2765.2.0 release published on March 3rd, 2021.
+to base your work on the Stable 2905.2.6 release published on October 25th, 2021.
 
 ### Enter the SDK
 
