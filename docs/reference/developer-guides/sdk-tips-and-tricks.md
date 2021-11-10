@@ -137,14 +137,14 @@ For maintenance branches, use
 ```shell
 $ cork create --manifest-branch flatcar-CHANNEL-x.y.z --manifest-name maintenance.xml
 $ cork enter
-$  ./set_version --dev-board --board-version amd64-usr/flatcar-MAJOR-nightly --no-dev-sdk --sdk-version MAJOR.0.0
+$  ./set_version --binhost https://bucket.release.flatcar-linux.net/flatcar-jenkins --dev-board --board-version amd64-usr/flatcar-MAJOR-nightly --no-dev-sdk --sdk-version MAJOR.0.0
 ```
 
 For the main branch, use
 ```shell
 $ cork create
 $ cork enter
-$  ./set_version --dev-board --board-version amd64-usr/main-nightly --dev-sdk --sdk-version sdk-main-nightly
+$  ./set_version --binhost https://bucket.release.flatcar-linux.net/flatcar-jenkins --dev-board --board-version amd64-usr/main-nightly --dev-sdk --sdk-version sdk-main-nightly
 ```
 
 ## Caching git https passwords
