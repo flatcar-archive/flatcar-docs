@@ -19,9 +19,8 @@ Then create a `/etc/systemd/system/containerd.service.d/10-use-custom-config.con
 
 ```ini
 [Service]
-Environment=CONTAINERD_CONFIG=/etc/containerd/config.toml
 ExecStart=
-ExecStart=/usr/bin/env PATH=${TORCX_BINDIR}:${PATH} ${TORCX_BINDIR}/containerd --config ${CONTAINERD_CONFIG}
+ExecStart=/usr/bin/containerd
 ```
 
 On a running system, execute `systemctl daemon-reload ; systemctl restart containerd` for it to take effect.
