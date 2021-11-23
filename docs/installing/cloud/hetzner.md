@@ -23,6 +23,7 @@ Select any OS like Debian when you create the instance but boot into the `linux6
 Connect via SSH and download and run the `flatcar-install` script:
 
 ```sh
+apt -y install gawk
 curl -fsSLO --retry-delay 1 --retry 60 --retry-connrefused --retry-max-time 60 --connect-timeout 20 https://raw.githubusercontent.com/kinvolk/init/flatcar-master/bin/flatcar-install
 chmod +x flatcar-install
 ./flatcar-install -s -i ignition.json # optional: you may provide a Ignition Config as file, it should contain your SSH key
