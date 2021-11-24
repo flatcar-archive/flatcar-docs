@@ -114,11 +114,28 @@ $ az vm create --name node-1 --resource-group group-1 --admin-username core --cu
   </div>
 </div>
 
+You can use both image offers `flatcar-container-linux` and `flatcar-container-linux-free`, the contents are the same.
+The SKU, which is the third element of the image URN, relates to one of the release channels and also depends on whether to use HyperV Generation 1 or 2.
+Generation 1 instance types use the channel names `alpha`, `beta` or `stable` as is; for Generation 2 instance types please append `-gen2` to the channel name, i.e., use one of `alpha-gen2`, `beta-gen2` or `stable-gen2`.
+This means the Gen 2 image URN for the above example for a Stable release becomes `flatcar-container-linux:stable-gen2:2345.3.0`.
+
+
+Before being able to use them, you may need to accept the legal terms once, here done for `flatcar-container-linux` and `stable`:
+
+```shell
+az vm image terms show --publish kinvolk --offer flatcar-container-linux --plan stable
+az vm image terms accept --publish kinvolk --offer flatcar-container-linux --plan stable
+```
+
 ### Flatcar Pro Images
 
 Flatcar Pro images in the marketplace are paid images and come with commercial support and extra features. They are published for the Stable and Beta channels. The Pro image for Azure has support for NVidia GPUs.
 
 Using the Azure CLI you can list the Pro images for, e.g., the Stable channel, with `az vm image list --all -p kinvolk -f flatcar_pro -s stable`.
+
+### Plan information for building your image from the Marketplace Image
+
+When building an image based on the Marketplace image you sometimes need to specify the original plan. The plan name is the image SKU, e.g., `stable`, the plan product is the image offer, e.g., `flatcar-container-linux-free`, and the plan publisher is the same (`kinvolk`).
 
 ## Uploading your own Image
 
@@ -171,6 +188,20 @@ Usage: /usr/local/bin/upload_images.sh [OPTION...]
 
 The Dockerfile for the `quay.io/kinvolk/azure-flatcar-image-upload` image is managed [here][azure-flatcar-image-upload].
 
+## SSH User Setup
+
+Azure offers to provision a user account and SSH key through the WAAgent daemon that runs by default.
+In the web UI you can enter a user name for a new user and provide an SSH pub key to be set up.
+
+On the CLI you can pass the user and the SSH key as follows:
+
+```shell
+az vm create ... --admin-username myuser --ssh-key-values ~/.ssh/id_rsa.pub
+```
+
+This also works for the `core` user.
+If you plan to use the `core` user with an SSH key set up through Ignition userdata, the key argument here is not needed, and you can safely pass `--admin-username core` and no new user gets created.
+
 ## Container Linux Config
 
 Flatcar Container Linux allows you to configure machine parameters, configure networking, launch systemd units on startup, and more
@@ -178,7 +209,8 @@ via a Container Linux Config. Head over to the [provisioning docs][cl-configs] t
 Note that Microsoft Azure doesn't allow an instance's userdata to be modified after the instance had been launched. This
 isn't a problem since Ignition, the tool that consumes the userdata, only runs on the first boot.
 
-You can provide a raw Ignition config (produced from a Container Linux Config) to Flatcar Container Linux via the Azure CLI using the `--custom-data` flag.
+You can provide a raw Ignition config (produced from a Container Linux Config) to Flatcar Container Linux via the Azure CLI using the `--custom-data` flag
+or in the web UI under _Custom Data_ (not _User Data_).
 
 As an example, the following config will configure and start etcd:
 
