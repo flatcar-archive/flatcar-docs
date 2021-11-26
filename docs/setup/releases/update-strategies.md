@@ -73,13 +73,32 @@ PXE/iPXE machines download a new copy of Flatcar Container Linux every time they
 
 An easy solution to this problem is to use iPXE and reference images [directly from the Flatcar Container Linux storage site][ipxe-boot-script]. The `alpha` URL is automatically pointed to the new version of Flatcar Container Linux as it is released.
 
-## Disable Automatic Updates Daemon
+## Disable Automatic Updates
 
-In case when you don't want to install updates onto the passive partition and avoid update process on failure reboot, you can disable `update-engine` service manually with `sudo systemctl stop update-engine` command (it will be enabled automatically next reboot).
+If for a short time frame you want to temporarily disable update reboots, run `sudo systemctl stop update-engine locksmithd`, and when done, `sudo systemctl start update-engine locksmithd`.
 
-If you wish to disable automatic updates permanently, use can configure this with a Container Linux Config. This example will stop `update-engine`, which executes the updates, and `locksmithd`, which coordinates reboots across the cluster:
+In case when you want to permanently disable automatic updates, it's not recommended to mask the services because it makes it harder to manually apply updates.
+It's rather recommended to overwrite the `SERVER` variable in the update configuration to an invalid value.
+
+You can configure this with a Container Linux Config (needs to be [transpiled][transpiler] to Ignition JSON):
 
 ```yaml
+storage:
+  files:
+    - path: /etc/flatcar/update.conf
+      mode: 0644
+      contents:
+        inline: |
+          SERVER=disabled
+```
+
+To manually run updates, remove the file and run `update_engine_client -update` or wait for the update to happen.
+After update-engine applied the update to the passive partition, you can already create the file again to disable automatic updates.
+Wait for the reboot to happen or invoke it manually.
+
+As alternative you could mask the update-engine and locksmithd services as follows (but read the warning below):
+
+```
 systemd:
   units:
     - name: update-engine.service
@@ -88,7 +107,7 @@ systemd:
       mask: true
 ```
 
-**Note:** If you want to manually trigger an update after having masked `update-engine`,
+**Note:** As said, it's not recommended to mask the services but if you want to manually trigger an update after having masked `update-engine`,
 you'll need to unmask the service, start `update-engine` to trigger an update, and
 **keep the service unmasked** until the next reboot is completed and `update-engine` started
 and marked the updated partition as successful.
@@ -162,3 +181,4 @@ For more information about the supported syntax, refer to the [Locksmith documen
 [rollback]: ../debug/manual-rollbacks
 [reboot-windows]: https://github.com/kinvolk/locksmith#reboot-windows
 [systemd-env-vars]: ../systemd/environment-variables/#system-wide-environment-variables
+[transpiler]: ../../provisioning/config-transpiler/
