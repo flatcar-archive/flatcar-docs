@@ -9,8 +9,6 @@ aliases:
 
 Flatcar Container Linux is designed to be updated automatically with different schedules per channel. You can [disable this feature](update-strategies), although we don't recommend it. Read the [release notes](https://flatcar-linux.org/releases) for specific features and bug fixes.
 
-By design, the Flatcar Container Linux update engine does not execute downgrades. If you're switching from a channel with a higher Flatcar Container Linux version than the new channel, your machine won't be updated again until the new channel contains a higher version number.
-
 ![Update Timeline](../../img/update-timeline.png)
 
 ## Customizing channel configuration
@@ -24,15 +22,38 @@ To switch a machine to a different channel, specify the new channel group in `/e
 GROUP=beta
 ```
 
-In order for the configuration override to take effect, the update engine must first be restarted:
+The machine should check for an update within an hour.
+
+The public Nebraska update service does not offer downgrades.
+If you're switching from a channel with a higher Flatcar Container Linux version than the new channel, your machine won't be updated again until the new channel contains a higher version number.
+To force an update, use the `flatcar-update` tool (see below) or overwrite your current version.
+
+If you don't use `flatcar-update`, overwrite your version with these steps to force a downgrade:
 
 ```shell
-sudo systemctl restart update-engine
+sudo rm -f /tmp/release
+sudo umount /usr/share/coreos/release || true
+cp /usr/share/coreos/release /tmp/release
+sed -E -i "s/(COREOS_RELEASE_VERSION=)(.*)/\10.0.0/" /tmp/release
+sudo mount --bind /tmp/release /usr/share/coreos/release
+```
+
+**Note:** After the update is downloaded and the system is ready to reboot, remove the `GROUP` entry again from `/etc/flatcar/update.conf` because the new update has it as default and there is no need to hardcode it there.
+
+## Jump to another channel with `flatcar-update`
+
+With the `flatcar-update` tool you can jump to any release, also from other channels, making you effectively switch the channel. It's worth checking that you didn't hardcode a particular channel as `GROUP` in `/etc/flatcar/update.conf`.
+
+```shell
+$ # In case another channel is set as GROUP, first remove it so that in the future the channel from the new release gets used:
+$ sudo sed -i "/GROUP=.*/d" /etc/flatcar/update.conf
+$ # Set the channel you want to jump to:
+$ CHANNEL=beta
+$ VER=$(curl -fsSL "https://$CHANNEL.release.flatcar-linux.net/amd64-usr/current/version.txt" | grep FLATCAR_VERSION= | cut -d = -f 2)
+$ sudo flatcar-update --to-version "$VER"
 ```
 
 ## Debugging
-
-After the update engine is restarted, the machine should check for an update within an hour.
 
 The live status of updates checking can queried via:
 
