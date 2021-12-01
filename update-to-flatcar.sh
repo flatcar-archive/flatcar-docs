@@ -11,11 +11,6 @@ if [ -d /etc/coreos ]; then
 fi
 sudo sed -i "/SERVER=.*/d" /etc/flatcar/update.conf
 echo "SERVER=https://public.update.flatcar-linux.net/v1/update/" | sudo tee -a /etc/flatcar/update.conf
-sudo rm -f /tmp/release
-sudo umount /usr/share/coreos/release || true
-cp /usr/share/coreos/release /tmp/release
-sed -E -i "s/(COREOS_RELEASE_VERSION=)(.*)/\10.0.0/" /tmp/release
-sudo mount --bind /tmp/release /usr/share/coreos/release
 [ -d /var/lib/coreos-install ] && [ ! -e /var/lib/flatcar-install ] && sudo ln -sn /var/lib/coreos-install /var/lib/flatcar-install
 sudo systemctl restart update-engine
 sudo update_engine_client -update
