@@ -14,6 +14,28 @@ This section describes the automated upgrade process, performing a manual rollba
 
 **Note:** Neither performing a manual rollback nor forcing a channel downgrade are recommended.
 
+## Automated rollbacks
+
+The rollback to the previously installed version is done by GRUB and happens automatically if `update-engine` had no chance to mark the version as successful.
+This marking happens when the new version is booted and keeps running for around two minutes, at which point `update-engine` will mark the version as successful (how this works in detail is explained below).
+
+To extend the automatic rollback logic to cover your important systemd services, you could make them as requirement for the `update-engine.service`.
+
+Note that `update-engine` will still try to update which can cause a loop with disruptions due to the reboots.
+You can disable automatic updates by setting `SERVER=disabled` in `/etc/flatcar/update.conf`.
+
+## Rollback with `flatcar-update`
+
+While you can rollback to the previously installed version manually with the rest of this guide, you can also install any version to the inactive partition with the `flatcar-update` tool.
+To rollback to a known-good version, run it as follows:
+
+```shell
+$ sudo flatcar-update --to-version 2905.2.6 --disable-afterwards
+```
+
+The `--disable-afterwards` switch writes `SERVER=disabled` to `/etc/flatcar/update.conf` which disables updates.
+This ensures that you will stay on the version you specified.
+
 ## How do updates work
 
 The system's GPT tables are used to encode which partition is currently active and which is passive. This can be seen using the `cgpt` command.
@@ -189,7 +211,6 @@ COREOS_RELEASE_VERSION=0.0.0
 Restart the update service so that it rescans the edited configuration, then initiate an update. The system will reboot into the selected lower channel after downloading the release:
 
 ```shell
-sudo systemctl restart update-engine
 update_engine_client -update
 ```
 
