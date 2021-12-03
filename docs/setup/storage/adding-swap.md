@@ -126,3 +126,41 @@ systemd:
         ExecStart=/usr/sbin/mkswap /var/vm/swapfile1
         RemainAfterExit=true
 ```
+
+## Using a dedicated swap disk
+
+The following Container Linux config sets up `/dev/sdb` to be used as swap:
+
+```yaml
+storage:
+  disks: 
+    - device: /dev/sdb 
+      wipe_table: true 
+      partitions: 
+        - label: swap
+          type_guid: 0657FD6D-A4AB-43C4-84E5-0933C84B4F4F
+  filesystems:
+    - name: swap
+      mount:
+        device: /dev/disk/by-partlabel/swap
+        format: swap
+        wipe_filesystem: true
+        label: swap
+systemd:
+  units:
+    - name: dev-disk-by\x2dpartlabel-swap.swap
+      enabled: true
+      contents: |
+        [Unit]
+        Description=Swap
+        [Swap]
+        What=/dev/disk/by-partlabel/swap
+        [Install]
+        WantedBy=multi-user.target
+```
+
+NB the systemd unit name is created by
+`systemd-escape -p /dev/disk/by-partlabel/swap` as systemd uses - as the
+path separator meaning that paths containing - have to be escaped. This
+leads to a file `'dev-disk-by\x2dpartlabel-swap.swap'` being created in
+`/etc/systemd/system`
