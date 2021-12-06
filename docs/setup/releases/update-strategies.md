@@ -179,6 +179,39 @@ update_engine_client -reset_status
 update_engine_client -check_for_update
 ```
 
+### Configure a post-install update hook
+
+Sometimes you may want to run a custom action after update-engine wrote the new partition out.
+You can create a `/usr/share/oem/bin/oem-postinst` script that gets two arguments passed.
+The first argument is the slot (`A` or `B`), the second is the temporary mount point where the new `/usr` partition contents can be accessed.
+Since the hook runs shortly before the new partition is prioritized, you should not directly reboot there.
+Also you should only let the script exit with an error return code if you want to stop the update.
+The hook runs as root user process under the `update-engine.service` unit.
+
+The following CLC example shows how a custom reboot hook for `kured` can be added to old Flatcar releases that don't support it yet (for release number greater than `3067.0.0` this is not needed).
+
+```yaml
+storage:
+  filesystems:
+    - name: oem
+      mount:
+        device: /dev/disk/by-label/OEM
+        format: ext4
+        label: OEM
+  directories:
+  - path: /bin
+    filesystem: oem
+    mode: 0755
+  files:
+  - path: /bin/oem-postinst
+    filesystem: oem
+    mode: 0755
+    contents:
+      inline: |
+        #!/bin/sh
+        touch /run/reboot-required
+```
+
 [ipxe-boot-script]: ../../installing/bare-metal/booting-with-ipxe#setting-up-ipxe-boot-script
 [rollback]: ../debug/manual-rollbacks
 [reboot-windows]: https://github.com/kinvolk/locksmith#reboot-windows
