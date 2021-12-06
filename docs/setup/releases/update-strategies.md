@@ -11,13 +11,15 @@ The overarching goal of Flatcar Container Linux is to secure the Internet's back
 
 We realize that each Flatcar Container Linux cluster has a unique tolerance for risk and the operational needs of your applications are complex. In order to meet everyone's needs, there are three update strategies that we have developed based on feedback during our alpha period.
 
-It's important to note that updates are always downloaded to the passive partition when they become available. A reboot is the last step of the update, where the active and passive partitions are swapped ([rollback instructions][rollback]). These strategies control how that reboot occurs:
+It's important to note that updates are always downloaded to the passive partition when they become available (see further below for disabling updates). A reboot is the last step of the update, where the active and passive partitions are swapped ([rollback instructions][rollback]). These strategies control how that reboot occurs:
 
-| Strategy      | Description                                                         |
-|---------------|---------------------------------------------------------------------|
-| `etcd-lock`   | Reboot after first taking a distributed lock in etcd                |
-| `reboot`      | Reboot immediately after an update is applied                       |
-| `off`         | Do not reboot after updates are applied                             |
+| Strategy      | Description                                                                  |
+|---------------|------------------------------------------------------------------------------|
+| `etcd-lock`   | Reboot after first taking a distributed lock in etcd (reboot window applies) |
+| `reboot`      | Reboot immediately after an update is applied (reboot window applies)        |
+| `off`         | Do not reboot after updates are applied                                      |
+
+You can configure a reboot window in which reboots are allowed to happen through one of the strategies.
 
 ## Reboot strategy options
 
@@ -66,6 +68,23 @@ The `reboot` strategy works exactly like it sounds: the machine is rebooted as s
 ### Off
 
 The `off` strategy is also straightforward. The update will be installed onto the passive partition and await a reboot command to complete the update. We don't recommend this strategy unless you reboot frequently as part of your normal operations workflow.
+
+## Auto-updates with a maintenance window
+
+Locksmith supports maintenance windows in addition to the reboot strategies mentioned earlier. Maintenance windows define a window of time during which a reboot can occur. These operate in addition to reboot strategies, so if the machine has a maintenance window and requires a reboot lock, the machine will only reboot when it has the lock during that window.
+
+Windows are defined by a start time and a length. In this example, the window is defined to be every Thursday between 04:00 and 05:00:
+
+```yaml
+locksmith:
+  reboot_strategy: reboot
+  window_start: Thu 04:00
+  window_length: 1h
+```
+
+This will configure a Flatcar Container Linux machine to follow the `reboot` strategy, and thus when an update is ready it will simply reboot instead of attempting to grab a lock in etcd. This machine however has also been configured to only reboot between 04:00 and 05:00 on Thursdays, so if an update occurs outside of this window the machine will then wait until it is inside of this window to reboot.
+
+For more information about the supported syntax, refer to the [Locksmith documentation][reboot-windows].
 
 ## Updating PXE/iPXE machines
 
@@ -159,23 +178,6 @@ To work around this intermediate reboot, one can call:
 update_engine_client -reset_status
 update_engine_client -check_for_update
 ```
-
-## Auto-updates with a maintenance window
-
-Locksmith supports maintenance windows in addition to the reboot strategies mentioned earlier. Maintenance windows define a window of time during which a reboot can occur. These operate in addition to reboot strategies, so if the machine has a maintenance window and requires a reboot lock, the machine will only reboot when it has the lock during that window.
-
-Windows are defined by a start time and a length. In this example, the window is defined to be every Thursday between 04:00 and 05:00:
-
-```yaml
-locksmith:
-  reboot_strategy: reboot
-  window_start: Thu 04:00
-  window_length: 1h
-```
-
-This will configure a Flatcar Container Linux machine to follow the `reboot` strategy, and thus when an update is ready it will simply reboot instead of attempting to grab a lock in etcd. This machine however has also been configured to only reboot between 04:00 and 05:00 on Thursdays, so if an update occurs outside of this window the machine will then wait until it is inside of this window to reboot.
-
-For more information about the supported syntax, refer to the [Locksmith documentation][reboot-windows].
 
 [ipxe-boot-script]: ../../installing/bare-metal/booting-with-ipxe#setting-up-ipxe-boot-script
 [rollback]: ../debug/manual-rollbacks
