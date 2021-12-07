@@ -9,9 +9,17 @@ aliases:
 
 The overarching goal of Flatcar Container Linux is to secure the Internet's backend infrastructure. We believe that automatically updating the operating system is one of the best tools to achieve this goal.
 
-We realize that each Flatcar Container Linux cluster has a unique tolerance for risk and the operational needs of your applications are complex. In order to meet everyone's needs, there are three update strategies that we have developed based on feedback during our alpha period.
+We realize that each Flatcar Container Linux cluster has a unique tolerance for risk and the operational needs of your applications are complex. In order to meet everyone's needs, there are different update/reboot strategies that we have developed.
 
-It's important to note that updates are always downloaded to the passive partition when they become available (see further below for disabling updates). A reboot is the last step of the update, where the active and passive partitions are swapped ([rollback instructions][rollback]). These strategies control how that reboot occurs:
+It's important to note that updates are always downloaded to the passive partition when they become available (see further below for disabling automatic updates). A reboot is the last step of the update, where the active and passive partitions are swapped ([rollback instructions][rollback]).
+
+The reboot is done by the reboot manager, by default this is the `locksmithd.service` included on the image.
+For Kubernetes the recommended reboot manager is [FLUO](https://github.com/flatcar-linux/flatcar-linux-update-operator/) which replaces locksmithd because it knows how to gracefully reboot a Kubernetes node.
+The [kured](https://github.com/weaveworks/kured) reboot manager will be supported as well starting from Flatcar versions with a release number greater than `3067.0.0`.
+
+## Locksmithd reboot strategies
+
+These locksmithd strategies control how a reboot occurs when update-engine indicates that one is needed:
 
 | Strategy      | Description                                                                  |
 |---------------|------------------------------------------------------------------------------|
@@ -21,14 +29,42 @@ It's important to note that updates are always downloaded to the passive partiti
 
 You can configure a reboot window in which reboots are allowed to happen through one of the strategies.
 
-## Reboot strategy options
+The default behavior is `reboot` and results in a reboot with a delay of 5 minutes.
 
-The reboot strategy can be set with a Container Linux Config:
+## Reboot strategy options through CLC/Ignition
+
+The reboot strategy can be set with a special Container Linux Config (CLC) section:
 
 ```yaml
 locksmith:
   reboot_strategy: "etcd-lock"
 ```
+
+This gets transpiled to the following Ignition configuration which writes the line `REBOOT_STRATEGY="etcd-lock"` to `/etc/flatcar/update.conf`:
+
+```json
+{
+  "ignition": {
+    "version": "2.3.0"
+  },
+  "storage": {
+    "files": [
+      {
+        "filesystem": "root",
+        "path": "/etc/flatcar/update.conf",
+        "contents": {
+          "source": "data:,%0AREBOOT_STRATEGY%3D%22etcd-lock%22",
+          "verification": {}
+        },
+        "mode": 420
+      }
+    ]
+  }
+}
+```
+
+**Note:** You must not combine the special `locksmith:` CLC section with a CLC `files:` section that writes to the `/etc/flatcar/update.conf` file (or `/etc/coreos/update.conf` through the symlinked `/etc/coreos` folder).
+This would result in a conflict where only one entry wins.
 
 ### etcd-lock
 
