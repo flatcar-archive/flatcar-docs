@@ -9,24 +9,62 @@ aliases:
 
 The overarching goal of Flatcar Container Linux is to secure the Internet's backend infrastructure. We believe that automatically updating the operating system is one of the best tools to achieve this goal.
 
-We realize that each Flatcar Container Linux cluster has a unique tolerance for risk and the operational needs of your applications are complex. In order to meet everyone's needs, there are three update strategies that we have developed based on feedback during our alpha period.
+We realize that each Flatcar Container Linux cluster has a unique tolerance for risk and the operational needs of your applications are complex. In order to meet everyone's needs, there are different update/reboot strategies that we have developed.
 
-It's important to note that updates are always downloaded to the passive partition when they become available. A reboot is the last step of the update, where the active and passive partitions are swapped ([rollback instructions][rollback]). These strategies control how that reboot occurs:
+It's important to note that updates are always downloaded to the passive partition when they become available (see further below for disabling automatic updates). A reboot is the last step of the update, where the active and passive partitions are swapped ([rollback instructions][rollback]).
 
-| Strategy      | Description                                                         |
-|---------------|---------------------------------------------------------------------|
-| `etcd-lock`   | Reboot after first taking a distributed lock in etcd                |
-| `reboot`      | Reboot immediately after an update is applied                       |
-| `off`         | Do not reboot after updates are applied                             |
+The reboot is done by the reboot manager, by default this is the `locksmithd.service` included on the image.
+For Kubernetes the recommended reboot manager is [FLUO](https://github.com/flatcar-linux/flatcar-linux-update-operator/) which replaces locksmithd because it knows how to gracefully reboot a Kubernetes node.
+The [kured](https://github.com/weaveworks/kured) reboot manager will be supported as well starting from Flatcar versions with a release number greater than `3067.0.0`.
 
-## Reboot strategy options
+## Locksmithd reboot strategies
 
-The reboot strategy can be set with a Container Linux Config:
+These locksmithd strategies control how a reboot occurs when update-engine indicates that one is needed:
+
+| Strategy      | Description                                                                  |
+|---------------|------------------------------------------------------------------------------|
+| `etcd-lock`   | Reboot after first taking a distributed lock in etcd (reboot window applies) |
+| `reboot`      | Reboot immediately after an update is applied (reboot window applies)        |
+| `off`         | Do not reboot after updates are applied                                      |
+
+You can configure a reboot window in which reboots are allowed to happen through one of the strategies.
+
+The default behavior is `reboot` and results in a reboot with a delay of 5 minutes.
+
+## Reboot strategy options through CLC/Ignition
+
+The reboot strategy can be set with a special Container Linux Config (CLC) section:
 
 ```yaml
 locksmith:
   reboot_strategy: "etcd-lock"
 ```
+
+This gets transpiled to the following Ignition configuration which writes the line `REBOOT_STRATEGY="etcd-lock"` to `/etc/flatcar/update.conf`:
+
+```json
+{
+  "ignition": {
+    "version": "2.3.0"
+  },
+  "storage": {
+    "files": [
+      {
+        "filesystem": "root",
+        "path": "/etc/flatcar/update.conf",
+        "contents": {
+          "source": "data:,%0AREBOOT_STRATEGY%3D%22etcd-lock%22",
+          "verification": {}
+        },
+        "mode": 420
+      }
+    ]
+  }
+}
+```
+
+**Note:** You must not combine the special `locksmith:` CLC section with a CLC `files:` section that writes to the `/etc/flatcar/update.conf` file (or `/etc/coreos/update.conf` through the symlinked `/etc/coreos` folder).
+This would result in a conflict where only one entry wins.
 
 ### etcd-lock
 
@@ -66,6 +104,23 @@ The `reboot` strategy works exactly like it sounds: the machine is rebooted as s
 ### Off
 
 The `off` strategy is also straightforward. The update will be installed onto the passive partition and await a reboot command to complete the update. We don't recommend this strategy unless you reboot frequently as part of your normal operations workflow.
+
+## Auto-updates with a maintenance window
+
+Locksmith supports maintenance windows in addition to the reboot strategies mentioned earlier. Maintenance windows define a window of time during which a reboot can occur. These operate in addition to reboot strategies, so if the machine has a maintenance window and requires a reboot lock, the machine will only reboot when it has the lock during that window.
+
+Windows are defined by a start time and a length. In this example, the window is defined to be every Thursday between 04:00 and 05:00:
+
+```yaml
+locksmith:
+  reboot_strategy: reboot
+  window_start: Thu 04:00
+  window_length: 1h
+```
+
+This will configure a Flatcar Container Linux machine to follow the `reboot` strategy, and thus when an update is ready it will simply reboot instead of attempting to grab a lock in etcd. This machine however has also been configured to only reboot between 04:00 and 05:00 on Thursdays, so if an update occurs outside of this window the machine will then wait until it is inside of this window to reboot.
+
+For more information about the supported syntax, refer to the [Locksmith documentation][reboot-windows].
 
 ## Updating PXE/iPXE machines
 
@@ -160,22 +215,38 @@ update_engine_client -reset_status
 update_engine_client -check_for_update
 ```
 
-## Auto-updates with a maintenance window
+### Configure a post-install update hook
 
-Locksmith supports maintenance windows in addition to the reboot strategies mentioned earlier. Maintenance windows define a window of time during which a reboot can occur. These operate in addition to reboot strategies, so if the machine has a maintenance window and requires a reboot lock, the machine will only reboot when it has the lock during that window.
+Sometimes you may want to run a custom action after update-engine wrote the new partition out.
+You can create a `/usr/share/oem/bin/oem-postinst` script that gets two arguments passed.
+The first argument is the slot (`A` or `B`), the second is the temporary mount point where the new `/usr` partition contents can be accessed.
+Since the hook runs shortly before the new partition is prioritized, you should not directly reboot there.
+Also you should only let the script exit with an error return code if you want to stop the update.
+The hook runs as root user process under the `update-engine.service` unit.
 
-Windows are defined by a start time and a length. In this example, the window is defined to be every Thursday between 04:00 and 05:00:
+The following CLC example shows how a custom reboot hook for `kured` can be added to old Flatcar releases that don't support it yet (for release number greater than `3067.0.0` this is not needed).
 
 ```yaml
-locksmith:
-  reboot_strategy: reboot
-  window_start: Thu 04:00
-  window_length: 1h
+storage:
+  filesystems:
+    - name: oem
+      mount:
+        device: /dev/disk/by-label/OEM
+        format: ext4
+        label: OEM
+  directories:
+  - path: /bin
+    filesystem: oem
+    mode: 0755
+  files:
+  - path: /bin/oem-postinst
+    filesystem: oem
+    mode: 0755
+    contents:
+      inline: |
+        #!/bin/sh
+        touch /run/reboot-required
 ```
-
-This will configure a Flatcar Container Linux machine to follow the `reboot` strategy, and thus when an update is ready it will simply reboot instead of attempting to grab a lock in etcd. This machine however has also been configured to only reboot between 04:00 and 05:00 on Thursdays, so if an update occurs outside of this window the machine will then wait until it is inside of this window to reboot.
-
-For more information about the supported syntax, refer to the [Locksmith documentation][reboot-windows].
 
 [ipxe-boot-script]: ../../installing/bare-metal/booting-with-ipxe#setting-up-ipxe-boot-script
 [rollback]: ../debug/manual-rollbacks
