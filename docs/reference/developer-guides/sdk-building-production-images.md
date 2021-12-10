@@ -5,22 +5,18 @@ aliases:
     - ../../os/sdk-building-production-images
 ---
 
-## This document is not maintained
-
-This document still contains useful pointers, but the details are not necessarily up to date.
+FIXME TODO: update to match container builds
 
 ## Introduction
 
-In general the automated process should always be used but in a pinch putting together a release manually may be necessary. All release information is tracked in the [manifest][flatcar-manifest] git repository which is usually organized like so:
+This guide discusses the OS build process and is aimed at audiences comfortable with cutting their very own Flatcar releases. For this purpose we'll have a closer look at the CI automation stubs provided in the [scripts repository][scripts-repo-ci].
 
-* build-109.xml (previous release manifest)
-* build-115.xml (current release manifest)
-* master.xml    (master branch manifest)
-* version.txt   (current version information)
-* default.xml -> master.xml
-* release.xml -> build-115.xml
+It is assumed that readers are familiar with the [SDK][mod-cl] and the general build process outlined in the  [CI automation][scripts-repo-ci].
 
-[flatcar-manifest]: https://github.com/kinvolk/manifest
+
+FIXME TODO: update to match container builds
+
+
 
 ## Tagging releases
 
@@ -70,3 +66,7 @@ The generated production image is bootable as-is by qemu but for a larger ROOT p
 ## Tips and Tricks
 
 We've compiled a [list of tips and tricks](sdk-tips-and-tricks) that can make working with the SDK a bit easier.
+
+
+[scripts-repo-ci]: https://github.com/flatcar-linux/scripts/ci-automation
+[mod-cl]: sdk-modifying-flatcar

@@ -136,10 +136,10 @@ some guides to help you choose and make use of the different runtimes.
  * [Switching from Docker to containerd for Kubernetes][containerd-for-kubernetes]
  * [Authenticating to Container registries][registry-authentication]
 
-### Reference
+### Developer guides and Reference
 APIs and troubleshooting guides for working with Flatcar Container Linux.
 
-[Developer guides][developer-guides]
+[Developer guides][developer-guides]: Comprehensive guides on developing for Flatcar, working with the SDK, and on building and extening OS images.
 
 [Integrations][integrations]
 
