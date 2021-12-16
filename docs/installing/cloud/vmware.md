@@ -168,6 +168,8 @@ systemd:
         Wants=network-online.target
         [Service]
         Type=oneshot
+        Restart=on-failure
+        RemainAfterExit=yes
         Environment=OUTPUT=/run/metadata/coreos
         ExecStart=/usr/bin/mkdir --parent /run/metadata
         ExecStart=/usr/bin/bash -c 'echo "COREOS_CUSTOM_PRIVATE_IPV4=$(ip addr show ens192 | grep "inet 10." | grep -Po "inet \K[\d.]+")\nCOREOS_CUSTOM_PUBLIC_IPV4=$(ip addr show ens192 | grep -v "inet 10." | grep -Po "inet \K[\d.]+")" > ${OUTPUT}'
