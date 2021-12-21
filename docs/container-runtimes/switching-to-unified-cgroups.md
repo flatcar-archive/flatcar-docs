@@ -119,5 +119,10 @@ version = 2
  
 For a more detailed discussion of container runtimes, see the [Kubernetes documentation][kube-runtime-docs].
 
+## Known issues
+
+* `aws/amazon-ecs-agent` does not support `cgroupsv2`: [Flatcar issue](https://github.com/flatcar-linux/Flatcar/issues/585), [AWS issue](https://github.com/aws/containers-roadmap/issues/1535).
+
+
 [kube-cgroup-docs]: https://kubernetes.io/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/#migrating-to-the-systemd-driver
 [kube-runtime-docs]: https://kubernetes.io/docs/setup/production-environment/container-runtimes/
