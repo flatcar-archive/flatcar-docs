@@ -430,6 +430,10 @@ To make it work, use `/dev/sda2` as the "Root device name" and you probably want
 
 Now that you have a machine booted it is time to play around. Check out the [Flatcar Container Linux Quickstart][quickstart] guide or dig into [more specific topics][doc-index].
 
+## Known issues
+
+* `aws/amazon-ecs-agent` does not support `cgroupsv2`: [Flatcar issue](https://github.com/flatcar-linux/Flatcar/issues/585), [AWS issue](https://github.com/aws/containers-roadmap/issues/1535).
+
 [quickstart]: ../
 [doc-index]: ../../
 [flatcar-user]: https://groups.google.com/forum/#!forum/flatcar-linux-user
