@@ -67,12 +67,6 @@ To quickly test your new package(s), use the following commands:
 ~/trunk/src/scripts $ sudo rm /build/amd64-usr/packages/category/packagename-version.tbz2
 ```
 
-To recreate the chroot prior to a clean rebuild, exit the chroot and run:
-
-```shell
-~/flatcar-sdk $ cork create --replace
-```
-
 To include the new package as a dependency of Flatcar Container Linux, add the package to the end of the `RDEPEND` environment variable in `coreos-base/coreos/coreos-0.0.1.ebuild` then increment the revision of Flatcar Container Linux by renaming the softlink (e.g.):
 
 ```shell
@@ -102,50 +96,13 @@ References:
 
 Your SSH keys should be detected and added automatically by the image build process. Optionally, you can set a password for the `core` user which you can use later for ssh authentication, should SSH pubkey authentication not work for you.
 
-After entering the chroot via `cork` for the first time, you can set user `core`'s password:
+After entering the SDK container for the first time (or after re-creating it , you can set user `core`'s password:
 
 ```shell
 $ ./set_shared_user_password.sh
 ```
 
 This is the password you will use to log into the console of images built with the SDK.
-
-## Creating SDK with different options
-
-To create SDK from a non-default manifest branch, for example, `new-sdk`:
-
-```shell
-~/flatcar-sdk $ cork create --manifest-branch=new-sdk
-```
-
-To create SDK with a non-default SDK version, for example, `2229.0.0`:
-
-```shell
-~/flatcar-sdk $ cork create --sdk-version=2229.0.0
-```
-
-### Use the nightly build SDK / Flatcar packages for the development branches
-
-While the most recent Alpha release should be a good base for the majority of changes (like package additions and kernel updates), sometimes more daring users might want to use work-in-progress branches of upcoming releases. Please note that while we run nightly builds and a limited set of automated tests on these branches, neither functionality nor stability are guaranteed.
-
-In general, there are two "flavours" of nightlies:
-1. Nightly builds of the maintenance branches of existing releases ("flatcar-MAJOR"). These cover the most recent Alpha, Beta, and Stable release versions and contain changed to be released with the next patch-level update.
-2. Nightly builds of the "main" branch - aka "Alpha-next". This branch contains major changes for the next upcoming Alpha major release.
-
-For maintenance branches, use
-
-```shell
-$ cork create --manifest-branch flatcar-CHANNEL-x.y.z --manifest-name maintenance.xml
-$ cork enter
-$  ./set_version --binhost https://bucket.release.flatcar-linux.net/flatcar-jenkins --dev-board --board-version amd64-usr/flatcar-MAJOR-nightly --no-dev-sdk --sdk-version MAJOR.0.0
-```
-
-For the main branch, use
-```shell
-$ cork create
-$ cork enter
-$  ./set_version --binhost https://bucket.release.flatcar-linux.net/flatcar-jenkins --dev-board --board-version amd64-usr/main-nightly --dev-sdk --sdk-version sdk-main-nightly
-```
 
 ## Caching git https passwords
 
@@ -194,6 +151,24 @@ If you want to permanently leave you can run the following:
 crossystem disable_dev_request=1; reboot
 ```
 
+## Re-initialise the SDK container
+
+By default, the SDK container is re-used when using the `./run_sdk_container` script; all your changes within the container are preserved.
+To reset the container, list all docker containers:
+```shell
+docker ps --all
+...
+00a133b61c55   ghcr.io/flatcar-linux/flatcar-sdk-all:3087.0.0        "/bin/sh -c /home/sd…"   2 weeks ago   Exited (137) 11 days ago             flatcar-sdk-all-3087.0.0_os-alpha-3087.0.0-1-g39d915ae
+...
+```
+and identify the SDK / OS image release version you've been working on.
+Then delete the container:
+```shell
+docker container rm 00a133b61c55
+```
+
+The next run of `./run_sdk_container` will initialise a new container.
+
 ## Build everything from scratch
 
 If you want to build everything from scratch, but at the same time want to exclude several packages that take much time.
@@ -212,9 +187,10 @@ rm -f /build/amd64-usr/var/lib/portage/pkgs/coreos-base/coreos-0.0.1*.tbz2
 
 ## Modify or update invididual packages
 
-Before or after setting up the SDK with `./setup_board` you can modify the package definitions in `third_party/coreos-overlay/`.
-Changes for toolchain packages like the compiler need to be done before running `./setup_board` but any changes for the final image
-can be done before running `./build_packages && ./build_image`.
+You can modify the package definitions in `third_party/coreos-overlay/`.
+A complete and thorough guide for modifying packages is [here][mod-cl].
+Changes for toolchain packages like the compiler need to be done to the SDK directly; `./setup_board` needs to be called after such changes (and ideally, the SDK should be rebuilt).
+Any changes to the OS image only can be built by running `./build_packages && ./build_image`.
 All build commands can be run multiple times but whether your last changes are picked up depends on whether the package revision
 was increased (by renaming the ebuild file) or the package uninstalled and the binary package removed (See the last commands in
 _Build everything from scratch_ where it was done for the parent package `coreos-base/coreos`).
@@ -312,3 +288,7 @@ e96281a6-d1af-4bde-9a0a-97b76e56dc57
 - Flatcar Container Linux Root: 5dfbf5f4-2848-4bac-aa5e-0d9a20b745a6
 - Flatcar Container Linux Reserved: c95dc21a-df0e-4340-8d7b-26cbfa9a03e0
 - Flatcar Container Linux Raid Containing Root: be9067b9-ea49-4f15-b4f6-f36f8c9e1818
+
+
+
+[mod-cl]: sdk-modifying-flatcar

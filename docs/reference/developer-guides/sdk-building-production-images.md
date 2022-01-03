@@ -5,68 +5,140 @@ aliases:
     - ../../os/sdk-building-production-images
 ---
 
-FIXME TODO: update to match container builds
 
 ## Introduction
 
-This guide discusses the OS build process and is aimed at audiences comfortable with cutting their very own Flatcar releases. For this purpose we'll have a closer look at the CI automation stubs provided in the [scripts repository][scripts-repo-ci].
+This guide discusses automating the OS build process and is aimed at audiences comfortable with producing, testing, and distributing their very own Flatcar releases. For this purpose we'll have a closer look at the CI automation stubs provided in the [scripts repository][scripts-repo-ci].
 
-It is assumed that readers are familiar with the [SDK][mod-cl] and the general build process outlined in the  [CI automation][scripts-repo-ci].
-
-
-FIXME TODO: update to match container builds
+It is assumed that readers are familiar with the [SDK][mod-cl] and the general build process outlined in the [CI automation][scripts-repo-ci].
 
 
+## Stabilisation process and versioning
 
-## Tagging releases
+The Flatcar OS version number follows the pattern MMMM.m.p[ppp] - "M" being the major number, "m" the minor, and "p" the patch level.
+Specifically:
+- A new major version number is introduced with every new Alpha release.
+- The minor version denotes the stabilisation level; 0 means Alpha, 1 is Beta, and 2 is Stable.
+- The patch level denotes incremental releases within the same channel and is incremented e.g. to address issues before promoting a major version to the next stabilisation phase.
 
-The first step of building a release is updating and tagging the release in the manifest git repository. A typical release off of master involves the following steps:
+Roughly, every second Alpha major release goes Beta, and every second Beta major release goes stable.
+A notable exception is the "3033" major release used in the example below; this release shipped ARM64 support and was moved to Stable faster than usual.
+This allows for swift iterations in the "Alpha" channel while keeping Stable major releases ... well ... stable, and ensuring new major Stable releases introduce meaningful sets of updates and new features.
 
- 1. Make sure you are on the master branch: `repo init -b master`
- 2. Sync/checkout source, excluding local changes: `repo sync --detach`
- 3. In the scripts directory: `./tag_release --push`
-
-That was far too easy, if you need to do it the hard way try this:
-
- 1. Make sure you are on the master branch: `repo init -b master`
- 2. Sync/checkout source, excluding local changes: `repo sync --detach`
- 3. Switch to the somewhat hidden manifests checkout: `cd .repo/manifests`
- 4. Update `version.txt` with the desired version number.
-    * COREOS_BUILD is the major version number, and should be the number of days since July 1st, 2013. COREOS_BRANCH should start at 0 and is incremented for every normal release based on a particular COREOS_BUILD version. COREOS_PATCH is reserved for exceptional situations such as emergency manual releases and should normally be 0.
-    * The complete version string is COREOS_BUILD.COREOS_BRANCH.COREOS_PATCH
-    * COREOS_SDK_VERSION should be the complete version string of an existing build. `cork` uses this to pick what SDK tarball to use when creating a fresh chroot and provides a fallback set of binary packages to use when the current release's packages are unavailable. Usually it will be one release behind COREOS_BUILD.
- 5. Generate a release manifest: `repo manifest -r -o build-$BUILD.xml` where `$BUILD` is the current value of COREOS_BUILD in `version.txt`.
- 6. Update `release.xml`: `ln -sf build-$BUILD.xml release.xml`
- 7. Commit! `git add build-$BUILD.xml; git commit -a`
- 8. Tag! `git tag v$BUILD.$BRANCH.$PATCH`
- 9. Push! `git push origin HEAD:master HEAD:dev-channel HEAD:build-$BUILD v$BUILD.$BRANCH.$PATCH`
-
-If a release branch needs to be updated after master has moved on the procedure is similar. Unfortunately since tagging branched releases (not on master) is a bit trickier to get right the `tag_release` script cannot be used. The automated build will kick off after updating the `dev-channel` branch.
-
- 1. Check out the release instead of master: `repo init -b build-$BUILD -m release.xml`
- 2. Sync, cherry-pick, push, and whatever else is required to publish the desired changes in the repo-managed projects. If the desired changes are already published (such as if you are just updating to a later commit from a project's master branch) then this can be skipped.
- 3. `cd .repo/manifests`
- 4. Update `version.txt` as desired. Usually just increment COREOS_PATCH.
- 5. Update `build-$BUILD.xml` as desired. The output of `repo manifest -r` shouldn't be used verbatim this time because it won't generate meaningful values for the `upstream` project attribute when starting from a release manifest instead of `master.xml` but it can be useful for looking up the git commit to update the `revision` attribute to. If the new git commit is on a branch other than master be sure to update the `upstream` attribute with the appropriate ref spec for that branch.
- 6. If this is the first time this branch has been updated on its own update the `default.xml` link so checking out this manifest branch with repo init but without the `-m` argument works: `ln -sf build-$BUILD.xml default.xml`
- 7. Commit! `git commit -a`
- 8. Tag! `git tag v$BUILD.$BRANCH.$PATCH`
- 9. Push! `git push origin HEAD:dev-channel HEAD:build-$BUILD v$BUILD.$BRANCH.$PATCH`
-
-Now you can start building images! This will build an image that can be ran under KVM and uses near production values.
-
-Note: Add `COREOS_OFFICIAL=1` here if you are making a real release. That will change the version to leave off the build id suffix.
-
-```shell
-./build_image prod --group alpha
+A good way to look at releases and stabilisation through channels is to consider major releases as branches from "main", while Alpha, Beta and Stable releases are distinct points in the lifecycle of a release branch:
+```
+  main
+  ...
+   +-- Alpha-2983.0.0
+   |        +-- Beta-2983.1.0
+   |                +--- Stable-2983.2.0
+   |                +--- Stable-2983.2.1
+   |
+   +-- Alpha-3005.0.0
+   +-- Alpha-3005.0.1
+   |
+   +-- Alpha-3033.0.0
+   |        +-- Beta-3033.1.0
+   |        +-- Beta-3033.1.1
+   |                +--- Stable-3033.2.0
+   |
+   +-- Alpha-3046.0.0
+   |
+   +-- Alpha-3066.0.0
+   |        +-- Beta-3066.1.0
+  ...
 ```
 
-The generated production image is bootable as-is by qemu but for a larger ROOT partition or VMware images use `image_to_vm.sh` as described in the final output of `build_image`.
 
-## Tips and Tricks
+## On versioning
 
-We've compiled a [list of tips and tricks](sdk-tips-and-tricks) that can make working with the SDK a bit easier.
+For Flatcar versioning, the scripts repo is authoritative: 
+Versioning is controlled by the [`version.txt` file in the scripts repo](https://github.com/flatcar-linux/scripts/blob/main/sdk_container/.repo/manifests/version.txt) as well as via the commit pointers of the script repo's `portage-stable` and `coreos-overlay` gitmodules.
+`version.txt` contains version strings for both the SDK version as well as the OS image version.
 
+Core idea is that a simple
+```shell
+git checkout 3033.2.0
+git submodules update --init --reqursive
+```
+will set up the scripts repo for development on top of Flatcar release `3033.2.0`.
+
+Keeping `version.txt`,and submodules in sync, updating version strings, and generating version tags is one of the main concerns of the build automation scripts.
+Running a new build via the CI automation will *always* generate a new version.
+This can be non-production version, e.g. nightly build or a PR or branch build - in which case it should be given an appendix following the `MMMM.mm.pp` number.
+The official Flatcar CI uses `-nightly-YYYYMMDD-hhmm` as appendix for nightly builds, e.g. the tag `alpha-3066.0.0-nightly-20221231-0139` would refer to the nightly of the 31st of December, 2021.
+However, custom CI implementations may freely chose to use different appendices.
+
+
+Version information is a mandatory parameter which the CI implementation must feed into the CI automation scripts. Two of the build steps (detailed on below) take version parameters:
+- The SDK bootstrap takes a version string that is used for both the new SDK as well as the downstream OS image version.
+- The OS packages build step takes a version string that is used for the new OS image version.
+
+Both scripts will, based on a given version string:
+1. check out a respective version tag in both `coreos-overlay` and `portage-stable`
+2. update the `version.txt` file accordingly
+3. create a new commit with the above changes
+4. tag the commit with the version string and push the tag.
+
+
+## Build automation and build steps
+
+The Flatcar Container Linux build process consists of
+
+1. compiling packages from source, and generating a new OS image release version / tag
+2. creating a generic OS image file from the resulting binary packages
+3. creating one or more vendor-specific image files from the generic OS image.
+
+
+Optionally, the build process may include building the SDK from scratch based on a previous - exisiting - SDK, e.g. to update core build tools and utilities.
+In that case, the above 3 steps are prepended by
+
+1. Compile all core and SDK packages from source to generate a new SDK root FS and build a tarball from that; generate a new SDK release version and set the OS release to the same (SDK) version.
+2. Build a base SDK container image using the tarball from 1.
+   2.a build amd64 and arm64 toolchains and related board support
+   2.b then, from the image from 2.a, generate from scratch 3 container images - "all", "amd64", and "arm64" with the respective board support included.
+
+
+Running all 5 steps in one go will produce a new SDK and new OS image based on that new SDK.
+In this pipeline, both a new SDK version as well as a new OS image version are generated.
+This is what we call a "full" (or "full-all") build.
+The main use case is for nightly builds of the "main" branches where development of new features happen.
+A new major version release will also use this process (and can be seen as a "special case" of a nightly build of "main").
+New major releases always include a new SDK.
+
+Running only the 3 OS image steps is used for active (i.e. supported) release branches.
+This uses an existing SDK and thus only generates a new OS image version.
+Usually, stabilisation of a major release (alpha -> beta -> stable) uses the same SDK release during its lifetime, so there's no need to always build the SDK.
+Only in rare cases it is necessary to update the SDK after a new major version has been published.
+
+
+### Automation scripts
+
+The [build automation scripts][scripts-repo-ci] reflect the 5 steps outlined above; each step is done in a separate script.
+Check out the build automation's README.md to get an overview.
+Each of the scripts contains documentation of the INPUTs and OUTPUTs of the respective build step:
+
+1. [`sdk_bootstrap.sh`](https://github.com/flatcar-linux/scripts/blob/main/ci-automation/sdk_bootstrap.sh) builds a new SDK tarball from scratch
+2. [`sdk_container.sh`](https://github.com/flatcar-linux/scripts/blob/main/ci-automation/sdk_container.sh) builds an SDK container image from a tarball
+3. [`packages.sh`](https://github.com/flatcar-linux/scripts/blob/main/ci-automation/packages.sh) builds all binary packages for an OS image
+4. [`image.sh`](https://github.com/flatcar-linux/scripts/blob/main/ci-automation/image.sh) builds a generic OS image
+5. [`vms.sh`](https://github.com/flatcar-linux/scripts/blob/main/ci-automation/vms.sh) builds vendor-specific images
+
+CI / build automation infrastructure should set up the steps in a build pipeline.
+Artifacts of a preceding build step is fed into the succeeding step.
+The scripts are meant to implement build logic in a CI agnostic manner; the concrete CI system used (Jenkins, Bamboo, etc.) should require only very minimal glue logic to run builds.
+
+The build scripts should run on most Linux-based nodes out of the box; `git` and `docker` are the only requirements.
+In the Flatcar project, we use Flatcar Container Linux on our CI worker nodes.
+
+
+### Auxiliary infrastructure
+
+Apart from infrastructure to run the CI /builds on we also need a server for caching build artifacts.
+Build artifacts are mostly container images - with only few exceptions - and are almost always huge (some gigabites).
+To not overly pollute CI workers' disk space, the build scripts support an "artifact cache" server.
+Requirements for this server are rather simple - it should have sufficient disk space (we use 7TB on Flatcar's CI and can hold ~50 past builds), ssh access (for rsync) and serve artifacts from the (rsync/ssh) path prefix via HTTPS.
+See the `BUILDCACHE_...` settings in the [CI automation settings file](https://github.com/flatcar-linux/scripts/blob/main/ci-automation/ci-config.env) for adapting the build scripts to your environment.
 
 [scripts-repo-ci]: https://github.com/flatcar-linux/scripts/tree/main/ci-automation
 [mod-cl]: sdk-modifying-flatcar
