@@ -77,7 +77,7 @@ Cloning the repo will have it land on the `main` branch, which can be thought of
 Even though main is smoke-tested in nightly builds, it might occasionally be broken in subtle ways.
 This can make it harder to track down issues introduced by actual changes to Flatcar.
 
-* Release **tags** signify speficic (past) releases, like "stable-2905.2.4" or "beta-3033.1.1". Tags are created in release branches.
+* Release **tags** signify specific (past) releases, like "stable-2905.2.4" or "beta-3033.1.1". Tags are created in release branches.
 * Release **branches** only use major numbers and might contain, on top of the latest release tag, changes for the next upcoming release.
   Branches follow the pattern "flatcar-[MAJOR]".
   Following the tag example above, "flatcar-2905" would contain all changes of major release version 2095 up until stable-2905.2.4, and might contain changes on top of 2905.2.4 slated for a future 2905.2.5 release.
@@ -150,7 +150,7 @@ This leads to `FLATCAR_BUILD_ID` being set (to the output of `git describe --tag
 `run_sdk_container` re-uses containers once started; containers to be re-used are identified by name (see above). 
 Persistence helps with keeping changes in your work environment across container runs.
 **Keep in mind though that a new container will be created if the working commit in the scripts repository changes**.
-This is usually derired to prevent version muddling.
+This is usually desired to prevent version muddling.
 It can be explicitly overridden by using the `-n <name>` argument to `run_sdk_container`.
 
 
@@ -389,7 +389,7 @@ Lastly, the SDK might lack unmasks if the respective architecture is masked in t
 ```
 
 To proceed, remove the architecture mask in the ebuild file (remove the `~` - for example, change `~arm64` to `arm64`) and re-run emerge.
-FLatcar follows its own stabilisation process (through the Alpha - Beta - Stable channels); it's perfectly fine to unmask a package upstream considers unstable.
+Flatcar follows its own stabilisation process (through the Alpha - Beta - Stable channels); it's perfectly fine to unmask a package upstream considers unstable.
 
 If you want to use optional build flags (USE flags in Gentoo lingo) e.g. for compiling optional library support into the application, add the new package and the respective USE flag(s) to `src/third_party/portage-stable/profiles/base/package.use`.
 

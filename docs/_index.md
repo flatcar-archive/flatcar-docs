@@ -139,7 +139,7 @@ some guides to help you choose and make use of the different runtimes.
 ### Developer guides and Reference
 APIs and troubleshooting guides for working with Flatcar Container Linux.
 
-[Developer guides][developer-guides]: Comprehensive guides on developing for Flatcar, working with the SDK, and on building and extening OS images.
+[Developer guides][developer-guides]: Comprehensive guides on developing for Flatcar, working with the SDK, and on building and extending OS images.
 
 [Integrations][integrations]
 

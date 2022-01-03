@@ -68,5 +68,5 @@ The generated production image is bootable as-is by qemu but for a larger ROOT p
 We've compiled a [list of tips and tricks](sdk-tips-and-tricks) that can make working with the SDK a bit easier.
 
 
-[scripts-repo-ci]: https://github.com/flatcar-linux/scripts/ci-automation
+[scripts-repo-ci]: https://github.com/flatcar-linux/scripts/tree/main/ci-automation
 [mod-cl]: sdk-modifying-flatcar
