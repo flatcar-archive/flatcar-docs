@@ -102,7 +102,7 @@ $ git checkout [branch-from-above]
 $ git submodule update
 ```
 
-To verify the version in use, consult the versionfile.
+To verify the version in use, consult the version file.
 This file is updated on each release and reflects the SDK and OS versions corresponding to the the current commit.
 
 ```shell
@@ -222,7 +222,7 @@ $ ./image_to_vm.sh --from=../build/images/arm64-usr/developer-latest [--board=..
 For other vendor images, pass the `--format=` parameter (see `./image_to_vm.sh --help`).
 In general, `image_to_vm.sh` will read the generic disk image, install any vendor specific tools to the OEM partition where applicable (e.g. Azure VM tools for the Azure VM), and produce a vendor specific image. In the case of QEMU, a qcow2 image is produced. QEMU does not require vendor specific tooling in the OEM partition.
 
-On the host outside the container, the image(s) built are located in `__build__/images/...`.
+On the host outside the container, the image(s) built are located in `__build__/images/…`.
 This directory is also bind-mounted into the container by `run_sdk_container`.
 
 ### Booting
@@ -260,7 +260,7 @@ While the ChromiumOS heritage has faded and is barely visible nowadays, we heavi
 
 Contrary to traditional Linux distributions, Gentoo applications and “packages” are compiled at installation time.
 Gentoo itself does not ship packages - instead, it consists of a massive number of ebuild files to build applications at installation time (that’s an oversimplification as there are binary package caches, but that’s beyond the scope of this document).
-While the Flatcar SDK can be understood as a Gentoo derivate, the OS image is special.
+While the Flatcar SDK can be understood as a Gentoo derivative, the OS image is special.
 The OS image is not self-contained, i.e. it cannot install / update packages - it lacks both a compiler to build packages as well as tools to orchestrate builds and install the resulting binaries.
 Instead, OS images are built via the SDK, by building packages in the SDK, then installing the binaries into a chroot environment.
 From the chroot environment, the resulting OS image is generated.
@@ -320,7 +320,7 @@ $ ./run_sdk_container.sh -t
 ~/trunk/src/scripts $ cp gentoo/eclass/<eclass-name>.eclass ../third_party/portage-stable/eclass/
 ~/trunk/src/scripts $ emerge-amd64-usr --newuse <group>/<package>
 # optional - unmask package
-~/trunk/src/scripts $ vim ../third_party/portage-stable/<group>/<package>/<package-version>.ebuild
+~/trunk/src/scripts $ vim ../third_party/coreos-overlay/profiles/coreos/base/package.accept_keywords
 # remove '~' from arm64 and amd64
 ~/trunk/src/scripts $ emerge-amd64-usr --newuse <group>/<package>
 # optional - add missing dependencies, see line 2 ff. above
@@ -388,7 +388,7 @@ Lastly, the SDK might lack unmasks if the respective architecture is masked in t
   =<other-group>/<other-package> **
 ```
 
-To proceed, remove the architecture mask in the ebuild file (remove the `~` - for example, change `~arm64` to `arm64`) and re-run emerge.
+To proceed, add the package name and version, and its masked architectures to the `package.accept_keywords` file inside the `coreos` profile. Which `package.accept_keywords` file should be updated depends on couple factors - whether it is needed for both SDK and OS image or only for SDK or only for OS image, whether it is needed for both AMD64 and ARM64 images, or only for AMD64 or only for ARM64. Please refer to `README.md` in coreos-overlay for a summary about profiles
 Flatcar follows its own stabilisation process (through the Alpha - Beta - Stable channels); it's perfectly fine to unmask a package upstream considers unstable.
 
 If you want to use optional build flags (USE flags in Gentoo lingo) e.g. for compiling optional library support into the application, add the new package and the respective USE flag(s) to `src/third_party/portage-stable/profiles/base/package.use`.
@@ -499,7 +499,7 @@ To modify the configuration of a package we will run its individual build steps 
 This will allow for pausing after downloading the sources, to change the source tree configuration before building and installing.
 
 Our first step is to set you all up with a pre-configured stock Flatcar Linux kernel to base your modifications on.
-The Flatcar Linux kernel build is split over multiple gentoo ebuild files which all reside in <code>[coreos-overlay/sys-kernel/](https://github.com/kinvolk/coreos-overlay/tree/main/sys-kernel)</code>:
+The Flatcar Linux kernel build is split over multiple gentoo ebuild files which all reside in [`coreos-overlay/sys-kernel/`](https://github.com/kinvolk/coreos-overlay/tree/main/sys-kernel):
 
 *   `coreos-sources/` for pulling the kernel sources from git.kernel.org
 *   `coreos-kernel/` for building the main kernel (vmlinuz)
