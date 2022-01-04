@@ -276,7 +276,7 @@ In these stacks, “upper” level packages override “lower” level ones.
 The Flatcar build system uses a fork of Gentoo upstream’s [portage-stable](https://github.com/flatcar-linux/portage-stable) as its base, and the overlay repository [coreos-overlay](https://github.com/flatcar-linux/coreos-overlay) for Flatcar specific modifications and packages on top.
 
 Packages are built using "ebuild" files.
-These files contain a package’s dependencies - both build and runtime - as well as implement callbacks for downloading, patching, building, and installing a package.
+These files contain dependencies of a package - both build and runtime - as well as implement callbacks for downloading, patching, building, and installing the package.
 The callbacks in these ebuild files are written in shell.
 The Gentoo package system - portage - will, when building / installing a package, run the respective callbacks in order (e.g. `src_fetch()` for downloading package sources, and `src_compile()` for building).
 Common ebuild functions shared across many packages are implemented via classes (in `eclass/`) which can be inherited by package ebuilds.
