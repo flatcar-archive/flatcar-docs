@@ -141,4 +141,4 @@ Requirements for this server are rather simple - it should have sufficient disk 
 See the `BUILDCACHE_…` settings in the [CI automation settings file](https://github.com/flatcar-linux/scripts/blob/main/ci-automation/ci-config.env) for adapting the build scripts to your environment.
 
 [scripts-repo-ci]: https://github.com/flatcar-linux/scripts/tree/main/ci-automation
-[mod-cl]: sdk-modifying-flatcar.md
+[mod-cl]: sdk-modifying-flatcar
