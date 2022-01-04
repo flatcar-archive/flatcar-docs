@@ -253,7 +253,7 @@ You can log in via SSH keys or with a different ssh port by running this example
 
 Now for the interesting part! We are going to discuss 2 ways of making changes: adding or upgrading a package, and modifying the kernel configuration.
 
-### A brief introduction to Gentoo how it relates to the SDK
+### A brief introduction to Gentoo and how it relates to the SDK
 
 Flatcar Container Linux is based on ChromiumOS, which is based on Gentoo.
 While the ChromiumOS heritage has faded and is barely visible nowadays, we heavily leverage Gentoo processes and tools.
