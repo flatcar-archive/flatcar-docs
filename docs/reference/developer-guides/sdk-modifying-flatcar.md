@@ -26,9 +26,14 @@ Please direct questions and suggestions to the [#flatcar:matrix.org Matrix chann
 ```shell
 $ git clone https://github.com/flatcar-linux/scripts.git
 $ cd scripts
-$ git checkout $(git branch -r -l | sed -n 's:origin/\(flatcar-[0-9]\+\)$:\1:p' | sort | tail -n1) 
+$ branch="$(git branch -r -l | sed -n 's:origin/\(flatcar-[0-9]\+\)$:\1:p' | sort | tail -n1)"
+$ git checkout "$branch"
 $ git submodule init
 $ git submodule update
+$ for s in sdk_container/src/third_party/coreos-overlay/ sdk_container/src/third_party/portage-stable; do
+$   git -C "$s" checkout "$branch"
+$   git -C "$s" pull --rebase
+$ done
 $ ./run_sdk_container -t
 ```
 
@@ -87,7 +92,7 @@ It is generally recommended to base work on the latest Alpha release.
 While new features should target `main` at merge time, Alpha is a tested release and therefore offers a more stable foundation to base work on.
 At the same time, Alpha is not too far away from `main` so the risk of merge-time conflicts should be low.
 
-Get the latest Alpha release branch:
+Find the latest Alpha release branch:
 
 ```shell
 $ git branch -r -l | sed -n 's:origin/\(flatcar-[0-9]\+\)$:\1:p' | sort | tail -n1
@@ -95,14 +100,30 @@ $ git branch -r -l | sed -n 's:origin/\(flatcar-[0-9]\+\)$:\1:p' | sort | tail -
 
 If the goal is to reproduce and to fix a bug of a release other than Alpha, it is recommended to base the work on the latest point release of the respective major version instead of Alpha. All currrently "active" major versions can be found at the top of the [releases][flatcar-releases] web page.
 
-Check out the branch and update the submodules:
+For quick reference, to get the latest stable release tag, use:
+```shell
+$ git tag -l | grep -E 'stable-[0-9.]+$' | sort | tail -n 1
+```
+(replace `stable` with `beta` or `alpha` in accordance with your needs).
+
+Now check out the tag or branch and update the submodules:
 
 ```shell
-$ git checkout [branch-from-above]
+$ git checkout [branch-or-tag-from-above]
 $ git submodule update
 ```
 
-To verify the version in use, consult the version file.
+**Note**: When using a branch, the submodule pinnings might be outdated, so it's always a good idea to pull the latest branch tips for the submodules, too.
+This is not an issue with release tags; a release tag always pins the submodule state at the point of release.
+
+```shell
+$ for s in sdk_container/src/third_party/coreos-overlay/ sdk_container/src/third_party/portage-stable; do
+$   git -C "$s" checkout [branch]
+$   git -C "$s" pull --rebase
+$ done
+```
+
+Lastly, to verify the version in use, consult the version file.
 This file is updated on each release and reflects the SDK and OS versions corresponding to the the current commit.
 
 ```shell
