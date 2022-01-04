@@ -23,7 +23,7 @@ Specifically:
 
 Roughly, every second Alpha major release goes Beta, and every second Beta major release goes stable.
 A notable exception is the "3033" major release used in the example below; this release shipped ARM64 support and was moved to Stable faster than usual.
-This allows for swift iterations in the "Alpha" channel while keeping Stable major releases ... well ... stable, and ensuring new major Stable releases introduce meaningful sets of updates and new features.
+This allows for swift iterations in the "Alpha" channel while keeping Stable major releases … well … stable, and ensuring new major Stable releases introduce meaningful sets of updates and new features.
 
 A good way to look at releases and stabilisation through channels is to consider major releases as branches from "main", while Alpha, Beta and Stable releases are distinct points in the lifecycle of a release branch:
 ```
@@ -59,15 +59,15 @@ Versioning is controlled by the [`version.txt` file in the scripts repo](https:/
 Core idea is that a simple
 ```shell
 git checkout 3033.2.0
-git submodules update --init --reqursive
+git submodules update --init --recursive
 ```
 will set up the scripts repo for development on top of Flatcar release `3033.2.0`.
 
-Keeping `version.txt`,and submodules in sync, updating version strings, and generating version tags is one of the main concerns of the build automation scripts.
+Keeping `version.txt` and submodules in sync, updating version strings, and generating version tags is one of the main concerns of the build automation scripts.
 Running a new build via the CI automation will *always* generate a new version.
-This can be non-production version, e.g. nightly build or a PR or branch build - in which case it should be given an appendix following the `MMMM.mm.pp` number.
-The official Flatcar CI uses `-nightly-YYYYMMDD-hhmm` as appendix for nightly builds, e.g. the tag `alpha-3066.0.0-nightly-20221231-0139` would refer to the nightly of the 31st of December, 2021.
-However, custom CI implementations may freely chose to use different appendices.
+This can be non-production version, e.g. nightly build or a PR or branch build - in which case it should be given a suffix following the `MMMM.mm.pp` number.
+The official Flatcar CI uses `-nightly-YYYYMMDD-hhmm` as suffix for nightly builds, e.g. the tag `alpha-3066.0.0-nightly-20221231-0139` would refer to the nightly of the 31st of December, 2021.
+However, custom CI implementations may freely choose to use different suffixes.
 
 
 Version information is a mandatory parameter which the CI implementation must feed into the CI automation scripts. Two of the build steps (detailed on below) take version parameters:
@@ -90,18 +90,18 @@ The Flatcar Container Linux build process consists of
 3. creating one or more vendor-specific image files from the generic OS image.
 
 
-Optionally, the build process may include building the SDK from scratch based on a previous - exisiting - SDK, e.g. to update core build tools and utilities.
-In that case, the above 3 steps are prepended by
+Optionally, the build process may include building the SDK from scratch based on a previous - existing - SDK, e.g. to update core build tools and utilities.
+In that case, the above 3 steps are preceded by
 
 1. Compile all core and SDK packages from source to generate a new SDK root FS and build a tarball from that; generate a new SDK release version and set the OS release to the same (SDK) version.
 2. Build a base SDK container image using the tarball from 1.
-   2.a build amd64 and arm64 toolchains and related board support
-   2.b then, from the image from 2.a, generate from scratch 3 container images - "all", "amd64", and "arm64" with the respective board support included.
+   a. build amd64 and arm64 toolchains and related board support
+   b. then, from the image from 2.a, generate from scratch 3 container images - "all", "amd64", and "arm64" with the respective board support included.
 
 
 Running all 5 steps in one go will produce a new SDK and new OS image based on that new SDK.
 In this pipeline, both a new SDK version as well as a new OS image version are generated.
-This is what we call a "full" (or "full-all") build.
+This is what we call a "full" (or "all-full") build.
 The main use case is for nightly builds of the "main" branches where development of new features happen.
 A new major version release will also use this process (and can be seen as a "special case" of a nightly build of "main").
 New major releases always include a new SDK.
@@ -115,8 +115,8 @@ Only in rare cases it is necessary to update the SDK after a new major version h
 ### Automation scripts
 
 The [build automation scripts][scripts-repo-ci] reflect the 5 steps outlined above; each step is done in a separate script.
-Check out the build automation's README.md to get an overview.
-Each of the scripts contains documentation of the INPUTs and OUTPUTs of the respective build step:
+Check out the build automation's `README.md` to get an overview.
+Each of the scripts contains documentation of the inputs and outputs of the respective build step:
 
 1. [`sdk_bootstrap.sh`](https://github.com/flatcar-linux/scripts/blob/main/ci-automation/sdk_bootstrap.sh) builds a new SDK tarball from scratch
 2. [`sdk_container.sh`](https://github.com/flatcar-linux/scripts/blob/main/ci-automation/sdk_container.sh) builds an SDK container image from a tarball
@@ -125,7 +125,7 @@ Each of the scripts contains documentation of the INPUTs and OUTPUTs of the resp
 5. [`vms.sh`](https://github.com/flatcar-linux/scripts/blob/main/ci-automation/vms.sh) builds vendor-specific images
 
 CI / build automation infrastructure should set up the steps in a build pipeline.
-Artifacts of a preceding build step is fed into the succeeding step.
+Artifacts of a preceding build step are fed into the succeeding step.
 The scripts are meant to implement build logic in a CI agnostic manner; the concrete CI system used (Jenkins, Bamboo, etc.) should require only very minimal glue logic to run builds.
 
 The build scripts should run on most Linux-based nodes out of the box; `git` and `docker` are the only requirements.
@@ -134,11 +134,11 @@ In the Flatcar project, we use Flatcar Container Linux on our CI worker nodes.
 
 ### Auxiliary infrastructure
 
-Apart from infrastructure to run the CI /builds on we also need a server for caching build artifacts.
-Build artifacts are mostly container images - with only few exceptions - and are almost always huge (some gigabites).
+Apart from infrastructure to run the CI / builds on we also need a server for caching build artifacts.
+Build artifacts are mostly container images - with only few exceptions - and are almost always huge (some gigabytes).
 To not overly pollute CI workers' disk space, the build scripts support an "artifact cache" server.
 Requirements for this server are rather simple - it should have sufficient disk space (we use 7TB on Flatcar's CI and can hold ~50 past builds), ssh access (for rsync) and serve artifacts from the (rsync/ssh) path prefix via HTTPS.
-See the `BUILDCACHE_...` settings in the [CI automation settings file](https://github.com/flatcar-linux/scripts/blob/main/ci-automation/ci-config.env) for adapting the build scripts to your environment.
+See the `BUILDCACHE_…` settings in the [CI automation settings file](https://github.com/flatcar-linux/scripts/blob/main/ci-automation/ci-config.env) for adapting the build scripts to your environment.
 
 [scripts-repo-ci]: https://github.com/flatcar-linux/scripts/tree/main/ci-automation
-[mod-cl]: sdk-modifying-flatcar
+[mod-cl]: sdk-modifying-flatcar.md
