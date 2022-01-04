@@ -194,14 +194,22 @@ Before we discuss any modifications to the image, we'll do a full image build fi
 
 ### Select the target architecture
 
-At the time of writing the SDK supports two target architectures: AMD64 (x86-64) and ARM64.
-The target architecture can be specified by use of the `--board=` parameter to both `build_packages` and `build_image`:
-* `--board=amd64-usr` will build an x86 image
-* `--board=arm64-usr` will build and ARM64 image
+**NOTE on cross-compilation**: if you are cross-compiling make sure a static aarch64 qemu is set up via binfmt-misc on your host machine.
+Some packages compile and execute intermediate commands during their build process - this can break cross-compiling since the commands are built for the target architecture.
+The qemu binary on the host needs to be a static binary since it will be called from within the container context.
+Check if your distro has support for aarch64 in `binfmt-misc` already; on e.g. Fedora there's an `qemu-aarch64` entry in `/proc` for that (the name of the proc file may vary across distributions though):
+```shell
+$ cat /proc/sys/fs/binfmt_misc/qemu-aarch64
+enabled
+interpreter /usr/bin/qemu-aarch64-static
+flags: F
+offset 0
+magic 7f454c460201010000000000000000000200b700
+mask ffffffffffffff00fffffffffffffffffeffffff
+```
+Note the [**F flag**](https://www.kernel.org/doc/html/latest/admin-guide/binfmt-misc.html) to tell the kernel to preload ("fix") the binary instead of loading it lazily when emulation is required (since the latter leads to issues in namespaced environments).
 
-If no architecture is specified then AMD64 will be used by default.
-
-**NOTE** if you are cross-compiling make sure to set up qemu via binfmt-misc on your host machine:
+Should emulation via `binfmt-misc` *not* be set up it can be added e.g. via the host's `systemd-binfmt` service like this:
 ```shell
 $ cat /usr/lib/binfmt.d/qemu-aarch64-static.conf
 :qemu-aarch64:M::\x7fELF\x02\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x00\xb7\x00:\xff\xff\xff\xff\xff\xff\xff\x00\xff\xff\xff\xff\xff\xff\xff\xff\xfe\xff\xff\xff:/usr/bin/qemu-aarch64-static:F
@@ -209,6 +217,13 @@ $ sudo systemctl restart systemd-binfmt.service
 ```
 
 You can run `docker run --rm -ti arm64v8/alpine` on your host system as an easy check to verify everything is ready.
+
+At the time of writing the SDK supports two target architectures: AMD64 (x86-64) and ARM64.
+The target architecture can be specified by use of the `--board=` parameter to both `build_packages` and `build_image`:
+* `--board=amd64-usr` will build an x86 image
+* `--board=arm64-usr` will build and ARM64 image
+
+If no architecture is specified then AMD64 will be used by default.
 
 ### Build the OS image packages
 
