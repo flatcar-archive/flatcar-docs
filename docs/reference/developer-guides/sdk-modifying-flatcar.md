@@ -197,7 +197,7 @@ Before we discuss any modifications to the image, we'll do a full image build fi
 **NOTE on cross-compilation**: if you are cross-compiling make sure a static aarch64 qemu is set up via binfmt-misc on your host machine.
 Some packages compile and execute intermediate commands during their build process - this can break cross-compiling since the commands are built for the target architecture.
 The qemu binary on the host needs to be a static binary since it will be called from within the container context.
-Check if your distro has support for aarch64 in `binfmt-misc` already; on e.g. Fedora there's an `qemu-aarch64` entry in `/proc` for that (the name of the proc file may vary across distributions though):
+Check if your distro has a `qemu-user-static` package that you can install or whether it has support for aarch64 in `binfmt-misc` already; on e.g. Fedora there's an `qemu-aarch64` entry in `/proc` for that (the name of the proc file may vary across distributions though):
 ```shell
 $ cat /proc/sys/fs/binfmt_misc/qemu-aarch64
 enabled

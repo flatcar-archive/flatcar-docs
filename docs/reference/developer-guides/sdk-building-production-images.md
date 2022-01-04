@@ -59,7 +59,7 @@ Versioning is controlled by the [`version.txt` file in the scripts repo](https:/
 Core idea is that a simple
 ```shell
 git checkout 3033.2.0
-git submodules update --init --recursive
+git submodule update --init --recursive
 ```
 will set up the scripts repo for development on top of Flatcar release `3033.2.0`.
 
