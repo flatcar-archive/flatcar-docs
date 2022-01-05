@@ -128,13 +128,13 @@ This file is updated on each release and reflects the SDK and OS versions corres
 
 ```shell
 $ cat sdk_container/.repo/manifests/version.txt
-FLATCAR_VERSION=3066.0.0
-FLATCAR_VERSION_ID=3066.0.0
+FLATCAR_VERSION=3066.1.0
+FLATCAR_VERSION_ID=3066.1.0
 FLATCAR_BUILD_ID=""
-FLATCAR_SDK_VERSION=3066.0.0
+FLATCAR_SDK_VERSION=3066.1.0
 ```
 
-The example above is from the Alpha branch of the 3066 major release at the time of writing.
+The example above is from the release / maintenance branch of the 3066 major release at the time of writing (3066 was in the Beta channel at that time).
 
 
 ### Start the SDK
@@ -144,7 +144,7 @@ This will download the container image of the respective version if not present 
 
 ```shell
 $ ./run_sdk_container -t
-sdk@flatcar-sdk-all-3066_0_0_os-alpha-3066_0_0-5-gcf4ff44a ~/trunk/src/scripts $ cat sdk_container/.repo/manifests/version.txt
+sdk@flatcar-sdk-all-3066_0_0_os-beta-3066_1_0-gcf4ff44a  ~/trunk/src/scripts $ cat sdk_container/.repo/manifests/version.txt
 ```
 
 The `-t` flag is used to tell docker to allocate a TTY. It should be omitted when calling `run_sdk_container` from a script.
@@ -155,15 +155,15 @@ By default, the name of the container contains SDK and OS image version.
 After starting, the version file will have been updated:
 
 ```shell
-sdk@flatcar-sdk-all-3066_0_0_os-alpha-3066_0_0-5-gcf4ff44a ~/trunk/src/scripts $ cat sdk_container/.repo/manifests/version.txt
-FLATCAR_VERSION=3066.0.0+5-gcf4ff44a
-FLATCAR_VERSION_ID=3066.0.0
+sdk@flatcar-sdk-all-3066_0_0_os-beta-3066_1_0-gcf4ff44a ~/trunk/src/scripts $ cat sdk_container/.repo/manifests/version.txt
+FLATCAR_VERSION=3066.1.0+5-gcf4ff44a
+FLATCAR_VERSION_ID=3066.0.1
 FLATCAR_BUILD_ID="5-gcf4ff44a"
 FLATCAR_SDK_VERSION=3066.0.0
 ```
 
-We're basing our work on release 3066.0.0 in this example, the current branch has 5 patches on top of that release, and the latest patch has the shortlog hash `cf4ff44a`.
-This leads to `FLATCAR_BUILD_ID` being set (to the output of `git describe --tags`) and is reflected in the container name `...os-alpha-3066_0_0-5-gcf4ff44a`.
+We're basing our work on release 3066.1.0 in this example, the current branch has 5 patches on top of that release, and the latest patch has the shortlog hash `cf4ff44a`.
+This leads to `FLATCAR_BUILD_ID` being set (to the output of `git describe --tags`) and is reflected in the container name `...os-beta-3066_1_0-5-gcf4ff44a`.
 
 
 #### A note on persistence
