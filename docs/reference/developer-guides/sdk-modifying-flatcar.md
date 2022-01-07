@@ -122,6 +122,10 @@ FLATCAR_SDK_VERSION=3066.1.0
 The example above is from the release / maintenance branch of the 3066 major release at the time of writing (3066 was in the Beta channel at that time).
 
 
+**NOTE** that the version file at `sdk_container/.repo/manifests/version.txt` will be updated by `run_sdk_container` to include the git shortlog hash.
+This file is under revision control because it pins the latest official OS release and SDK version of the branch you're working on.
+**If you like to switch branches later, make sure to run `git checkout sdk_container/.repo/manifests/version.txt` to revert the change made by `run_sdk_container`.**
+
 ### Start the SDK
 
 We are now set to run the SDK container.
@@ -347,9 +351,11 @@ $ ./run_sdk_container.sh -t
 # optional - add missing dependencies, see line 2 ff. above
 ~/trunk/src/scripts $ ./build_image
 ~/trunk/src/scripts $ ./image_to_vm.sh --from=../build/images/amd64-usr/latest --format qemu
-~/trunk/src/scripts $ ../build/images/amd64-usr/latest/flatcar_production_qemu.sh &
-~/trunk/src/scripts $ ssh core@localhost -p 2222
-# run new software to verify it works
+# from outside the container, i.e. on the host:
+scripts $ ../build/images/amd64-usr/latest/flatcar_production_qemu.sh
+# in a different terminal on the host:
+scripts $ ssh core@localhost -p 2222
+# now run new software to verify it works
 core@localhost ~ $ ...
 ```
 
@@ -445,8 +451,16 @@ This will allow us to validate whether the software added works to our expectati
 ```shell
 ~/trunk/src/scripts $ ./build_image
 ~/trunk/src/scripts $ ./image_to_vm.sh --from=../build/images/amd64-usr/latest --format qemu
-~/trunk/src/scripts $ ../build/images/amd64-usr/latest/flatcar_production_qemu.sh &
-~/trunk/src/scripts $ ssh core@localhost -p 2222
+```
+
+After building the qemu image, we can now start it and SSH into the new OS image's instance.
+Here, we can validate whether our updated / added application works as expected.
+We start the qemu instance *on the host*, i.e. outside the container, so we can better interact with it from the host.
+Then, in a *different terminal*, we ssh into the host:
+```shell
+scripts $ ../build/images/amd64-usr/latest/flatcar_production_qemu.sh
+# switch terminals
+scripts $ ssh core@localhost -p 2222
 core@localhost ~ $ ...
 ```
 
@@ -483,8 +497,11 @@ $ ./run_sdk_container.sh -t
 ~/trunk/src/scripts $ ebuild-amd64-usr ../third_party/coreos-overlay/sys-kernel/coreos-modules/coreos-modules-<version>.ebuild package
 ~/trunk/src/scripts $ ./build_image --board=amd64-usr
 ~/trunk/src/scripts $ ./image_to_vm.sh --from=../build/images/amd64-usr/latest --board=amd64-usr --format qemu
-~/trunk/src/scripts $ ../build/images/amd64-usr/latest/flatcar_production_qemu.sh &
-~/trunk/src/scripts $ ssh core@localhost -p 2222
+
+# on the host
+scripts $ ../build/images/amd64-usr/latest/flatcar_production_qemu.sh
+# in a different terminal on the host:
+scripts $ ssh core@localhost -p 2222
 core@localhost ~ $ ...
 
 ~/trunk/src/scripts $ diff kernel-config.orig kernel-config.mine > ../third_party/coreos-overlay/sys-kernel/coreos-modules/files/my.diff
@@ -495,21 +512,12 @@ core@localhost ~ $ ...
 ~/trunk/src/scripts $ emerge-amd64-usr sys-kernel/coreos-modules
 ~/trunk/src/scripts $ ./build_image --board=amd64-usr
 ~/trunk/src/scripts $ ./image_to_vm.sh --from=../build/images/amd64-usr/latest --board=amd64-usr --format qemu
-~/trunk/src/scripts $ ../build/images/amd64-usr/latest/flatcar_production_qemu.sh
-~/trunk/src/scripts $ ssh core@localhost -p 2222
 
-~/trunk/src/scripts $ diff kernel-config.orig kernel-config.mine > ../third_party/coreos-overlay/sys-kernel/coreos-modules/files/my.diff
-~/trunk/src/scripts $ cd ../third_party/coreos-overlay/sys-kernel/coreos-modules/files/
-~/trunk/src/third_party/coreos-overlay/sys-kernel/coreos-modules/files/ $ vim -O commonconfig* amd64_defconfig* my.diff
-~/trunk/src/third_party/coreos-overlay/sys-kernel/coreos-modules/files/ $ rm my.diff
-
-~/trunk/src/scripts $ cd ~/trunk/src/scripts 
-~/trunk/src/scripts $ emerge-amd64-usr sys-kernel/coreos-kernel
-~/trunk/src/scripts $ emerge-amd64-usr sys-kernel/coreos-modules
-~/trunk/src/scripts $ ./build_image --board=amd64-usr
-~/trunk/src/scripts $ ./image_to_vm.sh --from=../build/images/amd64-usr/latest --board=amd64-usr --format qemu
-~/trunk/src/scripts $ ../build/images/amd64-usr/latest/flatcar_production_qemu.sh
-~/trunk/src/scripts $ ssh core@localhost -p 2222
+# on the host
+scripts $ ../build/images/amd64-usr/latest/flatcar_production_qemu.sh
+# in a different terminal on the host:
+scripts $ ssh core@localhost -p 2222
+core@localhost ~ $ ...
 ```
 
 </td></tr></table>
@@ -603,8 +611,14 @@ These packages can now be picked up by the image builder script. Let’s build a
 ```shell
 ~/trunk/src/scripts $ ./build_image --board=amd64-usr
 ~/trunk/src/scripts $ ./image_to_vm.sh --from=../build/images/amd64-usr/latest --board=amd64-usr --format qemu
-~/trunk/src/scripts $ ../build/images/amd64-usr/latest/flatcar_production_qemu.sh &
-~/trunk/src/scripts $ ssh core@localhost -p 2222
+```
+
+*On the host*, start the qemu VM.
+Then, *in a different terminal*, ssh into the VM and validate your modifications.
+```shell
+scripts $ ../build/images/amd64-usr/latest/flatcar_production_qemu.sh
+scripts $ ssh core@localhost -p 2222
+core@localhost ~ $ ...
 ```
 
 After we’ve verified that our modifications work as expected, let’s persist the changes into the ebuild file - in `sys-kernel/coreos-modules` (as previously mentioned).
@@ -623,8 +637,14 @@ Finally, we’ll rebuild kernel and modules using the updated ebuild, to make su
 ~/trunk/src/scripts $ emerge-amd64-usr sys-kernel/coreos-modules
 ~/trunk/src/scripts $ ./build_image --board=amd64-usr
 ~/trunk/src/scripts $ ./image_to_vm.sh --from=../build/images/amd64-usr/latest --board=amd64-usr --format qemu
-~/trunk/src/scripts $ ../build/images/amd64-usr/latest/flatcar_production_qemu.sh
-~/trunk/src/scripts $ ssh core@localhost -p 2222
+```
+
+*On the host*, start the qemu VM.
+Then, *in a different terminal*, ssh into the VM and validate your modifications.
+```shell
+scripts $ ../build/images/amd64-usr/latest/flatcar_production_qemu.sh
+scripts $ ssh core@localhost -p 2222
+core@localhost ~ $ ...
 ```
 
 
