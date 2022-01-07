@@ -96,7 +96,7 @@ References:
 
 Your SSH keys should be detected and added automatically by the image build process. Optionally, you can set a password for the `core` user which you can use later for ssh authentication, should SSH pubkey authentication not work for you.
 
-After entering the SDK container for the first time (or after re-creating it , you can set user `core`'s password:
+After entering the SDK container for the first time (or after re-creating it), you can set user `core`'s password:
 
 ```shell
 $ ./set_shared_user_password.sh

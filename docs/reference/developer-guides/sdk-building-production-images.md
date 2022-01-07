@@ -95,8 +95,8 @@ In that case, the above 3 steps are preceded by
 
 1. Compile all core and SDK packages from source to generate a new SDK root FS and build a tarball from that; generate a new SDK release version and set the OS release to the same (SDK) version.
 2. Build a base SDK container image using the tarball from 1.
-   a. build amd64 and arm64 toolchains and related board support
-   b. then, from the image from 2.a, generate from scratch 3 container images - "all", "amd64", and "arm64" with the respective board support included.
+   1. build amd64 and arm64 toolchains and related board support
+   2. then, from the image from 2. i., generate from scratch 3 container images - "all", "amd64", and "arm64" with the respective board support included.
 
 
 Running all 5 steps in one go will produce a new SDK and new OS image based on that new SDK.

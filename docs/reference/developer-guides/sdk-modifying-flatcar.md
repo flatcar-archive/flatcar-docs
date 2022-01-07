@@ -304,7 +304,7 @@ Packages are built using "ebuild" files.
 These files contain dependencies of a package - both build and runtime - as well as implement callbacks for downloading, patching, building, and installing the package.
 The callbacks in these ebuild files are written in shell.
 The Gentoo package system - portage - will, when building / installing a package, run the respective callbacks in order (e.g. `src_fetch()` for downloading package sources, and `src_compile()` for building).
-Common ebuild functions shared across many packages are implemented via classes (in `eclass/`) which can be inherited by package ebuilds.
+Common ebuild functions shared across many packages are implemented via eclasses (in `eclass/`) which can be inherited by package ebuilds.
 
 
 For more information on Gentoo in general please refer to the [Gentoo devmanual](https://devmanual.gentoo.org/).
@@ -415,7 +415,7 @@ Lastly, the SDK might lack unmasks if the respective architecture is masked in t
   =<other-group>/<other-package> **
 ```
 
-To proceed, add the package name and version, and its masked architectures to the `package.accept_keywords` file inside the `coreos` profile. Which `package.accept_keywords` file should be updated depends on couple factors - whether it is needed for both SDK and OS image or only for SDK or only for OS image, whether it is needed for both AMD64 and ARM64 images, or only for AMD64 or only for ARM64. Please refer to `README.md` in coreos-overlay for a summary about profiles
+To proceed, add the package name and version, and its masked architectures to the `package.accept_keywords` file inside the `coreos` profile. Which `package.accept_keywords` file should be updated depends on couple factors - whether it is needed for both SDK and OS image or only for SDK or only for OS image, whether it is needed for both AMD64 and ARM64 images, or only for AMD64 or only for ARM64. Please refer to `README.md` in coreos-overlay for a summary about profiles.
 Flatcar follows its own stabilisation process (through the Alpha - Beta - Stable channels); it's perfectly fine to unmask a package upstream considers unstable.
 
 If you want to use optional build flags (USE flags in Gentoo lingo) e.g. for compiling optional library support into the application, add the new package and the respective USE flag(s) to `src/third_party/portage-stable/profiles/base/package.use`.
