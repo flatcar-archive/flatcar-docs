@@ -27,13 +27,7 @@ Please direct questions and suggestions to the [#flatcar:matrix.org Matrix chann
 $ git clone https://github.com/flatcar-linux/scripts.git
 $ cd scripts
 $ branch="$(git branch -r -l | sed -n 's:origin/\(flatcar-[0-9]\+\)$:\1:p' | sort | tail -n1)"
-$ git checkout "$branch"
-$ git submodule init
-$ git submodule update
-$ for s in sdk_container/src/third_party/coreos-overlay/ sdk_container/src/third_party/portage-stable; do
-$   git -C "$s" checkout "$branch"
-$   git -C "$s" pull --rebase
-$ done
+$ ./checkout "$branch"
 $ ./run_sdk_container -t
 ```
 
@@ -61,8 +55,8 @@ There are 2 ways to use the SDK container:
 2. Wrapped: Uses a wrapper script to run the container and to bind-mount the local scripts directory into the container.
    **This is the recommended way of using the SDK.**
 
-**NOTE** that currently, Docker is required to run the SDK.
-While work on supporting other runtimes (e.g. Podman) is ongoing, the wrapper scripts currently only support Docker.
+**NOTE** The SDK container supports being run on docker or podman, with docker taking preference when both are available.
+The wrapper scripts will auto-detect which one is available, and use it.
 
 ### Clone the scripts repo
 
@@ -72,8 +66,6 @@ A good way to think of the scripts repo is this being Flatcar's "SDK repo".
 ```shell
 $ git clone https://github.com/flatcar-linux/scripts.git
 $ cd scripts
-$ git submodule init
-$ git submodule update
 ```
 
 #### Optionally, pick a release tag or branch
@@ -106,22 +98,15 @@ $ git tag -l | grep -E 'stable-[0-9.]+$' | sort | tail -n 1
 ```
 (replace `stable` with `beta` or `alpha` in accordance with your needs).
 
-Now check out the tag or branch and update the submodules:
+We provide a helper script to check out tags or branches and keeping submodules aligned. Just run:
 
 ```shell
-$ git checkout [branch-or-tag-from-above]
-$ git submodule update
+$ ./checkout [branch-or-tag-from-above]
 ```
 
-**Note**: When using a branch, the submodule pinnings might be outdated, so it's always a good idea to pull the latest branch tips for the submodules, too.
-This is not an issue with release tags; a release tag always pins the submodule state at the point of release.
-
-```shell
-$ for s in sdk_container/src/third_party/coreos-overlay/ sdk_container/src/third_party/portage-stable; do
-$   git -C "$s" checkout [branch]
-$   git -C "$s" pull --rebase
-$ done
-```
+This wikk check out the branch or tag in the top-level `scripts` directory and update the submodules, depending on wheter a branch or tag was specified:
+- a TAG already includes the correct submodule pinnings, so submodules are simply updated to point to the correct pinned commit.
+- a BRANCH will cause the helper script to check out a branch of the same name in both submodules, and fast-forward to the latest upstream branch tip.
 
 Lastly, to verify the version in use, consult the version file.
 This file is updated on each release and reflects the SDK and OS versions corresponding to the the current commit.
