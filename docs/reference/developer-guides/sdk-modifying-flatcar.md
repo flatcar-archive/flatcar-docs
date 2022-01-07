@@ -24,7 +24,7 @@ Please direct questions and suggestions to the [#flatcar:matrix.org Matrix chann
 
 **tl;dr** Check out a release branch and start the SDK (this uses the current Alpha release branch).
 ```shell
-$ git clone https://github.com/flatcar-linux/scripts.git
+$ git clone --recurse-submodules https://github.com/flatcar-linux/scripts.git
 $ cd scripts
 $ branch="$(git branch -r -l | sed -n 's:origin/\(flatcar-[0-9]\+\)$:\1:p' | sort | tail -n1)"
 $ ./checkout "$branch"
@@ -64,7 +64,7 @@ The [scripts repository][scripts] - among other things - contains SDK wrapper sc
 A good way to think of the scripts repo is this being Flatcar's "SDK repo".
 
 ```shell
-$ git clone https://github.com/flatcar-linux/scripts.git
+$ git clone --recurse-submodules https://github.com/flatcar-linux/scripts.git
 $ cd scripts
 ```
 
@@ -104,7 +104,7 @@ We provide a helper script to check out tags or branches and keeping submodules 
 $ ./checkout [branch-or-tag-from-above]
 ```
 
-This wikk check out the branch or tag in the top-level `scripts` directory and update the submodules, depending on wheter a branch or tag was specified:
+This will check out the branch or tag in the top-level `scripts` directory and update the submodules, depending on wheter a branch or tag was specified:
 - a TAG already includes the correct submodule pinnings, so submodules are simply updated to point to the correct pinned commit.
 - a BRANCH will cause the helper script to check out a branch of the same name in both submodules, and fast-forward to the latest upstream branch tip.
 
@@ -212,7 +212,7 @@ If no architecture is specified then AMD64 will be used by default.
 
 ### Build the OS image packages
 
-It's likely this won't *actually* build the packages but rather download pre-built packages from the Flatcar binary package cache.
+Beware, it's likely this won't *actually* build the packages but rather download pre-built packages from the Flatcar binary package cache (see below on how to force-rebuild a package that you modified).
 The package cache is updated on every release.
 
 ```shell
@@ -310,7 +310,7 @@ For more information on Gentoo in general please refer to the [Gentoo devmanual]
 
 When entering the SDK you are in the `~/trunk/src/scripts` repository which can be seen as the build system.
 It is one of the three repositories that define a Flatcar build:
-1. flatcar-scripts (the directory you're in) contains high-level build scripts to build all packages for an image, to build an image, and to bootstrap an SDK.
+1. `scripts` (the directory you're in) contains high-level build scripts to build all packages for an image, to build an image, and to bootstrap an SDK.
 2. `~/trunk/src/third_party/portage-stable` contains ebuild files of all packages close to (or identical to) Gentoo upstream.
 3. `~/trunk/src/third_party/coreos-overlay` contains Flatcar specific packages like ignition and mayday, as well as Gentoo packages which were significantly modified for Flatcar, like the Linux kernel, or systemd.
 
