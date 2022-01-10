@@ -54,9 +54,9 @@ Using the `--version` command line flag you can continue an SDK build which was
 previously aborted, e.g. after fixing an issue that caused the abort:
 
 ```
-$ sudo ./bootstrap_sdk --version <[release-ID]+[timestamp]>
+~/trunk/src/scripts $ sudo ./bootstrap_sdk --version <[release-ID]+[timestamp]>
 ```
 e.g.
 ```
-$ sudo ./bootstrap_sdk --version 2783.0.0+2021-02-26-1321
+~/trunk/src/scripts $ sudo ./bootstrap_sdk --version 2783.0.0+2021-02-26-1321
 ```
