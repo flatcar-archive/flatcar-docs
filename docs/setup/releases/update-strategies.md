@@ -105,6 +105,8 @@ The `reboot` strategy works exactly like it sounds: the machine is rebooted as s
 
 The `off` strategy is also straightforward. The update will be installed onto the passive partition and await a reboot command to complete the update. We don't recommend this strategy unless you reboot frequently as part of your normal operations workflow.
 
+Read below on how to _disable automatic updates_ if this is what you actually want to achieve instead of having a half applied update on disk that gets selected even on an accidental reboot. It is also blocking the inactive partition with the earliest version that gets available as update, requiring the _double update workaround_ at the end of this document.
+
 ## Auto-updates with a maintenance window
 
 Locksmith supports maintenance windows in addition to the reboot strategies mentioned earlier. Maintenance windows define a window of time during which a reboot can occur. These operate in addition to reboot strategies, so if the machine has a maintenance window and requires a reboot lock, the machine will only reboot when it has the lock during that window.
@@ -149,7 +151,19 @@ storage:
 
 To manually run updates, remove the file and run `update_engine_client -update` or wait for the update to happen.
 After update-engine applied the update to the passive partition, you can already create the file again to disable automatic updates.
-Wait for the reboot to happen or invoke it manually.
+
+The `flatcar-update` tool automatically removes the `SERVER=disabled` line to apply a manual update and restores it after applying the update (it also has an explicit `--disable-afterwards` switch to set `SERVER=disabled`):
+
+```shell
+$ # For example, update to the latest Stable release:
+$ VER=$(curl -fsSL https://stable.release.flatcar-linux.net/amd64-usr/current/version.txt | grep FLATCAR_VERSION= | cut -d = -f 2)
+$ sudo flatcar-update --to-version $VER
+```
+
+In case you didn't have `SERVER=disabled` set you should use the `--disable-afterwards` switch to set `SERVER=disabled` in `/etc/flatcar/update.conf` which disables updates.
+Disabling updates ensures that you will stay on the version you specified.
+
+After applying the update, wait for the reboot to happen or invoke it manually.
 
 As alternative you could mask the update-engine and locksmithd services as follows (but read the warning below):
 
