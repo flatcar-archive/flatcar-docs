@@ -47,7 +47,7 @@ To trigger a new Ignition run, either manually set `flatcar.first_boot=1` as tem
 Be aware that if you changed the Ignition config in the mean time, old files not known to the new Ignition config will be kept, and any other runtime data, too.
 Systemd service presets are also not reevaluated automatically. This means that newly declared service units won't be enabled unless you also invalidate the machine ID or create the symlinks for the service targets.
 
-To ensure that the systemd service presets are reevaluated you should invalidate the machine ID executing `sudo rm /etc/machine-id` before the reboot. This will give the node a new machine ID.
+To ensure that the systemd service presets are reevaluated you should invalidate the machine ID executing `sudo rm /etc/machine-id` before the reboot. This will give the node a new machine ID unless you have added the current machine ID as kernel argument in `/usr/share/oem/grub.cfg` (append the line `set linux_append="$linux_append systemd.machine_id=..."` to the end of the file, with the current machine ID instead of `...`).
 
 If you can't do this, you have to create the symlinks for the service target through Ignition `links` entries.
 Here is an example config with an additional `links` entry that ensures that the new service unit is enabled if this config is used for reprovisioning:
