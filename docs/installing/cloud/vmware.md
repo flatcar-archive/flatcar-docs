@@ -289,7 +289,7 @@ storage:
     - name: oem
       mount:
         device: /dev/disk/by-label/OEM
-        format: ext4
+        format: btrfs
         label: OEM
   files:
     - path: /grub.cfg

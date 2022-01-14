@@ -13,10 +13,10 @@ Flatcar Container Linux is designed to be reliably updated via a continuous stre
 |:------:|------------|-------------------------------------------------------------------|-----------------------|
 | 1      | EFI-SYSTEM | Contains the bootloader                                           | FAT32                 |
 | 2      | BIOS-BOOT  | Contains the second stages of GRUB for use when booting from BIOS | grub core.img         |
-| 3      | USR-A      | One of two active/passive partitions holding Flatcar Container Linux      | EXT4                  |
+| 3      | USR-A      | One of two active/passive partitions holding Flatcar Container Linux      | EXT2                  |
 | 4      | USR-B      | One of two active/passive partitions holding Flatcar Container Linux      | (empty on first boot) |
 | 5      | ROOT-C     | This partition is reserved for future use                         | (none)                |
-| 6      | OEM        | Stores configuration data specific to an [OEM platform][OEM docs] | EXT4                  |
+| 6      | OEM        | Stores configuration data specific to an [OEM platform][OEM docs] | BTRFS                 |
 | 7      | OEM-CONFIG | Optional storage for an OEM                                       | (defined by OEM)      |
 | 8      | (unused)   | This partition is reserved for future use                         | (none)                |
 | 9      | ROOT       | Stateful partition for storing persistent data                    | EXT4, BTRFS, or XFS   |
