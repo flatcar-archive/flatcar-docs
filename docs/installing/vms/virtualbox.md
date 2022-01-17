@@ -103,7 +103,7 @@ At boot time, the Flatcar Container Linux will detect that the volume size has c
 
 Open VirtualBox Manager and go to Machine > New. Type the desired machine name and choose 'Linux' as the type and 'Linux 2.6 / 3.x (64 bit)' as the version.
 
-Next, choose the desired memory size; at least 1 GB for an optimal experience.
+Next, choose the desired memory size; at least 2 GB for an optimal experience.
 
 Then, choose 'Use an existing virtual hard drive file' and find the new cloned image.
 
