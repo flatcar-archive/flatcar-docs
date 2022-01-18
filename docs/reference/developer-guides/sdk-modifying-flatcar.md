@@ -349,6 +349,9 @@ $ ./run_sdk_container.sh -t
 # remove '~' from arm64 and amd64
 ~/trunk/src/scripts $ emerge-amd64-usr --newuse <group>/<package>
 # optional - add missing dependencies, see line 2 ff. above
+# add package to OS image RDEPENDS="..."
+~/trunk/src/scripts $ vim ../third_party/coreos-overlay/coreos-base/coreos/coreos-0.0.1.ebuild
+~/trunk/src/scripts $ emerge-amd64-usr coreos-base/coreos
 ~/trunk/src/scripts $ ./build_image
 ~/trunk/src/scripts $ ./image_to_vm.sh --from=../build/images/amd64-usr/latest --format qemu
 # from outside the container, i.e. on the host:
@@ -445,6 +448,12 @@ Let’s add the package:
 ~/trunk/src/scripts $ vim ../third_party/coreos-overlay/coreos-base/coreos/coreos-0.0.1.ebuild
 ```
 In Vim, add `<group>/<package>` to list of packages in `RDEPENDS="..."`.
+
+Then, apply the change:
+
+```shell
+~/trunk/src/scripts $ emerge-amd64-usr coreos-base/coreos
+```
 
 Now we’ll rebuild the OS image from the updated list of packages, then run it in qemu.
 This will allow us to validate whether the software added works to our expectations:
