@@ -236,3 +236,5 @@ Log in via `ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null core
 When you make a change to `machine-mynode.yaml.tmpl` and run `terraform apply` again, the machine will be replaced.
 
 It is recommended to register your SSH key in the Equinix Metal Project to use the out-of-band console. Since Flatcar will fetch this key, too, you can remove it from the YAML config.
+
+You can find this Terraform module in the repository for [Flatcar Terraform examples](https://github.com/flatcar-linux/flatcar-terraform/tree/main/equinix-metal-aka-packet).
