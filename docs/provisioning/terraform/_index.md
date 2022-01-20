@@ -60,19 +60,39 @@ Sometimes you want to take the declarative approach of Terraform but can't accep
 This is the case for nodes that have a manual or slow bring-up process, much data that can't be moved easily, or where the IP address should not change.
 
 Ignition can be told to run again through `touch /boot/flatcar/first_boot` but it [won't clean up any old state][boot-process].
-You have to reformat the root filesystem with Ignition to ensure that no old state is present.
+For that you have to reformat the root filesystem with Ignition to ensure that no old state is present.
 Persistent data should be stored on another partition.
 
-This Container Linux Config snippet takes care of that:
+We can also preserve the machine ID by setting it as kernel cmdline parameter (it must not be kept as file on the root filesystem because that prevents the systemd first-boot semantics to enable units through the preset Ignition creates).
+
+This Container Linux Config snippet takes care of reformating the root filesystem and places a reprovisioning helper script on the OEM partition:
 
 ```yaml
-filesystems:
-  - name: root
-    mount:
-      device: /dev/disk/by-label/ROOT
-      format: ext4
-      wipe_filesystem: true
-      label: ROOT
+storage:
+  files:
+    - path: /reprovision
+      filesystem: oem
+      mode: 0755
+      contents:
+        inline: |
+          #!/bin/bash
+          set -euo pipefail
+          touch /usr/share/oem/grub.cfg
+          sed -i "/linux_append systemd.machine_id=.*/d" /usr/share/oem/grub.cfg
+          echo "set linux_append=\"\$linux_append systemd.machine_id=$(cat /etc/machine-id)\"" >> /usr/share/oem/grub.cfg
+          touch /boot/flatcar/first_boot
+  filesystems:
+    - name: root
+      mount:
+        device: /dev/disk/by-label/ROOT
+        format: ext4
+        wipe_filesystem: true
+        label: ROOT
+    - name: oem
+      mount:
+        device: /dev/disk/by-label/OEM
+        format: btrfs
+        label: OEM
 ```
 
 The final User Data needs to be stored on a place where modifications are allowed without destroying the node.
@@ -83,7 +103,7 @@ The real User Data of the node is just an Ignition Config that references the ex
 { "ignition": { "version": "2.1.0", "config": { "replace": { "source": "s3://..." } } } }
 ```
 
-Under these conditions it is possible to run `touch /boot/flatcar/first_boot` on the node and trigger reboot for the new Ignition Config to take effect (assuming data in S3):
+Under these conditions it is possible to run `sudo /usr/share/oem/reprovision` on the node and trigger reboot for the new Ignition Config to take effect (assuming data in S3):
 
 ```
 resource "null_resource" "reboot-when-ignition-changes" {
@@ -96,7 +116,7 @@ resource "null_resource" "reboot-when-ignition-changes" {
   depends_on = [aws_s3_bucket_object.object]
   # Trigger running Ignition on the next reboot and reboot the instance (current limitation: also runs on the first provisioning)
   provisioner "local-exec" {
-    command = "while ! ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null core@${packet_device.machine[each.key].access_public_ipv4} sudo touch /boot/flatcar/first_boot ; do sleep 1; done; while ! ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null core@${packet_device.machine[each.key].access_public_ipv4} sudo systemctl reboot; do sleep 1; done"
+    command = "while ! ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null core@${packet_device.machine[each.key].access_public_ipv4} sudo /usr/share/oem/reprovision ; do sleep 1; done; while ! ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null core@${packet_device.machine[each.key].access_public_ipv4} sudo systemctl reboot; do sleep 1; done"
   }
 }
 ```
