@@ -235,6 +235,263 @@ etcd:
 
 For information on using Flatcar Container Linux check out the [Flatcar Container Linux quickstart guide][quickstart] or dive into [more specific topics][docs].
 
+## Terraform
+
+The [`azurerm`](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs) Terraform Provider allows to deploy machines in a declarative way.
+Read more about using Terraform and Flatcar [here](../../provisioning/terraform/).
+
+The following Terraform v0.13 module may serve as a base for your own setup.
+
+Start with a `azure-vms.tf` file that contains the main declarations:
+
+```
+terraform {
+  required_version = ">= 0.13"
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "~>2.0"
+    }
+    ct = {
+      source  = "poseidon/ct"
+      version = "0.7.1"
+    }
+    template = {
+      source  = "hashicorp/template"
+      version = "~> 2.2.0"
+    }
+    null = {
+      source  = "hashicorp/null"
+      version = "~> 3.0.0"
+    }
+  }
+}
+
+provider "azurerm" {
+  features {}
+}
+
+resource "azurerm_resource_group" "main" {
+  name     = "${var.cluster_name}-rg"
+  location = var.resource_group_location
+}
+
+resource "azurerm_virtual_network" "main" {
+  name                = "${var.cluster_name}-network"
+  address_space       = ["10.0.0.0/16"]
+  location            = azurerm_resource_group.main.location
+  resource_group_name = azurerm_resource_group.main.name
+}
+
+resource "azurerm_subnet" "internal" {
+  name                 = "internal"
+  resource_group_name  = azurerm_resource_group.main.name
+  virtual_network_name = azurerm_virtual_network.main.name
+  address_prefixes     = ["10.0.2.0/24"]
+}
+
+resource "azurerm_public_ip" "pip" {
+  for_each            = toset(var.machines)
+  name                = "${var.cluster_name}-${each.key}-pip"
+  resource_group_name = azurerm_resource_group.main.name
+  location            = azurerm_resource_group.main.location
+  allocation_method   = "Dynamic"
+}
+
+resource "azurerm_network_interface" "main" {
+  for_each            = toset(var.machines)
+  name                = "${var.cluster_name}-${each.key}-nic"
+  resource_group_name = azurerm_resource_group.main.name
+  location            = azurerm_resource_group.main.location
+
+  ip_configuration {
+    name                          = "internal"
+    subnet_id                     = azurerm_subnet.internal.id
+    private_ip_address_allocation = "Dynamic"
+    public_ip_address_id          = azurerm_public_ip.pip[each.key].id
+  }
+}
+
+resource "azurerm_linux_virtual_machine" "machine" {
+  for_each            = toset(var.machines)
+  name                = "${var.cluster_name}-${each.key}"
+  resource_group_name = azurerm_resource_group.main.name
+  location            = azurerm_resource_group.main.location
+  size                = var.server_type
+  admin_username      = "core"
+  custom_data         = base64encode(data.ct_config.machine-ignitions[each.key].rendered)
+  network_interface_ids = [
+    azurerm_network_interface.main[each.key].id,
+  ]
+
+  admin_ssh_key {
+    username   = "core"
+    public_key = var.ssh_keys.0
+  }
+
+  source_image_reference {
+    publisher = "kinvolk"
+    offer     = "flatcar-container-linux"
+    sku       = "stable"
+    version   = var.flatcar_stable_version
+  }
+
+  plan {
+    name      = "stable"
+    product   = "flatcar-container-linux"
+    publisher = "kinvolk"
+  }
+
+  os_disk {
+    storage_account_type = "Standard_LRS"
+    caching              = "ReadWrite"
+  }
+}
+
+data "ct_config" "machine-ignitions" {
+  for_each = toset(var.machines)
+  content  = data.template_file.machine-configs[each.key].rendered
+}
+
+data "template_file" "machine-configs" {
+  for_each = toset(var.machines)
+  template = file("${path.module}/cl/machine-${each.key}.yaml.tmpl")
+
+  vars = {
+    ssh_keys = jsonencode(var.ssh_keys)
+    name     = each.key
+  }
+}
+```
+
+Create a `variables.tf` file that declares the variables used above:
+
+```
+variable "resource_group_location" {
+  default     = "eastus"
+  description = "Location of the resource group."
+}
+
+variable "machines" {
+  type        = list(string)
+  description = "Machine names, corresponding to machine-NAME.yaml.tmpl files"
+}
+
+variable "cluster_name" {
+  type        = string
+  description = "Cluster name used as prefix for the machine names"
+}
+
+variable "ssh_keys" {
+  type        = list(string)
+  description = "SSH public keys for user 'core' (and to register directly with waagent for the first)"
+}
+
+variable "server_type" {
+  type        = string
+  default     = "Standard_D2s_v4"
+  description = "The server type to rent"
+}
+
+variable "flatcar_stable_version" {
+  type        = string
+  description = "The Flatcar Stable release you want to use for the initial installation, e.g., 2605.12.0"
+}
+```
+
+An `outputs.tf` file shows the resulting IP addresses:
+
+```
+output "ip-addresses" {
+  value = {
+    for key in var.machines :
+    "${var.cluster_name}-${key}" => azurerm_linux_virtual_machine.machine[key].public_ip_address
+  }
+}
+```
+
+Now you can use the module by declaring the variables and a Container Linux Configuration for a machine.
+First create a `terraform.tfvars` file with your settings:
+
+```
+cluster_name            = "mycluster"
+machines                = ["mynode"]
+ssh_keys                = ["ssh-rsa AA... me@mail.net"]
+flatcar_stable_version  = "x.y.z"
+resource_group_location = "westeurope"
+```
+
+You can resolve the latest Flatcar Stable version with this shell command:
+
+```
+curl -sSfL https://stable.release.flatcar-linux.net/amd64-usr/current/version.txt | grep -m 1 FLATCAR_VERSION_ID= | cut -d = -f 2
+```
+
+The machine name listed in the `machines` variable is used to retrieve the corresponding [Container Linux Config](../../provisioning/config-transpiler/configuration) template from the `cl/` subfolder.
+For each machine in the list, you should have a `machine-NAME.yaml.tmpl` file with a corresponding name.
+
+Create the configuration for `mynode` in the file `cl/machine-mynode.yaml.tmpl`:
+
+```yaml
+passwd:
+  users:
+    - name: core
+      ssh_authorized_keys: ${ssh_keys}
+storage:
+  files:
+    - path: /home/core/works
+      filesystem: root
+      mode: 0755
+      contents:
+        inline: |
+          #!/bin/bash
+          set -euo pipefail
+          # This script demonstrates how templating and variable substitution works when using Terraform templates for Container Linux Configs.
+          hostname="$(hostname)"
+          echo My name is ${name} and the hostname is $${hostname}
+```
+
+First find your subscription ID, then create a service account for Terraform and note the tenant ID, client (app) ID, client (password) secret:
+
+```
+az login
+az account set --subscription <azure_subscription_id>
+az ad sp create-for-rbac --name <service_principal_name> --role Contributor
+{
+  "appId": "...",
+  "displayName": "<service_principal_name>",
+  "password": "...",
+  "tenant": "..."
+}
+```
+
+Make sure you have AZ CLI version 2.32.0 if you get the error `Values of identifierUris property must use a verified domain of the organization or its subdomain`.
+AZ CLI installation docs are [here](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-linux?pivots=apt#option-2-step-by-step-installation-instructions).
+
+Before you run Terraform, accept the image terms:
+
+```
+az vm image terms accept --urn kinvolk:flatcar-container-linux:stable:<flatcar_stable_version>
+```
+
+Finally, run Terraform v0.13 as follows to create the machine:
+
+```
+export ARM_SUBSCRIPTION_ID="<azure_subscription_id>"
+export ARM_TENANT_ID="<azure_subscription_tenant_id>"
+export ARM_CLIENT_ID="<service_principal_appid>"
+export ARM_CLIENT_SECRET="<service_principal_password>"
+terraform init
+terraform plan
+terraform apply
+```
+
+Log in via `ssh core@IPADDRESS` with the printed IP address.
+
+When you make a change to `cl/machine-mynode.yaml.tmpl` and run `terraform apply` again, the machine will be replaced.
+
+You can find this Terraform module in the repository for [Flatcar Terraform examples](https://github.com/flatcar-linux/flatcar-terraform/tree/main/azure).
+
 [flatcar-user]: https://groups.google.com/forum/#!forum/flatcar-linux-user
 [etcd-docs]: https://etcd.io/docs
 [quickstart]: ../
