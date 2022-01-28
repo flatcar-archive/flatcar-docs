@@ -17,6 +17,17 @@ The reboot is done by the reboot manager, by default this is the `locksmithd.ser
 For Kubernetes the recommended reboot manager is [FLUO](https://github.com/flatcar-linux/flatcar-linux-update-operator/) which replaces locksmithd because it knows how to gracefully reboot a Kubernetes node.
 The [kured](https://github.com/weaveworks/kured) reboot manager will be supported as well starting from Flatcar versions with a release number greater than `3067.0.0`.
 
+The `update-engine.service` responsible for downloading and applying the updates can be in different states which you can query with `update_engine_client -status`:
+
+- `UPDATE_STATUS_IDLE` (did not find an update)
+- `UPDATE_STATUS_CHECKING_FOR_UPDATE`
+- `UPDATE_STATUS_UPDATE_AVAILABLE` (can be a result of `update_engine_client -check_for_update`)
+- `UPDATE_STATUS_DOWNLOADING`
+- `UPDATE_STATUS_VERIFYING`
+- `UPDATE_STATUS_FINALIZING`
+- `UPDATE_STATUS_UPDATED_NEED_REBOOT` (update applied to inactive partition, this is where the reboot manager comes in)
+- `UPDATE_STATUS_REPORTING_ERROR_EVENT` (error encountered, use `journalctl -u update-engine -e` to get more info)
+
 ## Locksmithd reboot strategies
 
 These locksmithd strategies control how a reboot occurs when update-engine indicates that one is needed:
