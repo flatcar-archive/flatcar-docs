@@ -9,6 +9,8 @@ aliases:
 
 On Digital Ocean, users can upload Flatcar Container Linux as a [custom image](https://www.digitalocean.com/docs/images/custom-images/). Digital Ocean offers a [quick start guide](https://www.digitalocean.com/docs/images/custom-images/quickstart/) that walks you through the process.
 
+{{<note>}} In some cases upload of bzip2 compressed custom images has been seen to timeout/fail. In those cases we recommend re-compressing the image files using `gzip` and uploading to a custom location. {{</note>}}
+
 The _import URL_ should be `https://<channel>.release.flatcar-linux.net/amd64-usr/<version>/flatcar_production_digitalocean_image.bin.bz2`. See the [release page](https://www.flatcar-linux.org/releases/) for version and channel history.
 
 For more details, check out [Launching via the API](#via-the-api).
