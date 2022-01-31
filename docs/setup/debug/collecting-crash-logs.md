@@ -8,14 +8,19 @@ aliases:
     - ../../clusters/debug/collecting-crash-logs
 ---
 
-In the unfortunate case that an OS crashes, it's often extremely helpful to gather information about the event. There are two popular tools used to accomplished this goal: kdump and pstore. Flatcar Container Linux relies on pstore, a persistent storage abstraction provided by the Linux kernel, to store logs in the event of a kernel panic. Since this mechanism is just an abstraction, it depends on hardware support to actually persist the data across reboots. If the hardware support is absent, the pstore will remain empty. On AMD64 machines, pstore is typically backed by the ACPI error record serialization table (ERST).
+In the unfortunate case that an OS crashes, it's often extremely helpful to gather information about the event. There are two popular tools used to accomplished this goal: kdump and pstore. Flatcar Container Linux relies on pstore, a persistent storage abstraction provided by the Linux kernel, to store logs in the event of a kernel panic. Since this mechanism is just an abstraction, it depends on hardware support to actually persist the data across reboots. If the hardware support is absent, the pstore will remain empty. On AMD64 machines, pstore is typically backed by the ACPI error record serialization table (ERST) or EFI variables.
+
+## Check if pstore support exists
+
+The content of `/sys/module/pstore/parameters/backend` tells whether a pstore backend exists.
+If it only contains `(null)`, the system has no pstore support and won't store the kernel logs there - you have to monitor the serial console or use kdump.
 
 ## Using pstore
 
-On Flatcar Container Linux, the pstore is automatically mounted to `/sys/fs/pstore`. The contents of the store can be explored using standard filesystem tools:
+On Flatcar Container Linux, the pstore is automatically mounted to `/sys/fs/pstore` but files available there get automatically moved to `/var/lib/systemd/pstore/` through `systemd-pstore.service` after boot. The contents of the store can be explored using standard filesystem tools:
 
 ```shell
-ls /sys/fs/pstore/
+ls /var/lib/systemd/pstore/
 ```
 
 On this particular machine, there isn't anything in the pstore yet. In order to test the mechanism, a kernel panic can be triggered:
@@ -27,7 +32,7 @@ echo c > /proc/sysrq-trigger
 Once the machine boots, the pstore can again be inspected:
 
 ```shell
-$ ls /sys/fs/pstore/
+$ ls /var/lib/systemd/pstore/
 dmesg-erst-6319986351055831041  dmesg-erst-6319986351055831044
 dmesg-erst-6319986351055831042  dmesg-erst-6319986351055831045
 dmesg-erst-6319986351055831043
@@ -36,7 +41,7 @@ dmesg-erst-6319986351055831043
 Now there are a series of dmesg logs, stored in the ACPI ERST. Looking at the first file, the cause of the panic can be discovered:
 
 ```shell
-$ cat /sys/fs/pstore/dmesg-erst-6319986351055831041
+$ cat /var/lib/systemd/pstore/dmesg-erst-6319986351055831041
 Oops#1 Part1
 ...
 <6>[  201.650687] sysrq: SysRq : Trigger a crash
@@ -83,20 +88,20 @@ Oops#1 Part1
 The cause of the panic was a system request! The remaining files in the pstore contain more of the logs leading up to the panic as well as more context. Each of the files has a small, descriptive header describing the source of the logs. Looking at each of the headers shows the rough structure of the logs:
 
 ```shell
-$ head --lines=1 /sys/fs/pstore/dmesg-erst-6319986351055831041
+$ head --lines=1 /var/lib/systemd/pstore/dmesg-erst-6319986351055831041
 Oops#1 Part1
 
-$ head --lines=1 /sys/fs/pstore/dmesg-erst-6319986351055831042
+$ head --lines=1 /var/lib/systemd/pstore/dmesg-erst-6319986351055831042
 Oops#1 Part2
 
-$ head --lines=1 /sys/fs/pstore/dmesg-erst-6319986351055831043
+$ head --lines=1 /var/lib/systemd/pstore/dmesg-erst-6319986351055831043
 Panic#2 Part1
 
-$ head --lines=1 /sys/fs/pstore/dmesg-erst-6319986351055831044
+$ head --lines=1 /var/lib/systemd/pstore/dmesg-erst-6319986351055831044
 Panic#2 Part2
 
-$ head --lines=1 /sys/fs/pstore/dmesg-erst-6319986351055831045
+$ head --lines=1 /var/lib/systemd/pstore/dmesg-erst-6319986351055831045
 Panic#2 Part3
 ```
 
-It is important to note that the pstore typically has very limited storage space (on the order of kilobytes) and will not overwrite entries when out of space. The files in `/sys/fs/pstore` must be removed to free up space. The typical approach is to move the files from the pstore to a more permanent storage location on boot, but Flatcar Container Linux will not do this automatically for you.
+It is important to note that the pstore typically has very limited storage space (on the order of kilobytes) and will not overwrite entries when out of space. Flatcar Container Linux relies on `systemd-pstore.service` to ensure maximal free space by moving the files from `/sys/fs/pstore/` to `/var/lib/systemd/pstore/` on each boot.
