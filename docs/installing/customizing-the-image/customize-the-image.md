@@ -46,6 +46,10 @@ rmdir "${TARGET}"
 
 In case you converted the raw image for regular loop device mounting, you can also convert it back to qcow2 with `qemu-img convert -O qcow2 INPUT OUTPUT`.
 
+### Example for legacy cgroup AMIs
+
+An example script that generates CGroup V1 AWS EC2 images to be uploaded as AMIs can be found [here](https://raw.githubusercontent.com/kinvolk/flatcar-docs/main/create_cgroupv1_ami.sh).
+
 ### Customizing the boot partition
 
 Using the above command the boot partition with the EFI binaries can be mounted to place additional firmware on it, e.g., [Raspberry Pi 4 UEFI Firmware](https://github.com/pftf/RPi4/releases/) or similar.
