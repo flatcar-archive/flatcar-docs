@@ -65,6 +65,10 @@ However, the kernel commandline setting doesn't take effect on the first boot, a
 
 Beware that over time it is expected that upstream projects will drop support for cgroups v1.
 
+## Generate AWS EC2 cgroups v1 AMIs
+
+The [`create_cgroupv1_ami.sh` script](https://raw.githubusercontent.com/kinvolk/flatcar-docs/main/create_cgroupv1_ami.sh) performs the image modification as outlined above for you to upload your own Flatcar AMI that directly boots into cgroup v1 without needing an additonal reboot.
+
 # Kubernetes
 
 The unified cgroup hierarchy is supported starting with Docker v20.10 and
