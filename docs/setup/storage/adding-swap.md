@@ -9,6 +9,7 @@ aliases:
 ---
 
 Swap is the process of moving pages of memory to a designated part of the hard disk, freeing up space when needed. Swap can be used to alleviate problems with low-memory environments.
+An alternative is to use RAM compression with zram.
 
 By default Flatcar Container Linux does not include a partition for swap, however one can configure their system to have swap, either by including a dedicated partition for it or creating a swapfile.
 
@@ -65,7 +66,12 @@ NAME              TYPE       SIZE USED PRIO
 
 ### Btrfs and xfs
 
-Swapfiles should not be created on btrfs or xfs volumes. For systems using btrfs or xfs, it is recommended to create a dedicated swap partition.
+Please check the [btrfs instructions](https://btrfs.readthedocs.io/en/latest/btrfs-man5.html#swapfile-support) on how to create swapfiles on btrfs.
+In summary, you must use a single device filesystem, make sure you create the file on a non-snapshotted subvolume
+(e.g., to make sure this is the case you can create a new subvolume for the file), create the file with `truncate -s 0 ./swapfile1`
+and then disable CoW and compression (`chattr +C ./swapfile1`, `btrfs property set ./swapfile1 compression none`).
+
+Swapfiles should not be created on xfs volumes.  For systems using xfs, it is recommended to create a dedicated swap partition.
 
 ### Partition size
 
@@ -163,4 +169,19 @@ NB the systemd unit name is created by
 `systemd-escape -p /dev/disk/by-partlabel/swap` as systemd uses - as the
 path separator meaning that paths containing - have to be escaped. This
 leads to a file `'dev-disk-by\x2dpartlabel-swap.swap'` being created in
-`/etc/systemd/system`
+`/etc/systemd/system`.
+
+## Using zram
+
+With zram a virtual `/dev/zram0` device acts as swap space which lives compressed in memory.
+At the moment there is no zram generator and instead, a manual setup needs to be done, similar to the creation of a swap file.
+
+```shell
+$ sudo modprobe zram
+$ sudo zramctl -f -s 1G
+$ sudo mkswap /dev/zram0
+$ sudo swapon /dev/zram0
+$ zramctl
+NAME       ALGORITHM DISKSIZE DATA COMPR TOTAL STREAMS MOUNTPOINT
+/dev/zram0 lzo-rle         1G   4K   74B   12K       8 [SWAP]
+```
