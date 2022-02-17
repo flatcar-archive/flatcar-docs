@@ -202,6 +202,31 @@ $ sudo cgpt show "$(rootdev -s /usr)" | grep successful=1
                                   Attr: priority=1 tries=0 successful=1
 ```
 
+## Airgapped updates
+
+Updating a machine without Internet access is done in two steps.
+First, you need to download the update payload on a non-airgapped machine, then you copy it to your airgapped machine and run the `flatcar-update` tool.
+If the `flatcar-update` tool is missing on your machine, [download](https://raw.githubusercontent.com/flatcar-linux/init/flatcar-master/bin/flatcar-update) it first, too.
+
+On the non-airgapped machine (here for amd64, use `ARCH=arm64` for arm64):
+
+```shell
+ARCH=amd64
+VER=$(curl -fsSL https://stable.release.flatcar-linux.net/${ARCH}-usr/current/version.txt | grep FLATCAR_VERSION= | cut -d = -f 2)
+echo "$VER"
+# or if you know which version to update to, set it like VER=3033.2.1 (no channel info needed)
+wget "https://update.release.flatcar-linux.net/${ARCH}-usr/${VER}/flatcar_production_update.gz"
+```
+
+On the airgapped machine (here with the file `flatcar_production_update.gz` in the current folder):
+
+```shell
+VER=... # use the same value as above
+sudo ./flatcar-update --to-version "$VER" --to-payload flatcar_production_update.gz
+```
+
+Then reboot or wait for the reboot coordinator to do so.
+
 ## Updating behind a proxy
 
 Public Internet access is required to contact CoreUpdate and download new versions of Flatcar Container Linux. If direct access is not available the `update-engine` service may be configured to use a HTTP or SOCKS proxy using curl-compatible environment variables, such as `HTTPS_PROXY` or `ALL_PROXY`.
