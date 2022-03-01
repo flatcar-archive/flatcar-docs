@@ -30,10 +30,11 @@ Requires=docker.service
 
 [Service]
 TimeoutStartSec=0
-ExecStartPre=-/usr/bin/docker kill busybox1
-ExecStartPre=-/usr/bin/docker rm busybox1
-ExecStartPre=/usr/bin/docker pull busybox
-ExecStart=/usr/bin/docker run --name busybox1 busybox /bin/sh -c "trap 'exit 0' INT TERM; while true; do echo Hello World; sleep 1; done"
+ExecStartPre=-/usr/bin/docker rm --force busybox1
+ExecStart=/usr/bin/docker run --name busybox1 --pull always busybox /bin/sh -c "trap 'exit 0' INT TERM; while true; do echo Hello World; sleep 1; done"
+ExecStop=/usr/bin/docker stop busybox1
+Restart=always
+RestartSec=5s
 
 [Install]
 WantedBy=multi-user.target
@@ -43,7 +44,9 @@ The `Description` shows up in the systemd log and a few other places. Write some
 
 `After=docker.service` and `Requires=docker.service` means this unit will only start after `docker.service` is active. You can define as many of these as you want.
 
+`ExecStartPre=` is the action to run before starting the main process, using the `-` prefix you can ignore failures.
 `ExecStart=` allows you to specify any command that you'd like to run when this unit is started. The pid assigned to this process is what systemd will monitor to determine whether the process has crashed or not. Do not run docker containers with `-d` as this will prevent the container from starting as a child of this pid. systemd will think the process has exited and the unit will be stopped.
+`ExecStop=` is the action systemd will run when the unit should be stopped.
 
 `WantedBy=` is the target that this unit is a part of.
 
