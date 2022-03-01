@@ -63,6 +63,22 @@ systemd:
 
 However, the kernel commandline setting doesn't take effect on the first boot, and a reboot is required before the snippet becomes active.
 
+If your deployment can't tolerate the required reboot, consider using the following snippet to switch to legacy cgroups without a reboot. This is supported by Flatcar 3139.1.0 or newer:
+```yaml
+storage:
+  files:
+    - path: /etc/flatcar-cgroupv1
+      mode: 0444
+systemd:
+  units:
+    - name: containerd.service
+      dropins:
+        - name: 10-use-cgroupfs.conf
+          contents: |
+            [Service]
+            Environment=CONTAINERD_CONFIG=/usr/share/containerd/config-cgroupfs.toml
+```
+
 Beware that over time it is expected that upstream projects will drop support for cgroups v1.
 
 ## Generate AWS EC2 cgroups v1 AMIs
