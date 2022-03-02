@@ -12,7 +12,7 @@ aliases:
 
 Ignition is a new provisioning utility designed specifically for container OSs like Flatcar Container Linux, which allows you to manipulate disks during early boot. This includes partitioning disks, formatting partitions, writing files (regular files, systemd units, networkd units, and more), and configuring users. On the first boot, Ignition reads its configuration from a source-of-truth (remote URL, network metadata service, or hypervisor bridge, for example) and applies the configuration.
 
-A [series of example configs][examples] are provided for reference.
+A [series of example configs][examples] are provided for reference. The specification can be found [here][ignition-specification].
 
 ## Ignition vs coreos-cloudinit
 
@@ -51,6 +51,7 @@ The [full list of supported platforms][supported-platforms] is provided and will
 Ignition is under active development. Expect to see support for more images in the coming months.
 
 [examples]: https://github.com/kinvolk/ignition/blob/flatcar-master/doc/examples.md
+[ignition-specification]: specification
 [cloudinit]: https://github.com/kinvolk/coreos-cloudinit
 [network-config]: network-configuration
 [custom-agent]: https://github.com/kinvolk/ignition/blob/flatcar-master/doc/examples.md#custom-metadata-agent
