@@ -8,7 +8,7 @@ Ignition uses a JSON format that is specified in several versions. The tradition
 
 [ct-config]: ../config-transpiler/configuration
 
-## Igniton v2
+## Ignition v2
 
 The Ignition specification 2.3.0 is currently the highest supported version in Flatcar Container Linux (using Ignition v0.34.0).
 
