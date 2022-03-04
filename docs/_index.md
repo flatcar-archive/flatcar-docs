@@ -10,6 +10,11 @@ image, which includes only the tools needed to run containers. The OS is
 shipped through an immutable filesystem and includes automatic atomic
 updates.
 
+
+### Getting Started
+
+If you're new to Flatcar and if you're looking for a brief introduction on getting Flatcar up and running, please have a look at our [quickstart guide][quick-start].
+
 ### Installing Flatcar
 
 Flatcar Container Linux runs on most cloud providers, virtualization
