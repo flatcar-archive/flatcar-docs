@@ -96,11 +96,11 @@ Flatcar Container Linux can also be installed by booting the virtual machine via
 
 ## Container Linux Configs
 
-Flatcar Container Linux allows you to configure machine parameters, configure networking, launch systemd units on startup, and more via Container Linux Configs. These configs are then [transpiled][transpiler] into Ignition configs and given to booting machines. Head over to the [docs to learn about the supported features][cl-configs].
+Flatcar Container Linux allows you to configure machine parameters, configure networking, launch systemd units on startup, and more via Container Linux Configs (CLC). These configs are then [transpiled][transpiler] into Ignition configs and given to booting machines. Head over to the [docs to learn about the supported features][cl-configs].
 
 You can provide a raw Ignition config to Flatcar Container Linux via VMware's [Guestinfo interface][guestinfo].
 
-As an example, this Container Linux config will start etcd and configure private and public static IP addresses (the config needs to be transpiled to a raw Ignition config):
+As an example, this Container Linux Config will start an NGINX Docker container and configure private and public static IP addresses:
 
 ```yaml
 networkd:
@@ -123,20 +123,30 @@ networkd:
         [Route]
         Destination=10.0.0.0/8
         Gateway=10.0.0.1
-etcd:
-  # All options get passed as command line flags to etcd.
-  # Any information inside curly braces comes from the machine at boot time.
+systemd:
+  units:
+    - name: nginx.service
+      enabled: true
+      contents: |
+        [Unit]
+        Description=NGINX example
+        After=docker.service
+        Requires=docker.service
+        [Service]
+        TimeoutStartSec=0
+        ExecStartPre=-/usr/bin/docker rm --force nginx1
+        ExecStart=/usr/bin/docker run --name nginx1 --pull always --net host docker.io/nginx:1
+        ExecStop=/usr/bin/docker stop nginx1
+        Restart=always
+        RestartSec=5s
+        [Install]
+        WantedBy=multi-user.target
+```
 
-  # See the next section for dynamic data with {PRIVATE_IPV4} and {PUBLIC_IPV4}
-  advertise_client_urls:       "http://10.0.0.2:2379"
-  initial_advertise_peer_urls: "http://10.0.0.2:2380"
-  # listen on both the official ports and the legacy ports
-  # legacy ports can be omitted if your application doesn't depend on them
-  listen_client_urls:          "http://0.0.0.0:2379"
-  listen_peer_urls:            "http://10.0.0.2:2380"
-  # generate a new token for each unique cluster from https://discovery.etcd.io/new?size=3
-  # specify the initial size of your cluster with ?size=X
-  discovery:                   "https://discovery.etcd.io/<token>"
+Transpile it to Ignition JSON:
+
+```shell
+cat cl.yaml | docker run --rm -i ghcr.io/flatcar-linux/ct:latest -platform custom > ignition.json
 ```
 
 For DHCP you don't need to specify any networkd units.

@@ -50,20 +50,40 @@ label flatcar
   append flatcar.first_boot=1 ignition.config.url=https://example.com/pxe-config.ign
 ```
 
-Here's a common config example which should be located at the URL from above:
+Here's a CLC YAML example that starts and NGINX Docker container. It should be transpiled to Ignition JSON and located at the URL from above:
 
 ```yaml
 systemd:
   units:
-    - name: etcd2.service
-      enable: true
-
+    - name: nginx.service
+      enabled: true
+      contents: |
+        [Unit]
+        Description=NGINX example
+        After=docker.service
+        Requires=docker.service
+        [Service]
+        TimeoutStartSec=0
+        ExecStartPre=-/usr/bin/docker rm --force nginx1
+        ExecStart=/usr/bin/docker run --name nginx1 --pull always --net host docker.io/nginx:1
+        ExecStop=/usr/bin/docker stop nginx1
+        Restart=always
+        RestartSec=5s
+        [Install]
+        WantedBy=multi-user.target
 passwd:
   users:
     - name: core
       ssh_authorized_keys:
         - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDGdByTgSVHq...
 ```
+
+Transpile it to Ignition JSON:
+
+```shell
+cat cl.yaml | docker run --rm -i ghcr.io/flatcar-linux/ct:latest > ignition.json
+```
+
 
 ### Choose a channel
 
