@@ -96,7 +96,6 @@ PXE booted machines cannot currently update themselves when new versions are rel
     <li class="active"><a href="#stable-create" data-toggle="tab">Stable Channel</a></li>
     <li><a href="#beta-create" data-toggle="tab">Beta Channel</a></li>
     <li><a href="#alpha-create" data-toggle="tab">Alpha Channel</a></li>
-    <li><a href="#edge-create" data-toggle="tab">Edge Channel</a></li>
   </ul>
   <div class="tab-content coreos-docs-image-table">
     <div class="tab-pane" id="alpha-create">
@@ -123,20 +122,6 @@ wget https://beta.release.flatcar-linux.net/amd64-usr/current/flatcar_production
 wget https://beta.release.flatcar-linux.net/amd64-usr/current/flatcar_production_pxe.vmlinuz.sig
 wget https://beta.release.flatcar-linux.net/amd64-usr/current/flatcar_production_pxe_image.cpio.gz
 wget https://beta.release.flatcar-linux.net/amd64-usr/current/flatcar_production_pxe_image.cpio.gz.sig
-gpg --verify flatcar_production_pxe.vmlinuz.sig
-gpg --verify flatcar_production_pxe_image.cpio.gz.sig
-      </pre>
-    </div>
-    <div class="tab-pane" id="edge-create">
-      <p>The Edge channel includes bleeding-edge features with the newest versions of the Linux kernel, systemd and other core packages. Can be highly unstable. The current version is Flatcar Container Linux {{< param edge_channel >}}.</p>
-      <p>In the config above you can see that a Kernel image and a initramfs file is needed. Download these two files into your tftp root.</p>
-      <p>The <code>flatcar_production_pxe.vmlinuz.sig</code> and <code>flatcar_production_pxe_image.cpio.gz.sig</code> files can be used to <a href="../../community-platforms/notes-for-distributors#importing-images">verify the downloaded files</a>.</p>
-      <pre>
-cd /var/lib/tftpboot
-wget https://edge.release.flatcar-linux.net/amd64-usr/current/flatcar_production_pxe.vmlinuz
-wget https://edge.release.flatcar-linux.net/amd64-usr/current/flatcar_production_pxe.vmlinuz.sig
-wget https://edge.release.flatcar-linux.net/amd64-usr/current/flatcar_production_pxe_image.cpio.gz
-wget https://edge.release.flatcar-linux.net/amd64-usr/current/flatcar_production_pxe_image.cpio.gz.sig
 gpg --verify flatcar_production_pxe.vmlinuz.sig
 gpg --verify flatcar_production_pxe_image.cpio.gz.sig
       </pre>

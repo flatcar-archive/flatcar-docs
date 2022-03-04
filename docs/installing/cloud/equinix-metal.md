@@ -41,7 +41,7 @@ Double quotes in the `<USERDATA>` value must be escaped such that the request bo
 ## iPXE booting
 
 If you need to run a Flatcar Container Linux image which is not available through the OS option in the API, you can boot via 'Custom iPXE'.
-This is the case for ARM64 images which are just published in the Alpha and Edge channels right now and not available via Equinix Metal's API.
+This is the case for ARM64 images right now as they are not available via Equinix Metal's API.
 
 Assuming you want to run boot an Alpha image via iPXE on a `c2.large.arm` machine, you have to provide this URL for 'Custom iPXE Settings':
 

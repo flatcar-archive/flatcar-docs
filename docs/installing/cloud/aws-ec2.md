@@ -22,7 +22,6 @@ Flatcar Container Linux is designed to be updated automatically with different s
     <li class="active"><a href="#stable" data-toggle="tab">Stable Channel</a></li>
     <li><a href="#beta" data-toggle="tab">Beta Channel</a></li>
     <li><a href="#alpha" data-toggle="tab">Alpha Channel</a></li>
-    <li><a href="#edge" data-toggle="tab">Edge Channel</a></li>
   </ul>
   <div class="tab-content coreos-docs-image-table">
     <div class="tab-pane" id="alpha">
@@ -38,12 +37,6 @@ Flatcar Container Linux is designed to be updated automatically with different s
         View as json feed: {{< docs_amis_feed "beta" >}}
       </div>
       {{< docs_amis_table "beta" >}}
-    </div>
-    <div class="tab-pane" id="edge">
-      <div class="channel-info">
-        <p>The Edge channel includes bleeding-edge features with the newest versions of the Linux kernel, systemd and other core packages. Can be highly unstable. The current version is Flatcar Container Linux {{< param edge_channel >}}.</p>
-      </div>
-      {{< docs_amis_table "edge" >}}
     </div>
     <div class="tab-pane active" id="stable">
       <div class="channel-info">
