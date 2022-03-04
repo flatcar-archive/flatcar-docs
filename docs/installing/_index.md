@@ -9,115 +9,116 @@ aliases:
 
 If you don't have a Flatcar Container Linux machine running, check out the guides on [running Flatcar Container Linux][running-container-linux] on most cloud providers ([EC2][ec2-docs], [Azure][azure-docs], [GCE][gce-docs], [Equinix Metal][equinix-metal-docs]), virtualization platforms ([Vagrant][vagrant-docs], [VMware][vmware-docs], [VirtualBox][virtualbox-docs] [QEMU/KVM][qemu-docs]/[libVirt][libvirt-docs]) and bare metal servers ([PXE][pxe-docs], [iPXE][ipxe-docs], [ISO][iso-docs], [Installer][install-docs]). With any of these guides you will have machines up and running in a few minutes.
 
-It's highly recommended that you set up a cluster of at least 3 machines &mdash; it's not as much fun on a single machine. If you don't want to break the bank, [Vagrant][vagrant-docs] allows you to run an entire cluster on your laptop. For a cluster to be properly bootstrapped, you have to provide ideally an [Ignition config][ignition] (generated from a [Container Linux Config][cl-configs]), or possibly a cloud-config, via user-data, which is covered in each platform's guide.
+## Booting your first machine
 
-Flatcar Container Linux gives you three essential tools: service discovery, container management and process management. Let's try each of them out.
+The way from a small [Container Linux Config (CLC) YAML][cl-configs] or [Ignition JSON][ignition] file to a local [QEMU VM][qemu-docs] on your laptop is not far.
+Here we will create a systemd service that starts an NGINX container as example configuration for the VM.
+This is a good starting point for you to modify the CLC YAML file (or the Ignition JSON file) and test it by provisioning a temporary QEMU VM.
+This should work on most Linux systems and assumes you have an SSH key set up for ssh-agent.
 
-First, on the client start your user agent by typing:
-
-```shell
-eval $(ssh-agent)
-```
-
-Then, add your private key to the agent by typing:
-
-```shell
-ssh-add
-```
-
-Connect to a Flatcar Container Linux machine via SSH as the user `core`. For example, on Amazon, use:
+First download the Flatcar QEMU image and the helper script to start it with QEMU.
+For provisioning with Ignition we have to make sure that we always boot an unmodified fresh image because Ignition only runs on first boot.
+Therefore, before trying to use an Ignition config we will always discard the image modifications by using a fresh copy.
+You can already boot the image and have a look around in the OS through the QEMU VGA console - you can close the QEMU window or stop the script with `Ctrl-C`.
 
 ```shell
-$ ssh core@an.ip.compute-1.amazonaws.com
-Flatcar Container Linux (beta)
+wget https://stable.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu_image.sh
+chmod +x flatcar_production_qemu_image.sh
+wget https://stable.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu_image.img.bz2
+bunzip2 flatcar_production_qemu_image.img.bz2
+mv flatcar_production_qemu_image.img flatcar_production_qemu_image.img.fresh
+# If you want to have a first look, boot it and wait for the autologin to give you a prompt:
+cp -i --reflink=auto flatcar_production_qemu_image.img.fresh flatcar_production_qemu_image.img
+./flatcar_production_qemu.sh
 ```
 
-If you're using Vagrant, you'll need to connect a bit differently:
+Besides the interaction with the VM through the VGA console you can also use SSH because the script passes your SSH public key to the VM.
+Since we don't want to remember the VM's SSH host keys, we can add SSH options to ignore them.
+The user is `core` and the script defauls to port 2222:
 
 ```shell
-$ ssh-add ~/.vagrant.d/insecure_private_key
-Identity added: /Users/core/.vagrant.d/insecure_private_key (/Users/core/.vagrant.d/insecure_private_key)
-$ vagrant ssh core-01
-Flatcar Container Linux (beta)
+ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p 2222 core@127.0.0.1
 ```
 
-## Service discovery with etcd
-
-The first building block of Flatcar Container Linux is service discovery with **etcd** ([docs][etcd-docs]). Data stored in etcd is distributed across all of your machines running Flatcar Container Linux. For example, each of your app containers can announce itself to a proxy container, which would automatically know which machines should receive traffic. Building service discovery into your application allows you to add more machines and scale your services seamlessly.
-
-If you used an example [Container Linux Config][cl-configs] or [cloud-config](https://github.com/kinvolk/coreos-cloudinit/blob/master/Documentation/cloud-config.md) from a guide linked in the first paragraph, etcd is automatically started on boot.
-
-A good starting point for a Container Linux Config would be something like:
+Now we will provision the VM on first boot through Ignition.
+Instead of writing the JSON config we use CLC YAML and transpile it.
+Save the following CLC YAML file as `cl.yaml` (or another name).
+It contains directives for setting up a systemd service that runs an NGINX Docker container:
 
 ```yaml
-etcd:
-  discovery: https://discovery.etcd.io/<token>
+systemd:
+  units:
+    - name: nginx.service
+      enabled: true
+      contents: |
+        [Unit]
+        Description=NGINX example
+        After=docker.service
+        Requires=docker.service
+        [Service]
+        TimeoutStartSec=0
+        ExecStartPre=-/usr/bin/docker rm --force nginx1
+        ExecStart=/usr/bin/docker run --name nginx1 --pull always --net host docker.io/nginx:1
+        ExecStop=/usr/bin/docker stop nginx1
+        Restart=always
+        RestartSec=5s
+        [Install]
+        WantedBy=multi-user.target
+```
+
+Before we can use it we have to transpile the CLC YAML to Ignition JSON:
+
+```shell
+cat cl.yaml | docker run --rm -i quay.io/coreos/ct:latest-dev > ignition.json
+```
+
+You can also skip this step and copy the resulting JSON file from here to `ignition.json` (or another name):
+
+```
+{
+  "ignition": {
+    "version": "2.3.0"
+  },
+  "systemd": {
+    "units": [
+      {
+        "contents": "[Unit]\nDescription=NGINX example\nAfter=docker.service\nRequires=docker.service\n[Service]\nTimeoutStartSec=0\nExecStartPre=-/usr/bin/docker rm --force nginx1\nExecStart=/usr/bin/docker run --name nginx1 --pull always --net host docker.io/nginx:1\nExecStop=/usr/bin/docker stop busybox1\nRestart=always\nRestartSec=5s\n[Install]\nWantedBy=multi-user.target\n",
+        "enabled": true,
+        "name": "nginx.service"
+      }
+    ]
+  }
+}
+```
+
+The final step is to boot the VM and make the Ignition configuration available to it.
+As said, the provisioning will only be done on first boot and if you want your (changed) Ignition configuration to be used, you have to boot from a fresh copy.
+You can repeat these combined steps as often as you want to test your Ignition changes:
+
+```shell
+# Make sure we boot a fresh copy:
+cp -i --reflink=auto flatcar_production_qemu_image.img.fresh flatcar_production_qemu_image.img
+./flatcar_production_qemu.sh -i ignition.json
+# Log in via SSH in a new terminal tab:
+ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p 2222 core@127.0.0.1
+# Check that NGINX is running:
+systemctl status nginx
+curl http://localhost/
+```
+
+If you can't or don't want to use the SSH public key from ssh-agent, you can specify another one in the CLC config by adding this section to your YAML file:
+
+```yaml
 passwd:
   users:
     - name: core
       ssh_authorized_keys:
-        - ssh-rsa AAAA...
+        - ssh-rsa AAAAB......xyz email@host.net
 ```
 
-In order to get the discovery token, visit [https://discovery.etcd.io/new](https://discovery.etcd.io/new) and you will receive a URL including your token. Paste the whole thing into your Container Linux Config file.
+Afterwards, transpile it again to Ignition JSON.
 
-`etcdctl` is a command line interface to etcd that is preinstalled on Flatcar Container Linux. To set and retrieve a key from etcd you can use the following examples:
 
-Set a key `message` with value `Hello world`:
-
-```shell
-etcdctl set /message "Hello world"
-```
-
-Read the value of `message` back:
-
-```shell
-etcdctl get /message
-```
-
-You can also use simple `curl`. These examples correspond to previous ones:
-
-Set the value:
-
-```shell
-curl -L http://127.0.0.1:2379/v2/keys/message -XPUT -d value="Hello world"
-```
-
-Read the value:
-
-```shell
-curl -L http://127.0.0.1:2379/v2/keys/message
-```
-
-If you followed a guide to set up more than one Flatcar Container Linux machine, you can SSH into another machine and can retrieve this same value.
-
-### More detailed information (service discovery)
-
-<a class="btn btn-primary" href="https://coreos.com/etcd/docs/latest/getting-started-with-etcd.html" data-category="More Information" data-event="Docs: Getting Started etcd">View Complete Guide</a>
-<a class="btn btn-default" href="https://etcd.io/docs/">Read etcd API Docs</a>
-
-## Container management with Docker
-
-The second building block, **Docker** ([docs][docker-docs]), is where your applications and code run. It is installed on each Flatcar Container Linux machine. You should make each of your services (web server, caching, database) into a container and connect them together by reading and writing to etcd. You can quickly try out a minimal busybox container in two different ways:
-
-Run a command in the container and then stop it:
-
-```shell
-docker run busybox /bin/echo hello world
-```
-
-Open a shell prompt inside the container:
-
-```shell
-docker run -i -t busybox /bin/sh
-```
-
-### More detailed information (Docker)
-
-<a class="btn btn-default" href="http://docs.docker.io/">Read Docker Docs</a>
-
-[docker-docs]: https://docs.docker.com/
-[etcd-docs]: https://etcd.io/
 [running-container-linux]: ../#installing-flatcar
 [ec2-docs]: cloud/aws-ec2
 [azure-docs]: cloud/azure
