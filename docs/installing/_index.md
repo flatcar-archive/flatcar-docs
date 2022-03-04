@@ -46,7 +46,7 @@ Here we will create a systemd service that starts an NGINX container as example 
 This is a good starting point for you to modify the CLC YAML file (or the Ignition JSON file) and test it by provisioning a temporary QEMU VM.
 This should work on most Linux systems and assumes you have an SSH key set up for ssh-agent.
 
-First download the Flatcar QEMU image and the helper script to start it with QEMU.
+First download the Flatcar QEMU image and the helper script to start it with QEMU but don't run it yet.
 ```shell
 wget https://stable.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu_image.sh
 chmod +x flatcar_production_qemu_image.sh
@@ -54,9 +54,9 @@ wget https://stable.release.flatcar-linux.net/amd64-usr/current/flatcar_producti
 bunzip2 flatcar_production_qemu_image.img.bz2
 ```
 
-For testing Ignition configruations we have to make sure that we always boot an unmodified fresh image because Ignition only runs on first boot.
+For Ignition configurations to be recognized we have to make sure that we always boot an unmodified fresh image because Ignition only runs on first boot.
 Therefore, before trying to use an Ignition config we will always discard the image modifications by using a fresh copy.
-You can already boot the image and have a look around in the OS through the QEMU VGA console - you can close the QEMU window or stop the script with `Ctrl-C`.
+You can already boot the image with `./flatcar_production_qemu.sh` and have a look around in the OS through the QEMU VGA console - you can close the QEMU window or stop the script with `Ctrl-C`.
 ```shell
 mv flatcar_production_qemu_image.img flatcar_production_qemu_image.img.fresh
 # If you want to have a first look, boot it and wait for the autologin to give you a prompt:
@@ -148,7 +148,7 @@ passwd:
         - ssh-rsa AAAAB......xyz email@host.net
 ```
 
-Afterwards, transpile it again to Ignition JSON, overwrite `flatcar_production_qemu_image.img` with the pristine image file, and pass the ignition config to `./flatcar_production_qemu.sh` once again.
+Afterwards, transpile it again to Ignition JSON, overwrite `flatcar_production_qemu_image.img` with the fresh image file, and pass the ignition config to `./flatcar_production_qemu.sh` once again.
 
 
 ### Further reading: Platform / vendor specific information
