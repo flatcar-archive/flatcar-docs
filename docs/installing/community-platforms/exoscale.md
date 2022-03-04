@@ -17,7 +17,7 @@ The Exoscale Flatcar Container Linux image is built officially and each instance
 [reboot-docs]: ../../setup/releases/update-strategies
 [switching-channels]: ../../setup/releases/switching-channels
 [release-notes]: https://flatcar-linux.org/releases
-[cloud-config-docs]: https://github.com/kinvolk/coreos-cloudinit/blob/master/Documentation/cloud-config.md
+[cloud-config-docs]: https://github.com/flatcar-linux/coreos-cloudinit/blob/master/Documentation/cloud-config.md
 
 ## Security groups
 

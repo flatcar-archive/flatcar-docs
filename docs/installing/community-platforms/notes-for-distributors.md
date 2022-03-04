@@ -34,7 +34,7 @@ The signing key is rotated annually. We will announce upcoming rotations of the 
 
 ## Image customization
 
-There are two predominant ways that a Flatcar Container Linux image can be easily customized for a specific operating environment: through Ignition, a first-boot provisioning tool that runs during a machine's boot process, and through [cloud-config](https://github.com/kinvolk/coreos-cloudinit/blob/master/Documentation/cloud-config), an older tool that runs every time a machine boots.
+There are two predominant ways that a Flatcar Container Linux image can be easily customized for a specific operating environment: through Ignition, a first-boot provisioning tool that runs during a machine's boot process, and through [cloud-config](https://github.com/flatcar-linux/coreos-cloudinit/blob/master/Documentation/cloud-config.md), an older tool that runs every time a machine boots.
 
 ### Ignition
 

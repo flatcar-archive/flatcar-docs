@@ -77,7 +77,7 @@ Cloud-config can be specified by attaching a [config-drive](https://github.com/k
 
 Note that the config-drive standard was originally an OpenStack feature, which is why you'll see strings containing `openstack`. This filepath needs to be retained, although Flatcar Container Linux supports config-drive on all platforms.
 
-For more information on customization that can be done with cloud-config, head on over to the [cloud-config guide](https://github.com/kinvolk/coreos-cloudinit/blob/master/Documentation/cloud-config.md).
+For more information on customization that can be done with cloud-config, head on over to the [cloud-config guide](https://github.com/flatcar-linux/coreos-cloudinit/blob/master/Documentation/cloud-config.md).
 
 You need a config-drive to configure at least one SSH key to access the virtual machine. If you are in hurry, you can create a basic config-drive with following steps:
 
