@@ -63,13 +63,6 @@ mv flatcar_production_qemu_image.img flatcar_production_qemu_image.img.fresh
 cp -i --reflink=auto flatcar_production_qemu_image.img.fresh flatcar_production_qemu_image.img
 ```
 
-Besides the interaction with the VM through the VGA console you can also use SSH because the script passes your SSH public key to the VM.
-Since we don't want to remember the VM's SSH host keys, we can add SSH options to ignore them.
-The user is `core` and the script defauls to port 2222:
-```shell
-ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p 2222 core@127.0.0.1
-```
-
 Now we will provision the VM on first boot through Ignition.
 Instead of writing the JSON config we use CLC YAML and transpile it.
 Save the following CLC YAML file as `cl.yaml` (or another name).
@@ -123,7 +116,7 @@ You can also skip this step and copy the resulting JSON file from here to `ignit
 
 The final step is to boot the VM and make the Ignition configuration available to it.
 As said, the provisioning will only be done on first boot and if you want your (changed) Ignition configuration to be used, you have to boot from a fresh copy.
-You can repeat these combined steps as often as you want to test your Ignition changes:
+You can repeat these combined steps as often as you want to test your Ignition changes.
 
 ```shell
 # Make sure we boot a fresh copy:
@@ -135,11 +128,15 @@ ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p 2222 core@127
 systemctl status nginx
 curl http://localhost/
 ```
+If you have trouble SSHing into the VM, `./flatcar_production_qemu.sh` might have failed to auto-detect your ssh key.
+If that happens try with a user-supplied SSH key using the yaml snippet below.
+Alternatively, you can interact with the VM via the VGA console - the console has auto-login enabled and drops right into a shell.
 
 You can reboot and stop the VM if you like - when you start it later with a plain `./flatcar_production_qemu.sh` then our systemd unit will take care of starting NGINX on each boot.
 Note that the ignition config will only be processed on the very first boot - that's why we made a copy, so now we can restore our OS image from the pristine copy for successive experiments with CLC.
 
-As listed in the introduction above there are numerous options available for configuring Flatcar just the way you need it. For instance, you can specify a custom SSH key instead of your default one from `~/.ssh/` in the CLC config, by adding this section to your YAML file:
+As listed in the introduction above there are numerous options available for configuring Flatcar just the way you need it.
+For instance, you can specify a custom SSH key instead of your default one from `~/.ssh/` in the CLC config, by adding this section to your YAML file:
 ```yaml
 passwd:
   users:
