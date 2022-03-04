@@ -60,7 +60,7 @@ url="https://${GROUP:-stable}.release.flatcar-linux.net/${FLATCAR_RELEASE_BOARD}
 Download, decompress, and verify the development container image.
 
 ```shell
-curl -LO https://kinvolk.io/flatcar-container-linux/security/image-signing-key/Flatcar_Image_Signing_Key.asc
+curl -f -L -O https://www.flatcar.org/security/image-signing-key/Flatcar_Image_Signing_Key.asc
 gpg2 --import Flatcar_Image_Signing_Key.asc
 curl -L "${url}" |
     tee >(bzip2 -d > flatcar_developer_container.bin) |

@@ -29,7 +29,7 @@ The signing key is rotated annually. We will announce upcoming rotations of the 
 [alpha-bucket]: https://alpha.release.flatcar-linux.net/amd64-usr/
 [beta-bucket]: https://beta.release.flatcar-linux.net/amd64-usr/
 [stable-bucket]: https://stable.release.flatcar-linux.net/amd64-usr/
-[signing-key]: https://kinvolk.io/flatcar-container-linux/security/image-signing-key/
+[signing-key]: https://www.flatcar.org/security/image-signing-key/
 [flatcar-user]: https://groups.google.com/forum/#!forum/flatcar-linux-user
 
 ## Image customization
