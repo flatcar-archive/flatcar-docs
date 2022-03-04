@@ -11,7 +11,7 @@ This guide aims to get you up and running in a few minutes.
 We'll cover
 - concepts, configuration, and provisioning
 - writing a basic Flatcar configuration and testing it locally with qemu
-- further reading - pointers to docs for specific cloud providers
+- further reading - where to go from here after learning the basics
 
 ### Concepts, Configuration, and Provisioning
 
@@ -148,6 +148,19 @@ passwd:
 Afterwards, transpile it again to Ignition JSON, overwrite `flatcar_production_qemu_image.img` with the fresh image file, and pass the ignition config to `./flatcar_production_qemu.sh` once again.
 
 
+### On automatic updates
+
+Flatcar has automatic updates enabled by default.
+Flatcar instances will download and stage (in the background) new OS versions as well as reboot into the updated OS when a new update becomes available.
+To change this default - for instance, to define reboot windows or even disable reboots - check out the [update strategies][update-strategies] doc.
+To disable downloading updates altogether either disable the `update-engine` service via a user-supplied systemd config, or use an invalid URL in the `SERVER` field of [`update.conf`][update-conf].
+
+
+### More on configuring and operating Flatcar Container Linux
+
+The documentation includes a whole section on configuration, operation, and maintenance.
+Have a look at the [setup guide][setup] for more information.
+
 ### Further reading: Platform / vendor specific information
 
 Check out the guides on [running Flatcar Container Linux][running-container-linux] on most cloud providers:
@@ -169,6 +182,9 @@ and bare metal servers:
 With any of these guides you will have machines up and running in a few minutes.
 
 
+[update-strategies]: ../setup/releases/update-strategies
+[update-conf]: ../setup/releases/update-conf
+[setup]: ../setup
 [running-container-linux]: ../#installing-flatcar
 [ec2-docs]: cloud/aws-ec2
 [azure-docs]: cloud/azure
