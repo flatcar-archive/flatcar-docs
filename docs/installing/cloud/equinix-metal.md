@@ -23,7 +23,7 @@ Once logged into the portal you will be able to click the 'New server' button an
 
 ### API instructions
 
-If you select to use the API to provision machines on Equinix Metal you should consider using [one of the language libraries](https://www.packet.com/developers/libraries/) to code against. As an example, this is how you would launch a single Type 1 machine in a curl command. [API Documentation](https://www.packet.com/developers/api/).
+If you select to use the API to provision machines on Equinix Metal you should consider using [one of the language libraries](https://metal.equinix.com/developers/docs/libraries/) to code against. As an example, this is how you would launch a single Type 1 machine in a curl command. [API Documentation](https://metal.equinix.com/developers/api/).
 
 ```shell
 # Replace items in brackets (<EXAMPLE>) with the appropriate values.
@@ -32,8 +32,8 @@ curl -X POST \
 -H 'Content-Type: application/json' \
 -H 'Accept: application/json' \
 -H 'X-Auth-Token: <API_TOKEN>' \
--d '{"hostname": "<HOSTNAME>", "plan": "baremetal_1", "facility": "ewr1", "operating_system": "flatcar_alpha", "userdata": "<USERDATA>"}' \
-https://api.packet.net/projects/<PROJECT_ID>/devices
+-d '{"hostname": "<HOSTNAME>", "plan": "c3.small.x86", "facility": "da11", "operating_system": "flatcar_stable", "userdata": "<USERDATA>"}' \
+https://api.equinix.com/metal/v1/projects/<PROJECT_ID>/devices
 ```
 
 Double quotes in the `<USERDATA>` value must be escaped such that the request body is valid JSON. See the Container Linux Config section below for more information about accepted forms of userdata.
