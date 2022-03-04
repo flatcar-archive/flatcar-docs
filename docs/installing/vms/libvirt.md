@@ -30,7 +30,6 @@ Flatcar Container Linux is designed to be updated automatically with different s
     <li class="active"><a href="#stable-create" data-toggle="tab">Stable Channel</a></li>
     <li><a href="#beta-create" data-toggle="tab">Beta Channel</a></li>
     <li><a href="#alpha-create" data-toggle="tab">Alpha Channel</a></li>
-    <li><a href="#edge-create" data-toggle="tab">Edge Channel</a></li>
   </ul>
   <div class="tab-content coreos-docs-image-table">
     <div class="tab-pane" id="alpha-create">
@@ -50,16 +49,6 @@ bunzip2 flatcar_production_qemu_image.img.bz2</pre>
 mkdir -p /var/lib/libvirt/images/flatcar-linux
 cd /var/lib/libvirt/images/flatcar-linux
 wget https://beta.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu_image.img.bz2{,.sig}
-gpg --verify flatcar_production_qemu_image.img.bz2.sig
-bunzip2 flatcar_production_qemu_image.img.bz2</pre>
-    </div>
-    <div class="tab-pane" id="edge-create">
-      <p>The Edge channel includes bleeding-edge features with the newest versions of the Linux kernel, systemd and other core packages. Can be highly unstable. The current version is Flatcar Container Linux {{< param edge_channel >}}.</p>
-      <p>We start by downloading the most recent disk image:</p>
-      <pre>
-mkdir -p /var/lib/libvirt/images/flatcar-linux
-cd /var/lib/libvirt/images/flatcar-linux
-wget https://edge.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu_image.img.bz2{,.sig}
 gpg --verify flatcar_production_qemu_image.img.bz2.sig
 bunzip2 flatcar_production_qemu_image.img.bz2</pre>
     </div>
@@ -90,9 +79,6 @@ This will create a `flatcar-linux1.qcow2` snapshot image. Any changes to `flatca
 ### Ignition config
 
 The preferred way to configure a Flatcar Container Linux machine is via Ignition.
-Unfortunately, libvirt does not have direct support for Ignition yet, so configuring it involves including qemu-specific xml.
-
-This configuration can be done in the following steps:
 
 #### Create the Ignition config
 
@@ -145,68 +131,19 @@ Here we run it from a Docker image:
 cat example.yaml | docker run --rm -i quay.io/coreos/ct:latest-dev > /var/lib/libvirt/flatcar-linux/flatcar-linux1/provision.ign
 ```
 
-#### Creating the domain xml
+#### Creating the domain
 
-Once the Ignition file exists on disk, the machine can be configured to use it.
-
-Start by creating a libvirt [domain XML](https://libvirt.org/formatdomaincaps.html) document:
+Once the Ignition file exists on disk, the machine can be configured and started:
 
 ```shell
 virt-install --connect qemu:///system \
              --import \
              --name flatcar-linux1 \
              --ram 1024 --vcpus 1 \
-             --os-type=linux \
-             --os-variant=virtio26 \
+             --os-type=generic \
              --disk path=/var/lib/libvirt/images/flatcar-linux/flatcar-linux1.qcow2,format=qcow2,bus=virtio \
              --vnc --noautoconsole \
-             --print-xml > /var/lib/libvirt/flatcar-linux/flatcar-linux1/domain.xml
-```
-
-Next, modify the domain xml to reference the qemu-specific configuration needed:
-
-```xml
-<?xml version="1.0"?>
-<domain xmlns:qemu="http://libvirt.org/schemas/domain/qemu/1.0" type="kvm">
-  ...
-  <qemu:commandline>
-    <qemu:arg value="-fw_cfg"/>
-    <qemu:arg value="name=opt/org.flatcar-linux/config,file=/var/lib/libvirt/flatcar-linux/flatcar-linux1/provision.ign"/>
-  </qemu:commandline>
-</domain>
-```
-
-If you have the `xmlstarlet` utility installed, the above modification can be accomplished easily with the following:
-
-```shell
-domain=/var/lib/libvirt/flatcar-linux/flatcar-linux1/domain.xml
-ignition_file=/var/lib/libvirt/flatcar-linux/flatcar-linux1/provision.ign
-
-xmlstarlet ed -P -L -i "//domain" -t attr -n "xmlns:qemu" --value "http://libvirt.org/schemas/domain/qemu/1.0" "${domain}"
-xmlstarlet ed -P -L -s "//domain" -t elem -n "qemu:commandline" "${domain}"
-xmlstarlet ed -P -L -s "//domain/qemu:commandline" -t elem -n "qemu:arg" "${domain}"
-xmlstarlet ed -P -L -s "(//domain/qemu:commandline/qemu:arg)[1]" -t attr -n "value" -v "-fw_cfg" "${domain}"
-xmlstarlet ed -P -L -s "//domain/qemu:commandline" -t elem -n "qemu:arg" "${domain}"
-xmlstarlet ed -P -L -s "(//domain/qemu:commandline/qemu:arg)[2]" -t attr -n "value" -v "name=opt/org.flatcar-linux/config,file=${ignition_file}" "${domain}"
-```
-
-Alternately, you can accomplish the same modification using sed:
-
-```shell
-domain=/var/lib/libvirt/flatcar-linux/flatcar-linux1/domain.xml
-ignition_file=/var/lib/libvirt/flatcar-linux/flatcar-linux1/provision.ign
-
-sed -i 's|type="kvm"|type="kvm" xmlns:qemu="http://libvirt.org/schemas/domain/qemu/1.0"|' "${domain}"
-sed -i "/<\/devices>/a <qemu:commandline>\n  <qemu:arg value='-fw_cfg'/>\n  <qemu:arg value='name=opt/org.flatcar-linux/config,file=${ignition_file}'/>\n</qemu:commandline>" "${domain}"
-```
-
-#### Define and start the machine
-
-Once the XML domain has been edited to include the Ignition file, it can be created and started using the `virsh` tool included with libvirt:
-
-```shell
-virsh define /var/lib/libvirt/flatcar-linux/flatcar-linux1/domain.xml
-virsh start flatcar-linux1
+	     --qemu-commandline '-fw_cfg name=opt/org.flatcar-linux/config,file=/var/lib/libvirt/flatcar-linux/flatcar-linux1/provision.ign'
 ```
 
 #### SSH into the machine
@@ -218,6 +155,13 @@ $ virsh net-dhcp-leases default
 Expiry Time          MAC address        Protocol  IP address                Hostname        Client ID or DUID
 -------------------------------------------------------------------------------------------------------------------
  2017-08-09 16:32:52  52:54:00:13:12:45  ipv4      192.168.122.184/24        flatcar-linux1 ff:32:39:f9:b5:00:02:00:00:ab:11:06:6a:55:ed:5d:0a:73:ee
+```
+
+
+To SSH into:
+
+```
+ssh core@192.168.122.184
 ```
 
 ### Network configuration
@@ -271,46 +215,6 @@ virsh net-update --network "default" add-last ip-dhcp-host \
 ```
 
 By executing these commands before running `virsh start`, we can ensure the libvirt DHCP server will hand out a known IP.
-
-## Virtual machine startup
-
-Now, start this libvirt instance with the RAM, vCPU, and networking configuration defined above:
-
-```shell
-ignition_file=/var/lib/libvirt/flatcar-linux/flatcar-linux1/provision.ign
-
-domain=/var/lib/libvirt/flatcar-linux/flatcar-linux1/domain.xml
-ip="192.168.122.2"
-mac="52:54:00:fe:b3:c0"
-
-mkdir -p "$(dirname "${domain}")"
-
-virsh net-update --network "default" add-last ip-dhcp-host \
-    --xml "<host mac='${mac}' ip='${ip}' />" \
-    --live --config
-
-virt-install --connect qemu:///system --import \
-  --name flatcar-linux1 \
-  --ram 1024 --vcpus 1 \
-  --os-type=linux \
-  --os-variant=virtio26 \
-  --disk path=/var/lib/libvirt/images/flatcar-linux/flatcar-linux1.qcow2,format=qcow2,bus=virtio \
-  --network bridge=virbr0,mac=52:54:00:fe:b3:c0 \
-  --vnc --noautoconsole \
-  --print-xml > /var/lib/libvirt/flatcar-linux/flatcar-linux1/domain.xml
-
-sed -ie 's|type="kvm"|type="kvm" xmlns:qemu="http://libvirt.org/schemas/domain/qemu/1.0"|' "${domain}"
-sed -i "/<\/devices>/a <qemu:commandline>\n  <qemu:arg value='-fw_cfg'/>\n  <qemu:arg value='name=opt/org.flatcar-linux/config,file=${ignition_file}'/>\n</qemu:commandline>" "${domain}"
-
-virsh define /var/lib/libvirt/flatcar-linux/flatcar-linux1/domain.xml
-virsh start flatcar-linux1
-```
-
-Once the virtual machine has started you can log in via SSH:
-
-```shell
-ssh core@192.168.122.2
-```
 
 ### SSH Config
 
