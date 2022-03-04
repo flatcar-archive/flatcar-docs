@@ -173,8 +173,6 @@ For large clusters, it's recommended to set aside 3-5 machines to run central se
 
 Our central services machines will run services like etcd and Kubernetes controllers that support the rest of the cluster. etcd is configured with static networking and a peers list.
 
-[Flatcar Container Linux Support][flatcar-managed] customers can also specify a [Update Service][nebraska-update] group ID which allows you to subscribe these machines to a different [update channel][flatcar-channels], controlling updates separately from the worker machines.
-
 Here's an example CL Config for one of the central service machines. Be sure to generate a new discovery token with the initial size of your cluster:
 
 ```yaml
