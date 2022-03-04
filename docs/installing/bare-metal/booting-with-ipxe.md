@@ -68,17 +68,6 @@ kernel ${base-url}/flatcar_production_pxe.vmlinuz initrd=flatcar_production_pxe_
 initrd ${base-url}/flatcar_production_pxe_image.cpio.gz
 boot</pre>
     </div>
-    <div class="tab-pane" id="edge-create">
-      <p>The Edge channel includes bleeding-edge features with the newest versions of the Linux kernel, systemd and other core packages. Can be highly unstable. The current version is Flatcar Container Linux {{< param edge_channel >}}.</p>
-      <p>iPXE downloads a boot script from a publicly available URL. You will need to host this URL somewhere public and replace the example SSH key with your own. You can also run a <a href="https://github.com/kelseyhightower/coreos-ipxe-server">custom iPXE server</a>.</p>
-      <pre>
-#!ipxe
-
-set base-url http://edge.release.flatcar-linux.net/amd64-usr/current
-kernel ${base-url}/flatcar_production_pxe.vmlinuz initrd=flatcar_production_pxe_image.cpio.gz flatcar.first_boot=1 ignition.config.url=https://example.com/pxe-config.ign
-initrd ${base-url}/flatcar_production_pxe_image.cpio.gz
-boot</pre>
-    </div>
     <div class="tab-pane active" id="stable-create">
       <p>The Stable channel should be used by production clusters. Versions of Flatcar Container Linux are battle-tested within the Beta and Alpha channels before being promoted. The current version is Flatcar Container Linux {{< param stable_channel >}}.</p>
       <p>iPXE downloads a boot script from a publicly available URL. You will need to host this URL somewhere public and replace the example SSH key with your own. You can also run a <a href="https://github.com/kelseyhightower/coreos-ipxe-server">custom iPXE server</a>.</p>
@@ -94,6 +83,44 @@ boot</pre>
 </div>
 
 An easy place to host this boot script is on [http://pastie.org](http://pastie.org). Be sure to reference the "raw" version of script, which is accessed by clicking on the clipboard in the top right.
+
+## Container Linux Configs
+
+Flatcar Container Linux allows you to configure machine parameters, configure networking, launch systemd units on startup, and more via Container Linux Configs (CLC). These configs are then transpiled into Ignition configs and given to booting machines. Head over to the [docs to learn about the supported features][cl-configs].
+
+You can provide a raw Ignition JSON config to Flatcar Container Linux via the `ignition.config.url` specified above.
+
+As an example, this CLC YAML config will start an NGINX Docker container:
+
+```yaml
+systemd:
+  units:
+    - name: nginx.service
+      enabled: true
+      contents: |
+        [Unit]
+        Description=NGINX example
+        After=docker.service
+        Requires=docker.service
+        [Service]
+        TimeoutStartSec=0
+        ExecStartPre=-/usr/bin/docker rm --force nginx1
+        ExecStart=/usr/bin/docker run --name nginx1 --pull always --net host docker.io/nginx:1
+        ExecStop=/usr/bin/docker stop nginx1
+        Restart=always
+        RestartSec=5s
+        [Install]
+        WantedBy=multi-user.target
+```
+
+Transpile it to Ignition JSON:
+
+```shell
+cat cl.yaml | docker run --rm -i ghcr.io/flatcar-linux/ct:latest -platform packet > ignition.json
+```
+
+[cl-configs]: ../../provisioning/cl-config
+
 
 ### Booting iPXE
 

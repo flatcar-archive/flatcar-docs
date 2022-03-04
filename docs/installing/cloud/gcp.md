@@ -101,27 +101,37 @@ You can also [upgrade from an existing CoreOS Container Linux system](./update-f
 
 ## Container Linux Config
 
-Flatcar Container Linux allows you to configure machine parameters, configure networking, launch systemd units on startup, and more via Container Linux Configs. These configs are then transpiled into Ignition configs and given to booting machines. Head over to the [docs to learn about the supported features][cl-configs].
+Flatcar Container Linux allows you to configure machine parameters, configure networking, launch systemd units on startup, and more via Container Linux Configs (CLC). These configs are then transpiled into Ignition configs and given to booting machines. Head over to the [docs to learn about the supported features][cl-configs].
 
-You can provide a raw Ignition config to Flatcar Container Linux via the Google Cloud console's metadata field `user-data` or via a flag using `gcloud`.
+You can provide a raw Ignition JSON config to Flatcar Container Linux via the Google Cloud console's metadata field `user-data` or via a flag using `gcloud`.
 
-As an example, this config will configure and start etcd:
+As an example, this CLC YAML config will start an NGINX Docker container:
 
 ```yaml
-etcd:
-  # All options get passed as command line flags to etcd.
-  # Any information inside curly braces comes from the machine at boot time.
+systemd:
+  units:
+    - name: nginx.service
+      enabled: true
+      contents: |
+        [Unit]
+        Description=NGINX example
+        After=docker.service
+        Requires=docker.service
+        [Service]
+        TimeoutStartSec=0
+        ExecStartPre=-/usr/bin/docker rm --force nginx1
+        ExecStart=/usr/bin/docker run --name nginx1 --pull always --net host docker.io/nginx:1
+        ExecStop=/usr/bin/docker stop nginx1
+        Restart=always
+        RestartSec=5s
+        [Install]
+        WantedBy=multi-user.target
+```
 
-  # multi_region and multi_cloud deployments need to use {PUBLIC_IPV4}
-  advertise_client_urls:       "http://{PRIVATE_IPV4}:2379"
-  initial_advertise_peer_urls: "http://{PRIVATE_IPV4}:2380"
-  # listen on both the official ports and the legacy ports
-  # legacy ports can be omitted if your application doesn't depend on them
-  listen_client_urls:          "http://0.0.0.0:2379"
-  listen_peer_urls:            "http://{PRIVATE_IPV4}:2380"
-  # generate a new token for each unique cluster from https://discovery.etcd.io/new?size=3
-  # specify the initial size of your cluster with ?size=X
-  discovery:                   "https://discovery.etcd.io/<token>"
+Transpile it to Ignition JSON:
+
+```shell
+cat cl.yaml | docker run --rm -i ghcr.io/flatcar-linux/ct:latest -platform gce > ignition.json
 ```
 
 [cl-configs]: ../../provisioning/cl-config

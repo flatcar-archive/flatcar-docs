@@ -105,11 +105,11 @@ For reference here are the rest of the `flatcar-install` options:
 
 ## Container Linux Configs
 
-By default there isn't a password or any other way to log into a fresh Flatcar Container Linux system. The easiest way to configure accounts, add systemd units, and more is via Container Linux Configs. Jump over to the [docs to learn about the supported features][cl-configs].
+By default there isn't a password or any other way to log into a fresh Flatcar Container Linux system. The easiest way to configure accounts, add systemd units, and more is via Container Linux Configs (CLC). Jump over to the [docs to learn about the supported features][cl-configs].
 
 After using the [Container Linux Config Transpiler][ct] to produce an Ignition config, the installation script will process your `ignition.json` file specified with the `-i` flag and use it when the installation is booted.
 
-A Container Linux Config that specifies an SSH key for the `core` user but doesn't use any other parameters looks like:
+A Container Linux Config YAML that specifies an SSH key for the `core` user but doesn't use any other parameters looks like:
 
 ```yaml
 passwd:
@@ -119,7 +119,11 @@ passwd:
         - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDGdByTgSVHq.......
 ```
 
-Note: The `{PRIVATE_IPV4}` and `{PUBLIC_IPV4}` substitution variables referenced in other documents are not supported on libvirt.
+Transpile it to Ignition JSON:
+
+```shell
+cat cl.yaml | docker run --rm -i ghcr.io/flatcar-linux/ct:latest -platform gce > ignition.json
+```
 
 To start the installation script with a reference to our Ignition config, run:
 
@@ -129,7 +133,7 @@ flatcar-install -d /dev/sda -C stable -i ~/ignition.json
 
 ### Advanced Container Linux Config example
 
-This example will configure Flatcar Container Linux components: etcd and flannel. You have to substitute `<PEER_ADDRESS>` to your host's IP or DNS address.
+This CLC YAML example will configure Flatcar Container Linux to run an NGINX Docker container.
 
 ```yaml
 passwd:
@@ -137,25 +141,30 @@ passwd:
     - name: core
       ssh_authorized_keys:
         - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDGdByTgSVHq.......
-etcd:
-  # generate a new token for each unique cluster from https://discovery.etcd.io/new?size=3
-  # specify the initial size of your cluster with ?size=X
-  discovery: https://discovery.etcd.io/<token>
-  advertise_client_urls: http://<PEER_ADDRESS>:2379,http://<PEER_ADDRESS>:4001
-  initial_advertise_peer_urls: http://<PEER_ADDRESS>:2380
-  # listen on both the official ports and the legacy ports
-  # legacy ports can be omitted if your application doesn't depend on them
-  listen_client_urls: http://0.0.0.0:2379,http://0.0.0.0:4001
-  listen_peer_urls: http://<PEER_ADDRESS>:2380
 systemd:
   units:
-    - name: flanneld.service
-      enable: true
-      dropins:
-      - name: 50-network-config.conf
-        contents: |
-          [Service]
-          ExecStartPre=/usr/bin/etcdctl set /kinvolk.io/network/config '{"Network":"10.1.0.0/16", "Backend": {"Type": "vxlan"}}'
+    - name: nginx.service
+      enabled: true
+      contents: |
+        [Unit]
+        Description=NGINX example
+        After=docker.service
+        Requires=docker.service
+        [Service]
+        TimeoutStartSec=0
+        ExecStartPre=-/usr/bin/docker rm --force nginx1
+        ExecStart=/usr/bin/docker run --name nginx1 --pull always --net host docker.io/nginx:1
+        ExecStop=/usr/bin/docker stop nginx1
+        Restart=always
+        RestartSec=5s
+        [Install]
+        WantedBy=multi-user.target
+```
+
+Transpile it to Ignition JSON:
+
+```shell
+cat cl.yaml | docker run --rm -i ghcr.io/flatcar-linux/ct:latest -platform gce > ignition.json
 ```
 
 ## Using Flatcar Container Linux

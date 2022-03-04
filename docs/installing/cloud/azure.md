@@ -205,30 +205,40 @@ If you plan to use the `core` user with an SSH key set up through Ignition userd
 ## Container Linux Config
 
 Flatcar Container Linux allows you to configure machine parameters, configure networking, launch systemd units on startup, and more
-via a Container Linux Config. Head over to the [provisioning docs][cl-configs] to learn how to use Container Linux Configs.
+via a Container Linux Config. Head over to the [provisioning docs][cl-configs] to learn how to use Container Linux Configs (CLC).
 Note that Microsoft Azure doesn't allow an instance's userdata to be modified after the instance had been launched. This
 isn't a problem since Ignition, the tool that consumes the userdata, only runs on the first boot.
 
-You can provide a raw Ignition config (produced from a Container Linux Config) to Flatcar Container Linux via the Azure CLI using the `--custom-data` flag
+You can provide a raw Ignition JSON config (produced from a Container Linux Config) to Flatcar Container Linux via the Azure CLI using the `--custom-data` flag
 or in the web UI under _Custom Data_ (not _User Data_).
 
-As an example, the following config will configure and start etcd:
+As an example, this CLC YAML config will start an NGINX Docker container:
 
 ```yaml
-etcd:
-  # All options get passed as command line flags to etcd.
-  # Any information inside curly braces comes from the machine at boot time.
+systemd:
+  units:
+    - name: nginx.service
+      enabled: true
+      contents: |
+        [Unit]
+        Description=NGINX example
+        After=docker.service
+        Requires=docker.service
+        [Service]
+        TimeoutStartSec=0
+        ExecStartPre=-/usr/bin/docker rm --force nginx1
+        ExecStart=/usr/bin/docker run --name nginx1 --pull always --net host docker.io/nginx:1
+        ExecStop=/usr/bin/docker stop nginx1
+        Restart=always
+        RestartSec=5s
+        [Install]
+        WantedBy=multi-user.target
+```
 
-  # multi_region and multi_cloud deployments need to use {PUBLIC_IPV4}
-  advertise_client_urls:       "http://{PRIVATE_IPV4}:2379"
-  initial_advertise_peer_urls: "http://{PRIVATE_IPV4}:2380"
-  # listen on both the official ports and the legacy ports
-  # legacy ports can be omitted if your application doesn't depend on them
-  listen_client_urls:          "http://0.0.0.0:2379"
-  listen_peer_urls:            "http://{PRIVATE_IPV4}:2380"
-  # generate a new token for each unique cluster from https://discovery.etcd.io/new?size=3
-  # specify the initial size of your cluster with ?size=X
-  discovery:                   "https://discovery.etcd.io/<token>"
+Transpile it to Ignition JSON:
+
+```shell
+cat cl.yaml | docker run --rm -i ghcr.io/flatcar-linux/ct:latest -platform azure > ignition.json
 ```
 
 ## Using Flatcar Container Linux

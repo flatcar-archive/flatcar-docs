@@ -81,32 +81,42 @@ Optionally add the `--visibility public` flag to make this image available outsi
 
 ## Container Linux Configs
 
-Flatcar Container Linux allows you to configure machine parameters, launch systemd units on startup and more via Container Linux Configs. These configs are then transpiled into Ignition configs and given to booting machines. Jump over to the [docs to learn about the supported features][cl-configs]. We're going to provide our Container Linux Config to OpenStack via the user-data flag. Our Container Linux Config will also contain SSH keys that will be used to connect to the instance. In order for this to work your OpenStack cloud provider must support [config drive][config-drive] or the OpenStack metadata service.
+Flatcar Container Linux allows you to configure machine parameters, launch systemd units on startup and more via Container Linux Configs (CLC). These configs are then transpiled into Ignition JSON configs and given to booting machines. Jump over to the [docs to learn about the supported features][cl-configs]. We're going to provide our Container Linux Config to OpenStack via the user-data flag. Our Container Linux Config will also contain SSH keys that will be used to connect to the instance. In order for this to work your OpenStack cloud provider must support [config drive][config-drive] or the OpenStack metadata service.
 
 [config-drive]: http://docs.openstack.org/user-guide/cli_config_drive.html
 
-A common Container Linux Config for OpenStack looks like:
+As an example, this CLC YAML config will start an NGINX Docker container:
 
 ```yaml
-etcd:
-  # All options get passed as command line flags to etcd.
-  # Any information inside curly braces comes from the machine at boot time.
-
-  # multi_region and multi_cloud deployments need to use {PUBLIC_IPV4}
-  advertise_client_urls:       "http://{PRIVATE_IPV4}:2379"
-  initial_advertise_peer_urls: "http://{PRIVATE_IPV4}:2380"
-  # listen on both the official ports and the legacy ports
-  # legacy ports can be omitted if your application doesn't depend on them
-  listen_client_urls:          "http://0.0.0.0:2379"
-  listen_peer_urls:            "http://{PRIVATE_IPV4}:2380"
-  # generate a new token for each unique cluster from https://discovery.etcd.io/new?size=3
-  # specify the initial size of your cluster with ?size=X
-  discovery:                   "https://discovery.etcd.io/<token>"
 passwd:
   users:
     - name: core
       ssh_authorized_keys:
         - ssh-rsa ABCD...
+systemd:
+  units:
+    - name: nginx.service
+      enabled: true
+      contents: |
+        [Unit]
+        Description=NGINX example
+        After=docker.service
+        Requires=docker.service
+        [Service]
+        TimeoutStartSec=0
+        ExecStartPre=-/usr/bin/docker rm --force nginx1
+        ExecStart=/usr/bin/docker run --name nginx1 --pull always --net host docker.io/nginx:1
+        ExecStop=/usr/bin/docker stop nginx1
+        Restart=always
+        RestartSec=5s
+        [Install]
+        WantedBy=multi-user.target
+```
+
+Transpile it to Ignition JSON:
+
+```shell
+cat cl.yaml | docker run --rm -i ghcr.io/flatcar-linux/ct:latest -platform openstack-metadata > ignition.json
 ```
 
 The `{PRIVATE_IPV4}` and `{PUBLIC_IPV4}` substitution variables are fully supported in Container Linux Configs on OpenStack deployments using the metadata service. Unfortunately systems relying on config drive are currently unsupported.
