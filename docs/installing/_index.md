@@ -136,7 +136,7 @@ You can reboot and stop the VM if you like - when you start it later with a plai
 Note that the ignition config will only be processed on the very first boot - that's why we made a copy, so now we can restore our OS image from the pristine copy for successive experiments with CLC.
 
 As listed in the introduction above there are numerous options available for configuring Flatcar just the way you need it.
-For instance, you can specify a custom SSH key instead of your default one from `~/.ssh/` in the CLC config, by adding this section to your YAML file:
+For instance, you can specify a custom SSH key instead of your default one from your ssh-agent or from `~/.ssh/` in the CLC config, by adding this section to your YAML file:
 ```yaml
 passwd:
   users:
