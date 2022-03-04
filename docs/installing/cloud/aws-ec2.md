@@ -188,11 +188,7 @@ First we need to create a security group to allow Flatcar Container Linux instan
       <p>We will be launching three instances, with a few parameters in the User Data, and selecting our security group.</p>
       <ol>
         <li>
-        {% for region in site.data.alpha_channel.amis %}
-          {% if region.name == 'us-east-1' %}
-            Open the <a href="https://console.aws.amazon.com/ec2/home?region={{region.name}}#launchAmi={{region.hvm}}" target="_blank">quick launch wizard</a> to boot {{region.hvm}} (amd64).
-          {% endif %}
-        {% endfor %}
+            Open the <a href="https://console.aws.amazon.com/ec2/home?region=us-east-1#launchAmi={{< docs_amis_get_hvm "alpha" "us-east-1" >}}" target="_blank">quick launch wizard</a> to boot {{< docs_amis_get_hvm "alpha" "us-east-1" >}} (amd64).
         </li>
         <li>
           On the second page of the wizard, launch 3 servers to test our clustering
@@ -262,11 +258,7 @@ First we need to create a security group to allow Flatcar Container Linux instan
       <p>We will be launching three instances, with a few parameters in the User Data, and selecting our security group.</p>
       <ol>
         <li>
-        {% for region in site.data.beta_channel.amis %}
-          {% if region.name == 'us-east-1' %}
-            Open the <a href="https://console.aws.amazon.com/ec2/home?region={{region.name}}#launchAmi={{region.hvm}}" target="_blank">quick launch wizard</a> to boot {{region.hvm}} (amd64).
-          {% endif %}
-        {% endfor %}
+            Open the <a href="https://console.aws.amazon.com/ec2/home?region=us-east-1#launchAmi={{< docs_amis_get_hvm "beta" "us-east-1" >}}" target="_blank">quick launch wizard</a> to boot {{< docs_amis_get_hvm "beta" "us-east-1" >}} (amd64).
         </li>
         <li>
           On the second page of the wizard, launch 3 servers to test our clustering
@@ -336,11 +328,7 @@ First we need to create a security group to allow Flatcar Container Linux instan
       <p>We will be launching three instances, with a few parameters in the User Data, and selecting our security group.</p>
       <ol>
         <li>
-        {% for region in site.data.stable_channel.amis %}
-          {% if region.name == 'us-east-1' %}
-            Open the <a href="https://console.aws.amazon.com/ec2/home?region={{region.name}}#launchAmi={{region.hvm}}" target="_blank">quick launch wizard</a> to boot {{region.hvm}} (amd64).
-          {% endif %}
-        {% endfor %}
+            Open the <a href="https://console.aws.amazon.com/ec2/home?region=us-east-1#launchAmi={{< docs_amis_get_hvm "stable" "us-east-1" >}}" target="_blank">quick launch wizard</a> to boot {{< docs_amis_get_hvm "stable" "us-east-1" >}} (amd64).
         </li>
         <li>
           On the second page of the wizard, launch 3 servers to test our clustering
