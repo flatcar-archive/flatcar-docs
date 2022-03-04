@@ -103,7 +103,7 @@ boot</pre>
 
 Go to My Servers > Startup Scripts > Add Startup Script, select type "PXE", and input your script. Be sure to replace the cloud-config-url with that of the shell script you created above.
 
-Additional reading can be found at [Booting Flatcar Container Linux with iPXE](booting-with-ipxe) and [Embedded scripts for iPXE](http://ipxe.org/embed).
+Additional reading can be found at [Booting Flatcar Container Linux with iPXE][booting-with-ipxe] and [Embedded scripts for iPXE](http://ipxe.org/embed).
 
 ## Create the VPS
 
@@ -140,3 +140,4 @@ Now that you have a machine booted it is time to play around. Check out the [Fla
 [release-notes]: https://flatcar-linux.org/releases
 [quickstart]: ../
 [doc-index]: ../../
+[booting-with-ipxe]: ../../installing/bare-metal/booting-with-ipxe
