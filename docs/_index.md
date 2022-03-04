@@ -184,7 +184,7 @@ APIs and troubleshooting guides for working with Flatcar Container Linux.
 [verify-container-linux]: setup/releases/verify-images
 [networkd-customize]: setup/customization/network-config-with-networkd
 [systemd-drop-in]: setup/systemd/drop-in-units
-[environment-variables-systemd]: setup/customization/systemd/environment-variables
+[environment-variables-systemd]: setup/systemd/environment-variables
 [dns]: setup/customization/configuring-dns
 [date-timezone]: setup/customization/configuring-date-and-timezone
 [users]: setup/customization/adding-users
@@ -192,7 +192,7 @@ APIs and troubleshooting guides for working with Flatcar Container Linux.
 [disk-space]: setup/storage/adding-disk-space
 [mounting-storage]: setup/storage/mounting-storage
 [power-management]: setup/customization/power-management
-[registry-authentication]: setup/releases/registry-authentication
+[registry-authentication]: container-runtimes/registry-authentication
 [iscsi]: setup/storage/iscsi
 [swap]: setup/storage/adding-swap
 [ec2-container-service]: setup/clusters/booting-on-ecs/
