@@ -8,13 +8,12 @@ aliases:
     - ../../clusters/creation/verify-images
 ---
 
-Kinvolk publishes new Flatcar Container Linux images for each release across a variety of platforms and hosting providers. Each channel has its own set of images ([stable], [beta], [alpha], [edge]) that are posted to our storage site. Along with each image, a signature is generated from the [Flatcar Container Linux Image Signing Key][signing-key] and posted.
+Kinvolk publishes new Flatcar Container Linux images for each release across a variety of platforms and hosting providers. Each channel has its own set of images ([stable], [beta], [alpha]) that are posted to our storage site. Along with each image, a signature is generated from the [Flatcar Container Linux Image Signing Key][signing-key] and posted.
 
 [signing-key]: https://kinvolk.io/flatcar-container-linux/security/image-signing-key/
 [stable]: https://stable.release.flatcar-linux.net/amd64-usr/current/
 [beta]: https://beta.release.flatcar-linux.net/amd64-usr/current/
 [alpha]: https://alpha.release.flatcar-linux.net/amd64-usr/current/
-[edge]: https://edge.release.flatcar-linux.net/amd64-usr/current/
 
 After downloading your image, you should verify it with `gpg` tool. First, download the image signing key:
 

@@ -33,7 +33,6 @@ The following command will create a single instance through the Azure CLI.
     <li class="active"><a href="#stable" data-toggle="tab">Stable Channel</a></li>
     <li><a href="#beta" data-toggle="tab">Beta Channel</a></li>
     <li><a href="#alpha" data-toggle="tab">Alpha Channel</a></li>
-    <li><a href="#edge" data-toggle="tab">Edge Channel</a></li>
   </ul>
   <div class="tab-content coreos-docs-image-table">
     <div class="tab-pane active" id="stable">
@@ -89,25 +88,6 @@ $ az vm image list --all -p kinvolk -f flatcar -s alpha
   }
 ]
 $ az vm create --name node-1 --resource-group group-1 --admin-username core --custom-data "$(cat config.ign)" --image kinvolk:flatcar-container-linux:alpha:2430.0.0
-        </pre>
-      </div>
-    </div>
-    <div class="tab-pane" id="edge">
-      <div class="channel-info">
-        <p>The Edge channel includes bleeding-edge features with the newest versions of the Linux kernel, systemd
-        and other core packages. Can be highly unstable. The current version is Flatcar Container Linux {{< param edge_channel >}}.</p>
-        <pre>
-$ az vm image list --all -p kinvolk -f flatcar -s edge
-[
-  {
-    "offer": "flatcar-container-linux",
-    "publisher": "kinvolk",
-    "sku": "edge",
-    "urn": "kinvolk:flatcar-container-linux:edge:2430.99.0",
-    "version": "2430.99.0"
-  }
-]
-$ az vm create --name node-1 --resource-group group-1 --admin-username core --custom-data "$(cat config.ign)" --image kinvolk:flatcar-container-linux:edge:2430.99.0
         </pre>
       </div>
     </div>
