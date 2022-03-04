@@ -60,7 +60,7 @@ As shown in this diagram, `ct` is manually invoked only when users are manually 
 
 The Container Linux Config Transpiler abstracts the details of configuring Flatcar Container Linux. It's responsible for transforming a Container Linux Config written by a user into an Ignition Config to be consumed by instances of Flatcar Container Linux.
 
-The Container Linux Config Transpiler command line interface, `ct` for short, can be downloaded from its [GitHub Releases page][download-ct] or used via Docker (`cat example.yaml | docker run --rm -i quay.io/coreos/ct:latest-dev --platform=YOURPLATFORM`).
+The Container Linux Config Transpiler command line interface, `ct` for short, can be downloaded from its [GitHub Releases page][download-ct] or used via Docker (`cat example.yaml | docker run --rm -i ghcr.io/flatcar-linux/ct:latest --platform=YOURPLATFORM`).
 
 The following config will configure an etcd cluster using the machine's public and private IP addresses:
 
