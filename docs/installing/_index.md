@@ -17,7 +17,7 @@ We'll cover
 
 Flatcar Container Linux is configured at _provisioning time_.
 There are two configuration languages to set up Flatcar, aimed at different use cases:
-- [Container Linux Config][cl-config] (CLC) is human-readable / writable YAML and must be converted (transpiled) into Ignition config before Flatcar can use it.
+- [Container Linux Config][cl-configs] (CLC) is human-readable / writable YAML and must be converted (transpiled) into Ignition config before Flatcar can use it.
 - [Ignition config][ignition] is machine-readable JSON fed to Flatcar's ignition service.
   Ignition is Flatcars "installation service" which configures a Flatcar instance during provisioning.
   The config file is passed via the "custom data" or "user data" option of cloud providers, and can be supplied by various mechanisms to private cloud VMs and bare metal.
@@ -202,4 +202,5 @@ With any of these guides you will have machines up and running in a few minutes.
 [ignition]: ../provisioning/ignition/
 [cl-configs]: ../provisioning/cl-config
 [cl-examples]: ../provisioning/cl-config/examples
+[cl-spec]: ../provisioning/config-transpiler/configuration
 [systemd]: ../setup/systemd/getting-started
