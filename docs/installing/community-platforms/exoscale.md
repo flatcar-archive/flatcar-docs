@@ -17,7 +17,7 @@ The Exoscale Flatcar Container Linux image is built officially and each instance
 [reboot-docs]: ../../setup/releases/update-strategies
 [switching-channels]: ../../setup/releases/switching-channels
 [release-notes]: https://flatcar-linux.org/releases
-[cloud-config-docs]: https://github.com/kinvolk/coreos-cloudinit/blob/master/Documentation/cloud-config.md
+[cloud-config-docs]: https://github.com/flatcar-linux/coreos-cloudinit/blob/master/Documentation/cloud-config.md
 
 ## Security groups
 
@@ -86,7 +86,7 @@ To log in to a Flatcar Container Linux instance after it's created click on its 
 ssh core@<ip address>
 ```
 
-Optionally, you may want to [configure your ssh-agent](https://github.com/kinvolk/fleet/blob/master/Documentation/using-the-client.md#remote-fleet-access) to more easily run [fleet commands](../fleet/launching-containers-fleet).
+Optionally, you may want to [configure your ssh-agent](https://github.com/kinvolk/fleet/blob/master/Documentation/using-the-client.md#remote-fleet-access) to more easily run fleet commands.
 
 ## Launching instances
 

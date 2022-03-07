@@ -15,7 +15,7 @@ A minimum of 3 GB of RAM is required to boot Flatcar Container Linux via PXE.
 
 This guide assumes you already have a working PXE server using [pxelinux][pxelinux]. If you need suggestions on how to set a server up, check out guides for [Debian][debian-pxe], [Fedora][fedora-pxe] or [Ubuntu][ubuntu-pxe].
 
-[debian-pxe]: http://www.debian-administration.org/articles/478
+[debian-pxe]: https://wiki.debian.org/PXEBootInstall
 [ubuntu-pxe]: https://help.ubuntu.com/community/DisklessUbuntuHowto
 [fedora-pxe]: http://docs.fedoraproject.org/en-US/Fedora/7/html/Installation_Guide/ap-pxe-server.html
 [pxelinux]: http://www.syslinux.org/wiki/index.php/PXELINUX

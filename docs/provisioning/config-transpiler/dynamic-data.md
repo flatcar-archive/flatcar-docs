@@ -120,4 +120,4 @@ ExecStart=/usr/lib/coreos/etcd-wrapper $ETCD_OPTS \
 
 This drop-in specifies that etcd should run after the coreos-metadata service, and it uses `/run/metadata/coreos` as an `EnvironmentFile`. This enables the coreos-metadata service, and puts the information it discovers into environment variables. These environment variables are then expanded by systemd when the service starts, inserting the dynamic data into the command-line flags to etcd.
 
-[examples]: examples.md
+[examples]: #example

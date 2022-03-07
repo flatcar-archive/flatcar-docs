@@ -272,7 +272,7 @@ After `image_to_vm.sh` completes, run `./flatcar_production_qemu.sh -curses` to 
 
 You could instead use the `-nographic` option, `./flatcar_production_qemu.sh -nographic`, which gives you the ability to switch from the VM to the QEMU monitor console by pressing <kbd>CTRL</kbd>+<kbd>a</kbd> and then <kbd>c</kbd>. To close the Flatcar Container Linux Guest OS VM, run `sudo systemctl poweroff` inside the VM.
 
-You can log in via SSH keys or with a different ssh port by running this example `./flatcar_production_qemu.sh -a ~/.ssh/authorized_keys -p 2223 -- -curses`. Refer to the [Booting with QEMU](booting-with-qemu#SSH-keys) guide for more information on this usage.
+You can log in via SSH keys or with a different ssh port by running this example `./flatcar_production_qemu.sh -a ~/.ssh/authorized_keys -p 2223 -- -curses`. Refer to the [Booting with QEMU][booting-qemu] guide for more information on this usage.
 
 ## Making changes
 
@@ -678,3 +678,4 @@ Take a look at the [SDK bootstrap process](sdk-bootstrapping) to learn how to bu
 [mantle]: https://github.com/flatcar-linux/mantle
 [prodimages]: sdk-building-production-images
 [sdktips]: sdk-tips-and-tricks
+[booting-qemu]: ../../installing/vms/qemu/#ssh-keys

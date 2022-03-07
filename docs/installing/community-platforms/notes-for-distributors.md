@@ -29,12 +29,12 @@ The signing key is rotated annually. We will announce upcoming rotations of the 
 [alpha-bucket]: https://alpha.release.flatcar-linux.net/amd64-usr/
 [beta-bucket]: https://beta.release.flatcar-linux.net/amd64-usr/
 [stable-bucket]: https://stable.release.flatcar-linux.net/amd64-usr/
-[signing-key]: https://kinvolk.io/flatcar-container-linux/security/image-signing-key/
+[signing-key]: https://www.flatcar.org/security/image-signing-key/
 [flatcar-user]: https://groups.google.com/forum/#!forum/flatcar-linux-user
 
 ## Image customization
 
-There are two predominant ways that a Flatcar Container Linux image can be easily customized for a specific operating environment: through Ignition, a first-boot provisioning tool that runs during a machine's boot process, and through [cloud-config](https://github.com/kinvolk/coreos-cloudinit/blob/master/Documentation/cloud-config), an older tool that runs every time a machine boots.
+There are two predominant ways that a Flatcar Container Linux image can be easily customized for a specific operating environment: through Ignition, a first-boot provisioning tool that runs during a machine's boot process, and through [cloud-config](https://github.com/flatcar-linux/coreos-cloudinit/blob/master/Documentation/cloud-config.md), an older tool that runs every time a machine boots.
 
 ### Ignition
 

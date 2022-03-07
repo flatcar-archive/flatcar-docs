@@ -205,3 +205,4 @@ Now that you have a machine booted it is time to play around. Check out the [Fla
 [mounting-storage]: ../../setup/storage/mounting-storage
 [quickstart]: ../
 [doc-index]: ../../
+[update-strategies]: ../../setup/releases/update-strategies/
