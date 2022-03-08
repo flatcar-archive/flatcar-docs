@@ -99,20 +99,20 @@ Now that you have a machine booted it is time to play around. Check out the [Fla
 
 ## Terraform
 
-The [`packet`](https://registry.terraform.io/providers/packethost/packet/latest/docs) Terraform Provider allows to deploy machines in a declarative way.
+The [`metal`](https://registry.terraform.io/providers/equinix/metal/latest/docs) Terraform Provider allows to deploy machines in a declarative way.
 Read more about using Terraform and Flatcar [here](../../provisioning/terraform/).
 
 The following Terraform v0.13 module may serve as a base for your own setup.
 
-Start with a `packet-machines.tf` file that contains the main declarations:
+Start with a `metal-machines.tf` file that contains the main declarations:
 
 ```
 terraform {
   required_version = ">= 0.13"
   required_providers {
-    packet = {
-      source  = "packethost/packet"
-      version = "3.1.0"
+    metal = {
+      source  = "equinix/metal"
+      version = "3.3.0-alpha.1"
     }
     ct = {
       source  = "poseidon/ct"
@@ -125,7 +125,7 @@ terraform {
   }
 }
 
-resource "packet_device" "machine" {
+resource "metal_device" "machine" {
   for_each         = toset(var.machines)
   hostname         = "${var.cluster_name}-${each.key}"
   plan             = var.plan
@@ -194,7 +194,7 @@ An `outputs.tf` file shows the resulting IP addresses:
 output "ip-addresses" {
   value = {
     for key in var.machines :
-    "${var.cluster_name}-${key}" => packet_device.machine[key].access_public_ipv4
+    "${var.cluster_name}-${key}" => metal_device.machine[key].access_public_ipv4
   }
 }
 ```
@@ -236,7 +236,7 @@ storage:
 Finally, run Terraform v0.13 as follows to create the machine:
 
 ```
-export PACKET_AUTH_TOKEN=...
+export METAL_AUTH_TOKEN=...
 terraform init
 terraform apply
 ```
