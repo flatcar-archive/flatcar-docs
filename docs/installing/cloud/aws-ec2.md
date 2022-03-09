@@ -9,6 +9,8 @@ aliases:
 
 The current AMIs for all Flatcar Container Linux channels and EC2 regions are listed below and updated frequently. Using CloudFormation is the easiest way to launch a cluster, but it is also possible to follow the manual steps at the end of the article. Questions can be directed to the Flatcar Container Linux [IRC channel][irc] or [user mailing list][flatcar-user].
 
+At the end of the document there are instructions for deploying with Terraform.
+
 ## Release retention time
 
 After publishing, releases will remain available as public AMIs on AWS for 9 months. AMIs older than 9 months will be un-published in regular garbage collection sweeps. Please note that this will not impact existing AWS instances that use those releases. However, deploying new instances (e.g. in autoscaling groups pinned to a specific AMI) will not be possible after the AMI was un-published.
@@ -216,6 +218,271 @@ Now that you have a machine booted it is time to play around. Check out the [Fla
 ## Known issues
 
 * `aws/amazon-ecs-agent` does not support `cgroupsv2`: [Flatcar issue](https://github.com/flatcar-linux/Flatcar/issues/585), [AWS issue](https://github.com/aws/containers-roadmap/issues/1535).
+
+## Terraform
+
+The [`aws`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs) Terraform Provider allows to deploy machines in a declarative way.
+Read more about using Terraform and Flatcar [here](../../provisioning/terraform/).
+
+The following Terraform v0.13 module may serve as a base for your own setup.
+It will also take care of registering your SSH key at AWS EC2 and managing the network environment with Terraform.
+
+Start with a `aws-ec2-machines.tf` file that contains the main declarations:
+
+```
+terraform {
+  required_version = ">= 0.13"
+  required_providers {
+    ct = {
+      source  = "poseidon/ct"
+      version = "0.7.1"
+    }
+    template = {
+      source  = "hashicorp/template"
+      version = "~> 2.2.0"
+    }
+    null = {
+      source  = "hashicorp/null"
+      version = "~> 3.0.0"
+    }
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 3.19.0"
+    }
+  }
+}
+
+provider "aws" {
+  region = var.aws_region
+}
+
+resource "aws_vpc" "network" {
+  cidr_block = var.vpc_cidr
+
+  tags = {
+    Name = var.cluster_name
+  }
+}
+
+resource "aws_subnet" "subnet" {
+  vpc_id     = aws_vpc.network.id
+  cidr_block = var.subnet_cidr
+
+  tags = {
+    Name = var.cluster_name
+  }
+}
+
+resource "aws_internet_gateway" "gateway" {
+  vpc_id = aws_vpc.network.id
+
+  tags = {
+    Name = var.cluster_name
+  }
+}
+
+resource "aws_route_table" "default" {
+  vpc_id = aws_vpc.network.id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.gateway.id
+  }
+
+  tags = {
+    Name = var.cluster_name
+  }
+}
+
+resource "aws_route_table_association" "public" {
+  route_table_id = aws_route_table.default.id
+  subnet_id      = aws_subnet.subnet.id
+}
+
+resource "aws_security_group" "securitygroup" {
+  vpc_id = aws_vpc.network.id
+
+  tags = {
+    Name = var.cluster_name
+  }
+}
+
+resource "aws_security_group_rule" "outgoing_any" {
+  security_group_id = aws_security_group.securitygroup.id
+  type              = "egress"
+  from_port         = 0
+  to_port           = 0
+  protocol          = "-1"
+  cidr_blocks       = ["0.0.0.0/0"]
+}
+
+resource "aws_security_group_rule" "incoming_any" {
+  security_group_id = aws_security_group.securitygroup.id
+  type              = "ingress"
+  from_port         = 0
+  to_port           = 0
+  protocol          = "-1"
+  cidr_blocks       = ["0.0.0.0/0"]
+}
+
+resource "aws_key_pair" "ssh" {
+  key_name   = var.cluster_name
+  public_key = var.ssh_keys.0
+}
+
+data "aws_ami" "flatcar_stable_latest" {
+  most_recent = true
+  owners      = ["aws-marketplace"]
+
+  filter {
+    name   = "architecture"
+    values = ["x86_64"]
+  }
+
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+
+  filter {
+    name   = "name"
+    values = ["Flatcar-stable-*"]
+  }
+}
+
+resource "aws_instance" "machine" {
+  for_each      = toset(var.machines)
+  instance_type = var.instance_type
+  user_data     = data.ct_config.machine-ignitions[each.key].rendered
+  ami           = data.aws_ami.flatcar_stable_latest.image_id
+  key_name      = aws_key_pair.ssh.key_name
+
+  associate_public_ip_address = true
+  subnet_id                   = aws_subnet.subnet.id
+  vpc_security_group_ids      = [aws_security_group.securitygroup.id]
+
+  tags = {
+    Name = "${var.cluster_name}-${each.key}"
+  }
+}
+
+data "ct_config" "machine-ignitions" {
+  for_each = toset(var.machines)
+  content  = data.template_file.machine-configs[each.key].rendered
+}
+
+data "template_file" "machine-configs" {
+  for_each = toset(var.machines)
+  template = file("${path.module}/cl/machine-${each.key}.yaml.tmpl")
+
+  vars = {
+    ssh_keys = jsonencode(var.ssh_keys)
+    name     = each.key
+  }
+}
+```
+
+Create a `variables.tf` file that declares the variables used above:
+
+```
+variable "machines" {
+  type        = list(string)
+  description = "Machine names, corresponding to cl/machine-NAME.yaml.tmpl files"
+}
+
+variable "cluster_name" {
+  type        = string
+  description = "Cluster name used as prefix for the machine names"
+}
+
+variable "ssh_keys" {
+  type        = list(string)
+  description = "SSH public keys for user 'core'"
+}
+
+variable "aws_region" {
+  type        = string
+  default     = "us-east-2"
+  description = "AWS Region to use for running the machine"
+}
+
+variable "instance_type" {
+  type        = string
+  default     = "t3.medium"
+  description = "Instance type for the machine"
+}
+
+variable "vpc_cidr" {
+  type    = string
+  default = "172.16.0.0/16"
+}
+
+variable "subnet_cidr" {
+  type    = string
+  default = "172.16.10.0/24"
+}
+```
+
+An `outputs.tf` file shows the resulting IP addresses:
+
+```
+output "ip-addresses" {
+  value = {
+    for key in var.machines :
+    "${var.cluster_name}-${key}" => aws_instance.machine[key].public_ip
+  }
+}
+```
+
+Now you can use the module by declaring the variables and a Container Linux Configuration for a machine.
+First create a `terraform.tfvars` file with your settings:
+
+```
+cluster_name           = "mycluster"
+machines               = ["mynode"]
+ssh_keys               = ["ssh-rsa AA... me@mail.net"]
+```
+
+The machine name listed in the `machines` variable is used to retrieve the corresponding [Container Linux Config](https://www.flatcar.org/docs/latest/provisioning/cl-config/).
+For each machine in the list, you should have a `machine-NAME.yaml.tmpl` file with a corresponding name.
+
+For example, create the configuration for `mynode` in the file `machine-mynode.yaml.tmpl` (The SSH key used there is not really necessary since we already set it as VM attribute):
+
+```yaml
+---
+passwd:
+  users:
+    - name: core
+      ssh_authorized_keys: ${ssh_keys}
+storage:
+  files:
+    - path: /home/core/works
+      filesystem: root
+      mode: 0755
+      contents:
+        inline: |
+          #!/bin/bash
+          set -euo pipefail
+           # This script demonstrates how templating and variable substitution works when using Terraform templates for Container Linux Configs.
+          hostname="$(hostname)"
+          echo My name is ${name} and the hostname is $${hostname}
+```
+
+Finally, run Terraform v0.13 as follows to create the machine:
+
+```
+export AWS_ACCESS_KEY_ID=...
+export AWS_SECRET_ACCESS_KEY=...
+terraform init
+terraform apply
+```
+
+Log in via `ssh core@IPADDRESS` with the printed IP address (maybe add `-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null`).
+
+When you make a change to `machine-mynode.yaml.tmpl` and run `terraform apply` again, the machine will be replaced.
+
+You can find this Terraform module in the repository for [Flatcar Terraform examples](https://github.com/flatcar-linux/flatcar-terraform/tree/main/aws).
+
 
 [quickstart]: ../
 [doc-index]: ../../
