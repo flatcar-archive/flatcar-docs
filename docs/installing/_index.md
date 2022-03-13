@@ -48,8 +48,8 @@ This should work on most Linux systems and assumes you have an SSH key set up fo
 
 First download the Flatcar QEMU image and the helper script to start it with QEMU but don't run it yet.
 ```shell
-wget https://stable.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu_image.sh
-chmod +x flatcar_production_qemu_image.sh
+wget https://stable.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu.sh
+chmod +x flatcar_production_qemu.sh
 wget https://stable.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu_image.img.bz2
 bunzip2 flatcar_production_qemu_image.img.bz2
 ```
