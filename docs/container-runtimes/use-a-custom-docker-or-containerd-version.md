@@ -110,6 +110,7 @@ systemd:
         WantedBy=multi-user.target
 storage:
   files:
+    - path: /etc/systemd/system-generators/torcx-generator
     - path: /opt/docker.tgz
       filesystem: root
       mode: 0644
@@ -152,3 +153,5 @@ While the system services have a `PATH` variable that prefers `/opt/bin/` by pla
 ```sh
 export PATH="/opt/bin:$PATH"
 ```
+
+The empty file `/etc/systemd/system-generators/torcx-generator` serves the purpose of disabling Torcx to make sure it is not used accidentally in case `/opt/bin` was missing from the `PATH` variable.
