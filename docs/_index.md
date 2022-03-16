@@ -75,6 +75,7 @@ Container Linux Config to an Ignition config.
  * [Examples of using Container Linux Config][config-examples]
  * [Platform agnostic metadata in Container Linux Config][config-dynamic-data]
  * [Using Terraform to provision Flatcar Container Linux][terraform]
+ * [Extending the base OS with systemd-sysext images][sysext]
 
 ### Setting Flatcar Up and Common Operations
 
@@ -222,3 +223,4 @@ APIs and troubleshooting guides for working with Flatcar Container Linux.
 [containerd-for-kubernetes]: container-runtimes/switching-from-docker-to-containerd-for-kubernetes
 [terraform]: provisioning/terraform/
 [hetzner]: installing/cloud/hetzner
+[sysext]: provisioning/sysext/
