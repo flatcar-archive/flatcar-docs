@@ -143,7 +143,7 @@ virt-install --connect qemu:///system \
              --os-type=generic \
              --disk path=/var/lib/libvirt/images/flatcar-linux/flatcar-linux1.qcow2,format=qcow2,bus=virtio \
              --vnc --noautoconsole \
-	     --qemu-commandline '-fw_cfg name=opt/org.flatcar-linux/config,file=/var/lib/libvirt/flatcar-linux/flatcar-linux1/provision.ign'
+             --qemu-commandline='-fw_cfg name=opt/org.flatcar-linux/config,file=/var/lib/libvirt/flatcar-linux/flatcar-linux1/provision.ign'
 ```
 
 #### SSH into the machine
