@@ -18,6 +18,13 @@ Flatcar Container Linux is an open source project. All of the source for Flatcar
 
 Please direct questions and suggestions to the [#flatcar:matrix.org Matrix channel][matrix] or [mailing list][flatcar-dev].
 
+Some resources provided by the community and the Flatcar's maintainers are also available as an introduction to the Flatcar modification process:
+
+* https://www.youtube.com/watch?v=X4m_JEtlVok
+* https://fosdem.org/2022/schedule/event/modding_the_immutable_how_to_extend_flatcar/
+
+Please note these resources might be outdated and only this page reflects the most up-to-date documentation.
+
 ## Getting started
 
 <table><tr><td>
