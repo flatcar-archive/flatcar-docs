@@ -63,7 +63,7 @@ systemd:
 
 However, the kernel commandline setting doesn't take effect on the first boot, and a reboot is required before the snippet becomes active.
 
-If your deployment can't tolerate the required reboot, consider using the following snippet to switch to legacy cgroups without a reboot. This is supported by Flatcar 3139.1.0 or newer:
+If your deployment can't tolerate the required reboot, consider using the following snippet to switch to legacy cgroups without a reboot. This is supported by Flatcar 3033.2.4 or newer:
 ```yaml
 storage:
   files:
