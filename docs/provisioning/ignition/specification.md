@@ -4,9 +4,8 @@ linktitle: Specification
 weight: 30
 ---
 
-Ignition uses a JSON format that is specified in several versions. The traditional specification version 2 was used in CoreOS Container Linux and is also used in Flatcar Container Linux. The new specification version 3 has breaking changes and is used in Fedora CoreOS but also soon available in Flatcar Container Linux. The high-level Container Linux Config YAML format specification can be found [here][ct-config].
+Ignition uses a JSON format that is specified in several major versions: v1, v2 and v3 (which itself has minor versions like `2.3.0`). While v1 and v2 are still supported in Flatcar Container Linux, from version 3185.0.0, it's recommended to write new configuration with v3.
 
-[ct-config]: ../config-transpiler/configuration
 
 ## Ignition v3
 
@@ -14,7 +13,25 @@ Starting from release 3185.0.0, Ignition v3 (specification 3.3.0) is supported i
 * v1 and v2 are still supported and get translated at runtime; while this is tested well there may be corner cases where the v2 config relied on unspecified behavior
 * `clevis` is not supported
 * `kernelArguments` are supported and will persist the changes in `/usr/share/oem/grub.cfg` before the reboot but it only works for unconditional `set linux_append` statements in grub.cfg and `linux_console` is not considered
-* `ct` can't emit Ignition v3 yet and Butane's variant is not yet defined
+* The high-level [Butane YAML format][butane-spec] can be used to generate Ignition v3 configs:
+
+```bash
+cat > config.yml <<EOF
+variant: flatcar
+version: 1.0.0
+storage:
+  luks:
+    - name: data
+      device: /dev/disk/by-partlabel/USR-B
+  filesystems:
+    - path: /var/lib/data
+      device: /dev/disk/by-id/dm-name-data
+      format: ext4
+      label: DATA
+      with_mount_unit: true
+EOF
+podman run -i --rm quay.io/coreos/butane:release --pretty --strict < config.yml > ignition.json
+```
 
 * **ignition** (object): metadata about the configuration itself.
   * **version** (string): the semantic version number of the spec. The spec version must be compatible with the latest version (`3.3.0`). Compatibility requires the major versions to match and the spec version be less than or equal to the latest version. `-experimental` versions compare less than the final version with the same number, and previous experimental versions are not accepted.
@@ -190,7 +207,7 @@ Starting from release 3185.0.0, Ignition v3 (specification 3.3.0) is supported i
 
 ## Ignition v2
 
-Ignition v2 is not developed anymore but still supported (specification 2.3.0):
+Ignition v2 is not developed anymore but still supported (specification 2.3.0), the high-level [Container Linux Config YAML format][ct-config] can be used to emit Ignition v2 configs:
 
 * **ignition** (object): metadata about the configuration itself.
   * **version** (string): the semantic version number of the spec. The spec version must be compatible with the latest version (`2.3.0`). Compatibility requires the major versions to match and the spec version be less than or equal to the latest version. `-experimental` versions compare less than the final version with the same number, and previous experimental versions are not accepted.
@@ -337,3 +354,5 @@ Ignition v2 is not developed anymore but still supported (specification 2.3.0):
 
 [part-types]: http://en.wikipedia.org/wiki/GUID_Partition_Table#Partition_type_GUIDs
 [rfc2397]: https://tools.ietf.org/html/rfc2397
+[butane-spec]: https://coreos.github.io/butane/config-flatcar-v1_0/
+[ct-config]: ../config-transpiler/configuration
