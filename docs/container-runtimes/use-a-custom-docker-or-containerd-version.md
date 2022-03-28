@@ -9,12 +9,14 @@ aliases:
 
 Some system tooling can't be run on Container Linux via containers and this is especially true for the container runtime itself.
 As with other special binaries you want to bring to the system you can use an Ignition config that downloads the binaries.
+Starting from Flatcar version ≥ 3185.0.0 you can also bundle your binaries into [systemd-sysext images](../provisioning/sysext/).
 
-For custom Docker binaries you can consider to use the [Torcx](../provisioning/torcx/) addon manager when you build your own Torcx image and profile.
-However, since the Torcx makes certain assumtions about the files being shipped you may find it too limiting (e.g., the wrapper scripts under `/usr/bin/` exist for only a fixed set of binaries).
+For custom Docker/containerd binaries sysext images are the recommended way as soon as the Flatcar version in the Stable channel supports them.
+However, the Flatcar versions below 3185.0.0 don't support it yet, and even in case support is there you may find it too complicated to build a sysext image and host it elsewhere.
 In this case you can directly place the custom binaries to `/opt/bin/` as done by the following Container Linux Config which you can transpile to an Ignition config with [`ct`](../provisioning/config-transpiler/).
 
-This replicates the Docker setup as of Flatcar Container Linux 3033.2.3 but under `/etc` and `/opt/bin/`, and with additional support for the upstream Containerd socket location. You can modify it to use different socket paths or plugins, or even only ship `containerd` if you don't need Docker.
+This replicates the Docker setup as of Flatcar Container Linux 3033.2.3 but under `/etc` and `/opt/bin/`, and with additional support for the upstream Containerd socket location.
+You can modify it to use different socket paths or plugins, or even only ship `containerd` if you don't need Docker.
 
 ```
 systemd:
@@ -130,6 +132,11 @@ storage:
           runtime_type = "io.containerd.runc.v2"
           [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
           SystemdCgroup = true
+  links:
+    - path: /etc/extensions/docker-flatcar.raw
+      target: /dev/null
+    - path: /etc/extensions/containerd-flatcar.raw
+      target: /dev/null
 ```
 
 While the system services have a `PATH` variable that prefers `/opt/bin/` by placing it first, you have to run the following command on every interactive login shell (also after `sudo` or `su`) to make sure you use the correct binaries.
@@ -139,3 +146,5 @@ export PATH="/opt/bin:$PATH"
 ```
 
 The empty file `/etc/systemd/system-generators/torcx-generator` serves the purpose of disabling Torcx to make sure it is not used accidentally in case `/opt/bin` was missing from the `PATH` variable.
+
+The `/etc/extensions/` symlinks make sure that the future built-in Docker/containerd sysext images won't be enabled.
