@@ -221,14 +221,15 @@ Transpile it to Ignition JSON:
 cat cl.yaml | docker run --rm -i ghcr.io/flatcar-linux/ct:latest -platform azure > ignition.json
 ```
 
-## Use the Azure HyperV PTP RTC instead of NTP for time synchronisation
+## Use the Azure Hyper-V Host for time synchronisation instead of NTP
 
-By default, Flatcar container Linux uses [`systemd-timesyncd`](https://www.freedesktop.org/software/systemd/man/systemd-timesyncd.service.html) for date and time synchronisation.
-Azure provides an alternative option for keeping time - a [virtual RTC device using the precision time protocol (PTP)](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/time-sync).
-Unfortunately, `systemd-timesyncd` does not support PTP devices (or any other RTC hardware) at this point - though a [feature request](https://github.com/systemd/systemd/issues/22828) for this exists.
-To work around this missing feature and to use the HyperV RTC, we can employ [`chrony`](https://chrony.tuxfamily.org/) in an [`alpine`](https://alpinelinux.org/) container to keep time.
-Since `alpine` is relentlessly optimised for size, the container will merely take about 16MB of disk space.
-Here's a configuration snippet to create a minimal `chrony` container during provisioning, and use it instead of `systemd-timesyncd`:
+By default, Flatcar container Linux uses [`systemd-timesyncd`](https://www.freedesktop.org/software/systemd/man/systemd-timesyncd.service.html) for date and time synchronization, using an external NTP server as the source of accurate time.
+Azure provides an alternative for accurate time - a [PTP](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/time-sync) clock source that surfaces Azure Host time in Azure guest VMs.
+Because Azure Host time is rigorously maintained with high precision, it’s a good source against which to synchronize guest time.
+Unfortunately, systemd-timesyncd doesn’t support PTP clock sources,  though there is an [upstream feature request](https://github.com/systemd/systemd/issues/22828) for adding this.
+To work around this missing feature and to use Azure's PTP clock source, we can employ [`chrony`](https://chrony.tuxfamily.org/) in an [`alpine`](https://alpinelinux.org/) container to synchronise time.
+Since alpine is relentlessly optimised for size, the container will merely take about 16MB of disk space.
+Here's a configuration snippet to create a minimal chrony container during provisioning, and use it instead of systemd-timesyncd:
 
 ```yaml
 storage:
@@ -244,9 +245,8 @@ storage:
           RUN echo "makestep 1.0 3" > /etc/chrony/chrony.conf
           RUN echo "maxupdateskew 100.0" > /etc/chrony/chrony.conf
           RUN echo "dumpdir /var/lib/chrony" > /etc/chrony/chrony.conf
-          RUN echo "rtcfile /var/lib/chrony/rtc" > /etc/chrony/chrony.conf
-          RUN echo "rtcdevice /dev/ptp0" > /etc/chrony/chrony.conf
-          RUN echo "refclock PHC /dev/ptp1 poll 3 dpoll -2 offset 0 stratum 2" > /etc/chrony/chrony.conf
+          RUN echo "rtcsync" > /etc/chrony/chrony.conf
+          RUN echo "refclock PHC /dev/ptp0 poll 3 dpoll -2 offset 0 stratum 2" > /etc/chrony/chrony.conf
 systemd:
   units:
     - name: systemd-timesyncd.service
@@ -286,7 +286,7 @@ systemd:
 
 If the above works for your use case without modifications or additions (i.e. there's no need to configure anything else) feel free to supply this ignition configuration as custom data for your deployments and call it a day:
 ```json
-{"ignition":{"config":{},"security":{"tls":{}},"timeouts":{},"version":"2.3.0"},"networkd":{},"passwd":{},"storage":{"files":[{"filesystem":"root","path":"/opt/chrony-build/Dockerfile","contents":{"source":"data:,FROM%20alpine%0ARUN%20apk%20add%20chrony%0ARUN%20echo%20%22log%20statistics%20measurements%20tracking%22%20%3E%20%2Fetc%2Fchrony%2Fchrony.conf%0ARUN%20echo%20%22driftfile%20%2Fvar%2Flib%2Fchrony%2Fdrift%22%20%3E%20%2Fetc%2Fchrony%2Fchrony.conf%0ARUN%20echo%20%22makestep%201.0%203%22%20%3E%20%2Fetc%2Fchrony%2Fchrony.conf%0ARUN%20echo%20%22maxupdateskew%20100.0%22%20%3E%20%2Fetc%2Fchrony%2Fchrony.conf%0ARUN%20echo%20%22dumpdir%20%2Fvar%2Flib%2Fchrony%22%20%3E%20%2Fetc%2Fchrony%2Fchrony.conf%0ARUN%20echo%20%22rtcfile%20%2Fvar%2Flib%2Fchrony%2Frtc%22%20%3E%20%2Fetc%2Fchrony%2Fchrony.conf%0ARUN%20echo%20%22rtcdevice%20%2Fdev%2Fptp0%22%20%3E%20%2Fetc%2Fchrony%2Fchrony.conf%0ARUN%20echo%20%22refclock%20PHC%20%2Fdev%2Fptp0%20poll%203%20dpoll%20-2%20offset%200%20stratum%202%22%20%3E%20%2Fetc%2Fchrony%2Fchrony.conf%20%0A","verification":{}},"mode":420}]},"systemd":{"units":[{"mask":true,"name":"systemd-timesyncd.service"},{"contents":"[Unit]\nDescription=Build the chrony container image\nConditionPathExists=!/opt/chrony-build/done\n[Service]\nType=oneshot\nRemainAfterExit=true\nRestart=on-failure\nWorkingDirectory=/opt/chrony-build\nExecStart=/usr/bin/docker build -t chrony .\nExecStartPost=/usr/bin/touch done\n[Install]\nWantedBy=multi-user.target\n","enabled":true,"name":"prepare-chrony.service"},{"contents":"[Unit]\nDescription=Chrony RTC time sync service\nAfter=docker.service prepare-chrony.service\nRequires=docker.service prepare-chrony.service\n[Service]\nTimeoutStartSec=0\nExecStartPre=-/usr/bin/docker rm --force chrony\nExecStart=/usr/bin/docker run --name chrony -i --cap-add=SYS_TIME --device=/dev/rtc:/dev/rtc --device=/dev/ptp_hyperv:/dev/ptp0 chrony chronyd -s -d\nExecStop=/usr/bin/docker stop chrony\nRestart=always                                                                        \nRestartSec=5s                                                                         \n[Install]                                                                             \nWantedBy=multi-user.target                                                            \n","enabled":true,"name":"chrony.service"}]}}
+{"ignition":{"config":{},"security":{"tls":{}},"timeouts":{},"version":"2.3.0"},"networkd":{},"passwd":{},"storage":{"files":[{"filesystem":"root","path":"/opt/chrony-build/Dockerfile","contents":{"source":"data:,FROM%20alpine%0ARUN%20apk%20add%20chrony%0ARUN%20echo%20%22log%20statistics%20measurements%20tracking%22%20%3E%20%2Fetc%2Fchrony%2Fchrony.conf%0ARUN%20echo%20%22driftfile%20%2Fvar%2Flib%2Fchrony%2Fdrift%22%20%3E%20%2Fetc%2Fchrony%2Fchrony.conf%0ARUN%20echo%20%22makestep%201.0%203%22%20%3E%20%2Fetc%2Fchrony%2Fchrony.conf%0ARUN%20echo%20%22maxupdateskew%20100.0%22%20%3E%20%2Fetc%2Fchrony%2Fchrony.conf%0ARUN%20echo%20%22dumpdir%20%2Fvar%2Flib%2Fchrony%22%20%3E%20%2Fetc%2Fchrony%2Fchrony.conf%0ARUN%20echo%20%22rtcsync%22%20%3E%20%2Fetc%2Fchrony%2Fchrony.conf%0ARUN%20echo%20%22refclock%20PHC%20%2Fdev%2Fptp0%20poll%203%20dpoll%20-2%20offset%200%20stratum%202%22%20%3E%20%2Fetc%2Fchrony%2Fchrony.conf%20%0A","verification":{}},"mode":420}]},"systemd":{"units":[{"mask":true,"name":"systemd-timesyncd.service"},{"contents":"[Unit]\nDescription=Build the chrony container image\nConditionPathExists=!/opt/chrony-build/done\n[Service]\nType=oneshot\nRemainAfterExit=true\nRestart=on-failure\nWorkingDirectory=/opt/chrony-build\nExecStart=/usr/bin/docker build -t chrony .\nExecStartPost=/usr/bin/touch done\n[Install]\nWantedBy=multi-user.target\n","enabled":true,"name":"prepare-chrony.service"},{"contents":"[Unit]\nDescription=Chrony RTC time sync service\nAfter=docker.service prepare-chrony.service\nRequires=docker.service prepare-chrony.service\n[Service]\nTimeoutStartSec=0\nExecStartPre=-/usr/bin/docker rm --force chrony\nExecStart=/usr/bin/docker run --name chrony -i --cap-add=SYS_TIME --device=/dev/rtc:/dev/rtc --device=/dev/ptp_hyperv:/dev/ptp0 chrony chronyd -s -d\nExecStop=/usr/bin/docker stop chrony\nRestart=always                                                                        \nRestartSec=5s                                                                         \n[Install]                                                                             \nWantedBy=multi-user.target                                                            \n","enabled":true,"name":"chrony.service"}]}}
 ```
 
 
