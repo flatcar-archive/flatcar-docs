@@ -234,19 +234,28 @@ Here's a configuration snippet to create a minimal chrony container during provi
 ```yaml
 storage:
   files:
-    - path: /opt/chrony-build/Dockerfile
+    - path: /opt/chrony/Dockerfile
       mode: 0644
       contents:
         inline: |
           FROM alpine
           RUN apk add chrony
-          RUN echo "log statistics measurements tracking" > /etc/chrony/chrony.conf
-          RUN echo "driftfile /var/lib/chrony/drift" > /etc/chrony/chrony.conf
-          RUN echo "makestep 1.0 3" > /etc/chrony/chrony.conf
-          RUN echo "maxupdateskew 100.0" > /etc/chrony/chrony.conf
-          RUN echo "dumpdir /var/lib/chrony" > /etc/chrony/chrony.conf
-          RUN echo "rtcsync" > /etc/chrony/chrony.conf
-          RUN echo "refclock PHC /dev/ptp0 poll 3 dpoll -2 offset 0 stratum 2" > /etc/chrony/chrony.conf
+          RUN rm /etc/chrony/chrony.conf
+    - path: /opt/chrony/chrony.conf
+      mode: 0644
+      contents:
+        inline: |
+          log statistics measurements tracking
+          logdir /var/log/chrony
+          driftfile /var/lib/chrony/drift
+          makestep 1.0 3
+          maxupdateskew 100.0
+          dumpdir /var/lib/chrony
+          rtcsync
+          refclock PHC /dev/ptp0 poll 3 dpoll -2 offset 0 stratum 2
+  directories:
+    - path: /opt/chrony/logs
+      mode: 0777
 systemd:
   units:
     - name: systemd-timesyncd.service
@@ -261,7 +270,7 @@ systemd:
         Type=oneshot
         RemainAfterExit=true
         Restart=on-failure
-        WorkingDirectory=/opt/chrony-build
+        WorkingDirectory=/opt/chrony
         ExecStart=/usr/bin/docker build -t chrony .
         ExecStartPost=/usr/bin/touch done
         [Install]
@@ -276,7 +285,7 @@ systemd:
         [Service]
         TimeoutStartSec=0
         ExecStartPre=-/usr/bin/docker rm --force chrony
-        ExecStart=/usr/bin/docker run --name chrony -i --cap-add=SYS_TIME --device=/dev/rtc:/dev/rtc --device=/dev/ptp_hyperv:/dev/ptp0 chrony chronyd -s -d
+        ExecStart=/usr/bin/docker run --name chrony -i --cap-add=SYS_TIME -v /opt/chrony/logs:/var/log/chrony -v /opt/chrony/chrony.conf:/etc/chrony/chrony.conf --device=/dev/rtc:/dev/rtc --device=/dev/ptp_hyperv:/dev/ptp0 chrony chronyd -s -d
         ExecStop=/usr/bin/docker stop chrony
         Restart=always
         RestartSec=5s
@@ -286,7 +295,7 @@ systemd:
 
 If the above works for your use case without modifications or additions (i.e. there's no need to configure anything else) feel free to supply this ignition configuration as custom data for your deployments and call it a day:
 ```json
-{"ignition":{"config":{},"security":{"tls":{}},"timeouts":{},"version":"2.3.0"},"networkd":{},"passwd":{},"storage":{"files":[{"filesystem":"root","path":"/opt/chrony-build/Dockerfile","contents":{"source":"data:,FROM%20alpine%0ARUN%20apk%20add%20chrony%0ARUN%20echo%20%22log%20statistics%20measurements%20tracking%22%20%3E%20%2Fetc%2Fchrony%2Fchrony.conf%0ARUN%20echo%20%22driftfile%20%2Fvar%2Flib%2Fchrony%2Fdrift%22%20%3E%20%2Fetc%2Fchrony%2Fchrony.conf%0ARUN%20echo%20%22makestep%201.0%203%22%20%3E%20%2Fetc%2Fchrony%2Fchrony.conf%0ARUN%20echo%20%22maxupdateskew%20100.0%22%20%3E%20%2Fetc%2Fchrony%2Fchrony.conf%0ARUN%20echo%20%22dumpdir%20%2Fvar%2Flib%2Fchrony%22%20%3E%20%2Fetc%2Fchrony%2Fchrony.conf%0ARUN%20echo%20%22rtcsync%22%20%3E%20%2Fetc%2Fchrony%2Fchrony.conf%0ARUN%20echo%20%22refclock%20PHC%20%2Fdev%2Fptp0%20poll%203%20dpoll%20-2%20offset%200%20stratum%202%22%20%3E%20%2Fetc%2Fchrony%2Fchrony.conf%20%0A","verification":{}},"mode":420}]},"systemd":{"units":[{"mask":true,"name":"systemd-timesyncd.service"},{"contents":"[Unit]\nDescription=Build the chrony container image\nConditionPathExists=!/opt/chrony-build/done\n[Service]\nType=oneshot\nRemainAfterExit=true\nRestart=on-failure\nWorkingDirectory=/opt/chrony-build\nExecStart=/usr/bin/docker build -t chrony .\nExecStartPost=/usr/bin/touch done\n[Install]\nWantedBy=multi-user.target\n","enabled":true,"name":"prepare-chrony.service"},{"contents":"[Unit]\nDescription=Chrony RTC time sync service\nAfter=docker.service prepare-chrony.service\nRequires=docker.service prepare-chrony.service\n[Service]\nTimeoutStartSec=0\nExecStartPre=-/usr/bin/docker rm --force chrony\nExecStart=/usr/bin/docker run --name chrony -i --cap-add=SYS_TIME --device=/dev/rtc:/dev/rtc --device=/dev/ptp_hyperv:/dev/ptp0 chrony chronyd -s -d\nExecStop=/usr/bin/docker stop chrony\nRestart=always                                                                        \nRestartSec=5s                                                                         \n[Install]                                                                             \nWantedBy=multi-user.target                                                            \n","enabled":true,"name":"chrony.service"}]}}
+{"ignition":{"config":{},"security":{"tls":{}},"timeouts":{},"version":"2.3.0"},"networkd":{},"passwd":{},"storage":{"directories":[{"filesystem":"root","path":"/opt/chrony/logs","mode":511}],"files":[{"filesystem":"root","path":"/opt/chrony/Dockerfile","contents":{"source":"data:,FROM%20alpine%0ARUN%20apk%20add%20chrony%0ARUN%20rm%20%2Fetc%2Fchrony%2Fchrony.conf%0A","verification":{}},"mode":420},{"filesystem":"root","path":"/opt/chrony/chrony.conf","contents":{"source":"data:,log%20statistics%20measurements%20tracking%0Alogdir%20%2Fvar%2Flog%2Fchrony%0Adriftfile%20%2Fvar%2Flib%2Fchrony%2Fdrift%0Amakestep%201.0%203%0Amaxupdateskew%20100.0%0Adumpdir%20%2Fvar%2Flib%2Fchrony%0Artcsync%0Arefclock%20PHC%20%2Fdev%2Fptp0%20poll%203%20dpoll%20-2%20offset%200%20stratum%202%0A","verification":{}},"mode":420}]},"systemd":{"units":[{"mask":true,"name":"systemd-timesyncd.service"},{"contents":"[Unit]\nDescription=Build the chrony container image\nConditionPathExists=!/opt/chrony-build/done\n[Service]\nType=oneshot\nRemainAfterExit=true\nRestart=on-failure\nWorkingDirectory=/opt/chrony\nExecStart=/usr/bin/docker build -t chrony .\nExecStartPost=/usr/bin/touch done\n[Install]\nWantedBy=multi-user.target\n","enabled":true,"name":"prepare-chrony.service"},{"contents":"[Unit]\nDescription=Chrony RTC time sync service\nAfter=docker.service prepare-chrony.service\nRequires=docker.service prepare-chrony.service\n[Service]\nTimeoutStartSec=0\nExecStartPre=-/usr/bin/docker rm --force chrony\nExecStart=/usr/bin/docker run --name chrony -i --cap-add=SYS_TIME -v /opt/chrony/logs:/var/log/chrony -v /opt/chrony/chrony.conf:/etc/chrony/chrony.conf --device=/dev/rtc:/dev/rtc --device=/dev/ptp_hyperv:/dev/ptp0 chrony chronyd -s -d\nExecStop=/usr/bin/docker stop chrony\nRestart=always\nRestartSec=5s\n[Install]\nWantedBy=multi-user.target\n","enabled":true,"name":"chrony.service"}]}}
 ```
 
 
