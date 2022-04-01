@@ -226,7 +226,7 @@ cat cl.yaml | docker run --rm -i ghcr.io/flatcar-linux/ct:latest -platform azure
 By default, Flatcar container Linux uses [`systemd-timesyncd`](https://www.freedesktop.org/software/systemd/man/systemd-timesyncd.service.html) for date and time synchronization, using an external NTP server as the source of accurate time.
 Azure provides an alternative for accurate time - a [PTP](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/time-sync) clock source that surfaces Azure Host time in Azure guest VMs.
 Because Azure Host time is rigorously maintained with high precision, it’s a good source against which to synchronize guest time.
-Unfortunately, systemd-timesyncd doesn’t support PTP clock sources,  though there is an [upstream feature request](https://github.com/systemd/systemd/issues/22828) for adding this.
+Unfortunately, systemd-timesyncd doesn’t support PTP clock sources, though there is an [upstream feature request](https://github.com/systemd/systemd/issues/22828) for adding this.
 To work around this missing feature and to use Azure's PTP clock source, we can employ [`chrony`](https://chrony.tuxfamily.org/) in an [`alpine`](https://alpinelinux.org/) container to synchronise time.
 Since alpine is relentlessly optimised for size, the container will merely take about 16MB of disk space.
 Here's a configuration snippet to create a minimal chrony container during provisioning, and use it instead of systemd-timesyncd:
