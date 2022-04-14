@@ -69,7 +69,7 @@ umount "${TARGET}"
 losetup -d "${LOOP}"
 
 rm -f flatcar_production_ami_vmdk_image-cgroupv1.vmdk
-qemu-img convert -f raw -O vmdk flatcar_production_ami_vmdk_image.vmdk.img flatcar_production_ami_vmdk_image-cgroupv1.vmdk
+qemu-img convert -f raw -O vmdk -o subformat=streamOptimized flatcar_production_ami_vmdk_image.vmdk.img flatcar_production_ami_vmdk_image-cgroupv1.vmdk
 
 rm flatcar_production_ami_vmdk_image.vmdk.img
 echo "Created flatcar_production_ami_vmdk_image-cgroupv1.vmdk from ${VERSION} ${CHANNEL}"
