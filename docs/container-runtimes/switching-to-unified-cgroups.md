@@ -64,8 +64,22 @@ systemd:
 However, the kernel commandline setting doesn't take effect on the first boot, and a reboot is required before the snippet becomes active.
 
 If your deployment can't tolerate the required reboot, consider using the following snippet to switch to legacy cgroups without a reboot. This is supported by Flatcar 3033.2.4 or newer:
+
 ```yaml
 storage:
+  filesystems:
+    - name: "OEM"
+      mount:
+        device: "/dev/disk/by-label/OEM"
+        format: "btrfs"
+  files:
+    - filesystem: "OEM"
+      path: "/grub.cfg"
+      mode: 0644
+      append: true
+      contents:
+        inline: |
+          set linux_append="$linux_append systemd.unified_cgroup_hierarchy=0 systemd.legacy_systemd_cgroup_controller"
   files:
     - path: /etc/flatcar-cgroupv1
       mode: 0444
@@ -80,6 +94,8 @@ systemd:
 ```
 
 Beware that over time it is expected that upstream projects will drop support for cgroups v1.
+
+**Known issues:** Unprivileged containers with user namespaces may lack permissions to access the bind mount ([Flatcar#722](https://github.com/flatcar-linux/Flatcar/issues/722)) and unmounting the bind mount before starting the container is needed.
 
 ## Generate AWS EC2 cgroups v1 AMIs
 
