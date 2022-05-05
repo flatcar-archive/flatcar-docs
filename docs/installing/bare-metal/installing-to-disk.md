@@ -82,7 +82,7 @@ For reference here are the rest of the `flatcar-install` options:
             block devices by their major numbers. E.g., -e 7 to exclude loop devices
             or -I 8,259 for certain disk types. Read more about the numbers here:
             https://www.kernel.org/doc/Documentation/admin-guide/devices.txt.
--V VERSION  Version to install (e.g. current)
+-V VERSION  Version to install (e.g. current, or current-2022 for the LTS 2022 stream)
 -B BOARD    Flatcar Container Linux board to use
 -C CHANNEL  Release channel to use (e.g. beta)
 -I|e <M,..> EXPERIMENTAL (used with -s): List of major device numbers to in-/exclude
