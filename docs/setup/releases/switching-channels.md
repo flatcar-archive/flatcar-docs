@@ -69,14 +69,16 @@ A new LTS major version / stream is released roughly once per year.
 Each LTS major release stream has an 18 month support cycle, so there's a 6 month overlap between new major releases.
 
 The public update channel `GROUP=lts` points to the current LTS release stream.
-This means that it always provides the latest LTS release and, therefore, a major version jump happens when, e.g., the current LTS stream is switched over from `lts-2021` to `lts-2022`.
+This means that it always provides the latest LTS release and, therefore, by default a major version jump happens when, e.g., the current LTS stream is switched over from `lts-2021` to `lts-2022`.
 Since this can be disruptive depending on the customizations and deployed software, the recommendation is to freeze the LTS stream on deployment and manually switch to a newer LTS stream at one's own pace each year.
 
-The entry in `/etc/flatcar/update.conf` to do so can be added via Ignition or manually (here for only receiving updates for the LTS 2022 stream, i.e., release major version 3033):
+The entry in `/etc/flatcar/update.conf` to opt-out of major version updates can be added via Ignition or manually (here for only receiving updates for the LTS 2022 stream, i.e., release major version 3033):
 
 ```
 GROUP=lts-2022
 ```
+
+An alternative is to manage the update rollout through an own Nebraska update server where your manage your own `lts` group (see below).
 
 ## Jump to another channel with `flatcar-update`
 
@@ -98,9 +100,12 @@ Nebraska's web interface allows to create custom groups that are used to specify
 Multiple groups can point to the same channel. The Nebraska web interface also gives an overview about the machines and their update status.
 
 It is recommended to start Nebraska with the `-enable-syncer` flag which keeps the Stable, Beta, Alpha, and LTS channels in sync with the public server.
-The default sync interval is one hour but may be shortened (Nebraska option `-sync-interval`). You have to create the `lts-2022' and similar channels if they don't exist on your instance.
+The default sync interval is one hour but may be shortened (Nebraska option `-sync-interval`). You need to create the `lts-2022` and similar channels if they don't exist on your instance.
 To specify a particular Flatcar version you want to deploy, you should not modify the `stable` *channel* because this gets synced with the public server and your changes are lost.
 You should rather create a new channel and let the `stable` *group* point to it.
+When using your own Nebraska update server, the `lts` group is not switched over to point a new `lts-YEAR` channel when a new channel comes out.
+To migrate the machines to the new LTS major release, first create the `lts-YEAR` channel on your instance since it may not exist, wait for the syncing to pick up the latest version for the channel, and then let the `lts` group point to the new channel.
+This needs to be done manually in Nebraska and it offers the advantage that the `lts` group which is the default for LTS installations can be kept and no changes on the machines themselves are necessary.
 
 For machines with restricted Internet access the Nebraska `-host-flatcar-packages` option lets Nebraska store the update payloads locally when syncing from the public server, and the machines will get your Nebraska's URL to fetch them.
 
