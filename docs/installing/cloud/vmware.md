@@ -147,7 +147,7 @@ For DHCP you don't need to specify any networkd units.
 After transpilation, the resulting JSON content can be used in `guestinfo.ignition.config.data` after encoding it to base64 and setting `guestinfo.ignition.config.data.encoding` to `base64`.
 If DHCP is used, the JSON file can also be uploaded to a web server and fetched by Ignition if the HTTP(s) URL is given in `guestinfo.ignition.config.url`.
 
-With static IP addresses there is no network connectivity in the initramfs. Therefore, fetching remote resources in Ignition or with torcx is currently only supported with DHCP.
+Beginning with Flatcar major version 3248, fetching remote resources in Ignition or with torcx is not only supported with DHCP but also by using `guestinfo.afterburn.initrd.network-kargs` to define a custom network configuration, here an [example for a static IP address](https://coreos.github.io/afterburn/usage/initrd-network-cmdline/#vmware).
 
 IP configuration specified via `guestinfo.interface.*` and `guestinfo.dns.*` variables is currently not supported with Ignition and will only work if you provide coreos-cloudinit data (cloud-config or a script) as userdata.
 
