@@ -95,6 +95,7 @@ more.
  * [Kernel modules / sysctl parameters][parameters]
  * [Adding swap][swap]
  * [Power management][power-management]
+ * [ACPI][acpi]
 
 #### Managing Releases and Updates
  * [Switching release channels][release-channels]
@@ -224,3 +225,4 @@ APIs and troubleshooting guides for working with Flatcar Container Linux.
 [terraform]: provisioning/terraform/
 [hetzner]: installing/cloud/hetzner
 [sysext]: provisioning/sysext/
+[acpi]: setup/customization/ACPI
