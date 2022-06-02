@@ -89,9 +89,42 @@ Further details can be found in the systemd man pages:
 
 The Flatcar Container Linux bootloader parses the configuration file `/usr/share/oem/grub.cfg`, where custom kernel boot options may be set.
 
-The `/usr/share/oem/grub.cfg` file can be configured with Ignition. Note that Ignition runs after GRUB. Therefore, the GRUB configuration won't take effect until the next reboot of the node.
+The `/usr/share/oem/grub.cfg` file can be configured with Ignition. Beginning with Flatcar major version 3185 the `kernelArguments` directive in Ignition v3 allows to add or remove kernel command line parameters and reboot the system directly from the initramfs to apply them as part of the first boot setup.
+It only works for unconditional `set linux_append` statements in `grub.cfg` and any existing `linux_console` statement is not considered.
 
-Here's an example configuration:
+Here's an example for ensuring that `flatcar.autologin` exists while ensuring that `quiet` does not exist.
+First the Butane YAML config and then the transpiled Ignition v3 config:
+
+```yaml
+variant: flatcar
+version: 1.0.0
+kernel_arguments:
+  should_exist:
+    - flatcar.autologin
+  should_not_exist:
+    - quiet
+```
+
+```
+{
+  "ignition": {
+    "version": "3.3.0"
+  },
+  "kernelArguments": {
+    "shouldExist": [
+      "flatcar.autologin"
+    ],
+    "shouldNotExist": [
+      "quiet"
+    ]
+  }
+}
+```
+
+Instead of using `kernelArguments` you can also use the plain file directive in Ignition to write to `/usr/share/oem/grub.cfg`.
+However, because Ignition runs after GRUB, the GRUB configuration won't take effect until the next reboot of the node.
+
+Here's an example Container Linux Configuration for using the plain file directive (this YAML content has to be transpiled to Ignition JSON with `ct`):
 
 ```yaml
 storage:
@@ -112,11 +145,15 @@ storage:
 
 ### Enable Flatcar Container Linux autologin
 
-To login without a password on every boot, edit `/usr/share/oem/grub.cfg` to add the line:
+To login without a password for the `core` user on the serial or VGA console on every boot, edit `/usr/share/oem/grub.cfg` to add a line like this:
 
 ```text
 set linux_append="$linux_append flatcar.autologin=tty1"
 ```
+
+Without specifying `=tty1` any TTY will be used, e.g., the serial console.
+
+To control this setting on provisioning time, use the Ignition v3 `kernelArguments` directive with `shouldExist` or `shouldNotExist` (see the Butane config in the section above).
 
 ### Enable systemd debug logging
 

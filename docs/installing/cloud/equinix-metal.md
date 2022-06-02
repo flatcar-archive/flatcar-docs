@@ -90,6 +90,44 @@ cat cl.yaml | docker run --rm -i ghcr.io/flatcar-linux/ct:latest -platform packe
 
 [cl-configs]: ../../provisioning/cl-config
 
+## Disabling/enabling autologin
+
+Beginning with Flatcar major version 3185 the `kernelArguments` directive in Ignition v3 allows to add/remove the `flatcar.autologin` kernel command line parameter that is set in `grub.cfg`.
+The following short Butane YAML config (to be transpiled to Ignition v3 JSON) ensures that the `flatcar.autologin` kernel parameter gets removed and then as part of the first boot it gets applied to an instant reboot before the instance comes up:
+
+```yaml
+variant: flatcar
+version: 1.0.0
+kernel_arguments:
+  should_not_exist:
+    - flatcar.autologin
+```
+
+With `should_exist` instead of `should_not_exist` the argument would be added if it isn't set in `grub.cfg` already.
+
+Read more about setting kernel command line parameters this way [here](../../../setup/customization/other-settings/#adding-custom-kernel-boot-options).
+
+In case you want to disable the autologin on the console with Ignition v2 where no `kernelArguments` directive exists, you can use the following directive in your Container Linux Config YAML.
+To take effect it requires an additional reboot.
+
+```yaml
+storage:
+  filesystems:
+    - name: oem
+      mount:
+        device: /dev/disk/by-label/OEM
+        format: btrfs
+        label: OEM
+  files:
+    - path: /grub.cfg
+      filesystem: oem
+      mode: 0644
+      append: true
+      contents:
+        inline: |
+          set linux_append=""
+```
+
 ## Using Flatcar Container Linux
 
 Now that you have a machine booted it is time to play around. Check out the [Flatcar Container Linux Quickstart][quickstart] guide or dig into [more specific topics][doc-index].
