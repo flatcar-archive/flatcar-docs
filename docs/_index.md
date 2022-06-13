@@ -15,6 +15,12 @@ updates.
 
 If you're new to Flatcar and if you're looking for a brief introduction on getting Flatcar up and running, please have a look at our [quickstart guide][quick-start].
 
+### Flatcar's software supply chain security
+
+Flatcar employs security mechanisms both at build / release time as well as at run-time to ensure validity of inputs processed and outputs shipped.
+
+Have a look at the document on [securing our supply chain][supply-chain-security] for more information.
+
 ### Installing Flatcar
 
 Flatcar Container Linux runs on most cloud providers, virtualization
@@ -153,6 +159,7 @@ APIs and troubleshooting guides for working with Flatcar Container Linux.
 [Migrating from cloud-config to Container Linux Config][migrating-from-cloud-config]
 
 [quick-start]: installing
+[supply-chain-security]: reference/supply-chain
 [ignition-what]: provisioning/ignition/
 [ignition-boot]: provisioning/ignition/boot-process
 [ignition-network]: provisioning/ignition/network-configuration
