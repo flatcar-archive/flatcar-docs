@@ -212,7 +212,7 @@ $ cat /usr/lib/binfmt.d/qemu-aarch64-static.conf
 $ sudo systemctl restart systemd-binfmt.service
 ```
 
-You can run `docker run --rm -ti arm64v8/alpine` on your host system as an easy check to verify everything is ready.
+You can run `docker run --rm -ti docker.io/arm64v8/alpine` or `docker run --rm -ti --arch arm64 docker.io/alpine` on your host system as an easy check to verify everything is ready.
 
 At the time of writing the SDK supports two target architectures: AMD64 (x86-64) and ARM64.
 The target architecture can be specified by use of the `--board=` parameter to both `build_packages` and `build_image`:
