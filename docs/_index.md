@@ -122,6 +122,7 @@ more.
  * [Adding Cert Authorities][cert-authorities]
  * [Using SELinux][selinux]
  * [Disabling SMT][disabling-smt]
+ * [Enabling FIPS][enabling-fips]
 
 #### Debugging Flatcar
  * [Install debugging tools][debugging-tools]
@@ -210,6 +211,7 @@ APIs and troubleshooting guides for working with Flatcar Container Linux.
 [cert-authorities]: setup/security/adding-certificate-authorities
 [selinux]: setup/security/selinux
 [disabling-smt]: setup/security/disabling-smt
+[enabling-fips]: setup/security/fips
 [debugging-tools]: setup/debug/install-debugging-tools
 [btrfs]: setup/debug/btrfs-troubleshooting
 [system-log]: setup/debug/reading-the-system-log
