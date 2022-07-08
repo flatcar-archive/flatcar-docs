@@ -90,7 +90,7 @@ flatcar:
       command: start
       content: |
         [Mount]
-        What=/dev/xvde
+        What=/dev/disk/by-label/FSLABEL
         Where=/media/data
         Type=ext3
 ```

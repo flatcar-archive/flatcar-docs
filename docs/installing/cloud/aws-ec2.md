@@ -109,6 +109,7 @@ storage:
         device: /dev/xvdb
         format: ext4
         wipe_filesystem: true
+        label: ephemeral
 
 systemd:
   units:
@@ -116,7 +117,7 @@ systemd:
       enable: true
       contents: |
         [Mount]
-        What=/dev/xvdb
+        What=/dev/disk/by-label/ephemeral
         Where=/media/ephemeral
         Type=ext4
 

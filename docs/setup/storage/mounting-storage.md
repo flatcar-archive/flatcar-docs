@@ -11,6 +11,8 @@ Container Linux Configs can be used to format and attach additional filesystems 
 
 Mount units name the source filesystem and target mount point, and optionally the filesystem type. *Systemd* mounts filesystems defined in such units at boot time. The following example formats an [EC2 ephemeral disk][ec2-disk] and then mounts it at the node's `/media/ephemeral` directory. The mount unit is therefore named `media-ephemeral.mount`.
 
+Note that you should not use the direct path `/dev/sdX`for the `What=` path but **use a distinct stable identifier** such as `/dev/disk/by-label/X` or `/dev/disk/by-partlabel/X` because, e.g., `/dev/sda` can become `/dev/sdb` after reboot as the Linux kernel assigns the devices in the order they appear which can be unstable. The best idea is to match the disk based on the content you expect, such as a filesystem or partition label that you set up through formatting the disk on first boot via Ignition's `mount:` directive. This way you can use `/dev/sdX` as the `mount: device:` path which is only used on the first boot and don't have to care whether it will get different names after reboot because your mount unit uses `/dev/disk/by-label/` to find the correct disk. If that is not possible you can try your luck with `/dev/disk/by-path/X` entries that depend on the way the disk are attached to the machine but not on the discovery order of the Linux kernel.
+
 ```yaml
 storage:
   filesystems:
@@ -19,6 +21,7 @@ storage:
         device: /dev/xvdb
         format: ext4
         wipe_filesystem: true
+        label: ephemeral1
 systemd:
   units:
     - name: media-ephemeral.mount
@@ -27,7 +30,7 @@ systemd:
         [Unit]
         Before=local-fs.target
         [Mount]
-        What=/dev/xvdb
+        What=/dev/disk/by-label/ephemeral1
         Where=/media/ephemeral
         Type=ext4
         [Install]
@@ -48,6 +51,7 @@ storage:
         device: /dev/xvdb
         format: ext4
         wipe_filesystem: true
+        label: ephemeral1
 systemd:
   units:
     - name: var-lib-docker.mount
@@ -57,7 +61,7 @@ systemd:
         Description=Mount ephemeral to /var/lib/docker
         Before=local-fs.target
         [Mount]
-        What=/dev/xvdb
+        What=/dev/disk/by-label/ephemeral1
         Where=/var/lib/docker
         Type=ext4
         [Install]
