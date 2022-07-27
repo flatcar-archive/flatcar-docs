@@ -9,13 +9,13 @@ weight: 10
 The [Supply Chain Levels for Software Artifacts](https://slsa.dev/) (SLSA or 'salsa' in short) industry standard defines a checklist of standards and controls to prevent tampering, improve integrity, and secure packages and infrastructure in software projects.
 This document describes the Flatcar Container Linux project's current and planned compliance with the [requirements of SLSA](https://slsa.dev/spec/v0.1/requirements) and provides a deep dive into the processes and mechanisms to secure the Flatcar project supply chain.
 
-**Note** while Flatcar implements most of the requirements defined by SLSA we no not at this point generate user-verifiable [provenance](https://slsa.dev/provenance/v0.2) of doing so. This is planned as a future improvement to our release process.
+Our assessment is that Flatcar today complies with SLSA Level 3. We are actively working to meet the requirements for SLSA Level 4.
 
-#### SLSA Thread model and requirements
+#### SLSA Threat model and requirements
 
-![supply_chain_threads](../img/supply-chain-threads-slsa.png)
+![supply_chain_threats](../img/supply-chain-threats-slsa.png)
 
-SLSA defines a number of [key threads](https://slsa.dev/spec/v0.1/#supply-chain-threats) against supply chains:
+SLSA defines a number of [key threats](https://slsa.dev/spec/v0.1/#supply-chain-threats) against supply chains:
 1. unauthorised changes to sources
 2. compromised source repositories
 3. builds from a modified source
@@ -25,7 +25,7 @@ SLSA defines a number of [key threads](https://slsa.dev/spec/v0.1/#supply-chain-
 7. a compromised package or image repository
 8. injection / use of a compromised package or image
 
-To counter these threads, SLSA defines [requirements](https://slsa.dev/spec/v0.1/requirements) for sources, builds, and provenance, as well as common (overall) requirements.
+To counter these threats, SLSA defines [requirements](https://slsa.dev/spec/v0.1/requirements) for sources, builds, and provenance, as well as common (overall) requirements.
 This section will summarise the requirements and relate the SLSA levels of Flatcar's implementation.
 
 |                SLSA requirement                   | SLSA level 1 | SLSA level 2 | SLSA level 3 | SLSA level 4 | Flatcar meets |
@@ -41,12 +41,12 @@ This section will summarise the requirements and relate the SLSA levels of Flatc
 | Build integrity: Isolated                         |              |              |      ✓       |      ✓       |       ✓       |
 | Build integrity: Parameterless                    |              |              |              |      ✓       |       ✓       |
 | Build integrity: Hermetic                         |              |              |              |      ✓       |               |
-| Build integrity: Reproducible                     |              |              |              | Best Effort  |       ?       |
-| Provenance: Available                             |       ✓      |       ✓      |      ✓       |      ✓       |               |
-| Provenance: Authenticated                         |              |       ✓      |      ✓       |      ✓       |               |
-| Provenance: Service generated                     |              |       ✓      |      ✓       |      ✓       |               |
-| Provenance: Non-falsifiable                       |              |              |      ✓       |      ✓       |               |
-| Provenance: Dependencies complete                 |              |              |              |      ✓       |               |
+| Build integrity: Reproducible                     |              |              |              | Best Effort  |       ○       |
+| Provenance: Available                             |       ✓      |       ✓      |      ✓       |      ✓       |       ✓       |
+| Provenance: Authenticated                         |              |       ✓      |      ✓       |      ✓       |       ✓       |
+| Provenance: Service generated                     |              |       ✓      |      ✓       |      ✓       |       ✓       |
+| Provenance: Non-falsifiable                       |              |              |      ✓       |      ✓       |       ✓       |
+| Provenance: Dependencies complete                 |              |              |              |      ✓       |       ✓       |
 | Common - Security                                 |              |              |              |      ✓       |               |
 | Common - Access                                   |              |              |              |      ✓       |       ✓       |
 | Common - Superusers                               |              |              |              |      ✓       |       ✓       |
@@ -105,7 +105,7 @@ Renewing the image signing key requires split secrets of multiple maintainers.
 
 ###### Inputs
 1. Flatcar's build automation and package definition repositories.
-   Write access to repositories is limited to trusted group of core Flatcar maintainers.
+   Write access to repositories is limited to trusted group of core Flatcar maintainers (the @flatcar-linux/flatcar-maintainers team in the flatcar-linux github org).
    All changes are reviewed by at least one maintainer before merge.
    1. A [top-level build automation repo](https://github.com/flatcar-linux/scripts).
       This repository qualifies automation and package definitions of any given build by commit ID.
@@ -118,8 +118,8 @@ Renewing the image signing key requires split secrets of multiple maintainers.
 
 ###### Process
 
-The OS image (and optionally, SDK) build and artifact signing is performed on hardened, secure build infrastructure.
-Access to the infrastructure is limited to a small number of core maintainers and is reviewed regularly.
+The OS image (and optionally, SDK) build and artifact signing is performed on a dedicated machine (not a VM) in a secure, access-controlled Equinix Metal data center.
+Access to the infrastructure is limited to a small number of core maintainers - a subset of the Flatcar maintainers team - and is reviewed regularly.
 Access is only possible via a VPN (not via public internet) and is verified with SSH keys.
 The build process entails:
 
@@ -127,24 +127,33 @@ The build process entails:
 2. Fetching of source tarballs of apps and libraries that make up the OS image.
    Integrity of source tarballs is validated against multiple cryptographic checksums stored in package definition (ebuild) repos.
 3. Building of apps and libraries, and generation of installation images and update image.
+   **During the build of each package, per-package SLSA provenance for most OS image packages is generated.**
    Optionally, a new SDK is built prior to the OS apps and libs.
-   This is done only for new major Alpha releases.
+   Full SDK rebuilds are usually done only for new major Alpha releases.
+   **During the SDK build, per-package SLSA provenance for core libraries and toolchains is generated.**
+   In rare circumstances, changes to toolchains and/or core libraries would mandate an SDK rebuild.
+   In that case a new SDK is published alongside the respective Flatcar Beta / Stable release.
+   **Note** that we track a number of feature requests to further improve SLSA provenance generation:
+   1. Add builder ID information during CI builds: [tracking issue](https://github.com/flatcar-linux/Flatcar/issues/813)
+   2. Generate additional provenance for the whole image: [tracking issue](https://github.com/flatcar-linux/Flatcar/issues/814)
 4. Signing of artifacts to enable validation of authenticity at provisioning time.
+   Signing also ensures SLSA provenance is non-falisfiable.
    1. A verity hash of the OS partition is generated and injected into the initrd so Flatcar can verify tamper-free OS partition at boot time.
    2. There is an extra layer of security for the update image.
       Many Flatcar deployments use automated updates so special care is take to ensure these are not compromised.
       A core maintainer downloads the update image from the secure build server, and validates the image and its server signature.
-      The image is then signed with a key stored on a HSM, in an air-gapped environment so the key is never exposed.
+      The image is then signed with a key stored on a ardware security module (HSM), in an air-gapped environment so the key is never exposed to the internet.
 
 ###### Outputs
 
 After image builds conclude, OS images, update image, related artifacts and signature files reside on the secure build infrastructure and are ready for publishing.
-Access to the public image and update servers is limited to a small number of engineers.
+Access to the public image and update servers is limited to a subset of the Flatcar maintainers team.
 Accounts with access to the update server use 2-factor authentication.
 
 1. Artifacts and signatures are uploaded from the secure build infrastructure to the public image server.
    The SDK container (if applicable) is pushed to the container registry (Flatcar uses GHCR at the time of writing).
 2. The update image and its (manually generated) signature are uploaded to the update server by the person who performed the manual signing step.
+3. Per-package SLSA provenance is shipped within the image at `/usr/share/SLSA/`.
 
 ##### Provisioning-time / OS upgrade / run-time
 
@@ -169,6 +178,11 @@ Each of the Flatcar installation images (for all supported vendors / platforms) 
 
 Smaller artifacts, like text files containing the list of packages or the list of files contained in the OS image, do not ship with cryptographic hashes but are accompanied by `.sig` digital signature files directly.
 
+###### Validation of OS partition at boot time
+
+All operating system binaries are contained in a separate, immutable (read-only) partition which is mounted to `/usr` at system boot.
+No OS binaries exist outside `/usr` and no individual files can be changed.
+The OS partition is validated on each boot using `dm-verity`. The verity hash is baked into the init-rd at build time.
 
 ###### Validation of update images at OS upgrade time
 
@@ -178,29 +192,16 @@ Before installation, update images are validated against the update signing key 
 `update_engine` uses a baked-in public key for validation.
 An update is installed only after successful validation.
 
-###### Validation of OS partition at boot time
-
-All operating system binaries are contained in a separate, immutable (read-only) partition which is mounted to `/usr` at system boot.
-No OS binaries exist outside `/usr` and no individual files can be changed.
-The OS partition is validated on each boot using `dm-verity`. The verity hash is baked into the init-rd at build time.
-
-
 ### Future improvements
 
 To further enhance attestability and supply chain security we consider the below (non-exhaustive) list of improvements for Flatcar in the future.
 
-#### SLSA
+#### SLSA provenance
 
-- Provide user-verifiable provenance of Flatcar's supply chain security.
-
-#### OS Image build and release of a new OS version
-
-- Include signed list of packages, source URLs, and checksums for each release (generated from ebuilds).
-  Consider including hashes of each source file.
-- Include commit ID of "scripts" repo for each release.
-- Include signed list of hashes of each binary / library for each release.
-
+1. Add builder ID information during CI builds: [tracking issue](https://github.com/flatcar-linux/Flatcar/issues/813)
+2. Generate additional provenance for the whole image: [tracking issue](https://github.com/flatcar-linux/Flatcar/issues/814)
 
 #### Provisioning-time / OS upgrade / run-time
 
-- Integrate with hardware TPM (where available) to secure the boot process right from hardware start-up instead of just from the initial ramdisk.
+1. Integrate with hardware TPM (where available) to secure the boot process right from hardware start-up instead of just from the initial ramdisk
+   [roadmap issue](https://github.com/flatcar-linux/Flatcar/issues/630)
