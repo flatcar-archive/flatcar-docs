@@ -6,8 +6,8 @@ weight: 10
 
 ### Flatcar Container Linux Supply Chain Security and SLSA
 
-The [Supply Chain Levels for Software Artifacts](https://slsa.dev/) (SLSA or 'salsa' in short) defines a check-list of standards and controls to prevent tampering, improve integrity, and secure packages and infrastructure in software projects.
-We lay out below how the Flatcar Container Linux project works towards implementing the [requirements of SLSA](https://slsa.dev/spec/v0.1/requirements) and provide a deep dive into the processes and mechanisms to secure our supply chain in the Flatcar project.
+The [Supply Chain Levels for Software Artifacts](https://slsa.dev/) (SLSA or 'salsa' in short) industry standard defines a checklist of standards and controls to prevent tampering, improve integrity, and secure packages and infrastructure in software projects.
+This document describes the Flatcar Container Linux project's current and planned compliance with the [requirements of SLSA](https://slsa.dev/spec/v0.1/requirements) and provides a deep dive into the processes and mechanisms to secure the Flatcar project supply chain.
 
 **Note** while Flatcar implements most of the requirements defined by SLSA we no not at this point generate user-verifiable [provenance](https://slsa.dev/provenance/v0.2) of doing so. This is planned as a future improvement to our release process.
 
@@ -54,21 +54,21 @@ This section will summarise the requirements and relate the SLSA levels of Flatc
 
 ### Deep dive: Implementation in Flatcar Container Linux
 
-Flatcar Container Linux employs a number of concrete mechanisms and processes to secure our supply chain.
+Flatcar Container Linux employs a number of concrete mechanisms and processes to secure its supply chain.
 
 Broadly speaking, these break down into two areas:
-1. Mechanisms and processes to ensure validity of the Flatcar artifacts that make up our releases.
+1. Mechanisms and processes to ensure validity of the Flatcar artifacts that make up release images.
    Attestation is performed either automatically by the build system or by the maintainers team.
-   This includes validating our inputs / upstreams, securing our builds, and ensuring attestability of our images and update payloads.
-2. Mechanisms and processes to be applied at provisioning time by our users, as well as automatically at runtime, attesting validity of the artifacts in use.
-   Attestation is performed either automatically by provisioning logic of Flatcar OS / client services or by our users.
-   This includes validating signatures of our images by our users / their provisioning automation, validating update payloads by our update client, and verifying integrity during the boot process.
+   This includes validating the build pipeline's inputs / upstreams, securing the build process, and ensuring attestability of the resultant images and update payloads.
+2. Mechanisms and processes to be applied at provisioning time by users, as well as automatically at runtime, attesting validity of the artifacts in use.
+   Attestation is performed either automatically by the provisioning logic of Flatcar OS / client services or by users.
+   This includes validating signatures of Flatcar images by end users (or their provisioning automation), validating update payloads by the Flatcar update client, and verifying integrity during the boot process.
 
 
 #### Foundation
 
-Flatcar builds its supply chain security on a number of basic concepts which, in summary, provide the foundation for securing our supply chain.
-These foundational concepts fall into one of the two areas lined out above.
+Flatcar builds its supply chain security on a number of basic concepts which, in summary, provide the foundation for securing the entire Flatcar supply chain.
+These foundational concepts fall into one of the two areas outlined above.
 
 The build-time / release-time foundational concepts are:
 1. We always build from source.
@@ -96,7 +96,7 @@ In this section we will discuss the overall Flatcar build and release process as
 Flatcar builds are reproducible; the software configuration state of any given release (or even nightly build) is recorded in git repositories and can be reproduced by a simple git clone + checkout + rebuild.
 We employ a number of mechanisms to make this process tamper-proof and to make artifacts we produce attestable.
 
-Flatcar release images and related artifacts are signed at build time (on the secure build infrastructure) with a 4096 bit GPG RSA key.
+Flatcar release images and related artifacts are automatically signed at build time (on the secure build infrastructure) with a 4096 bit GPG RSA key.
 Access to the image signing key is restricted to core maintainers.
 The image signing key is always stored encrypted and has a lifetime of one year.
 Renewing the image signing key requires split secrets of multiple maintainers.
@@ -148,14 +148,14 @@ Accounts with access to the update server use 2-factor authentication.
 
 ##### Provisioning-time / OS upgrade / run-time
 
-Flatcar ships with a number of mechanisms to attest the authenticity of artifacts consumed by our users when provisioning and when updating Flatcar.
-We further assess the authenticity of all OS binaries - which reside on a separate, read-only partition - at each boot.
+Flatcar ships with a number of mechanisms to attest the authenticity of artifacts consumed both when provisioning and when updating Flatcar.
+Further, Flatcar assesses the authenticity of all OS binaries - which reside on a separate, read-only partition - at each boot.
 
 ![supply_chain_provision](../img/supply-chain-provision-runtime.png)
 
 ###### Validation at provisioning time
 
-The public key component of our image signing key (see above) is [available from our website](https://www.flatcar.org/security/image-signing-key/) for verification. 
+The public key component of the Flatcar image signing key (see above) is [available from the Flatcar website](https://www.flatcar.org/security/image-signing-key/) for verification. 
 Using the public key, installation images can be validated against their signatures before provisioning, either manually by the user or (preferred) automatically by provisioning automation.
 In either case the Flatcar project provides the means for validation, but executing the process is ultimately in the responsibility of the operator / user.
 In other words, while strongly recommended, validation is not enforced by the distribution, i.e. there are no mechanisms in place which would prevent installation of an image that was not validated.
@@ -173,7 +173,7 @@ Smaller artifacts, like text files containing the list of packages or the list o
 ###### Validation of update images at OS upgrade time
 
 Flatcar ships with a mechanism to auto-upgrade itself to new releases.
-The client service, `update_engine`, is included in the OS partition of the Flatcar image, i.e. it's on a read-only, `dm-verity`-validated partition.
+The client service, `update_engine`, is included in the OS partition of the Flatcar image, i.e. it is on a read-only, `dm-verity`-validated partition.
 Before installation, update images are validated against the update signing key - this key has a separate, even stronger security process than the image signing key (see build process for details).
 `update_engine` uses a baked-in public key for validation.
 An update is installed only after successful validation.
