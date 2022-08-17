@@ -143,6 +143,20 @@ storage:
           set linux_append="$linux_append flatcar.autologin=tty1"
 ```
 
+To take effect directly on first boot, the alternative is to create a `getty@.service` drop-in, here a CLC snippet:
+
+```
+systemd:
+  units:
+    - name: getty@.service
+      dropins:
+        - name: 10-autologin.conf
+          contents: |
+            [Service]
+            ExecStart=
+            ExecStart=-/sbin/agetty --noclear %I $TERM
+```
+
 ### Enable Flatcar Container Linux autologin
 
 To login without a password for the `core` user on the serial or VGA console on every boot, edit `/usr/share/oem/grub.cfg` to add a line like this:

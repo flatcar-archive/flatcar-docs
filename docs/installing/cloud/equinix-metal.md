@@ -128,6 +128,21 @@ storage:
           set linux_append=""
 ```
 
+To take effect directly on first boot, the alternative is to create a `getty@.service` drop-in, here a CLC snippet:
+
+```
+systemd:
+  units:
+    - name: getty@.service
+      dropins:
+        - name: 10-autologin.conf
+          contents: |
+            [Service]
+            ExecStart=
+            ExecStart=-/sbin/agetty --noclear %I $TERM
+```
+
+
 ## Using Flatcar Container Linux
 
 Now that you have a machine booted it is time to play around. Check out the [Flatcar Container Linux Quickstart][quickstart] guide or dig into [more specific topics][doc-index].
