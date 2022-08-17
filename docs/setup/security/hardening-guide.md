@@ -82,6 +82,20 @@ Recent Intel CPU vulnerabilities cannot be fully mitigated in software without d
 
 The [SMT on Container Linux guide][smt-guide] provides guidance and instructions for disabling SMT.
 
+### Disable USB
+
+If you don't expect to ever use USB, you can disable the kernel module, here a CLC snippet:
+
+```
+storage:
+  files:
+    - path: /etc/modprobe.d/blacklist.conf
+      mode: 0644
+      contents:
+        inline: |
+          blacklist usb-storage
+```
+
 ### SELinux
 
 SELinux is a fine-grained access control mechanism integrated into Flatcar Container Linux. Each container runs in its own independent SELinux context, increasing isolation between containers and providing another layer of protection should a container be compromised.
