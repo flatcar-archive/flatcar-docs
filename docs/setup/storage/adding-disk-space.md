@@ -12,9 +12,9 @@ On a Flatcar Container Linux machine, the operating system itself is mounted as 
 
 ## Amazon EC2
 
-Amazon doesn't support directly resizing volumes, you must take a snapshot and create a new volume based on that snapshot. Refer to the AWS EC2 documentation on [expanding EBS volumes][ebs-expand-volume] for detailed instructions.
+Amazon doesn't support directly resizing volumes of live machines through the web console, you must either take a snapshot and create a new volume based on that snapshot or use the AWS CLI or other API interface (such as Terraform). Refer to the AWS EC2 documentation on [expanding EBS volumes][ebs-expand-volume] for detailed instructions.
 
-[ebs-expand-volume]: http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-expand-volume.html
+[ebs-expand-volume]: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/requesting-ebs-volume-modifications.html
 
 ## QEMU (qemu-img)
 
