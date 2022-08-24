@@ -47,10 +47,22 @@ This section will summarise the requirements and relate the SLSA levels of Flatc
 | Provenance: Service generated                     |              |       ✓      |      ✓       |      ✓       |       ✓       |
 | Provenance: Non-falsifiable                       |              |              |      ✓       |      ✓       |       ✓       |
 | Provenance: Dependencies complete                 |              |              |              |      ✓       |       ✓       |
-| Common - Security                                 |              |              |              |      ✓       |               |
+| Common - Security                                 |              |              |              |      ✓       |       ○       |
 | Common - Access                                   |              |              |              |      ✓       |       ✓       |
-| Common - Superusers                               |              |              |              |      ✓       |       ✓       |
+| Common - Superusers                               |              |              |              |      ✓       |       ○       |
 
+
+**Notes**
+
+1. Build integrity - Hermetic builds: While Flatcar includes the potential for hermetic builds today - all sources are known in advance and can be staged to a build machine isolated from the network - the current build infrastructure and automation does not implement this feature.
+   A [tracking issue](https://github.com/flatcar-linux/Flatcar/issues/833) exists to address this in the future.
+2. Build integrity - Reproducible: Many software packages such as compilers and core libraries insert build-variable information such as timestamps, user IDs, and host names into their binaries during the build process.
+   While Flatcar's builds are 100% reproducible, the output may differ in a bit-by-bit comparison (as defined by SLSA) ONLY in places where this volatile information is compiled into the binaries.
+3. Common - Security: The SLSA requirement is TBD, hence not well defined.
+   Flatcar builds run on Flatcar, so runtime the integrity check mechanisms discussed below (immutable OS partition validated at boot via `dm-verity`) apply to the build infrastructure.
+   However, the infrastructure does not implement a full chain of trust via TPM, though a [roadmap item](https://github.com/flatcar-linux/Flatcar/issues/630) aims to add TPM support to Flatcar, and hence to the build infrastructure.
+4. Common - Superusers: The number of users with direct access to build infrastructure is very small, and users are well trusted.
+   However, changes to the build system do not enforce approval by a second administrator.
 
 ### Deep dive: Implementation in Flatcar Container Linux
 
@@ -95,6 +107,7 @@ In this section we will discuss the overall Flatcar build and release process as
 
 Flatcar builds are reproducible; the software configuration state of any given release (or even nightly build) is recorded in git repositories and can be reproduced by a simple git clone + checkout + rebuild.
 We employ a number of mechanisms to make this process tamper-proof and to make artifacts we produce attestable.
+Please note that while builds are reproducible and will create the same binary code, the output may differ in a bit-by-bit comparison in places where volatile information like timestamps, hostnames, or user IDs are inserted at build time.
 
 Flatcar release images and related artifacts are automatically signed at build time (on the secure build infrastructure) with a 4096 bit GPG RSA key.
 Access to the image signing key is restricted to core maintainers.
@@ -201,7 +214,12 @@ To further enhance attestability and supply chain security we consider the below
 1. Add builder ID information during CI builds: [tracking issue](https://github.com/flatcar-linux/Flatcar/issues/813)
 2. Generate additional provenance for the whole image: [tracking issue](https://github.com/flatcar-linux/Flatcar/issues/814)
 
+#### Build time
+
+1. Make release builds hermetic by providing all required assets beforehand and isolating the build machine from the network during build, to address the "Build integrity - Hermetic" requirement
+   ([tracking issue](https://github.com/flatcar-linux/Flatcar/issues/833)).
+
 #### Provisioning-time / OS upgrade / run-time
 
 1. Integrate with hardware TPM (where available) to secure the boot process right from hardware start-up instead of just from the initial ramdisk
-   [roadmap issue](https://github.com/flatcar-linux/Flatcar/issues/630)
+   [roadmap issue](https://github.com/flatcar-linux/Flatcar/issues/630), addressing the "Common - Security" requirement.
