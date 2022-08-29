@@ -31,4 +31,4 @@ For more information on the partitioning scheme used by Flatcar Container Linux,
 [omaha]: https://github.com/google/omaha/
 [GPT-types]: https://en.wikipedia.org/wiki/GUID_Partition_Table#Partition_type_GUIDs
 [raid-storage]: ../setup/storage/raid
-[disk-layout]: ../os/sdk-disk-partitions
+[disk-layout]: ../developer-guides/sdk-disk-partitions
