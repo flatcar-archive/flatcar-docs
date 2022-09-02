@@ -93,7 +93,7 @@ podman run -i --rm quay.io/coreos/butane:release --pretty --strict < config.yml 
     * **device** (string): the absolute path to the device. Devices are typically referenced by the `/dev/disk/by-*` symlinks.
     * **format** (string): the filesystem format (ext4, btrfs, xfs, vfat, swap, or none).
     * **_path_** (string): the mount-point of the filesystem while Ignition is running relative to where the root filesystem will be mounted. This is not necessarily the same as where it should be mounted in the real root, but it is encouraged to make it the same.
-    * **_wipeFilesystem_** (boolean): whether or not to wipe the device before filesystem creation, see [the documentation on filesystems](operator-notes.md#filesystem-reuse-semantics) for more information. Defaults to false.
+    * **_wipeFilesystem_** (boolean): whether or not to wipe the device before filesystem creation, see [the documentation on filesystems](ignition-fs-reuse) for more information. Defaults to false.
     * **_label_** (string): the label of the filesystem.
     * **_uuid_** (string): the uuid of the filesystem.
     * **_options_** (list of strings): any additional options to be passed to the format-specific mkfs utility.
@@ -159,7 +159,7 @@ podman run -i --rm quay.io/coreos/butane:release --pretty --strict < config.yml 
     * **_label_** (string): the label of the luks device.
     * **_uuid_** (string): the uuid of the luks device.
     * **_options_** (list of strings): any additional options to be passed to the cryptsetup utility.
-    * **_wipeVolume_** (boolean): whether or not to wipe the device before volume creation, see [the documentation on filesystems](operator-notes.md#filesystem-reuse-semantics) for more information.
+    * **_wipeVolume_** (boolean): whether or not to wipe the device before volume creation, see [the documentation on filesystems](ignition-fs-reuse) for more information.
     * **_clevis_** (object): describes the clevis configuration for the luks device.
       * **_tang_** (list of objects): describes a tang server. Every server must have a unique `url`.
         * **url** (string): url of the tang server.
@@ -255,7 +255,7 @@ Ignition v2 is not developed anymore but still supported (specification 2.3.0), 
     * **_mount_** (object): contains the set of mount and formatting options for the filesystem. A non-null entry indicates that the filesystem should be mounted before it is used by Ignition.
       * **device** (string): the absolute path to the device. Devices are typically referenced by the `/dev/disk/by-*` symlinks.
       * **format** (string): the filesystem format (ext4, btrfs, xfs, vfat, or swap).
-      * **_wipeFilesystem_** (boolean): whether or not to wipe the device before filesystem creation, see [the documentation on filesystems](operator-notes.md#filesystem-reuse-semantics) for more information.
+      * **_wipeFilesystem_** (boolean): whether or not to wipe the device before filesystem creation, see [the documentation on filesystems](ignition-fs-reuse) for more information.
       * **_label_** (string): the label of the filesystem.
       * **_uuid_** (string): the uuid of the filesystem.
       * **_options_** (list of strings): any additional options to be passed to the format-specific mkfs utility.
@@ -356,3 +356,4 @@ Ignition v2 is not developed anymore but still supported (specification 2.3.0), 
 [rfc2397]: https://tools.ietf.org/html/rfc2397
 [butane-spec]: https://coreos.github.io/butane/config-flatcar-v1_0/
 [ct-config]: ../config-transpiler/configuration
+[ignition-fs-reuse]: https://github.com/coreos/ignition/blob/main/docs/operator-notes.md#filesystem-reuse-semantics
