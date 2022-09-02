@@ -26,6 +26,9 @@ SLSA defines a number of [key threats](https://slsa.dev/spec/v0.1/#supply-chain-
 8. injection / use of a compromised package or image
 
 To counter these threats, SLSA defines [requirements](https://slsa.dev/spec/v0.1/requirements) for sources, builds, and provenance, as well as common (overall) requirements.
+
+##### Table of SLSA requirements and conformance levels, and Flatcar's compliance
+
 This following table summarizes the requirements of each SLSA level, and Flatcar's current state of compliance.
 
 |                SLSA requirement                   | SLSA level 1 | SLSA level 2 | SLSA level 3 | SLSA level 4 | Flatcar meets |
@@ -218,6 +221,9 @@ To further enhance attestability and supply chain security we consider the below
 
 1. Make release builds hermetic by providing all required assets beforehand and isolating the build machine from the network during build, to address the "Build integrity - Hermetic" requirement
    ([tracking issue](https://github.com/flatcar-linux/Flatcar/issues/833)).
+2. Establish a secure boot chain using TPM support when it becomes available (see "Provisioning-time" item 2. below).
+3. Remove login (local and remote) from build infrastructure and automate all build infra properties (infra-as-code).
+   Require approval from 2 administrators for every change.
 
 #### Provisioning-time / OS upgrade / run-time
 
