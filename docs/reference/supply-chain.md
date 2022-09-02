@@ -6,10 +6,10 @@ weight: 10
 
 ### Flatcar Container Linux Supply Chain Security and SLSA
 
-The [Supply Chain Levels for Software Artifacts](https://slsa.dev/) (SLSA or 'salsa' in short) industry standard defines a checklist of standards and controls to prevent tampering, improve integrity, and secure packages and infrastructure in software projects.
+The [Supply Chain Levels for Software Artifacts](https://slsa.dev/) (SLSA or 'salsa' for short) industry standard defines a checklist of standards and controls to prevent tampering, improve integrity, and secure packages and infrastructure in software projects.
 This document describes the Flatcar Container Linux project's current and planned compliance with the [requirements of SLSA](https://slsa.dev/spec/v0.1/requirements) and provides a deep dive into the processes and mechanisms to secure the Flatcar project supply chain.
 
-Our assessment is that Flatcar today complies with SLSA Level 3. We are actively working to meet the requirements for SLSA Level 4.
+Our assessment is that Flatcar complies with SLSA Level 3. We are working to address the few remaining requirements for SLSA Level 4.
 
 #### SLSA Threat model and requirements
 
@@ -26,7 +26,7 @@ SLSA defines a number of [key threats](https://slsa.dev/spec/v0.1/#supply-chain-
 8. injection / use of a compromised package or image
 
 To counter these threats, SLSA defines [requirements](https://slsa.dev/spec/v0.1/requirements) for sources, builds, and provenance, as well as common (overall) requirements.
-This section will summarise the requirements and relate the SLSA levels of Flatcar's implementation.
+This following table summarizes the requirements of each SLSA level, and Flatcar's current state of compliance.
 
 |                SLSA requirement                   | SLSA level 1 | SLSA level 2 | SLSA level 3 | SLSA level 4 | Flatcar meets |
 |---------------------------------------------------|--------------|--------------|--------------|--------------|---------------|
@@ -40,16 +40,16 @@ This section will summarise the requirements and relate the SLSA levels of Flatc
 | Build integrity: Built in ephemeral environment   |              |              |      ✓       |      ✓       |       ✓       |
 | Build integrity: Isolated                         |              |              |      ✓       |      ✓       |       ✓       |
 | Build integrity: Parameterless                    |              |              |              |      ✓       |       ✓       |
-| Build integrity: Hermetic                         |              |              |              |      ✓       |               |
-| Build integrity: Reproducible                     |              |              |              | Best Effort  |       ○       |
+| Build integrity: Hermetic                         |              |              |              |      ✓       |       – [1]   |
+| Build integrity: Reproducible                     |              |              |              | Best Effort  |       – [2]   |
 | Provenance: Available                             |       ✓      |       ✓      |      ✓       |      ✓       |       ✓       |
 | Provenance: Authenticated                         |              |       ✓      |      ✓       |      ✓       |       ✓       |
 | Provenance: Service generated                     |              |       ✓      |      ✓       |      ✓       |       ✓       |
 | Provenance: Non-falsifiable                       |              |              |      ✓       |      ✓       |       ✓       |
 | Provenance: Dependencies complete                 |              |              |              |      ✓       |       ✓       |
-| Common - Security                                 |              |              |              |      ✓       |       ○       |
+| Common - Security                                 |              |              |              |      ✓       |       – [3]   |
 | Common - Access                                   |              |              |              |      ✓       |       ✓       |
-| Common - Superusers                               |              |              |              |      ✓       |       ○       |
+| Common - Superusers                               |              |              |              |      ✓       |       – [4]   |
 
 
 **Notes**
@@ -100,7 +100,7 @@ The provisioning-time / OS upgrade / runtime foundational concepts are:
 
 #### Flatcar supply chain security mechanisms
 
-Building on the foundational concepts outlined above Flatcar builds its supply chain security.
+Flatcar builds its supply chain security on the foundational concepts outlined above.
 In this section we will discuss the overall Flatcar build and release process as well as user-side provisioning, update, and operation - with a special focus on read models and supply chain security.
 
 ##### OS Image build and release of a new OS version
