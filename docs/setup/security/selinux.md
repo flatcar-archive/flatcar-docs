@@ -52,4 +52,4 @@ Now, edit `/etc/selinux/config` to replace `SELINUX=permissive` with `SELINUX=en
 
 
 [gh-flatcar]: https://github.com/kinvolk/Flatcar/issues
-[flannel-issue]: https://github.com/flatcar-linux/Flatcar/issues/635
+[flannel-issue]: https://github.com/flatcar/Flatcar/issues/635

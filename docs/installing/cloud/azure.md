@@ -558,7 +558,7 @@ Log in via `ssh core@IPADDRESS` with the printed IP address.
 
 When you make a change to `cl/machine-mynode.yaml.tmpl` and run `terraform apply` again, the machine will be replaced.
 
-You can find this Terraform module in the repository for [Flatcar Terraform examples](https://github.com/flatcar-linux/flatcar-terraform/tree/main/azure).
+You can find this Terraform module in the repository for [Flatcar Terraform examples](https://github.com/flatcar/flatcar-terraform/tree/main/azure).
 
 [flatcar-user]: https://groups.google.com/forum/#!forum/flatcar-linux-user
 [etcd-docs]: https://etcd.io/docs

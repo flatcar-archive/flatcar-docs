@@ -218,7 +218,7 @@ Now that you have a machine booted it is time to play around. Check out the [Fla
 
 ## Known issues
 
-* `aws/amazon-ecs-agent` does not support `cgroupsv2`: [Flatcar issue](https://github.com/flatcar-linux/Flatcar/issues/585), [AWS issue](https://github.com/aws/containers-roadmap/issues/1535).
+* `aws/amazon-ecs-agent` does not support `cgroupsv2`: [Flatcar issue](https://github.com/flatcar/Flatcar/issues/585), [AWS issue](https://github.com/aws/containers-roadmap/issues/1535).
 
 ## Terraform
 
@@ -482,7 +482,7 @@ Log in via `ssh core@IPADDRESS` with the printed IP address (maybe add `-o Stric
 
 When you make a change to `machine-mynode.yaml.tmpl` and run `terraform apply` again, the machine will be replaced.
 
-You can find this Terraform module in the repository for [Flatcar Terraform examples](https://github.com/flatcar-linux/flatcar-terraform/tree/main/aws).
+You can find this Terraform module in the repository for [Flatcar Terraform examples](https://github.com/flatcar/flatcar-terraform/tree/main/aws).
 
 
 [quickstart]: ../

@@ -10,5 +10,5 @@ Flatcar Container Linux documentation is released under the [Apache 2.0 License]
 [asl]: LICENSE
 [contributing]: CONTRIBUTING.md
 [flatcar-docs]: https://docs.flatcar-linux.org/
-[help-wanted]: https://github.com/flatcar-linux/docs/issues?q=is%3Aopen+label%3Ahelp-wanted
+[help-wanted]: https://github.com/flatcar/docs/issues?q=is%3Aopen+label%3Ahelp-wanted
 [style]: STYLE.md "Flatcar Container Linux Documentation Style and Formatting"

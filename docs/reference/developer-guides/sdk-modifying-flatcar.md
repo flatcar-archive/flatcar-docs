@@ -31,7 +31,7 @@ Please note these resources might be outdated and only this page reflects the mo
 
 **tl;dr** Check out a release branch and start the SDK (this uses the current Alpha release branch).
 ```shell
-$ git clone --recurse-submodules https://github.com/flatcar-linux/scripts.git
+$ git clone --recurse-submodules https://github.com/flatcar/scripts.git
 $ cd scripts
 $ branch="$(git branch -r -l | sed -n 's:origin/\(flatcar-[0-9]\+\)$:\1:p' | sort | tail -n1)"
 $ ./checkout "$branch"
@@ -71,7 +71,7 @@ The [scripts repository][scripts] - among other things - contains SDK wrapper sc
 A good way to think of the scripts repo is this being Flatcar's "SDK repo".
 
 ```shell
-$ git clone --recurse-submodules https://github.com/flatcar-linux/scripts.git
+$ git clone --recurse-submodules https://github.com/flatcar/scripts.git
 $ cd scripts
 ```
 
@@ -305,7 +305,7 @@ Furthermore, each package directory contains a `Manifest` file with cryptographi
 Multiple package sources - in separate directories - can be stacked on top of each other.
 These “overlays” allow custom extensions or even custom sub-trees on top of an existing foundation.
 In these stacks, “upper” level packages override “lower” level ones.
-The Flatcar build system uses a fork of Gentoo upstream’s [portage-stable](https://github.com/flatcar-linux/portage-stable) as its base, and the overlay repository [coreos-overlay](https://github.com/flatcar-linux/coreos-overlay) for Flatcar specific modifications and packages on top.
+The Flatcar build system uses a fork of Gentoo upstream’s [portage-stable](https://github.com/flatcar/portage-stable) as its base, and the overlay repository [coreos-overlay](https://github.com/flatcar/coreos-overlay) for Flatcar specific modifications and packages on top.
 
 Packages are built using "ebuild" files.
 These files contain dependencies of a package - both build and runtime - as well as implement callbacks for downloading, patching, building, and installing the package.
@@ -673,16 +673,16 @@ Take a look at the [SDK bootstrap process](sdk-bootstrapping) to learn how to bu
 [Mantle][mantle] is a collection of utilities used in testing and launching SDK images.
 
 [flatcar-dev]: https://groups.google.com/forum/#!forum/flatcar-linux-dev
-[github-flatcar]: https://github.com/flatcar-linux
+[github-flatcar]: https://github.com/flatcar
 [matrix]: https://app.element.io/#/room/#flatcar:matrix.org
 [ghcr-sdk]: https://github.com/orgs/flatcar-linux/packages
-[scripts]: https://github.com/flatcar-linux/scripts
+[scripts]: https://github.com/flatcar/scripts
 [flatcar-releases]: https://www.flatcar-linux.org/releases/
 
 
-[coreos]: https://github.com/flatcar-linux/coreos-overlay
-[portage]: https://github.com/flatcar-linux/portage-stable
-[mantle]: https://github.com/flatcar-linux/mantle
+[coreos]: https://github.com/flatcar/coreos-overlay
+[portage]: https://github.com/flatcar/portage-stable
+[mantle]: https://github.com/flatcar/mantle
 [prodimages]: sdk-building-production-images
 [sdktips]: sdk-tips-and-tricks
 [booting-qemu]: ../../installing/vms/qemu/#ssh-keys

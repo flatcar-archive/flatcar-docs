@@ -18,7 +18,7 @@ Systemd-sysext is supported in Flatcar versions ≥ 3185.0.0 for user provided s
 ## Torcx deprecation
 
 Since systemd-sysext is a more generic and maintained solution than Torcx, it will replace Torcx and Torcx is scheduled for removal from Flatcar at some point in the future (no date or major release version yet).
-Starting from Flatcar version 3185.0.0 we encourage you to migrate any Torcx usage and convert your Torcx image with the `convert_torcx_image.sh` helper script from the [`sysext-bakery`](https://github.com/flatcar-linux/sysext-bakery) repository, mentioned later in this document.
+Starting from Flatcar version 3185.0.0 we encourage you to migrate any Torcx usage and convert your Torcx image with the `convert_torcx_image.sh` helper script from the [`sysext-bakery`](https://github.com/flatcar/sysext-bakery) repository, mentioned later in this document.
 
 ## The sysext format
 
@@ -78,7 +78,7 @@ A manual `systemd-sysext refresh` is not recommended.
 
 ## Creating custom sysext images
 
-The [`sysext-bakery`](https://github.com/flatcar-linux/sysext-bakery) repository under the Flatcar GitHub organization serves as a central point for sysext building tools.
+The [`sysext-bakery`](https://github.com/flatcar/sysext-bakery) repository under the Flatcar GitHub organization serves as a central point for sysext building tools.
 Please reach out if your use case isn't covered and work with us to include it there.
 
 ### Upstream Docker sysext images

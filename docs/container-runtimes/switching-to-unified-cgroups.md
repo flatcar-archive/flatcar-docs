@@ -95,7 +95,7 @@ systemd:
 
 Beware that over time it is expected that upstream projects will drop support for cgroups v1.
 
-**Known issues:** Unprivileged containers with user namespaces may lack permissions to access the bind mount ([Flatcar#722](https://github.com/flatcar-linux/Flatcar/issues/722)) and unmounting the bind mount before starting the container is needed.
+**Known issues:** Unprivileged containers with user namespaces may lack permissions to access the bind mount ([Flatcar#722](https://github.com/flatcar/Flatcar/issues/722)) and unmounting the bind mount before starting the container is needed.
 
 ## Generate AWS EC2 cgroups v1 AMIs
 
@@ -157,7 +157,7 @@ For a more detailed discussion of container runtimes, see the [Kubernetes docume
 
 ## Known issues
 
-* `aws/amazon-ecs-agent` does not support `cgroupsv2`: [Flatcar issue](https://github.com/flatcar-linux/Flatcar/issues/585), [AWS issue](https://github.com/aws/containers-roadmap/issues/1535).
+* `aws/amazon-ecs-agent` does not support `cgroupsv2`: [Flatcar issue](https://github.com/flatcar/Flatcar/issues/585), [AWS issue](https://github.com/aws/containers-roadmap/issues/1535).
 * `aws-observability/aws-otel-collector` is segfaulting on a `cgroupsv2` host: [open-telemetry/opentelemetry-collector-contrib#10161](https://github.com/open-telemetry/opentelemetry-collector-contrib/issues/10161)
 
 

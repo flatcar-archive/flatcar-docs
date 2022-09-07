@@ -66,10 +66,10 @@ As done on most offered Flatcar cloud images, two additional Ignition files can 
 The first is `base/base.ign` which is always executed as basic mandatory setup.
 The second file `base/default.ign` has a special fallback function and gets executed only if the found instance userdata is not Ignition JSON.
 The common content of the file is to define a systemd service via Ignition that runs `coreos-cloudinit` to process the instance userdata later.
-Good examples are [`base/base.ign`](https://github.com/flatcar-linux/coreos-overlay/blob/ad9c06df2c34be3c6d50ffb80f886bdae10b4809/coreos-base/oem-packet/files/base/base.ign) and [`base/default.ign`](https://github.com/flatcar-linux/coreos-overlay/blob/ad9c06df2c34be3c6d50ffb80f886bdae10b4809/coreos-base/oem-packet/files/base/default.ign) files used for Equinix Metal images as they also make use of the `oem:///` source URL to refer to a file placed on the OEM partition.
+Good examples are [`base/base.ign`](https://github.com/flatcar/coreos-overlay/blob/ad9c06df2c34be3c6d50ffb80f886bdae10b4809/coreos-base/oem-packet/files/base/base.ign) and [`base/default.ign`](https://github.com/flatcar/coreos-overlay/blob/ad9c06df2c34be3c6d50ffb80f886bdae10b4809/coreos-base/oem-packet/files/base/default.ign) files used for Equinix Metal images as they also make use of the `oem:///` source URL to refer to a file placed on the OEM partition.
 
 The `grub.cfg` file gets sourced by GRUB to set up the OEM ID which is used by systemd units to be started conditionally, or to set up kernel parameters like the Ignition config URL (`ignition.config.url`, to fetch the preferred config remotely), or settings required for the hardware.
-Again, a good example is the [`grub.cfg` file](https://github.com/flatcar-linux/coreos-overlay/blob/ad9c06df2c34be3c6d50ffb80f886bdae10b4809/coreos-base/oem-packet/files/grub.cfg) used for Equinix Metal images to set the OEM ID and the kernel parameter `flatcar.autologin` to be able to use the serial console without having to configure a user password.
+Again, a good example is the [`grub.cfg` file](https://github.com/flatcar/coreos-overlay/blob/ad9c06df2c34be3c6d50ffb80f886bdae10b4809/coreos-base/oem-packet/files/grub.cfg) used for Equinix Metal images to set the OEM ID and the kernel parameter `flatcar.autologin` to be able to use the serial console without having to configure a user password.
 
 ### Customizing the root partition
 

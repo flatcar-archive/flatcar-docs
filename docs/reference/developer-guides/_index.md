@@ -23,4 +23,4 @@ We also provide OEM functionality for cloud providers and similar use cases to c
 [mod-cl]: sdk-modifying-flatcar
 [kernel-modules]: kernel-modules
 [sdk-bootstrapping]: sdk-bootstrapping
-[mantle-utils]: https://github.com/flatcar-linux/mantle/blob/flatcar-master/README.md#kola
+[mantle-utils]: https://github.com/flatcar/mantle/blob/flatcar-master/README.md#kola
