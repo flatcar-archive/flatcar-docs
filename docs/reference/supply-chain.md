@@ -61,9 +61,9 @@ This following table summarizes the requirements of each SLSA level, and Flatcar
    A [tracking issue](https://github.com/flatcar-linux/Flatcar/issues/833) exists to address this in the future.
 2. Build integrity - Reproducible: Many software packages such as compilers and core libraries insert build-variable information such as timestamps, user IDs, and host names into their binaries during the build process.
    While Flatcar's builds are 100% reproducible, the output may differ in a bit-by-bit comparison (as defined by SLSA) ONLY in places where this volatile information is compiled into the binaries.
-3. Common - Security: The SLSA requirement is TBD, hence not well defined.
-   Flatcar builds run on Flatcar, so runtime the integrity check mechanisms discussed below (immutable OS partition validated at boot via `dm-verity`) apply to the build infrastructure.
-   However, the infrastructure does not implement a full chain of trust via TPM, though a [roadmap item](https://github.com/flatcar-linux/Flatcar/issues/630) aims to add TPM support to Flatcar, and hence to the build infrastructure.
+3. Common - Security: This SLSA requirement is marked TBD in the SLSA standard and is not well defined at the time of writing; the essence appears to gravitate around a verifiable tamper-proof build infrastructure, e.g. via a full chain of trust.
+   Flatcar is built on Flatcar to benefit from all the security features the distribution already ships with (discussed in detail below) - immutable OS binaries, boot time integrity check, etc.
+   However, Flatcar currently does not support setting up a full chain of trust via TPM. A [roadmap item](https://github.com/flatcar-linux/Flatcar/issues/630) aims to add TPM support to Flatcar, and have the build infrastructure support a full chain of trust.
 4. Common - Superusers: The number of users with direct access to build infrastructure is very small, and users are well trusted.
    However, changes to the build system do not enforce approval by a second administrator.
 
