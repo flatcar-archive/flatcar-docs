@@ -28,7 +28,7 @@ Jun 27 18:07:22 localhost kernel: fips mode: enabled
 
 # Enabling OpenSSL FIPS provider
 
-[OpenSSL][openssl] is an open-source library used for ciphering and hashing. As a library, it is widely used by programming software and third-party programs to ensure security. OpenSSL has [submitted][openssl-submission] its FIPS module for review and validation by the NIST’s Cryptographic Module Validation Program. Hence, currently OpenSSL is FIPS compliant but not yet FIPS validated.
+[OpenSSL][openssl] is an open-source library used for ciphering and hashing. As a library, it is widely used by programming software and third-party programs to ensure security. OpenSSL 3.0 FIPS provider is FIPS [validated][certificate] since Aug. 2022.
 
 OpenSSL FIPS module is built by default on Flatcar but it is required to update the OpenSSL configuration to actually use this module:
 ```bash
@@ -127,4 +127,4 @@ In this case, it is likely that one of the `Ciphers`, defined in the `/etc/ssh/s
 [fips-140-2]: https://csrc.nist.gov/publications/detail/fips/140/2/final
 [rsa-key-size]: https://github.com/torvalds/linux/blob/941e3e7912696b9fbe3586083a7c2e102cee7a87/crypto/rsa_helper.c#L33-L37
 [openssl]: https://www.openssl.org/
-[openssl-submission]: https://www.openssl.org/blog/blog/2021/09/22/OpenSSL3-fips-submission/
+[certificate]: https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/4282
