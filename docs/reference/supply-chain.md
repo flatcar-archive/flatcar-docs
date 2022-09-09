@@ -224,7 +224,7 @@ To further enhance attestability and supply chain security we consider the below
 2. Establish a secure boot chain using TPM support when it becomes available (see "Provisioning-time" item 2. below).
 3. Remove login (local and remote) from build infrastructure and automate all build infra properties (infra-as-code).
    Require approval from 2 administrators for every change.
-   This will address the SLSA Security / Superusers requirement.
+   This will address the "Security - Superusers" requirement.
 
 #### Provisioning-time / OS upgrade / run-time
 
