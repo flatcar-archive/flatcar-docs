@@ -147,13 +147,14 @@ some guides to help you choose and make use of the different runtimes.
 ### Developer guides and Reference
 APIs and troubleshooting guides for working with Flatcar Container Linux.
 
-[Developer guides][developer-guides]: Comprehensive guides on developing for Flatcar, working with the SDK, and on building and extending OS images.
+* [Developer guides][developer-guides]: Comprehensive guides on developing for Flatcar, working with the SDK, and on building and extending OS images.
+* [Integrations][integrations]
+* [Migrating from cloud-config to Container Linux Config][migrating-from-cloud-config]
+* [Flatcar Supply Chain Security (SLSA and SPDX SBOM)][supply-chain-security] detailing security mechanisms employed at build / release time as well as at run-time to ensure validity of inputs processed and outputs shipped.
 
-[Integrations][integrations]
-
-[Migrating from cloud-config to Container Linux Config][migrating-from-cloud-config]
 
 [quick-start]: installing
+[supply-chain-security]: reference/supply-chain
 [ignition-what]: provisioning/ignition/
 [ignition-boot]: provisioning/ignition/boot-process
 [ignition-network]: provisioning/ignition/network-configuration
