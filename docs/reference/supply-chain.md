@@ -44,7 +44,7 @@ This following table summarizes the requirements of each SLSA level, and Flatcar
 | Build integrity: Isolated                         |              |              |      ✓       |      ✓       |       ✓       |
 | Build integrity: Parameterless                    |              |              |              |      ✓       |       ✓       |
 | Build integrity: Hermetic                         |              |              |              |      ✓       |       – [1]   |
-| Build integrity: Reproducible                     |              |              |              | Best Effort  |       – [2]   |
+| Build integrity: Reproducible                     |              |              |              | Best Effort  |       ✓ [2]   |
 | Provenance: Available                             |       ✓      |       ✓      |      ✓       |      ✓       |       ✓       |
 | Provenance: Authenticated                         |              |       ✓      |      ✓       |      ✓       |       ✓       |
 | Provenance: Service generated                     |              |       ✓      |      ✓       |      ✓       |       ✓       |
@@ -60,7 +60,7 @@ This following table summarizes the requirements of each SLSA level, and Flatcar
 1. Build integrity - Hermetic builds: While Flatcar includes the potential for hermetic builds today - all sources are known in advance and can be staged to a build machine isolated from the network - the current build infrastructure and automation does not implement this feature.
    A [tracking issue](https://github.com/flatcar-linux/Flatcar/issues/833) exists to address this in the future.
 2. Build integrity - Reproducible: Many software packages such as compilers and core libraries insert build-variable information such as timestamps, user IDs, and host names into their binaries during the build process.
-   While Flatcar's builds are 100% reproducible, the output may differ in a bit-by-bit comparison (as defined by SLSA) ONLY in places where this volatile information is compiled into the binaries.
+   While Flatcar's builds are 100% reproducible, the output may differ in a bit-by-bit comparison ONLY in places where this volatile information is compiled into the binaries.
 3. Common - Security: This SLSA requirement is marked TBD in the SLSA standard and is not well defined at the time of writing; the essence appears to gravitate around a verifiable tamper-proof build infrastructure, e.g. via a full chain of trust.
    Flatcar is built on Flatcar to benefit from all the security features the distribution already ships with (discussed in detail below) - immutable OS binaries, boot time integrity check, etc.
    However, Flatcar currently does not support setting up a full chain of trust via TPM. A [roadmap item](https://github.com/flatcar-linux/Flatcar/issues/630) aims to add TPM support to Flatcar, and have the build infrastructure support a full chain of trust.
@@ -224,6 +224,7 @@ To further enhance attestability and supply chain security we consider the below
 2. Establish a secure boot chain using TPM support when it becomes available (see "Provisioning-time" item 2. below).
 3. Remove login (local and remote) from build infrastructure and automate all build infra properties (infra-as-code).
    Require approval from 2 administrators for every change.
+   This will address the SLSA Security / Superusers requirement.
 
 #### Provisioning-time / OS upgrade / run-time
 
