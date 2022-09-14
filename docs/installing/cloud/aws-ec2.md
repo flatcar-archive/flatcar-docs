@@ -90,7 +90,7 @@ systemd:
 Transpile it to Ignition JSON:
 
 ```shell
-cat cl.yaml | docker run --rm -i ghcr.io/flatcar-linux/ct:latest -platform ec2 > ignition.json
+cat cl.yaml | docker run --rm -i ghcr.io/flatcar/ct:latest -platform ec2 > ignition.json
 ```
 
 [update-strategies]: ../../setup/releases/update-strategies

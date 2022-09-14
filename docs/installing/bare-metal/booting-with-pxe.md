@@ -81,7 +81,7 @@ passwd:
 Transpile it to Ignition JSON:
 
 ```shell
-cat cl.yaml | docker run --rm -i ghcr.io/flatcar-linux/ct:latest > ignition.json
+cat cl.yaml | docker run --rm -i ghcr.io/flatcar/ct:latest > ignition.json
 ```
 
 

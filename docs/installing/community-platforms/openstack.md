@@ -116,7 +116,7 @@ systemd:
 Transpile it to Ignition JSON:
 
 ```shell
-cat cl.yaml | docker run --rm -i ghcr.io/flatcar-linux/ct:latest -platform openstack-metadata > ignition.json
+cat cl.yaml | docker run --rm -i ghcr.io/flatcar/ct:latest -platform openstack-metadata > ignition.json
 ```
 
 The `{PRIVATE_IPV4}` and `{PUBLIC_IPV4}` substitution variables are fully supported in Container Linux Configs on OpenStack deployments using the metadata service. Unfortunately systems relying on config drive are currently unsupported.

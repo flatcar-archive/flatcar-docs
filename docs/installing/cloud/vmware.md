@@ -139,7 +139,7 @@ systemd:
 Transpile it to Ignition JSON:
 
 ```shell
-cat cl.yaml | docker run --rm -i ghcr.io/flatcar-linux/ct:latest -platform custom > ignition.json
+cat cl.yaml | docker run --rm -i ghcr.io/flatcar/ct:latest -platform custom > ignition.json
 ```
 
 For DHCP you don't need to specify any networkd units.

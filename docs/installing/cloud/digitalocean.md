@@ -81,7 +81,7 @@ systemd:
 Transpile it to Ignition JSON:
 
 ```shell
-cat cl.yaml | docker run --rm -i ghcr.io/flatcar-linux/ct:latest -platform digitalocean > ignition.json
+cat cl.yaml | docker run --rm -i ghcr.io/flatcar/ct:latest -platform digitalocean > ignition.json
 ```
 
 [cl-configs]: ../../provisioning/cl-config

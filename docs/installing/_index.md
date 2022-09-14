@@ -34,7 +34,7 @@ All above tasks only take a few lines of YAML and are covered in our [CLC exampl
 For a comprehensive discussion of all options available in CLC have a look at the [CLC specification][cl-spec].
 
 To convert CLC into machine-readable Ignition config, just download the latest release of the [config transpiler](https://github.com/flatcar/container-linux-config-transpiler/releases) for your platform.
-Alternatively, use our up-to-date [container image](https://github.com/flatcar/container-linux-config-transpiler/pkgs/container/ct): `docker run --rm -i ghcr.io/flatcar-linux/ct:latest`.
+Alternatively, use our up-to-date [container image](https://github.com/flatcar/container-linux-config-transpiler/pkgs/container/ct): `docker run --rm -i ghcr.io/flatcar/ct:latest`.
 
 Then, after converting CLC to Ignition config, pass the Ignition config along when provisioning your instance(s).
 The config is then passed via "user data" / "custom data" or similar means to the provisioning logic.
@@ -92,7 +92,7 @@ systemd:
 Before we can use it we have to transpile the CLC YAML to Ignition JSON:
 
 ```shell
-cat cl.yaml | docker run --rm -i ghcr.io/flatcar-linux/ct:latest > ignition.json
+cat cl.yaml | docker run --rm -i ghcr.io/flatcar/ct:latest > ignition.json
 ```
 
 You can also skip this step and copy the resulting JSON file from here to `ignition.json` (or another name):
