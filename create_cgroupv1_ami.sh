@@ -73,6 +73,6 @@ qemu-img convert -f raw -O vmdk -o subformat=streamOptimized flatcar_production_
 
 rm flatcar_production_ami_vmdk_image.vmdk.img
 echo "Created flatcar_production_ami_vmdk_image-cgroupv1.vmdk from ${VERSION} ${CHANNEL}"
-echo "You can upload it with ore (from https://github.com/flatcar-linux/mantle/):"
+echo "You can upload it with ore (from https://github.com/flatcar/mantle/):"
 echo 'ore --credentials-file=$CREDFILE -d aws upload --bucket=s3://$BUCKETNAME/tmp/$ARCH/$VERSION/ --board="$ARCH" --region=$REGION --ami-name="Flatcar-$CHANNEL-$VERSION cgroupv1" --ami-description="Flatcar $CHANNEL $VERSION$SUFFIX cgroupv1" --file="flatcar_production_ami_vmdk_image-cgroupv1.vmdk"'
 end 0

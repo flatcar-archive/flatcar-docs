@@ -116,7 +116,7 @@ passwd:
 Transpile it to Ignition JSON:
 
 ```shell
-cat cl.yaml | docker run --rm -i ghcr.io/flatcar-linux/ct:latest -platform gce > ignition.json
+cat cl.yaml | docker run --rm -i ghcr.io/flatcar/ct:latest -platform gce > ignition.json
 ```
 
 To start the installation script with a reference to our Ignition config, run:
@@ -158,7 +158,7 @@ systemd:
 Transpile it to Ignition JSON:
 
 ```shell
-cat cl.yaml | docker run --rm -i ghcr.io/flatcar-linux/ct:latest -platform gce > ignition.json
+cat cl.yaml | docker run --rm -i ghcr.io/flatcar/ct:latest -platform gce > ignition.json
 ```
 
 ## Using Flatcar Container Linux

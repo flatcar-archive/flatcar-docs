@@ -158,7 +158,7 @@ To reset the container, list all docker containers:
 ```shell
 docker ps --all
 …
-00a133b61c55   ghcr.io/flatcar-linux/flatcar-sdk-all:3087.0.0        "/bin/sh -c /home/sd…"   2 weeks ago   Exited (137) 11 days ago             flatcar-sdk-all-3087.0.0_os-alpha-3087.0.0-1-g39d915ae
+00a133b61c55   ghcr.io/flatcar/flatcar-sdk-all:3087.0.0        "/bin/sh -c /home/sd…"   2 weeks ago   Exited (137) 11 days ago             flatcar-sdk-all-3087.0.0_os-alpha-3087.0.0-1-g39d915ae
 …
 ```
 and identify the SDK / OS image release version you've been working on.

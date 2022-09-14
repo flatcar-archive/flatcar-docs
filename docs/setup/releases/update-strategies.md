@@ -18,7 +18,7 @@ To control this part of the update rollout, look at the different [public update
 It's important to note that updates are always downloaded to the passive partition when they become available (see further below for disabling automatic updates). A reboot is the last step of the update, where the active and passive partitions are swapped ([rollback instructions][rollback]).
 
 The reboot is done by the reboot manager, by default this is the `locksmithd.service` included on the image.
-For Kubernetes the recommended reboot manager is [FLUO](https://github.com/flatcar-linux/flatcar-linux-update-operator/) which replaces locksmithd because it knows how to gracefully reboot a Kubernetes node.
+For Kubernetes the recommended reboot manager is [FLUO](https://github.com/flatcar/flatcar-linux-update-operator/) which replaces locksmithd because it knows how to gracefully reboot a Kubernetes node.
 The [kured](https://github.com/weaveworks/kured) reboot manager will be supported as well starting from Flatcar versions with a release number greater than `3067.0.0`.
 
 The `update-engine.service` responsible for downloading and applying the updates can be in different states which you can query with `update_engine_client -status`:

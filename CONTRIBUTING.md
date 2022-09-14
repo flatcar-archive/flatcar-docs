@@ -10,7 +10,7 @@ Submit fixes and additions in the form of [GitHub *Pull Requests* (PRs)][pull-re
 
 1. Fork this repository into your GitHub account
 2. Make changes in a topic branch or your fork's `master`
-3. Send a Pull Request from that topic branch to flatcar-linux/docs
+3. Send a Pull Request from that topic branch to flatcar/flatcar-docs
 4. Maintainers will review the PR and either merge it or make comments
 
 Cognizance of the tribal customs described and linked to below will help get your contributions incorporated with the greatest of ease.
@@ -56,7 +56,7 @@ We happily accept accurate translations. Please send the documents as a pull req
 
 
 [asl]: LICENSE
-[flatcar-docs]: https://docs.flatcar-linux.org
-[help-wanted]: https://github.com/flatcar-linux/docs/issues?q=is%3Aopen+label%3Ahelp-wanted
+[flatcar-docs]: https://www.flatcar.org/docs/latest
+[help-wanted]: https://github.com/flatcar/flatcar-docs/issues?q=is%3Aopen+label%3Ahelp-wanted
 [pull-requests]: https://help.github.com/articles/using-pull-requests/
 [style]: STYLE.md

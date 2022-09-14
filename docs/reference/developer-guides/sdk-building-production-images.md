@@ -53,7 +53,7 @@ A good way to look at releases and stabilisation through channels is to consider
 ## On versioning
 
 For Flatcar versioning, the scripts repo is authoritative: 
-Versioning is controlled by the [`version.txt` file in the scripts repo](https://github.com/flatcar-linux/scripts/blob/main/sdk_container/.repo/manifests/version.txt) as well as via the commit pointers of the script repo's `portage-stable` and `coreos-overlay` gitmodules.
+Versioning is controlled by the [`version.txt` file in the scripts repo](https://github.com/flatcar/scripts/blob/main/sdk_container/.repo/manifests/version.txt) as well as via the commit pointers of the script repo's `portage-stable` and `coreos-overlay` gitmodules.
 `version.txt` contains version strings for both the SDK version as well as the OS image version.
 
 Core idea is that a simple
@@ -118,11 +118,11 @@ The [build automation scripts][scripts-repo-ci] reflect the 5 steps outlined abo
 Check out the build automation's `README.md` to get an overview.
 Each of the scripts contains documentation of the inputs and outputs of the respective build step:
 
-1. [`sdk_bootstrap.sh`](https://github.com/flatcar-linux/scripts/blob/main/ci-automation/sdk_bootstrap.sh) builds a new SDK tarball from scratch
-2. [`sdk_container.sh`](https://github.com/flatcar-linux/scripts/blob/main/ci-automation/sdk_container.sh) builds an SDK container image from a tarball
-3. [`packages.sh`](https://github.com/flatcar-linux/scripts/blob/main/ci-automation/packages.sh) builds all binary packages for an OS image
-4. [`image.sh`](https://github.com/flatcar-linux/scripts/blob/main/ci-automation/image.sh) builds a generic OS image
-5. [`vms.sh`](https://github.com/flatcar-linux/scripts/blob/main/ci-automation/vms.sh) builds vendor-specific images
+1. [`sdk_bootstrap.sh`](https://github.com/flatcar/scripts/blob/main/ci-automation/sdk_bootstrap.sh) builds a new SDK tarball from scratch
+2. [`sdk_container.sh`](https://github.com/flatcar/scripts/blob/main/ci-automation/sdk_container.sh) builds an SDK container image from a tarball
+3. [`packages.sh`](https://github.com/flatcar/scripts/blob/main/ci-automation/packages.sh) builds all binary packages for an OS image
+4. [`image.sh`](https://github.com/flatcar/scripts/blob/main/ci-automation/image.sh) builds a generic OS image
+5. [`vms.sh`](https://github.com/flatcar/scripts/blob/main/ci-automation/vms.sh) builds vendor-specific images
 
 CI / build automation infrastructure should set up the steps in a build pipeline.
 Artifacts of a preceding build step are fed into the succeeding step.
@@ -138,7 +138,7 @@ Apart from infrastructure to run the CI / builds on we also need a server for ca
 Build artifacts are mostly container images - with only few exceptions - and are almost always huge (some gigabytes).
 To not overly pollute CI workers' disk space, the build scripts support an "artifact cache" server.
 Requirements for this server are rather simple - it should have sufficient disk space (we use 7TB on Flatcar's CI and can hold ~50 past builds), ssh access (for rsync) and serve artifacts from the (rsync/ssh) path prefix via HTTPS.
-See the `BUILDCACHE_…` settings in the [CI automation settings file](https://github.com/flatcar-linux/scripts/blob/main/ci-automation/ci-config.env) for adapting the build scripts to your environment.
+See the `BUILDCACHE_…` settings in the [CI automation settings file](https://github.com/flatcar/scripts/blob/main/ci-automation/ci-config.env) for adapting the build scripts to your environment.
 
-[scripts-repo-ci]: https://github.com/flatcar-linux/scripts/tree/main/ci-automation
+[scripts-repo-ci]: https://github.com/flatcar/scripts/tree/main/ci-automation
 [mod-cl]: sdk-modifying-flatcar

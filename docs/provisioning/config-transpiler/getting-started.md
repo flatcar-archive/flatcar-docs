@@ -11,7 +11,7 @@ ct is a tool that will consume a Container Linux Config and produce a JSON file 
 
 Container Linux Configs are YAML files conforming to ct's schema. For more information on the schema, take a look at [configuration][1].
 
-ct can be downloaded from its [GitHub Releases page][4] or used via Docker (`cat example.yaml | docker run --rm -i ghcr.io/flatcar-linux/ct:latest --platform=YOURPLATFORM`).
+ct can be downloaded from its [GitHub Releases page][4] or used via Docker (`cat example.yaml | docker run --rm -i ghcr.io/flatcar/ct:latest --platform=YOURPLATFORM`).
 
 As a simple example, let's use ct to set the authorized ssh key for the core user on a Container Linux machine.
 
