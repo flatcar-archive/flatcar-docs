@@ -36,9 +36,11 @@ etcd and Locksmith should be secured and authenticated using TLS if you are usin
 
 Flatcar Container Linux has a single default user account called "core". Generally this user is the one that gets ssh keys added to it via a Container Linux Config for administrators to login. The core user, by default, has access to the wheel group which grants sudo access. The group can't be easily changed and thus the solution to restrict access is to either require a password for sudo but not setting one, or disable login for the `core` user.
 
-A sudo drop-in can be created under `/etc/sudoers.d/core-passwd` with the contents `core	ALL=(ALL) 	ALL` and as long as the core user has no password set it can't use `sudo`. Here is a CLC snippet:
+A sudo drop-in can be created under `/etc/sudoers.d/core-passwd` with the contents `core	ALL=(ALL) 	ALL` and as long as the core user has no password set it can't use `sudo`. Here is a Butane snippet:
 
 ```
+variant: flatcar
+version: 1.0.0
 storage:
   files:
     - path: /etc/sudoers.d/core-passwd
@@ -48,9 +50,11 @@ storage:
           core	ALL=(ALL) 	ALL
 ```
 
-You can disable the `core` user by setting the login shell to `/sbin/nologin`, here a CLC snippet:
+You can disable the `core` user by setting the login shell to `/sbin/nologin`, here a Butane snippet:
 
 ```yaml
+variant: flatcar
+version: 1.0.0
 passwd:
   users:
     - name: core
@@ -61,9 +65,11 @@ passwd:
 
 The docker daemon is accessible via a unix domain socket at `/run/docker.sock`. Users in the "docker" group have access to this service and access to the docker socket grants similar capabilities to sudo. The core user, by default, has access to the docker group. The group can't be easily changed and thus the solution to restrict access is to disable login for the `core` user or restrict the Docker socket permissions.
 
-You can restrict the Docker socket to root by creating a unit drop-in for `docker.socket` in `/etc/systemd/system/docker.socket.d/10-restrict.conf`, here a CLC snippet:
+You can restrict the Docker socket to root by creating a unit drop-in for `docker.socket` in `/etc/systemd/system/docker.socket.d/10-restrict.conf`, here a Butane snippet:
 
 ```
+variant: flatcar
+version: 1.0.0
 systemd:
   units:
     - name: docker.socket
@@ -84,9 +90,11 @@ The [SMT on Container Linux guide][smt-guide] provides guidance and instructions
 
 ### Disable USB
 
-If you don't expect to ever use USB, you can disable the kernel module, here a CLC snippet:
+If you don't expect to ever use USB, you can disable the kernel module, here a Butane snippet:
 
 ```
+variant: flatcar
+version: 1.0.0
 storage:
   files:
     - path: /etc/modprobe.d/blacklist.conf
