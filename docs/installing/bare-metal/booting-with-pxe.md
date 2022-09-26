@@ -50,9 +50,11 @@ label flatcar
   append flatcar.first_boot=1 ignition.config.url=https://example.com/pxe-config.ign
 ```
 
-Here's a CLC YAML example that starts and NGINX Docker container. It should be transpiled to Ignition JSON and located at the URL from above:
+Here's a Butane YAML example that starts and NGINX Docker container. It should be transpiled to Ignition JSON and located at the URL from above:
 
 ```yaml
+variant: flatcar
+version: 1.0.0
 systemd:
   units:
     - name: nginx.service
@@ -81,7 +83,7 @@ passwd:
 Transpile it to Ignition JSON:
 
 ```shell
-cat cl.yaml | docker run --rm -i ghcr.io/flatcar/ct:latest > ignition.json
+cat cl.yaml | docker run --rm -i quay.io/coreos/butane:latest > ignition.json
 ```
 
 

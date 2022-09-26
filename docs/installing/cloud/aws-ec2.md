@@ -60,13 +60,15 @@ CloudFormation will launch a cluster of Flatcar Container Linux machines with a 
 
 ## Container Linux Configs
 
-Flatcar Container Linux allows you to configure machine parameters, configure networking, launch systemd units on startup, and more via Container Linux Configs (CLC). These configs are then transpiled into Ignition configs and given to booting machines. Head over to the [docs to learn about the supported features][cl-configs].
+Flatcar Container Linux allows you to configure machine parameters, configure networking, launch systemd units on startup, and more via Butane Configs. These configs are then transpiled into Ignition configs and given to booting machines. Head over to the [docs to learn about the supported features][butane-configs].
 
 You can provide a raw Ignition JSON config to Flatcar Container Linux via the Amazon web console or [via the EC2 API][ec2-user-data].
 
-As an example, this CLC YAML config will start an NGINX Docker container:
+As an example, this Butane YAML config will start an NGINX Docker container:
 
 ```yaml
+variant: flatcar
+version: 1.0.0
 systemd:
   units:
     - name: nginx.service
@@ -90,31 +92,26 @@ systemd:
 Transpile it to Ignition JSON:
 
 ```shell
-cat cl.yaml | docker run --rm -i ghcr.io/flatcar/ct:latest -platform ec2 > ignition.json
+cat cl.yaml | docker run --rm -i quay.io/coreos/butane:latest > ignition.json
 ```
-
-[update-strategies]: ../../setup/releases/update-strategies
-[release-notes]: https://flatcar-linux.org/releases
-[ec2-user-data]: http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/user-data.html
-[cl-configs]: ../../provisioning/cl-config
 
 ### Instance storage
 
 Ephemeral disks and additional EBS volumes attached to instances can be mounted with a `.mount` unit. Amazon's block storage devices are attached differently [depending on the instance type](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/InstanceStorage.html#InstanceStoreDeviceNames). Here's the Container Linux Config to format and mount the first ephemeral disk, `xvdb`, on most instance types:
 
 ```yaml
+variant: flatcar
+version: 1.0.0
 storage:
   filesystems:
-    - mount:
-        device: /dev/xvdb
-        format: ext4
-        wipe_filesystem: true
-        label: ephemeral
-
+    - device: /dev/xvdb
+      format: ext4
+      wipe_filesystem: true
+      label: ephemeral
 systemd:
   units:
     - name: media-ephemeral.mount
-      enable: true
+      enabled: true
       contents: |
         [Mount]
         What=/dev/disk/by-label/ephemeral
@@ -451,10 +448,13 @@ For example, create the configuration for `mynode` in the file `machine-mynode.y
 
 ```yaml
 ---
+variant: flatcar
+version: 1.0.0
 passwd:
   users:
     - name: core
-      ssh_authorized_keys: ${ssh_keys}
+      ssh_authorized_keys: 
+        - ${ssh_keys}
 storage:
   files:
     - path: /home/core/works
@@ -491,3 +491,7 @@ You can find this Terraform module in the repository for [Flatcar Terraform exam
 [docker-docs]: https://docs.docker.io
 [etcd-docs]: https://etcd.io/docs
 [irc]: irc://irc.freenode.org:6667/#flatcar
+[update-strategies]: ../../setup/releases/update-strategies
+[release-notes]: https://flatcar-linux.org/releases
+[ec2-user-data]: http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/user-data.html
+[butane-configs]: ../../provisioning/config-transpiler

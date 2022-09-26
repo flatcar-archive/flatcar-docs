@@ -95,13 +95,15 @@ You can also [upgrade from an existing CoreOS Container Linux system](./update-f
 
 ## Container Linux Config
 
-Flatcar Container Linux allows you to configure machine parameters, configure networking, launch systemd units on startup, and more via Container Linux Configs (CLC). These configs are then transpiled into Ignition configs and given to booting machines. Head over to the [docs to learn about the supported features][cl-configs].
+Flatcar Container Linux allows you to configure machine parameters, configure networking, launch systemd units on startup, and more via Butane Configs. These configs are then transpiled into Ignition configs and given to booting machines. Head over to the [docs to learn about the supported features][butane-configs].
 
 You can provide a raw Ignition JSON config to Flatcar Container Linux via the Google Cloud console's metadata field `user-data` or via a flag using `gcloud`.
 
-As an example, this CLC YAML config will start an NGINX Docker container:
+As an example, this Butane YAML config will start an NGINX Docker container:
 
 ```yaml
+variant: flatcar
+version: 1.0.0
 systemd:
   units:
     - name: nginx.service
@@ -125,26 +127,23 @@ systemd:
 Transpile it to Ignition JSON:
 
 ```shell
-cat cl.yaml | docker run --rm -i ghcr.io/flatcar/ct:latest -platform gce > ignition.json
+cat cl.yaml | docker run --rm -i quay.io/coreos/butane:latest > ignition.json
 ```
-
-[cl-configs]: ../../provisioning/cl-config
-
 ### Additional storage
 
 Additional disks attached to instances can be mounted with a `.mount` unit. Each disk can be accessed via `/dev/disk/by-id/google-<disk-name>`. Here's the Container Linux Config to format and mount a disk called `database-backup`:
 
 ```yaml
+variant: flatcar
+version: 1.0.0
 storage:
   filesystems:
-    - mount:
-        device: /dev/disk/by-id/scsi-0Google_PersistentDisk_database-backup
-        format: ext4
-
+    - device: /dev/disk/by-id/scsi-0Google_PersistentDisk_database-backup
+      format: ext4
 systemd:
   units:
     - name: media-backup.mount
-      enable: true
+      enabled: true
       contents: |
         [Mount]
         What=/dev/disk/by-id/scsi-0Google_PersistentDisk_database-backup
@@ -190,6 +189,8 @@ This will use your GCE user to log in.
 You can disable the OS Login functionality by masking the `oem-gce-enable-oslogin.service` unit:
 
 ```yaml
+variant: flatcar
+version: 1.0.0
 systemd:
   units:
     - name: oem-gce-enable-oslogin.service
@@ -295,3 +296,4 @@ Now that you have a machine booted it is time to play around. Check out the [Fla
 [quickstart]: ../
 [doc-index]: ../../
 [update-strategies]: ../../setup/releases/update-strategies/
+[cl-configs]: ../../provisioning/config-transpiler

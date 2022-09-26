@@ -34,23 +34,20 @@ reboot
 # Starting new nodes with legacy cgroups
 
 Nodes deployed with the release incorporating the described changes use cgroups v2 by default. To revert to cgroups v1 on new
-nodes during provisioning, use the following Ignition snippet (here as CLC YAML to be transpiled to Ignition JSON):
+nodes during provisioning, use the following Ignition snippet (here as Butane YAML to be transpiled to Ignition JSON):
 
 ```yaml
+variant: flatcar
+version: 1.0.0
 storage:
   filesystems:
     - name: "OEM"
       mount:
         device: "/dev/disk/by-label/OEM"
         format: "btrfs"
-  files:
-    - filesystem: "OEM"
-      path: "/grub.cfg"
-      mode: 0644
-      append: true
-      contents:
-        inline: |
-          set linux_append="$linux_append systemd.unified_cgroup_hierarchy=0 systemd.legacy_systemd_cgroup_controller"
+kernel_arguments:
+  should_exist:
+    - set linux_append="$linux_append systemd.unified_cgroup_hierarchy=0 systemd.legacy_systemd_cgroup_controller
 systemd:
   units:
     - name: containerd.service
@@ -66,23 +63,18 @@ However, the kernel commandline setting doesn't take effect on the first boot, a
 If your deployment can't tolerate the required reboot, consider using the following snippet to switch to legacy cgroups without a reboot. This is supported by Flatcar 3033.2.4 or newer:
 
 ```yaml
+variant: flatcar
+version: 1.0.0
 storage:
   filesystems:
-    - name: "OEM"
-      mount:
-        device: "/dev/disk/by-label/OEM"
-        format: "btrfs"
-  files:
-    - filesystem: "OEM"
-      path: "/grub.cfg"
-      mode: 0644
-      append: true
-      contents:
-        inline: |
-          set linux_append="$linux_append systemd.unified_cgroup_hierarchy=0 systemd.legacy_systemd_cgroup_controller"
+    - device: "/dev/disk/by-label/OEM"
+      format: "btrfs"
   files:
     - path: /etc/flatcar-cgroupv1
       mode: 0444
+kernel_arguments:
+  should_exist:
+    - set linux_append="$linux_append systemd.unified_cgroup_hierarchy=0 systemd.legacy_systemd_cgroup_controller
 systemd:
   units:
     - name: containerd.service
