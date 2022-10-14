@@ -524,8 +524,8 @@ core@localhost ~ $ ...
 ~/trunk/src/scripts $ cd ../third_party/coreos-overlay/sys-kernel/coreos-modules/files/
 ~/trunk/src/scripts $ vim -O commonconfig* amd64_defconfig* my.diff
 ~/trunk/src/scripts $ rm my.diff
-~/trunk/src/scripts $ emerge-amd64-usr sys-kernel/coreos-kernel
 ~/trunk/src/scripts $ emerge-amd64-usr sys-kernel/coreos-modules
+~/trunk/src/scripts $ emerge-amd64-usr sys-kernel/coreos-kernel
 ~/trunk/src/scripts $ ./build_image --board=amd64-usr
 ~/trunk/src/scripts $ ./image_to_vm.sh --from=../build/images/amd64-usr/latest --board=amd64-usr --format qemu
 
