@@ -54,7 +54,7 @@ passwd:
         - ssh-rsa AAAAB......xyz email@host.net
 ```
 
-To turn this Butane Config into a usable Ignition Config, we can then run: `docker run --rm -i quay.io/coreos/butane:latest`. This will result in the above YAML being turned into the below JSON
+To turn this Butane Config into a usable Ignition Config, we can then run: `docker run --rm -i quay.io/coreos/butane:latest < your_config.yaml > your_config.json`. This will result in the above YAML being turned into the below JSON
 
 ```json
 {
