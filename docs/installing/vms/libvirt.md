@@ -253,7 +253,7 @@ First, prepare the base image and make sure you don't boot it via the [`flatcar_
 cd ~/Downloads
 wget https://stable.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu_image.img.bz2
 bunzip2 flatcar_production_qemu_image.img.bz2
-mv flatcar_production_qemu_image-libvirt-import.img
+mv flatcar_production_qemu_image.img flatcar_production_qemu_image-libvirt-import.img
 # optional, increase the image by 5 GB:
 qemu-img resize flatcar_production_qemu_image-libvirt-import.img +5G
 ```
