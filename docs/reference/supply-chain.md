@@ -156,9 +156,9 @@ The build process entails:
    Signing also ensures SLSA provenance is non-falisfiable.
    1. A verity hash of the OS partition is generated and injected into the initrd so Flatcar can verify tamper-free OS partition at boot time.
    2. There is an extra layer of security for the update image.
-      Many Flatcar deployments use automated updates so special care is take to ensure these are not compromised.
+      Many Flatcar deployments use automated updates so special care is taken to ensure these are not compromised.
       A core maintainer downloads the update image from the secure build server, and validates the image and its server signature.
-      The image is then signed with a key stored on a ardware security module (HSM), in an air-gapped environment so the key is never exposed to the internet.
+      The image is then signed with a key stored on a hardware security module (HSM), in an air-gapped environment so the key is never exposed to the internet.
 
 ###### Outputs
 
