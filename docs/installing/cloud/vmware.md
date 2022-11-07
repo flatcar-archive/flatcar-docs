@@ -249,7 +249,9 @@ The userdata is prepared for the guestinfo facility in one of two encoding types
 |:---------------|:------------------------------------------------------|
 | &lt;elided&gt; | `sed -e 's/%/%%/g' -e 's/"/%22/g' /path/to/user_data` |
 | base64         | `base64 -w0 /path/to/user_data`                       |
-| gz+base64      | `gzip -c -9 /path/to/user_data | base64 -w0`          |
+| gz+base64      | `gzip -c -9 /path/to/user_data \| base64 -w0`         |
+
+base64 (or gz+base64) encoding is mandatory for ESXi, passing unencoded Ignition data will lead to Ignition failures during boot due to lack of escaping in the guestinfo XML data.
 
 #### Example
 
