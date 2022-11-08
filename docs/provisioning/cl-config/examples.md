@@ -81,7 +81,7 @@ Using a higher number of rounds will help create more secure passwords, but give
 ```yaml
 storage:
   files:
-    - path: /opt/file1
+    - path: /opt/file
       filesystem: root
       contents:
         inline: Hello, world!
