@@ -6,7 +6,9 @@ aliases:
     - ../community-platforms
 ---
 
-The Flatcar Container Linux community has provided support for Flatcar Container Linux on a number of platforms beyond those [officially supported][official-support] by Kinvolk.
+The Flatcar Container Linux community has provided support for Flatcar Container Linux on a number of platforms beyond those [officially supported][official-support] (i.e, fully covered in the automated tests) by Kinvolk.
+
+
 
 The platforms and providers listed below each provide support and documentation for running Flatcar Container Linux:
 
