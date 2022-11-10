@@ -47,7 +47,8 @@ storage:
         format: "btrfs"
 kernel_arguments:
   should_exist:
-    - set linux_append="$linux_append systemd.unified_cgroup_hierarchy=0 systemd.legacy_systemd_cgroup_controller
+    - systemd.unified_cgroup_hierarchy=0
+    - systemd.legacy_systemd_cgroup_controller
 systemd:
   units:
     - name: containerd.service
