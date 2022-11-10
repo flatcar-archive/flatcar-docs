@@ -38,7 +38,7 @@ Some features in Butane Configs and Ignition configs are identical.  Both suppor
 
 All of the differences stem from the fact that Ignition configs are distribution agnostic. An Ignition config can't just tell Ignition to enable etcd, because Ignition doesn't know what etcd is. The config must tell Ignition what systemd unit to enable, and provide a systemd dropin to configure etcd.
 
-Butane on the other hand _does_ understand the specifics of Container Linux. A user can merely specify an etcd version and some etcd options, and butane knows that there's a unit called `etcd-member` already on the system it can enable. It knows what options are supported by etcd, so it can sanity check them for the user. It can then generate an appropriate systemd dropin with the user's options, and provide Ignition the level of verbosity it needs, that would be tedious for a human to create.
+Butane on the other hand _does_ understand the specifics of Flatcar Container Linux. A user currently can't specify Clevis options on Flatcar and Butane does these sanity checks for the user.
 
 ## Example Butane Config
 
