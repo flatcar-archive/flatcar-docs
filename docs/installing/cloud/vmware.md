@@ -155,13 +155,25 @@ IP configuration specified via `guestinfo.interface.*` and `guestinfo.dns.*` var
 
 On many cloud providers Ignition will run the [`coreos-metadata.service`](../../provisioning/ignition/metadata/#metadataconf) (which runs `afterburn`) to set up [node metadata](../../provisioning/config-transpiler/dynamic-data). This is not the case with VMware because the network setup is defined by you and nothing generic that `afterburn` would know about.
 
-If you want to use dynamic data such as `{PRIVATE_IPV4}` and `{PUBLIC_IPV4}` in your Container Linux Config, you have to use the `--platform=custom` argument to the config transpiler and define your own `coreos-metadata.service`.
-
-In the following example we will use the [reserved variables](https://github.com/kinvolk/afterburn/blob/master/docs/container-linux-legacy.md) `COREOS_CUSTOM_PUBLIC_IPV4` and `COREOS_CUSTOM_PRIVATE_IPV4` known to the config transpiler so that Container Linux Configs which contain `{PUBLIC_IPV4}` in a systemd unit will use `${COREOS_CUSTOM_PUBLIC_IPV4}` instead by automatically sourcing it via `EnvironmentFile=/run/metadata/coreos`.
+Here's a Butane configuration example to setup an `etcd` instance with a custom `coreos-metadata.service`:
 
 ```yaml
+version: 1.0.0
+variant: flatcar
 systemd:
   units:
+    - name: etcd-member.service
+      enabled: true
+      dropins:
+        - name: 20-clct-etcd-member.conf
+          contents: |
+            [Unit]
+            Requires=coreos-metadata.service
+            After=coreos-metadata.service
+            [Service]
+            EnvironmentFile=/run/metadata/coreos
+            ExecStart=
+            ExecStart=/usr/lib/coreos/etcd-wrapper $ETCD_OPTS --advertise-client-urls="http://${COREOS_CUSTOM_PUBLIC_IPV4}:2379"
     - name: coreos-metadata.service
       contents: |
         [Unit]
@@ -176,12 +188,7 @@ systemd:
         Environment=OUTPUT=/run/metadata/coreos
         ExecStart=/usr/bin/mkdir --parent /run/metadata
         ExecStart=/usr/bin/bash -c 'echo "COREOS_CUSTOM_PRIVATE_IPV4=$(ip addr show ens192 | grep "inet 10." | grep -Po "inet \K[\d.]+")\nCOREOS_CUSTOM_PUBLIC_IPV4=$(ip addr show ens192 | grep -v "inet 10." | grep -Po "inet \K[\d.]+")" > ${OUTPUT}'
-
-etcd:
-  # Now we can use dynamic data with {PRIVATE_IPV4} and {PUBLIC_IPV4}
-  advertise_client_urls:       "http://{PUBLIC_IPV4}:2379"
 ```
-
 This populates `/run/metadata/coreos` with variables for a public IP address on interface `ens192` (taking the one that is not starting with `10.…`) and a private IP address on the same interface (taking the one that is starting with `10.…`). You need to adjust this to your network setup. In case you use the `guestinfo.interface.*` variables you could use `/usr/share/oem/bin/vmware-rpctool 'info-get guestinfo.interface.0.ip.0.address'` instead of `ip addr show … | grep …`.
 
 ## Using coreos-cloudinit Cloud-Configs
