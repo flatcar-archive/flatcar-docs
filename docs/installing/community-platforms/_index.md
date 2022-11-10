@@ -19,12 +19,10 @@ The platforms and providers listed below each provide support and documentation 
 ## Other providers
 
 * [Eucalyptus][eucalyptus]
-* [OpenStack][openstack]
 * [Vagrant][vagrant]
 * [VirtualBox][virtualbox]
 
 [exoscale]: exoscale
-[openstack]: openstack
 [rackspace]: rackspace
 [vultr]: vultr
 [eucalyptus]: eucalyptus
