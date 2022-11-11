@@ -51,13 +51,15 @@ At the end of the document there are instructions for deploying with Terraform.
 
 ## Container Linux Configs
 
-Container Linux allows you to configure machine parameters, configure networking, launch systemd units on startup, and more via Container Linux Configs (CLC). These configs are then transpiled into Ignition configs and given to booting machines. Head over to the [docs to learn about the supported features][cl-configs]. Note that DigitalOcean doesn't allow an instance's userdata to be modified after the instance has been launched. This isn't a problem since Ignition only runs on the first boot.
+Container Linux allows you to configure machine parameters, configure networking, launch systemd units on startup, and more via Butane Configs. These configs are then transpiled into Ignition configs and given to booting machines. Head over to the [docs to learn about the supported features][butane-configs]. Note that DigitalOcean doesn't allow an instance's userdata to be modified after the instance has been launched. This isn't a problem since Ignition only runs on the first boot.
 
 You can provide a raw Ignition JSON config to Flatcar Container Linux via the DigitalOcean web console or [via the DigitalOcean API](#via-the-api).
 
-As an example, this CLC YAML config will start an NGINX Docker container:
+As an example, this Butane YAML config will start an NGINX Docker container:
 
 ```yaml
+variant: flatcar
+version: 1.0.0
 systemd:
   units:
     - name: nginx.service
@@ -81,11 +83,8 @@ systemd:
 Transpile it to Ignition JSON:
 
 ```shell
-cat cl.yaml | docker run --rm -i ghcr.io/flatcar/ct:latest -platform digitalocean > ignition.json
+cat cl.yaml | docker run --rm -i quay.io/coreos/butane:latest > ignition.json
 ```
-
-[cl-configs]: ../../provisioning/cl-config
-
 ### Adding more machines
 
 To add more instances to the cluster, just launch more with the same Container Linux Config. New instances will join the cluster regardless of region.
@@ -166,12 +165,6 @@ curl --request POST "https://api.digitalocean.com/v2/droplets" \
 ```
 
 For more details, check out [DigitalOcean's API documentation][do-api-docs].
-
-[do-api-docs]: https://developers.digitalocean.com/documentation/v2/
-[do-keys-docs]: https://developers.digitalocean.com/documentation/v2/#ssh-keys
-[do-list-keys-docs]: https://developers.digitalocean.com/documentation/v2/#list-all-keys
-[do-token-settings]: https://cloud.digitalocean.com/account/api/tokens
-
 ### Via the web console
 
 1. Open the ["new droplet"](https://cloud.digitalocean.com/droplets/new?image=flatcar-stable) page in the web console.
@@ -203,10 +196,6 @@ Note that DigitalOcean is not able to inject a root password into Flatcar Contai
 ## Using Flatcar Container Linux
 
 Now that you have a machine booted it is time to play around. Check out the [Flatcar Container Linux Quickstart][quick-start] guide or dig into [more specific topics][docs].
-
-[quick-start]: ../
-[docs]: ../../
-
 ## Terraform
 
 The [`digitalocean`](https://registry.terraform.io/providers/digitalocean/digitalocean/latest/docs) Terraform Provider allows to deploy machines in a declarative way.
@@ -347,14 +336,16 @@ For example, create the configuration for `mynode` in the file `machine-mynode.y
 
 ```yaml
 ---
+variant: flatcar
+version: 1.0.0
 passwd:
   users:
     - name: core
-      ssh_authorized_keys: ${ssh_keys}
+      ssh_authorized_keys: 
+        - ${ssh_keys}
 storage:
   files:
     - path: /home/core/works
-      filesystem: root
       mode: 0755
       contents:
         inline: |
@@ -378,3 +369,11 @@ Log in via `ssh core@IPADDRESS` with the printed IP address (maybe add `-o Stric
 When you make a change to `machine-mynode.yaml.tmpl` and run `terraform apply` again, the machine will be replaced.
 
 You can find this Terraform module in the repository for [Flatcar Terraform examples](https://github.com/kinvolk/flatcar-terraform/tree/main/digitalocean).
+
+[butane-configs]: ../../provisioning/config-transpiler
+[do-api-docs]: https://developers.digitalocean.com/documentation/v2/
+[do-keys-docs]: https://developers.digitalocean.com/documentation/v2/#ssh-keys
+[do-list-keys-docs]: https://developers.digitalocean.com/documentation/v2/#list-all-keys
+[do-token-settings]: https://cloud.digitalocean.com/account/api/tokens
+[quick-start]: ../
+[docs]: ../../

@@ -46,13 +46,20 @@ You can configure a reboot window in which reboots are allowed to happen through
 
 The default behavior is `reboot` and results in a reboot with a delay of 5 minutes.
 
-## Reboot strategy options through CLC/Ignition
+## Reboot strategy options through Butane/Ignition
 
-The reboot strategy can be set with a special Container Linux Config (CLC) section:
+The reboot strategy can be set with the following Butane Config section:
 
 ```yaml
-locksmith:
-  reboot_strategy: "etcd-lock"
+variant: flatcar
+version: 1.0.0
+storage:
+  files:
+    - path: /etc/flatcar/update.conf
+      contents:
+        inline: |
+          REBOOT_STRATEGY=etcd-lock
+      mode: 0420
 ```
 
 This gets transpiled to the following Ignition configuration which writes the line `REBOOT_STRATEGY="etcd-lock"` to `/etc/flatcar/update.conf`:
@@ -60,26 +67,22 @@ This gets transpiled to the following Ignition configuration which writes the li
 ```json
 {
   "ignition": {
-    "version": "2.3.0"
+    "version": "3.3.0"
   },
   "storage": {
     "files": [
       {
-        "filesystem": "root",
         "path": "/etc/flatcar/update.conf",
         "contents": {
-          "source": "data:,%0AREBOOT_STRATEGY%3D%22etcd-lock%22",
-          "verification": {}
+          "compression": "",
+          "source": "data:,REBOOT_STRATEGY%3Detcd-lock%0A"
         },
-        "mode": 420
+        "mode": 272
       }
     ]
   }
 }
 ```
-
-**Note:** You must not combine the special `locksmith:` CLC section with a CLC `files:` section that writes to the `/etc/flatcar/update.conf` file (or `/etc/coreos/update.conf` through the symlinked `/etc/coreos` folder).
-This would result in a conflict where only one entry wins.
 
 ### etcd-lock
 
@@ -129,10 +132,17 @@ Locksmith supports maintenance windows in addition to the reboot strategies ment
 Windows are defined by a start time and a length. In this example, the window is defined to be every Thursday between 04:00 and 05:00:
 
 ```yaml
-locksmith:
-  reboot_strategy: reboot
-  window_start: Thu 04:00
-  window_length: 1h
+variant: flatcar
+version: 1.0.0
+storage:
+  files:
+    - path: /etc/flatcar/update.conf
+      contents:
+        inline: |
+          REBOOT_STRATEGY=reboot
+          LOCKSMITHD_REBOOT_WINDOW_START=Thu 04:00
+          LOCKSMITHD_REBOOT_WINDOW_LENGTH=1h
+      mode: 0420
 ```
 
 This will configure a Flatcar Container Linux machine to follow the `reboot` strategy, and thus when an update is ready it will simply reboot instead of attempting to grab a lock in etcd. This machine however has also been configured to only reboot between 04:00 and 05:00 on Thursdays, so if an update occurs outside of this window the machine will then wait until it is inside of this window to reboot.
@@ -155,6 +165,8 @@ It's rather recommended to overwrite the `SERVER` variable in the update configu
 You can configure this with a Container Linux Config (needs to be [transpiled][transpiler] to Ignition JSON):
 
 ```yaml
+variant: flatcar
+version: 1.0.0
 storage:
   files:
     - path: /etc/flatcar/update.conf
@@ -183,6 +195,8 @@ After applying the update, wait for the reboot to happen or invoke it manually.
 As alternative you could mask the update-engine and locksmithd services as follows (but read the warning below):
 
 ```
+variant: flatcar
+version: 1.0.0
 systemd:
   units:
     - name: update-engine.service
@@ -237,6 +251,8 @@ Public Internet access is required to contact CoreUpdate and download new versio
 See [curl's documentation](http://curl.haxx.se/docs/manpage.html#ALLPROXY) for details.
 
 ```yaml
+variant: flatcar
+version: 1.0.0
 systemd:
   units:
     - name: update-engine.service
@@ -278,28 +294,26 @@ Since the hook runs shortly before the new partition is prioritized, you should 
 Also you should only let the script exit with an error return code if you want to stop the update.
 The hook runs as root user process under the `update-engine.service` unit.
 
-The following CLC example shows how a custom reboot hook for `kured` can be added to old Flatcar releases that don't support it yet (for release number greater than `3067.0.0` this is not needed).
+The following Butane example shows how a custom reboot hook for `kured` can be added to old Flatcar releases that don't support it yet (for release number greater than `3067.0.0` this is not needed).
 
 ```yaml
+variant: flatcar
+version: 1.0.0
 storage:
   filesystems:
-    - name: oem
-      mount:
-        device: /dev/disk/by-label/OEM
-        format: btrfs
-        label: OEM
+    - device: /dev/disk/by-label/OEM
+      format: btrfs
+      label: OEM
   directories:
-  - path: /bin
-    filesystem: oem
-    mode: 0755
+    - path: /bin
+      mode: 0755
   files:
-  - path: /bin/oem-postinst
-    filesystem: oem
-    mode: 0755
-    contents:
-      inline: |
-        #!/bin/sh
-        touch /run/reboot-required
+    - path: /bin/oem-postinst
+      mode: 0755
+      contents:
+        inline: |
+          #!/bin/sh
+          touch /run/reboot-required
 ```
 
 [ipxe-boot-script]: ../../installing/bare-metal/booting-with-ipxe#setting-up-ipxe-boot-script

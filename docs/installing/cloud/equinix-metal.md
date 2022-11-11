@@ -53,15 +53,17 @@ Do not forget to provide an Ignition config with your SSH key because the PXE im
 
 If not configured elsewise, iPXE booting will only done at the first boot because you are expected to install the operating system to the hard disk yourself.
 
-## Container Linux Configs
+## Butane Configs
 
-Flatcar Container Linux allows you to configure machine parameters, configure networking, launch systemd units on startup, and more via Container Linux Configs (CLC). These configs are then transpiled into Ignition configs and given to booting machines. Head over to the [docs to learn about the supported features][cl-configs]. Note that Equinix Metal doesn't allow an instance's userdata to be modified after the instance has been launched. This isn't a problem since Ignition only runs on the first boot.
+Flatcar Container Linux allows you to configure machine parameters, configure networking, launch systemd units on startup, and more via Butane Configs. These configs are then transpiled into Ignition configs and given to booting machines. Head over to the [docs to learn about the supported features][butane-configs]. Note that Equinix Metal doesn't allow an instance's userdata to be modified after the instance has been launched. This isn't a problem since Ignition only runs on the first boot.
 
 You can provide a raw Ignition JSON config to Flatcar Container Linux via Equinix Metal's userdata field.
 
-As an example, this CLC YAML config will start an NGINX Docker container:
+As an example, this Butane YAML config will start an NGINX Docker container:
 
 ```yaml
+variant: flatcar
+version: 1.0.0
 systemd:
   units:
     - name: nginx.service
@@ -85,11 +87,8 @@ systemd:
 Transpile it to Ignition JSON:
 
 ```shell
-cat cl.yaml | docker run --rm -i ghcr.io/flatcar/ct:latest -platform packet > ignition.json
+cat cl.yaml | docker run --rm -i quay.io/coreos/butane:latest > ignition.json
 ```
-
-[cl-configs]: ../../provisioning/cl-config
-
 ## Disabling/enabling autologin
 
 Beginning with Flatcar major version 3185 the `kernelArguments` directive in Ignition v3 allows to add/remove the `flatcar.autologin` kernel command line parameter that is set in `grub.cfg`.
@@ -107,7 +106,7 @@ With `should_exist` instead of `should_not_exist` the argument would be added if
 
 Read more about setting kernel command line parameters this way [here](../../../setup/customization/other-settings/#adding-custom-kernel-boot-options).
 
-In case you want to disable the autologin on the console with Ignition v2 where no `kernelArguments` directive exists, you can use the following directive in your Container Linux Config YAML.
+In case you want to disable the autologin on the console with Ignition v2 where no `kernelArguments` directive exists, you can use the following directive in your [Container Linux Config][cl-configs] YAML utilizing [ct][ct].
 To take effect it requires an additional reboot.
 
 ```yaml
@@ -146,9 +145,6 @@ systemd:
 ## Using Flatcar Container Linux
 
 Now that you have a machine booted it is time to play around. Check out the [Flatcar Container Linux Quickstart][quickstart] guide or dig into [more specific topics][doc-index].
-
-[quickstart]: ../
-[doc-index]: ../../
 
 ## Terraform
 
@@ -268,14 +264,16 @@ Create the configuration for `mynode` in the file `machine-mynode.yaml.tmpl`:
 
 ```yaml
 ---
+variant: flatcar
+version: 1.0.0
 passwd:
   users:
     - name: core
-      ssh_authorized_keys: ${ssh_keys}
+      ssh_authorized_keys: 
+        - ${ssh_keys}
 storage:
   files:
     - path: /home/core/works
-      filesystem: root
       mode: 0755
       contents:
         inline: |
@@ -301,3 +299,10 @@ When you make a change to `machine-mynode.yaml.tmpl` and run `terraform apply` a
 It is recommended to register your SSH key in the Equinix Metal Project to use the out-of-band console. Since Flatcar will fetch this key, too, you can remove it from the YAML config.
 
 You can find this Terraform module in the repository for [Flatcar Terraform examples](https://github.com/flatcar/flatcar-terraform/tree/main/equinix-metal-aka-packet).
+
+
+[quickstart]: ../
+[doc-index]: ../../
+[butane-configs]: ../../provisioning/config-transpiler/
+[cl-configs]: ../../provisioning/cl-config
+[ct]: https://github.com/flatcar/container-linux-config-transpiler

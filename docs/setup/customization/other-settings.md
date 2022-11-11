@@ -15,13 +15,14 @@ Most Linux kernel modules get automatically loaded as-needed but there are a som
 echo nf_conntrack > /etc/modules-load.d/nf.conf
 ```
 
-Or, using a Container Linux Config:
+Or, using a Butane Config:
 
 ```yaml
+variant: flatcar
+version: 1.0.0
 storage:
   files:
     - path: /etc/modules-load.d/nf.conf
-      filesystem: root
       mode: 0644
       contents:
         inline: nf_conntrack
@@ -39,15 +40,15 @@ Further details can be found in the systemd man pages:
 This example Container Linux Config loads the `dummy` network interface module with an option specifying the number of interfaces the module should create when loaded (`numdummies=5`):
 
 ```yaml
+variant: flatcar
+version: 1.0.0
 storage:
   files:
     - path: /etc/modprobe.d/dummy.conf
-      filesystem: root
       mode: 0644
       contents:
         inline: options dummy numdummies=5
     - path: /etc/modules-load.d/dummy.conf
-      filesystem: root
       mode: 0644
       contents:
         inline: dummy
@@ -65,16 +66,16 @@ sysctl --system
 Some parameters, such as the conntrack one above, are only available after the module they control has been loaded. To ensure any modules are loaded in advance use `modules-load.d` as described above. A complete Container Linux Config using both would look like:
 
 ```yaml
+variant: flatcar
+version: 1.0.0
 storage:
   files:
     - path: /etc/modules-load.d/nf.conf
-      filesystem: root
       mode: 0644
       contents:
         inline: |
           nf_conntrack
     - path: /etc/sysctl.d/nf.conf
-      filesystem: root
       mode: 0644
       contents:
         inline: |
@@ -122,7 +123,8 @@ kernel_arguments:
 ```
 
 Instead of using `kernelArguments` you can also use the plain file directive in Ignition to write to `/usr/share/oem/grub.cfg`.
-However, because Ignition runs after GRUB, the GRUB configuration won't take effect until the next reboot of the node.
+However, because Ignition runs after GRUB, the GRUB configuration won't take effect until the next reboot of the node. This is particularly
+useful if you are bound to use Ignition V2 (which requires the use of `ct` instead of `butane`).
 
 Here's an example Container Linux Configuration for using the plain file directive (this YAML content has to be transpiled to Ignition JSON with `ct`):
 
@@ -143,7 +145,7 @@ storage:
           set linux_append="$linux_append flatcar.autologin=tty1"
 ```
 
-To take effect directly on first boot, the alternative is to create a `getty@.service` drop-in, here a CLC snippet:
+To take effect directly on first boot, the alternative is to create a `getty@.service` drop-in, here a snippet that will work with `ct` and `butane`:
 
 ```
 systemd:
@@ -197,10 +199,11 @@ echo "This machine is dedicated to computing Pi" > /etc/motd.d/pi.conf
 Or via a Container Linux Config:
 
 ```yaml
+variant: flatcar
+version: 1.0.0
 storage:
   files:
     - path: /etc/motd.d/pi.conf
-      filesystem: root
       mode: 0644
       contents:
         inline: This machine is dedicated to computing Pi

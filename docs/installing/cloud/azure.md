@@ -182,19 +182,21 @@ az vm create ... --admin-username myuser --ssh-key-values ~/.ssh/id_rsa.pub
 This also works for the `core` user.
 If you plan to use the `core` user with an SSH key set up through Ignition userdata, the key argument here is not needed, and you can safely pass `--admin-username core` and no new user gets created.
 
-## Container Linux Config
+## Butane Config
 
 Flatcar Container Linux allows you to configure machine parameters, configure networking, launch systemd units on startup, and more
-via a Container Linux Config. Head over to the [provisioning docs][cl-configs] to learn how to use Container Linux Configs (CLC).
+via a Container Linux Config. Head over to the [provisioning docs][butane-configs] to learn how to use Butane Configs.
 Note that Microsoft Azure doesn't allow an instance's userdata to be modified after the instance had been launched. This
 isn't a problem since Ignition, the tool that consumes the userdata, only runs on the first boot.
 
-You can provide a raw Ignition JSON config (produced from a Container Linux Config) to Flatcar Container Linux via the Azure CLI using the `--custom-data` flag
+You can provide a raw Ignition JSON config (produced from a Butane Config) to Flatcar Container Linux via the Azure CLI using the `--custom-data` flag
 or in the web UI under _Custom Data_ (not _User Data_).
 
-As an example, this CLC YAML config will start an NGINX Docker container:
+As an example, this Butane YAML config will start an NGINX Docker container:
 
 ```yaml
+variant: flatcar
+version: 1.0.0
 systemd:
   units:
     - name: nginx.service
@@ -218,7 +220,7 @@ systemd:
 Transpile it to Ignition JSON:
 
 ```shell
-cat cl.yaml | docker run --rm -i ghcr.io/flatcar/ct:latest -platform azure > ignition.json
+cat cl.yaml | docker run --rm -i quay.io/coreos/butane:latest > ignition.json
 ```
 
 ## Use the Azure Hyper-V Host for time synchronisation instead of NTP
@@ -232,6 +234,8 @@ Since alpine is relentlessly optimised for size, the container will merely take 
 Here's a configuration snippet to create a minimal chrony container during provisioning, and use it instead of systemd-timesyncd:
 
 ```yaml
+variant: flatcar
+version: 1.0.0
 storage:
   files:
     - path: /opt/chrony/Dockerfile
@@ -295,7 +299,55 @@ systemd:
 
 If the above works for your use case without modifications or additions (i.e. there's no need to configure anything else) feel free to supply this ignition configuration as custom data for your deployments and call it a day:
 ```json
-{"ignition":{"config":{},"security":{"tls":{}},"timeouts":{},"version":"2.3.0"},"networkd":{},"passwd":{},"storage":{"directories":[{"filesystem":"root","path":"/opt/chrony/logs","mode":511}],"files":[{"filesystem":"root","path":"/opt/chrony/Dockerfile","contents":{"source":"data:,FROM%20alpine%0ARUN%20apk%20add%20chrony%0ARUN%20rm%20%2Fetc%2Fchrony%2Fchrony.conf%0A","verification":{}},"mode":420},{"filesystem":"root","path":"/opt/chrony/chrony.conf","contents":{"source":"data:,log%20statistics%20measurements%20tracking%0Alogdir%20%2Fvar%2Flog%2Fchrony%0Adriftfile%20%2Fvar%2Flib%2Fchrony%2Fdrift%0Amakestep%201.0%203%0Amaxupdateskew%20100.0%0Adumpdir%20%2Fvar%2Flib%2Fchrony%0Artcsync%0Arefclock%20PHC%20%2Fdev%2Fptp0%20poll%203%20dpoll%20-2%20offset%200%20stratum%202%0A","verification":{}},"mode":420}]},"systemd":{"units":[{"mask":true,"name":"systemd-timesyncd.service"},{"contents":"[Unit]\nDescription=Build the chrony container image\nConditionPathExists=!/opt/chrony-build/done\n[Service]\nType=oneshot\nRemainAfterExit=true\nRestart=on-failure\nWorkingDirectory=/opt/chrony\nExecStart=/usr/bin/docker build -t chrony .\nExecStartPost=/usr/bin/touch done\n[Install]\nWantedBy=multi-user.target\n","enabled":true,"name":"prepare-chrony.service"},{"contents":"[Unit]\nDescription=Chrony RTC time sync service\nAfter=docker.service prepare-chrony.service\nRequires=docker.service prepare-chrony.service\n[Service]\nTimeoutStartSec=0\nExecStartPre=-/usr/bin/docker rm --force chrony\nExecStart=/usr/bin/docker run --name chrony -i --cap-add=SYS_TIME -v /opt/chrony/logs:/var/log/chrony -v /opt/chrony/chrony.conf:/etc/chrony/chrony.conf --device=/dev/rtc:/dev/rtc --device=/dev/ptp_hyperv:/dev/ptp0 chrony chronyd -s -d\nExecStop=/usr/bin/docker stop chrony\nRestart=always\nRestartSec=5s\n[Install]\nWantedBy=multi-user.target\n","enabled":true,"name":"chrony.service"}]}}
+{
+  "ignition": {
+    "version": "3.3.0"
+  },
+  "storage": {
+    "directories": [
+      {
+        "path": "/opt/chrony/logs",
+        "mode": 511
+      }
+    ],
+    "files": [
+      {
+        "path": "/opt/chrony/Dockerfile",
+        "contents": {
+          "compression": "",
+          "source": "data:,FROM%20alpine%0ARUN%20apk%20add%20chrony%0ARUN%20rm%20%2Fetc%2Fchrony%2Fchrony.conf%0A"
+        },
+        "mode": 420
+      },
+      {
+        "path": "/opt/chrony/chrony.conf",
+        "contents": {
+          "compression": "gzip",
+          "source": "data:;base64,H4sIAAAAAAAC/0TMQW4DIQxG4b1P8V+ggSRH6KbLXsEFM0UDA7JN2ty+UhQ1q7f4pNfGBnP2al6ToQvbUulyuMGV016PjdrYclWEG2toYwvpW8dxp6y1eKlNnlK/nhIeQp13MZeJ8yniSp1/18zsYrv84BzjKVJefb7W/wNST3Y/EqmU1Eba8fnxjpDlFqbPiDlawxX50bcLRikmjghzZV8dF/oLAAD//xHNUSnZAAAA"
+        },
+        "mode": 420
+      }
+    ]
+  },
+  "systemd": {
+    "units": [
+      {
+        "mask": true,
+        "name": "systemd-timesyncd.service"
+      },
+      {
+        "contents": "[Unit]\nDescription=Build the chrony container image\nConditionPathExists=!/opt/chrony-build/done\n[Service]\nType=oneshot\nRemainAfterExit=true\nRestart=on-failure\nWorkingDirectory=/opt/chrony\nExecStart=/usr/bin/docker build -t chrony .\nExecStartPost=/usr/bin/touch done\n[Install]\nWantedBy=multi-user.target\n",
+        "enabled": true,
+        "name": "prepare-chrony.service"
+      },
+      {
+        "contents": "[Unit]\nDescription=Chrony RTC time sync service\nAfter=docker.service prepare-chrony.service\nRequires=docker.service prepare-chrony.service\n[Service]\nTimeoutStartSec=0\nExecStartPre=-/usr/bin/docker rm --force chrony\nExecStart=/usr/bin/docker run --name chrony -i --cap-add=SYS_TIME -v /opt/chrony/logs:/var/log/chrony -v /opt/chrony/chrony.conf:/etc/chrony/chrony.conf --device=/dev/rtc:/dev/rtc --device=/dev/ptp_hyperv:/dev/ptp0 chrony chronyd -s -d\nExecStop=/usr/bin/docker stop chrony\nRestart=always\nRestartSec=5s\n[Install]\nWantedBy=multi-user.target\n",
+        "enabled": true,
+        "name": "chrony.service"
+      }
+    ]
+  }
+}
 ```
 
 
@@ -501,14 +553,16 @@ For each machine in the list, you should have a `machine-NAME.yaml.tmpl` file wi
 Create the configuration for `mynode` in the file `cl/machine-mynode.yaml.tmpl`:
 
 ```yaml
+variant: flatcar
+version: 1.0.0
 passwd:
   users:
     - name: core
-      ssh_authorized_keys: ${ssh_keys}
+      ssh_authorized_keys: 
+        - ${ssh_keys}
 storage:
   files:
     - path: /home/core/works
-      filesystem: root
       mode: 0755
       contents:
         inline: |
@@ -565,7 +619,7 @@ You can find this Terraform module in the repository for [Flatcar Terraform exam
 [quickstart]: ../
 [reboot-docs]: ../../setup/releases/update-strategies
 [azure-cli]: https://docs.microsoft.com/en-us/cli/azure/overview
-[cl-configs]: ../../provisioning/cl-config
+[butane-configs]: ../../provisioning/config-transpiler
 [irc]: irc://irc.freenode.org:6667/#flatcar
 [docs]: ../../
 [resource-group]: https://docs.microsoft.com/en-us/azure/architecture/best-practices/naming-conventions#naming-rules-and-restrictions

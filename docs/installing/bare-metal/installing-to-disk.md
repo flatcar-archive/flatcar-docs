@@ -36,7 +36,7 @@ If you boot Flatcar Container Linux via PXE, the install script is already insta
 flatcar-install -d /dev/sda -i ignition.json
 ```
 
-`ignition.json` should include user information (especially an SSH key) generated from a [Container Linux Config][clc-section], or you will not be able to log into your Flatcar Container Linux instance.
+`ignition.json` should include user information (especially an SSH key) generated from a [Butane Config][butane-section], or you will not be able to log into your Flatcar Container Linux instance.
 
 If you are installing on VMware, pass `-o vmware_raw` to install the VMware-specific image:
 
@@ -97,15 +97,17 @@ For reference here are the rest of the `flatcar-install` options:
 -v          Super verbose, for debugging.
 ```
 
-## Container Linux Configs
+## Butane Configs
 
-By default there isn't a password or any other way to log into a fresh Flatcar Container Linux system. The easiest way to configure accounts, add systemd units, and more is via Container Linux Configs (CLC). Jump over to the [docs to learn about the supported features][cl-configs].
+By default there isn't a password or any other way to log into a fresh Flatcar Container Linux system. The easiest way to configure accounts, add systemd units, and more is via Butane Configs. Jump over to the [docs to learn about the supported features][butane].
 
-After using the [Container Linux Config Transpiler][ct] to produce an Ignition config, the installation script will process your `ignition.json` file specified with the `-i` flag and use it when the installation is booted.
+After using the [Butane][butane] to produce an Ignition config, the installation script will process your `ignition.json` file specified with the `-i` flag and use it when the installation is booted.
 
-A Container Linux Config YAML that specifies an SSH key for the `core` user but doesn't use any other parameters looks like:
+A Butane Config YAML that specifies an SSH key for the `core` user but doesn't use any other parameters looks like:
 
 ```yaml
+variant: flatcar
+version: 1.0.0
 passwd:
   users:
     - name: core
@@ -116,7 +118,7 @@ passwd:
 Transpile it to Ignition JSON:
 
 ```shell
-cat cl.yaml | docker run --rm -i ghcr.io/flatcar/ct:latest -platform gce > ignition.json
+cat cl.yaml | docker run --rm -i quay.io/coreos/butane:latest > ignition.json
 ```
 
 To start the installation script with a reference to our Ignition config, run:
@@ -125,11 +127,13 @@ To start the installation script with a reference to our Ignition config, run:
 flatcar-install -d /dev/sda -C stable -i ~/ignition.json
 ```
 
-### Advanced Container Linux Config example
+### Advanced Butane Config example
 
-This CLC YAML example will configure Flatcar Container Linux to run an NGINX Docker container.
+This Butane YAML example will configure Flatcar Container Linux to run an NGINX Docker container.
 
 ```yaml
+variant: flatcar
+version: 1.0.0
 passwd:
   users:
     - name: core
@@ -158,7 +162,7 @@ systemd:
 Transpile it to Ignition JSON:
 
 ```shell
-cat cl.yaml | docker run --rm -i ghcr.io/flatcar/ct:latest -platform gce > ignition.json
+cat cl.yaml | docker run --rm -i quay.io/coreos/butane:latest > ignition.json
 ```
 
 ## Using Flatcar Container Linux
@@ -170,7 +174,7 @@ Now that you have a machine booted it is time to play around. Check out the [Fla
 [update-strategies]: ../../setup/releases/update-strategies
 [release-notes]: https://flatcar-linux.org/releases
 [flatcar-iso]: booting-with-iso
-[clc-section]: #container-linux-configs
+[butane-section]: #butane-configs
 [flatcar-install]: https://raw.githubusercontent.com/flatcar-linux/init/flatcar-master/bin/flatcar-install
 [cl-configs]: ../../provisioning/cl-config
-[ct]: ../../provisioning/config-transpiler
+[butane]: ../../provisioning/config-transpiler

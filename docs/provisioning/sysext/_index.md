@@ -46,18 +46,18 @@ To enable systemd units you can include the symlinks it would generate when enab
 
 ## Supplying your sysext image from Ignition
 
-The following Container Linux Config (CLC YAML) can be be transpiled to Ignition JSON and will download a custom Docker+containerd sysext image on first boot.
+The following Butane Config YAML can be be transpiled to Ignition JSON and will download a custom Docker+containerd sysext image on first boot.
 It also takes care of disabling Torcx and future built-in Docker and containerd sysext images we plan to ship in Flatcar.
 
 ```yaml
+variant: flatcar
+version: 1.0.0
 storage:
   files:
     - path: /etc/extensions/mydocker.raw
-      filesystem: root
       mode: 0644
       contents:
-        remote:
-          url: https://myserver.net/mydocker.raw
+        source: https://myserver.net/mydocker.raw
     - path: /etc/systemd/system-generators/torcx-generator
   directories:
     - path: /etc/extensions/docker-flatcar
