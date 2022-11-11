@@ -1,9 +1,6 @@
 ---
-title: Configuration Specification
+title: Butane Configuration Specification
 weight: 80
-aliases:
-    - ../../container-linux-config-transpiler/doc/configuration
-    - ../../container-linux-config-transpiler/configuration
 ---
 
 The Butane Flatcar variant configuration is a YAML document conforming to the following specification, with **_italicized_** entries being optional:
