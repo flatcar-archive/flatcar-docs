@@ -28,6 +28,7 @@ platforms and bare metal servers.
  * [VMware][vmware]
  * [DigitalOcean][digital-ocean]
  * [Hetzner][hetzner]
+ * [OpenStack][openstack]
 
 #### Virtualization options
 It's easy to run a local Flatcar VM on your laptop for testing and debugging
@@ -229,3 +230,4 @@ APIs and troubleshooting guides for working with Flatcar Container Linux.
 [hetzner]: installing/cloud/hetzner
 [sysext]: provisioning/sysext/
 [acpi]: setup/customization/ACPI
+[openstack]: installing/cloud/openstack
