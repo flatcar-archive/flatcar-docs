@@ -24,7 +24,7 @@ Flatcar Container Linux is designed to be reliably updated via a continuous stre
 For more information, [read more about the disk layout][chromium disk format] used by Chromium and ChromeOS, which inspired the layout used by Flatcar Container Linux.
 
 [OEM docs]: ../../installing/community-platforms/notes-for-distributors
-[chromium disk format]: http://www.chromium.org/chromium-os/chromiumos-design-docs/disk-format
+[chromium disk format]: https://chromium.googlesource.com/chromiumos/docs/+/HEAD/disk_format.md
 
 ## Mounted filesystems
 
