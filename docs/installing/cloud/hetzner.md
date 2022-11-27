@@ -213,3 +213,5 @@ terraform apply
 Log in via `ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null core@IPADDRESS` with the printed IP address.
 
 When you make a change to `machine-mynode.yaml.tmpl` and run `terraform apply` again, the machine will be replaced.
+
+You can find this Terraform module in the repository for [Flatcar Terraform examples](https://github.com/flatcar/flatcar-terraform/tree/main/hetzner).
