@@ -153,6 +153,19 @@ Read more about using Terraform and Flatcar [here](../../provisioning/terraform/
 
 The following Terraform v0.13 module may serve as a base for your own setup.
 
+You can clone the setup from the [Flatcar Terraform examples repository](https://github.com/flatcar/flatcar-terraform/tree/main/equinix-metal-aka-packet) or create the files manually as we go through them and explain each one.
+
+```
+git clone https://github.com/flatcar/flatcar-terraform.git
+# From here on you could directly run it, TLDR:
+cd equinix-metal-aka-packet
+export METAL_AUTH_TOKEN=...
+terraform init
+# Edit the server configs or just go ahead with the default example
+terraform plan
+terraform apply
+```
+
 Start with a `metal-machines.tf` file that contains the main declarations:
 
 ```

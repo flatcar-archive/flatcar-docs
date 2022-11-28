@@ -225,6 +225,20 @@ Read more about using Terraform and Flatcar [here](../../provisioning/terraform/
 The following Terraform v0.13 module may serve as a base for your own setup.
 It will also take care of registering your SSH key at AWS EC2 and managing the network environment with Terraform.
 
+You can clone the setup from the [Flatcar Terraform examples repository](https://github.com/flatcar/flatcar-terraform/tree/main/aws) or create the files manually as we go through them and explain each one.
+
+```
+git clone https://github.com/flatcar/flatcar-terraform.git
+# From here on you could directly run it, TLDR:
+cd aws
+export AWS_ACCESS_KEY_ID=...
+export AWS_SECRET_ACCESS_KEY=...
+terraform init
+# Edit the server configs or just go ahead with the default example
+terraform plan
+terraform apply
+```
+
 Start with a `aws-ec2-machines.tf` file that contains the main declarations:
 
 ```
