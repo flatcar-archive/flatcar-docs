@@ -39,6 +39,19 @@ Read more about using Terraform and Flatcar [here](../../provisioning/terraform/
 The following Terraform v0.13 module may serve as a base for your own setup.
 It will also take care of registering your SSH key at Hetzner.
 
+You can clone the setup from the [Flatcar Terraform examples repository](https://github.com/flatcar/flatcar-terraform/tree/main/flatcar-terraform-hetzner) or create the files manually as we go through them and explain each one.
+
+```
+git clone https://github.com/flatcar/flatcar-terraform.git
+# From here on you could directly run it, TLDR:
+cd flatcar-terraform-hetzner
+export HCLOUD_TOKEN=...
+terraform init
+# Edit the server configs or just go ahead with the default example
+terraform plan
+terraform apply
+```
+
 Start with a `hetzner-machines.tf` file that contains the main declarations:
 
 ```
@@ -214,4 +227,4 @@ Log in via `ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null core
 
 When you make a change to `machine-mynode.yaml.tmpl` and run `terraform apply` again, the machine will be replaced.
 
-You can find this Terraform module in the repository for [Flatcar Terraform examples](https://github.com/flatcar/flatcar-terraform/tree/main/hetzner).
+As mentined in the beginning, you can find this Terraform module in the repository for [Flatcar Terraform examples](https://github.com/flatcar/flatcar-terraform/tree/main/hetzner).

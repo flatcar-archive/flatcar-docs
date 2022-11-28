@@ -362,6 +362,21 @@ Read more about using Terraform and Flatcar [here](../../provisioning/terraform/
 
 The following Terraform v0.13 module may serve as a base for your own setup.
 
+You can clone the setup from the [Flatcar Terraform examples repository](https://github.com/flatcar/flatcar-terraform/tree/main/azure) or create the files manually as we go through them and explain each one.
+
+```
+git clone https://github.com/flatcar/flatcar-terraform.git
+# From here on you could directly run it, TLDR:
+cd azure
+export ARM_SUBSCRIPTION_ID="<azure_subscription_id>"
+export ARM_TENANT_ID="<azure_subscription_tenant_id>"
+export ARM_CLIENT_ID="<service_principal_appid>"
+terraform init
+# Edit the server configs or just go ahead with the default example
+terraform plan
+terraform apply
+```
+
 Start with a `azure-vms.tf` file that contains the main declarations:
 
 ```
