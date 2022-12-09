@@ -106,7 +106,7 @@ systemd:
         [Service]
         TimeoutStartSec=0
         ExecStartPre=-/usr/bin/docker rm --force nginx1
-        ExecStart=/usr/bin/docker run --name nginx1 --pull always --net host docker.io/nginx:1
+        ExecStart=/usr/bin/docker run --name nginx1 --pull always --log-driver=journald --net host docker.io/nginx:1
         ExecStop=/usr/bin/docker stop nginx1
         Restart=always
         RestartSec=5s
