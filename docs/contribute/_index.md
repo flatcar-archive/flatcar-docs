@@ -55,4 +55,4 @@ We happily accept accurate translations. Please send the documents as a pull req
 [flatcar-docs]: https://kinvolk.io/docs/flatcar-container-linux/latest/
 [help-wanted]: https://github.com/kinvolk/docs/issues?q=is%3Aopen+label%3Ahelp-wanted
 [pull-requests]: https://help.github.com/articles/using-pull-requests/
-[style]: STYLE
+[style]: docs
