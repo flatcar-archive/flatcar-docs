@@ -259,4 +259,4 @@ Some file types are commonly identified with more than one file name extension. 
 [quickstart]: os/quickstart "Relative link from here to CoreOS Quick Start"
 [rfc2606s3]: https://tools.ietf.org/html/rfc2606#section-3
 [rfc5737]: https://tools.ietf.org/html/rfc5737
-[style]: STYLE "CoreOS Documentation Style"
+[style]: docs "CoreOS Documentation Style"
