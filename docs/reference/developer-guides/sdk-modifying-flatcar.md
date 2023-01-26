@@ -675,7 +675,7 @@ Take a look at the [SDK bootstrap process](sdk-bootstrapping) to learn how to bu
 [flatcar-dev]: https://groups.google.com/forum/#!forum/flatcar-linux-dev
 [github-flatcar]: https://github.com/flatcar
 [matrix]: https://app.element.io/#/room/#flatcar:matrix.org
-[ghcr-sdk]: https://github.com/orgs/flatcar-linux/packages
+[ghcr-sdk]: https://github.com/orgs/flatcar/packages
 [scripts]: https://github.com/flatcar/scripts
 [flatcar-releases]: https://www.flatcar-linux.org/releases/
 
