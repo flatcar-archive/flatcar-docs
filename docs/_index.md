@@ -144,6 +144,7 @@ some guides to help you choose and make use of the different runtimes.
  * [Use a custom Docker or containerd version][use-a-custom-docker-or-containerd-version]
  * [Switching from Docker to containerd for Kubernetes][containerd-for-kubernetes]
  * [Authenticating to Container registries][registry-authentication]
+ * [Getting started with Kubernetes][kubernetes]
 
 ### Developer guides and Reference
 APIs and troubleshooting guides for working with Flatcar Container Linux.
@@ -231,3 +232,4 @@ APIs and troubleshooting guides for working with Flatcar Container Linux.
 [sysext]: provisioning/sysext/
 [acpi]: setup/customization/ACPI
 [openstack]: installing/cloud/openstack
+[kubernetes]: container-runtimes/getting-started-with-kubernetes
