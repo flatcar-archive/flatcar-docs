@@ -17,10 +17,12 @@ One way to contribute to Flatcar would be to extend the covered CNIs (example: [
 This is a compatibility matrix between Flatcar and Kubernetes:
 | Flatcar channel \ Kubernetes Version | 1.23               | 1.24               | 1.25               | 1.26               |
 |--------------------------------------|--------------------|--------------------|--------------------|--------------------|
-| Alpha                                | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
-| Beta                                 | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
-| Stable                               | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
-| LTS                                  | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x:                |
+| Alpha                                | :large_orange_diamond: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| Beta                                 | :large_orange_diamond: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| Stable                               | :large_orange_diamond: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| LTS                                  | :large_orange_diamond: | :white_check_mark: | :white_check_mark: | :x:                |
+
+:large_orange_diamond:: The version is not tested anymore before a release but was known for working.
 
 Tested CNIs:
 - Cilium
