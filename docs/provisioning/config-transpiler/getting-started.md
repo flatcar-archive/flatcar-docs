@@ -7,15 +7,17 @@ aliases:
 ---
 
 
-ct is a tool that will consume a Container Linux Config and produce a JSON file that can be given to a Container Linux machine when it first boots to set the machine up. Using this config, a machine can be told to create users, format the root filesystem, set up the network, install systemd units, and more.
+`butane` is a tool that will consume a Butane configuration and produce an Ignition configuration file that can be given to a Container Linux machine when it first boots to set the machine up. Using this config, a machine can be told to create users, format the root filesystem, set up the network, install systemd units, and more.
 
-Container Linux Configs are YAML files conforming to ct's schema. For more information on the schema, take a look at [configuration][1].
+Butane configuration are YAML files conforming to Butane's schema. For more information on the schema, take a look at [configuration][1].
 
-ct can be downloaded from its [GitHub Releases page][4] or used via Docker (`cat example.yaml | docker run --rm -i ghcr.io/flatcar/ct:latest --platform=YOURPLATFORM`).
+`butane` can be downloaded from its [GitHub Releases page][4] or used via Docker (`docker run --rm -i quay.io/coreos/butane:latest < butane_config.yaml > ignition_config.json`).
 
-As a simple example, let's use ct to set the authorized ssh key for the core user on a Container Linux machine.
+As a simple example, let's use `butane` to set the authorized ssh key for the core user on a Container Linux machine.
 
 ```yaml
+variant: flatcar
+version: 1.0.0
 passwd:
   users:
     - name: core
@@ -25,11 +27,11 @@ passwd:
 
 In this above file, you'll want to set the `ssh-rsa AAAAB3NzaC1yc...` line to be your ssh public key (which is probably the contents of `~/.ssh/id_rsa.pub`, if you're on Linux).
 
-If we take this file and give it to ct:
+If we take this file and give it to `butane`:
 
 ```
-$ ./bin/ct --in-file example.yaml
-{"ignition":{"version":"2.0.0","config":{}},"storage":{},"systemd":{},"networkd":{},"passwd":{"users":[{"name":"core","sshAuthorizedKeys":["ssh-rsa AAAAB3NzaC1yc..."]}]}}
+$ docker run --rm -i quay.io/coreos/butane:latest < butane_config.yaml
+{"ignition":{"version":"3.3.0"},"passwd":{"users":[{"name":"core","sshAuthorizedKeys":["ssh-rsa AAAAB3NzaC1yc..."]}]}}
 ```
 
 We can see that it produces a JSON file. This file isn't intended to be human-friendly, and will definitely be a pain to read/edit (especially if you have multi-line things like systemd units). Luckily, you shouldn't have to care about this file! Just provide it to a booting Container Linux machine and Ignition, the utility inside of Container Linux that receives this file, will know what to do with it.
@@ -39,6 +41,6 @@ The method by which this file is provided to a Container Linux machine depends o
 To see some examples for what else ct can do, head over to the [examples][3].
 
 [1]: ../config-transpiler/configuration
-[2]: https://github.com/kinvolk/ignition/blob/flatcar-master/doc/supported-platforms.md
-[3]: ../cl-config/examples
-[4]: https://github.com/kinvolk/container-linux-config-transpiler/releases
+[2]: https://coreos.github.io/ignition/supported-platforms/
+[3]: https://coreos.github.io/butane/examples/
+[4]: https://github.com/coreos/butane/releases
