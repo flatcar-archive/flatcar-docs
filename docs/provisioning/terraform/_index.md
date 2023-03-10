@@ -59,9 +59,12 @@ When using a template be careful to refer to the Terraform variables via `${vari
 Sometimes you want to take the declarative approach of Terraform but can't accept that nodes are destroyed and recreated for configuration changes.
 This is the case for nodes that have a manual or slow bring-up process, much data that can't be moved easily, or where the IP address should not change.
 
-Ignition can be told to run again through `touch /boot/flatcar/first_boot` but it [won't clean up any old state][boot-process].
-For that you have to reformat the root filesystem with Ignition to ensure that no old state is present.
-Persistent data should be stored on another partition.
+Ignition can be told to run again through `flatcar-reset` (available since Alpha 3535.0.0), which also takes care of cleaning up old rootfs state and keeping only the rootfs data you want to keep.
+
+### Reformatting
+
+Another alternative to `flatcar-reset` is to reformat the root filesystem with Ignition to ensure that no old state is present, or use cloud-provider [reinstall options like on Equinix Metal](https://registry.terraform.io/providers/equinix/equinix/latest/docs/resources/equinix_metal_device#reinstall).
+Persistent data should be stored on another partition which should be set to be kept.
 
 We can also preserve the machine ID by setting it as kernel cmdline parameter (it must not be kept as file on the root filesystem because that prevents the systemd first-boot semantics to enable units through the preset Ignition creates).
 
@@ -96,7 +99,8 @@ storage:
 ```
 
 The final User Data needs to be stored on a place where modifications are allowed without destroying the node.
-A good option could be AWS S3 or other similar cloud storage solutions.
+For some Terraform providers it is directly possible to allow changes but that is not always the case.
+A good option then could be AWS S3 or other similar cloud storage solutions.
 The real User Data of the node is just an Ignition Config that references the external User Data:
 
 ```

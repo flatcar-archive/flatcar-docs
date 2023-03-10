@@ -36,7 +36,7 @@ The lack of variable substitution in Ignition has an added benefit of leveling t
 
 ### When is Ignition executed
 
-On boot, GRUB checks the EFI System Partition for a file at `flatcar/first_boot` (or `coreos/first_boot` if the machine was updated from CoreOS CL) and sets `flatcar.first_boot=detected` if found. The `flatcar.first_boot` parameter is processed by a [systemd-generator] in the [initramfs] and if the parameter value is non-zero, the Ignition units are set as dependencies of `initrd.target`, causing Ignition to run. If the parameter is set to the special value `detected`, the `flatcar/first_boot` (or `coreos/first_boot`) file is deleted after Ignition runs successfully.
+On boot, GRUB checks the EFI System Partition for a file at `flatcar/first_boot` (or `coreos/first_boot` if the machine was updated from CoreOS CL) and sets `flatcar.first_boot=detected` if found. The `flatcar.first_boot` parameter is processed by a [systemd-generator] in the [initramfs] and if the parameter value is non-zero, the Ignition units are set as dependencies of `initrd.target`, causing Ignition to run. If the parameter is set to the special value `detected`, the `flatcar/first_boot` (or `coreos/first_boot`) file is deleted after Ignition runs successfully. You can schedule a re-run of Ignition with the `flatcar-reset` tool (available since Alpha 3535.0.0), which also takes care of cleaning up old rootfs state and keeping only the data from the rootfs you want to keep.
 
 Note that [PXE][supported-platforms] deployments don't use GRUB to boot, so `flatcar.first_boot=1` must be added to the boot arguments in order for Ignition to run. `detected` should not be specified so Ignition will not attempt to delete `flatcar/first_boot` (or `coreos/first_boot`).
 

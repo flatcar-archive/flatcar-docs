@@ -285,6 +285,17 @@ update_engine_client -reset_status
 update_engine_client -check_for_update
 ```
 
+### Management of config files
+
+Since Alpha 3535.0.0 the OS config files under `/etc` are updated through the overlay mount as long as they are not modified.
+On boot any files in `/etc` that are the same as provided by the booted `/usr/share/flatcar/etc` default for the overlay mount on `/etc` are deleted to ensure that future updates of `/usr/share/flatcar/etc` are propagated. To opt out, create `/etc/.no-dup-update` in case you want to keep an unmodified config file as is or because you fear that a future Flatcar version may use the same file as you at which point your copy is cleaned up and any other future Flatcar changes would be applied.
+
+To find out the differences of your machine compared to the OS defaults, run:
+
+```sh
+sudo git diff --no-index /usr/share/flatcar/etc /etc
+```
+
 ### Configure a post-install update hook
 
 Sometimes you may want to run a custom action after update-engine wrote the new partition out.
