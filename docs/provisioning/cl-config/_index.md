@@ -1,6 +1,6 @@
 ---
-title: Using Container Linux Config
-linktitle: Container Linux Config
+title: Container Linux Config Transpiler
+linktitle: Container Linux Config Transpiler
 description: YAML configuration format used to generate Ignition configs.
 weight: 20
 aliases:

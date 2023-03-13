@@ -1,7 +1,7 @@
 ---
 content_type: butane
 title: Butane Config Transpiler
-linktitle: Config Transpiler
+linktitle: Butane Config Transpiler
 description: Transforms Butane files into Ignition configuration
 main_menu: true
 weight: 30
