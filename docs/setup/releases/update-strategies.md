@@ -296,6 +296,12 @@ To find out the differences of your machine compared to the OS defaults, run:
 sudo git diff --no-index /usr/share/flatcar/etc /etc
 ```
 
+You can also see what files got created under the real `/etc` with the following commands:
+
+```sh
+sudo unshare -m "umount /etc; ls -lahR /etc"
+```
+
 ### Configure a post-install update hook
 
 Sometimes you may want to run a custom action after update-engine wrote the new partition out.
