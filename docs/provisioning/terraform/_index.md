@@ -61,6 +61,9 @@ This is the case for nodes that have a manual or slow bring-up process, much dat
 
 Ignition can be told to run again through `flatcar-reset` (available since Alpha 3535.0.0), which also takes care of cleaning up old rootfs state and keeping only the rootfs data you want to keep.
 
+A Terraform setup that runs `flatcar-reset` when the cloud instance userdata changes can be found in the [flatcar-terraform repository][example-repo].
+The list of paths in the rootfs to keep can be configured.
+
 ### Reformatting
 
 Another alternative to `flatcar-reset` is to reformat the root filesystem with Ignition to ensure that no old state is present, or use cloud-provider [reinstall options like on Equinix Metal](https://registry.terraform.io/providers/equinix/equinix/latest/docs/resources/equinix_metal_device#reinstall).
