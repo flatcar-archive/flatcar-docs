@@ -53,9 +53,7 @@ All stateful data, including container images, is stored within the read/write f
 
 The data stored on the root partition isn't manipulated by the update process. In return, we do our best to prevent you from modifying the data in /usr.
 
-Due to the unique disk layout of Flatcar Container Linux, an `rm -rf --one-file-system --no-preserve-root /` is an unsupported but valid operation to purge any OS data. On the next boot, the machine should just start from a clean state.
-
-To [re-provision][provisioning] the node after such cleanup, use `touch /boot/flatcar/first_boot` to trigger Ignition [to run once][boot process] again on the next boot (if the machine was updated from CoreOS Container Linux, you need to use `/boot/coreos/first_boot`).
+Due to the unique disk layout of Flatcar Container Linux, `umount -l /etc && rm -rf --one-file-system --no-preserve-root /` is an unsupported but valid operation to purge any OS data. On the next boot, the machine should just start from a clean state, but note that you should rather use the `flatcar-reset` tool for a proper reset, which also gives control of what data to keep.
 
 [provisioning]: ../../provisioning
 [boot process]: ../../provisioning/ignition/boot-process
