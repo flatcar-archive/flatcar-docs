@@ -1,5 +1,5 @@
 ---
-title: Reboot strategies on updates
+title: Update and reboot strategies
 description: How to configure when you Flatcar instances should reboot.
 weight: 30
 aliases:
