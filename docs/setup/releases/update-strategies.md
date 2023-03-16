@@ -155,6 +155,8 @@ PXE/iPXE machines download a new copy of Flatcar Container Linux every time they
 
 An easy solution to this problem is to use iPXE and reference images [directly from the Flatcar Container Linux storage site][ipxe-boot-script]. The `alpha` URL is automatically pointed to the new version of Flatcar Container Linux as it is released.
 
+In case you never install to disk but only run the PXE image in memory, you would still need a manual reboot to switch to new versions. To address that, consider running the external tool [flatcar-pxe-update-engine](https://github.com/utilitywarehouse/flatcar-pxe-update-engine) for automatic reboots with locksmith as discussed in the sections above.
+
 ## Disable Automatic Updates
 
 If for a short time frame you want to temporarily disable update reboots, run `sudo systemctl stop update-engine locksmithd`, and when done, `sudo systemctl start update-engine locksmithd`.
