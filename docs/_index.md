@@ -72,9 +72,8 @@ Container Linux Config to an Ignition config.
  * [Understanding the Boot Process][ignition-boot]
  * [Configuring the Network with Ignition][ignition-network]
  * [Using metadata during provisioning][ignition-metadata]
- * [Getting started with Container Linux Config][config-intro]
- * [Examples of using Container Linux Config][config-examples]
- * [Platform agnostic metadata in Container Linux Config][config-dynamic-data]
+ * [Getting started with Butane][config-intro]
+ * [Examples of using Butane][config-examples]
  * [Using Terraform to provision Flatcar Container Linux][terraform]
  * [Extending the base OS with systemd-sysext images][sysext]
 
@@ -165,7 +164,7 @@ APIs and troubleshooting guides for working with Flatcar Container Linux.
 [config-transpiler]: provisioning/config-transpiler/
 [config-intro]: provisioning/config-transpiler/getting-started
 [config-dynamic-data]: provisioning/config-transpiler/dynamic-data
-[config-examples]: provisioning/cl-config/examples
+[config-examples]: provisioning/config-transpiler/examples
 [matchbox]: https://matchbox.psdn.io/
 [ipxe]: installing/bare-metal/booting-with-ipxe
 [pxe]: installing/bare-metal/booting-with-pxe
