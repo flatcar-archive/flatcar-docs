@@ -57,15 +57,17 @@ Test that it's working:
 docker -H tcp://127.0.0.1:2375 ps
 ```
 
-### Container Linux Config
+### Butane Config
 
-To enable the remote API on every Flatcar Container Linux machine in a cluster, use a [Container Linux Config][cl-configs]. We need to provide the new socket file and Docker's socket activation support will automatically start using the socket:
+To enable the remote API on every Flatcar Container Linux machine in a cluster, use a [Butane Config][butane-configs]. We need to provide the new socket file and Docker's socket activation support will automatically start using the socket:
 
 ```yaml
+variant: flatcar
+version: 1.0.0
 systemd:
   units:
     - name: docker-tcp.socket
-      enable: true
+      enabled: true
       contents: |
         [Unit]
         Description=Docker Socket for the API
@@ -181,15 +183,16 @@ export DOCKER_HOST=tcp://server.example.com:2376 DOCKER_TLS_VERIFY=1
 docker images
 ```
 
-### Container Linux Config (TLS)
+### Butane Config (TLS)
 
-A Container Linux Config for Docker TLS authentication will look like:
+A Butane Config for Docker TLS authentication will look like:
 
 ```yaml
+variant: flatcar
+version: 1.0.0
 storage:
   files:
     - path: /etc/docker/ca.pem
-      filesystem: root
       mode: 0644
       contents:
         inline: |
@@ -199,7 +202,6 @@ storage:
           NTA5MDIxMDExMThaMC0xDDAKBgNVBAYTA1VTQTEQMA4GA1UEChMHZXRjZC1jYTEL
           ... ... ...
     - path: /etc/docker/server.pem
-      filesystem: root
       mode: 0644
       contents:
         inline: |
@@ -209,7 +211,6 @@ storage:
           NTA5MDIxMDM3MDNaMEQxDDAKBgNVBAYTA1VTQTEQMA4GA1UEChMHZXRjZC1jYTEQ
           ... ... ...
     - path: /etc/docker/server-key.pem
-      filesystem: root
       mode: 0644
       contents:
         inline: |
@@ -221,7 +222,7 @@ storage:
 systemd:
   units:
     - name: docker-tls-tcp.socket
-      enable: true
+      enabled: true
       contents: |
         [Unit]
         Description=Docker Secured Socket for the API
@@ -233,12 +234,12 @@ systemd:
 
         [Install]
         WantedBy=sockets.target
-docker:
-  flags:
-    - --tlsverify
-    - --tlscacert=/etc/docker/ca.pem
-    - --tlscert=/etc/docker/server.pem
-    - --tlskey=/etc/docker/server-key.pem
+    - name: docker.service
+      dropins:
+        - name: flags.conf
+          contents: |
+            [Service]
+            Environment="DOCKER_OPTS=--tlsverify --tlscacert=/etc/docker/ca.pem --tlscert=/etc/docker/server.pem --tlskey=/etc/docker/server-key.pem"
 ```
 
 ## Use attached storage for Docker images
@@ -268,14 +269,21 @@ docker ps
 journalctl -u docker
 ```
 
-### Container Linux Config (flags)
+### Butane Config (flags)
 
-If you need to modify a flag across many machines, you can add the flag with a Container Linux Config:
+If you need to modify a flag across many machines, you can add the flag with a Butane Config:
 
 ```yaml
-docker:
-  flags:
-    - --debug
+variant: flatcar
+version: 1.0.0
+systemd:
+  units:
+    - name: docker.service
+      dropins:
+        - name: flags.conf
+          contents: |
+            [Service]
+            Environment="DOCKER_OPTS=--debug"
 ```
 
 ## Use an HTTP proxy
@@ -302,15 +310,17 @@ systemctl restart docker
 
 Proxy environment variables can also be set [system-wide][systemd-env-vars].
 
-### Container Linux Config (proxy)
+### Butane Config (proxy)
 
-The easiest way to use this proxy on all of your machines is via a Container Linux Config:
+The easiest way to use this proxy on all of your machines is via a Butane Config:
 
 ```yaml
+variant: flatcar
+version: 1.0.0
 systemd:
   units:
     - name: docker.service
-      enable: true
+      enabled: true
       dropins:
         - name: 20-http-proxy.conf
           contents: |
@@ -340,15 +350,17 @@ systemctl daemon-reload
 systemctl restart docker
 ```
 
-### Container Linux Config (ulimits)
+### Butane Config (ulimits)
 
-The easiest way to use these new ulimits on all of your machines is via a Container Linux Config:
+The easiest way to use these new ulimits on all of your machines is via a Butane Config:
 
 ```yaml
+variant: flatcar
+version: 1.0.0
 systemd:
   units:
     - name: docker.service
-      enable: true
+      enabled: true
       dropins:
         - name: 30-increase-ulimit.conf
           contents: |
@@ -366,4 +378,4 @@ A json file `.dockercfg` can be created in your home directory that holds authen
 [self-signed-certs]: ../setup/security/generate-self-signed-certificates
 [systemd-socket]: https://www.freedesktop.org/software/systemd/man/systemd.socket.html
 [systemd-env-vars]: ../setup/systemd/environment-variables/#system-wide-environment-variables
-[cl-configs]: ../../provisioning/cl-config
+[butane-configs]: ../../provisioning/config-transpiler
