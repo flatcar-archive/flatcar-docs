@@ -29,13 +29,15 @@ modprobe cpufreq_conservative
 echo "conservative" | tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor > /dev/null
 ```
 
-This can be configured with a [Container Linux Config][cl-configs] as well:
+This can be configured with a [Butane Config][butane-configs] as well:
 
 ```yaml
+variant: flatcar
+version: 1.0.0
 systemd:
   units:
     - name: cpu-governor.service
-      enable: true
+      enabled: true
       contents: |
         [Unit]
         Description=Enable CPU power saving
@@ -52,4 +54,4 @@ systemd:
 
 More information on further tuning each governor is available in the [Kernel Documentation](https://www.kernel.org/doc/Documentation/cpu-freq/governors.txt)
 
-[cl-configs]: ../../provisioning/cl-config
+[butane-configs]: ../../provisioning/config-transpiler

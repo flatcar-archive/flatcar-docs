@@ -73,7 +73,7 @@ NTP synchronized: yes
 
 ## Time synchronization
 
-Flatcar Container Linux clusters use NTP to synchronize the clocks of member nodes, and all machines start an NTP client at boot. Flatcar Container Linux versions later than [681.0.0][681.0.0] use [`systemd-timesyncd(8)`][systemd-timesyncd] as the default NTP client. Earlier versions used [`ntpd(8)`][ntp.org]. Use `systemctl` to check which service is running:
+Flatcar Container Linux clusters use NTP to synchronize the clocks of member nodes, and all machines start an NTP client at boot. The operating system uses [`systemd-timesyncd(8)`][systemd-timesyncd] as the default NTP client. Use `systemctl` to check which service is running:
 
 ```shell
 $ systemctl status systemd-timesyncd ntpd
@@ -126,13 +126,14 @@ Then restart the network daemon:
 sudo systemctl restart systemd-networkd
 ```
 
-NTP time sources can be set in `timesyncd.conf` with a [Container Linux Config][cl-configs] snippet like:
+NTP time sources can be set in `timesyncd.conf` with a [Butane Config][butane-configs] snippet like:
 
 ```yaml
+variant: flatcar
+version: 1.0.0
 storage:
   files:
     - path: /etc/systemd/timesyncd.conf
-      filesystem: root
       mode: 0644
       contents:
         inline: |
@@ -142,7 +143,7 @@ storage:
 
 ## Switching from timesyncd to ntpd
 
-On Flatcar Container Linux 681.0.0 or later, you can switch from `systemd-timesyncd` back to `ntpd` with the following commands:
+You can switch from `systemd-timesyncd` to `ntpd` with the following commands:
 
 ```shell
 sudo systemctl stop systemd-timesyncd
@@ -151,18 +152,20 @@ sudo systemctl enable ntpd
 sudo systemctl start ntpd
 ```
 
-or with this Container Linux Config snippet:
+or with this Butane Config snippet:
 
 ```yaml
+variant: flatcar
+version: 1.0.0
 systemd:
   units:
     - name: systemd-timesyncd.service
       mask: true
     - name: ntpd.service
-      enable: true
+      enabled: true
 ```
 
-Because `timesyncd` and `ntpd` are mutually exclusive, it's important to `mask` the `systemd-tinesyncd` service. `Systemctl disable` or `stop` alone will not prevent a default service from starting again.
+Because `timesyncd` and `ntpd` are mutually exclusive, it's important to `mask` the `systemd-timesyncd` service. `systemctl disable` or `stop` alone will not prevent a default service from starting again.
 
 ### Configuring ntpd
 
@@ -183,13 +186,15 @@ Then ask `ntpd` to reload its configuration:
 sudo systemctl reload ntpd
 ```
 
-Or, in a [Container Linux Config][cl-configs]:
+Or, in a [Butane Config][butane-configs]:
 
 ```yaml
+variant: flatcar
+version: 1.0.0
 storage:
   files:
     - path: /etc/ntp.conf
-      filesystem: root
+      overwrite: true
       mode: 0644
       contents:
         inline: |
@@ -204,9 +209,8 @@ storage:
 ```
 
 [timedatectl]: http://www.freedesktop.org/software/systemd/man/timedatectl.html
-[681.0.0]: https://github.com/kinvolk/manifest/tree/build-681
 [ntp.org]: http://ntp.org/
 [systemd-timesyncd]: http://www.freedesktop.org/software/systemd/man/systemd-timesyncd.service.html
 [systemd.network]: http://www.freedesktop.org/software/systemd/man/systemd.network.html
 [timesyncd.conf]: http://www.freedesktop.org/software/systemd/man/timesyncd.conf.html
-[cl-configs]: ../../provisioning/cl-config
+[butane-configs]: ../../provisioning/config-transpiler
