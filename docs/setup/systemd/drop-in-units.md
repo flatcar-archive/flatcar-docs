@@ -34,8 +34,8 @@ CPUShares=16
 MemoryLimit=32M
 PrivateDevices=true
 Environment=GOMAXPROCS=1
-EnvironmentFile=-/usr/share/coreos/update.conf
-EnvironmentFile=-/etc/coreos/update.conf
+EnvironmentFile=-/usr/share/flatcar/update.conf
+EnvironmentFile=-/etc/flatcar/update.conf
 ExecStart=/usr/lib/locksmith/locksmithd
 Restart=on-failure
 RestartSec=10s
@@ -68,13 +68,15 @@ And restart modified service if necessary (in our example we have changed only `
 systemctl restart locksmithd.service
 ```
 
-Here is how that could be implemented within a Container Linux Config:
+Here is how that could be implemented within a Butane Config:
 
-```containter-linux-config
+```yaml
+variant: flatcar
+version: 1.0.0
 systemd:
   units:
     - name: locksmithd.service
-      enable: true
+      enabled: true
       dropins:
         - name: 10-restart_60s.conf
           contents: |
@@ -100,8 +102,8 @@ CPUShares=16
 MemoryLimit=32M
 PrivateDevices=true
 Environment=GOMAXPROCS=1
-EnvironmentFile=-/usr/share/coreos/update.conf
-EnvironmentFile=-/etc/coreos/update.conf
+EnvironmentFile=-/usr/share/flatcar/update.conf
+EnvironmentFile=-/etc/flatcar/update.conf
 ExecStart=/usr/lib/locksmith/locksmithd
 Restart=on-failure
 RestartSec=60s
@@ -110,13 +112,15 @@ RestartSec=60s
 WantedBy=multi-user.target
 ```
 
-Container Linux Config example:
+Butane Config example:
 
 ```yaml
+variant: flatcar
+version: 1.0.0
 systemd:
   units:
     - name: locksmithd.service
-      enable: true
+      enabled: true
       contents: |
         [Unit]
         Description=Cluster reboot manager
@@ -129,8 +133,8 @@ systemd:
         MemoryLimit=32M
         PrivateDevices=true
         Environment=GOMAXPROCS=1
-        EnvironmentFile=-/usr/share/coreos/update.conf
-        EnvironmentFile=-/etc/coreos/update.conf
+        EnvironmentFile=-/usr/share/flatcar/update.conf
+        EnvironmentFile=-/etc/flatcar/update.conf
         ExecStart=/usr/lib/locksmith/locksmithd
         Restart=on-failure
         RestartSec=60s
@@ -153,7 +157,7 @@ For more examples using systemd customization, check out these documents:
 
  * [Customizing Docker](../../container-runtimes/customizing-docker#using-a-dockercfg-file-for-authentication)
  * [Customizing the SSH Daemon](../security/customizing-sshd#changing-the-sshd-port)
- * [Using Environment Variables In systemd Units](using-environment-variables-in-systemd-units)
+ * [Using Environment Variables in systemd Units](using-environment-variables-in-systemd-units)
 
 ## More Information
 
