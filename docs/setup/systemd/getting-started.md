@@ -157,6 +157,24 @@ ExecStartPost=/usr/bin/etcdctl set /domains/example.com/%H:%i running
 
 This gives us the flexibility to use a single unit file to announce multiple copies of the same container on a single machine (no port overlap) and on multiple machines (no hostname overlap).
 
+## Shutdown hooks
+
+While systemd allows to add custom hooks in `/usr/lib/systemd/system-shutdown/` that get run for `poweroff`/`halt`/`reboot`/`kexec` events, this path is not writable on Flatcar Container Linux. Therefore, regular units need to be used for running, e.g., a special cleanup action on shutdown:
+
+```ini
+[Unit]
+Description=Custom cleanup on shutdown
+DefaultDependencies=no
+After=final.target
+
+[Service]
+Type=oneshot
+ExecStart=bash -c 'echo bye; touch /bye'
+
+[Install]
+WantedBy=final.target
+```
+
 ## More information
 
 - [`systemd.service` Docs](http://www.freedesktop.org/software/systemd/man/systemd.service.html)
