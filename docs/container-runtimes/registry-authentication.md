@@ -181,17 +181,18 @@ The archive secret is referenced via the `uris` field in a container specificati
 
 More thorough information about configuring Mesos registry authentication can be found on the ['Using a Private Docker Registry'][mesos-registry] documentation.
 
-## Copying the config file with a Container Linux Config
+## Copying the config file with a Butane Config
 
-[Container Linux Configs][cl-configs] can be used to provision a Flatcar Container Linux node on first boot. Here we will use it to copy registry authentication config files to their appropriate destination on disk. This provides immediate access to your private Docker Hub and Quay image repositories without the need for manual intervention. The same Container Linux Config file can be used to copy registry auth configs onto an entire cluster of Flatcar Container Linux nodes.
+[Butane Configs][butane-configs] can be used to provision a Flatcar Container Linux node on first boot. Here we will use it to copy registry authentication config files to their appropriate destination on disk. This provides immediate access to your private Docker Hub and Quay image repositories without the need for manual intervention. The same Butane Config file can be used to copy registry auth configs onto an entire cluster of Flatcar Container Linux nodes.
 
-Here is an example of using a Container Linux Config to write the .docker/config.json registry auth configuration file mentioned above to the appropriate path on the Flatcar Container Linux node:
+Here is an example of using a Butane Config to write the `.docker/config.json` registry auth configuration file mentioned above to the appropriate path on the Flatcar Container Linux node:
 
 ```yaml
+variant: flatcar
+version: 1.0.0
 storage:
   files:
     - path: /home/core/.docker/config.json
-      filesystem: root
       mode: 0644
       contents:
         inline: |
@@ -205,24 +206,22 @@ storage:
           }
 ```
 
-Container Linux Configs can also download a file from a remote location and verify its integrity with a SHA512 hash:
+Butane Configs can also download a file from a remote location and verify its integrity with a SHA512 hash:
 
 ```yaml
+variant: flatcar
+version: 1.0.0
 storage:
   files:
     - path: /home/core/.docker/config.json
-      filesystem: root
       mode: 0644
       contents:
-        remote:
-          url: http://internal.infra.example.com/cluster-docker-config.json
-          verification:
-            hash:
-              function: sha512
-              sum: 0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef
+        source: http://internal.infra.example.com/cluster-docker-config.json
+        verification:
+          hash: sha512-0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef
 ```
 
-For details, check out the [Container Linux Config examples][ct-examples].
+For details, check out the [Butane Config examples][butane-examples].
 
 [config-valid]: https://coreos.com/validate/
 [docker-hub-site]: https://hub.docker.com/
@@ -239,5 +238,5 @@ For details, check out the [Container Linux Config examples][ct-examples].
 [quay-site]: https://quay.io/
 [rfc-2397]: https://tools.ietf.org/html/rfc2397
 [rkt-config]: registry-authentication/#rkt
-[cl-configs]: ../provisioning/cl-config
-[ct-examples]: ../provisioning/cl-config/examples
+[butane-configs]: ../provisioning/config-transpiler
+[butane-examples]: ../provisioning/config-transpiler/examples
