@@ -197,6 +197,7 @@ As it requires to have some tools already installed on the OS to work correcly w
 While CAPI is an evolving project and Flatcar support is in-progress regarding the various providers, here's the current list of supported providers:
 * [AWS][capi-aws]
 * [Azure][capi-azure]
+* [OpenStack][openstack]
 * [vSphere][capi-vsphere]
 
 [butane]: https://coreos.github.io/butane/
@@ -209,4 +210,5 @@ While CAPI is an evolving project and Flatcar support is in-progress regarding t
 [flatcar-891]: https://github.com/flatcar/Flatcar/issues/891
 [image-builder]: https://github.com/kubernetes-sigs/image-builder
 [kubenet]: https://github.com/flatcar/Flatcar/issues/579
+[openstack]: https://cluster-api-openstack.sigs.k8s.io/clusteropenstack/configuration.html#ignition-based-images
 [typhoon]: https://typhoon.psdn.io/
