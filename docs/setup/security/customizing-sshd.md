@@ -7,20 +7,22 @@ aliases:
     - ../../clusters/securing/customizing-sshd
 ---
 
-Flatcar Container Linux defaults to running an OpenSSH daemon using `systemd` socket activation -- when a client connects to the port configured for SSH, `sshd` is started on the fly for that client using a `systemd` unit derived automatically from a template. In some cases you may want to customize this daemon's authentication methods or other configuration. This guide will show you how to do that at boot time using a [Container Linux Config][cl-configs], and after building by modifying the `systemd` unit file.
+Flatcar Container Linux defaults to running an OpenSSH daemon using `systemd` socket activation -- when a client connects to the port configured for SSH, `sshd` is started on the fly for that client using a `systemd` unit derived automatically from a template. In some cases you may want to customize this daemon's authentication methods or other configuration. This guide will show you how to do that at boot time using a [Butane Config][butane-configs], and after building by modifying the `systemd` unit file.
 
 As a practical example, when a client fails to connect by not completing the TCP connection (e.g. because the "client" is actually a TCP port scanner), the MOTD may report failures of `systemd` units (which will be named by the source IP that failed to connect) next time you log in to the Flatcar Container Linux host. These failures are not themselves harmful, but it is a good general practice to change how SSH listens, either by changing the IP address `sshd` listens to from the default setting (which listens on all configured interfaces), changing the default port, or both.
 
-## Customizing sshd with a Container Linux Config
+## Customizing sshd with a Butane Config
 
 In this example we will disable logins for the `root` user, only allow login for the `core` user and disable password based authentication. For more details on what sections can be added to `/etc/ssh/sshd_config` see the [OpenSSH manual][openssh-manual].
 If you're interested in additional security options, Mozilla provides a well-commented example of a [hardened configuration][mozilla-ssh-rec].
 
 ```yaml
+variant: flatcar
+version: 1.0.0
 storage:
   files:
     - path: /etc/ssh/sshd_config
-      filesystem: root
+      overwrite: true
       mode: 0600
       contents:
         inline: |
@@ -36,9 +38,11 @@ storage:
 
 ### Changing the sshd port (cloud-config)
 
-Flatcar Container Linux ships with socket-activated SSH daemon by default. The configuration for this can be found at `/usr/lib/systemd/system/sshd.socket`. We're going to override some of the default settings for this in the Container Linux Config provided at boot:
+Flatcar Container Linux ships with socket-activated SSH daemon by default. The configuration for this can be found at `/usr/lib/systemd/system/sshd.socket`. We're going to override some of the default settings for this in the Butane Config provided at boot:
 
 ```yaml
+variant: flatcar
+version: 1.0.0
 systemd:
   units:
     - name: sshd.socket
@@ -56,13 +60,15 @@ systemd:
 
 It may be desirable to disable socket-activation for sshd to ensure it will reliably accept connections even when systemd or dbus aren't operating correctly.
 
-To configure sshd on Flatcar Container Linux without socket activation, a Container Linux Config file similar to the following may be used:
+To configure sshd on Flatcar Container Linux without socket activation, a Butane Config file similar to the following may be used:
 
 ```yaml
+variant: flatcar
+version: 1.0.0
 systemd:
   units:
   - name: sshd.service
-    enable: true
+    enabled: true
   - name: sshd.socket
     mask: true
 ```
@@ -71,11 +77,11 @@ Note that in this configuration the port will be configured by updating the `/et
 
 ### Further reading
 
-Read the [full Container Linux Config][cl-configs] guide for more details on working with Container Linux Configs, including setting user's ssh keys.
+Read the [full Butane Config][butane-configs] guide for more details on working with Butane Configs, including setting user's ssh keys.
 
 ## Customizing sshd after first boot
 
-Since [Container Linux Configs][cl-configs] are only applied on first boot, existing machines will have to be configured in a different way.
+Since [Butane Configs][butane-configs] are only applied on first boot, existing machines will have to be configured in a different way.
 
 The following sections walk through applying the same changes documented above on a running machine.
 
@@ -186,4 +192,4 @@ For more information about configuring Flatcar Container Linux hosts with `syste
 [systemd-getting-started]: ../systemd/getting-started
 [openssh-manual]: http://www.openssh.com/cgi-bin/man.cgi?query=sshd_config
 [mozilla-ssh-rec]: https://wiki.mozilla.org/Security/Guidelines/OpenSSH#Modern_.28OpenSSH_6.7.2B.29
-[cl-configs]: ../../provisioning/cl-config
+[butane-configs]: ../../provisioning/config-transpiler
