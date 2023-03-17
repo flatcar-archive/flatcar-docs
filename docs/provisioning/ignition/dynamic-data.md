@@ -1,6 +1,9 @@
 ---
 title: Referencing dynamic data
 weight: 40
+aliases:
+    - ./metadata
+    - ../../ignition/metadata
 ---
 
 ## Overview
@@ -62,6 +65,8 @@ systemd:
         [Service]
         EnvironmentFile=/run/metadata/flatcar
         Type=oneshot
+        RemainAfterExit=yes
+        Restart=on-failure
         # Print the custom hostname variable from /run/metadata/flatcar
         ExecStart=echo "${COREOS_CUSTOM_HOSTNAME}"
         # Directly use /run/metadata/flatcar to print the private IP address out (with multiple patterns to work with any provider not only custom)
@@ -72,6 +77,5 @@ systemd:
 
 You can find another example in the [VMware docs](../../installing/cloud/vmware.md).
 
-## Behind the scenes
 
 [afterburndocs]: https://github.com/coreos/afterburn/blob/main/docs/usage/attributes.md#metadata-attributes
