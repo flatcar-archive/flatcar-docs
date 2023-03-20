@@ -12,7 +12,7 @@ Another approach we recommended was to [store binaries in `/opt/bin`](../contain
 The systemd project announced the portable services feature to address deploying custom services.
 However, since it only covered the service itself without making the client binaries available on the user, it didn't really fit the use case fully.
 The systemd-sysext feature finally provides a way to extend the base OS with a `/usr` overlay, thereby making custom binaries available to the user.
-While systemd-sysext images are not really meant to also include systemd units, Flatcar ships `ensure-sysext.service` as workaround to automatically load the image's services.
+While systemd-sysext images are not really good yet at including systemd units, Flatcar ships `ensure-sysext.service` as workaround to automatically load the image's services.
 Systemd-sysext is supported in Flatcar versions ≥ 3185.0.0 for user provided sysext images.
 
 ## Torcx deprecation
@@ -28,11 +28,11 @@ An image must be named `NAME.raw` while a plain folder just uses `NAME` as name.
 The image can be a plain ext4 or btrfs filesystem image but squashfs images are a useful format to consider because besides the compression it offers, the `mksquashfs` tool simply takes a directory as input and doesn't need loop devices and mounting of an image file.
 
 Inside the image or folder structure there must be a file `usr/lib/extension-release.d/extension-release.NAME` with metadata used for version matching.
-The basic matching that has to be there is `ID=flatcar` plus one of `VERSION` or `SYSEXT_LEVEL`.
-If your binaries link against Flatcar's binaries under `/usr`, you must couple your sysext image to the Flatcar version by specyfing `VERSION=MAJOR.MINOR.PATH` to match the `/etc/os-release` version.
+The basic matching that needs to be there is `ID=flatcar` plus one of `VERSION_ID` or `SYSEXT_LEVEL`.
+If your binaries link against Flatcar's binaries under `/usr`, you must couple your sysext image to the Flatcar version by specyfing `VERSION_ID=MAJOR.MINOR.PATCH` in `extension-release.NAME` to match the `VERSION_ID` field from `/etc/os-release`.
 This means that the sysext image won't be loaded anymore after an OS update.
 Therefore, it is recommended that you try to use static binaries which lifts the requirement of having to couple the versions.
-In this case you can specify `SYSEXT_LEVEL=1.0` instead of `VERSION`.
+In this case you can specify `SYSEXT_LEVEL=1.0` instead of `VERSION_ID`.
 The matching semantics for `SYSEXT_LEVEL` are limited at the moment and the use case for bumping the version are not there yet.
 In summary, this is what you will normally write to the metadata file:
 
@@ -42,7 +42,13 @@ SYSEXT_LEVEL=1.0
 ```
 
 Then place your binaries under `usr/bin/` and your systemd units under `usr/lib/systemd/system/`.
-To enable systemd units you can include the symlinks it would generate when enabling the units, e.g., `sockets.target.wants/my.socket` → `../my.socket`.
+While Flatcar currently allows you to enable systemd units by including the symlinks it would generate when enabling the units, e.g., `sockets.target.wants/my.socket` → `../my.socket`, this is not recommended.
+The recommended way is to ship drop-ins for the target units that start your unit, e.g., `usr/lib/systemd/system/sockets.target.d/10-docker-socket.conf` with the following content (similar for `multi-user.target` and a `.service` unit):
+
+```ini
+[Unit]
+Upholds=docker.socket
+```
 
 ## Supplying your sysext image from Ignition
 
@@ -73,7 +79,8 @@ HIERARCHY EXTENSIONS SINCE
 ```
 
 You can reload the sysext images at runtime by executing `systemctl restart systemd-sysext`.
-This triggers `ensure-sysext.service` to reevaluate `multi-user.target`, `sockets.target`, and `timers.target`, making sure your enabled systemd units run.
+In Flatcar this also triggers `ensure-sysext.service` to reload the unit files from disk (in the future this may be covered by `systemd-sysext` itself).
+As an additional workaround, Flatcar currently also reevaluates `multi-user.target`, `sockets.target`, and `timers.target`, to make sure your enabled systemd units run, but for units started by `Upholds=` drop-ins that wouldn't be needed.
 A manual `systemd-sysext refresh` is not recommended.
 
 ## Creating custom sysext images
