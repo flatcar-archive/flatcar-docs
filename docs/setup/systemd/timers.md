@@ -45,11 +45,13 @@ You can also create timer with different name, i.e. `task.timer`. In this case y
 Unit=date.service
 ```
 
-## Container Linux Config
+## Butane Config
 
-Here you'll find an example Container Linux Config demonstrating how to install systemd timers:
+Here you'll find an example Butane Config demonstrating how to install systemd timers:
 
 ```yaml
+variant: flatcar
+version: 1.0.0
 systemd:
   units:
     - name: date.service
@@ -61,7 +63,7 @@ systemd:
         Type=oneshot
         ExecStart=/usr/bin/sh -c '/usr/bin/date >> /tmp/date'
     - name: date.timer
-      enable: true
+      enabled: true
       contents: |
         [Unit]
         Description=Run date.service every 10 minutes
