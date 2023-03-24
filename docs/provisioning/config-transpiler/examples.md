@@ -167,6 +167,37 @@ systemd:
 
 This example creates a new systemd unit called hello.service, enables it so it will run on boot, and defines the contents to simply echo `"Hello, World!"`.
 
+## systemd user units
+
+```yaml
+variant: flatcar
+version: 1.0.0
+storage:
+  directories:
+    - path: /etc/systemd/user/default.target.wants
+      mode: 0755
+  files:
+    - path: /etc/systemd/user/hello.service
+      mode: 0644
+      contents:
+        inline: |
+          [Unit]
+          Description=A hello world unit!
+
+          [Service]
+          Type=oneshot
+          ExecStart=/usr/bin/echo "Hello, World!"
+
+          [Install]
+          WantedBy=default.target
+  links:
+    - path: /etc/systemd/user/default.target.wants/hello.service
+      target: /etc/systemd/user/hello.service
+      hard: false
+```
+
+This example creates a new systemd user unit called `hello.service`, enables it with an explicit symlink (workaround for Ignition) so it will run on boot, and defines the contents to simply echo `"Hello, World!"`.
+
 ## networkd units
 
 ```yaml
