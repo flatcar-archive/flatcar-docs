@@ -123,6 +123,7 @@ more.
  * [Using SELinux][selinux]
  * [Disabling SMT][disabling-smt]
  * [Enabling FIPS][enabling-fips]
+ * [Using the audit subsystem][audit-system]
 
 #### Debugging Flatcar
  * [Install debugging tools][debugging-tools]
@@ -214,6 +215,7 @@ APIs and troubleshooting guides for working with Flatcar Container Linux.
 [selinux]: setup/security/selinux
 [disabling-smt]: setup/security/disabling-smt
 [enabling-fips]: setup/security/fips
+[audit-system]: setup/security/audit
 [debugging-tools]: setup/debug/install-debugging-tools
 [btrfs]: setup/debug/btrfs-troubleshooting
 [system-log]: setup/debug/reading-the-system-log
