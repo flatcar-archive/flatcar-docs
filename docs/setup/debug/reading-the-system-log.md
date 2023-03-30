@@ -38,6 +38,21 @@ Dec 22 12:32:39 localhost docker[9772]: /usr/sbin/apache2ctl: 87: ulimit: error 
 Dec 22 12:32:39 localhost docker[9772]: apache2: Could not reliably determine the server's fully qualified domain name, using 172.17.0.6 for ServerName
 ```
 
+## Read the user journal from the current user
+
+It might be required to add a user different from `core` user to the `systemd-journal` group to read the user journal. It can be done with this Butane config:
+```yaml
+variant: flatcar
+version: 1.0.0
+passwd:
+  users:
+    - name: flatcar
+      groups:
+        - systemd-journal
+```
+
+Then from `flatcar` login: `journalctl --user`.
+
 ## Read entries since boot
 
 Reading just the entries since the last boot is an easy way to troubleshoot services that are failing to start properly:
