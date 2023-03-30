@@ -7,13 +7,15 @@ aliases:
     - ../../clusters/customization/adding-users
 ---
 
-You can create user accounts on a Flatcar Container Linux machine manually with `useradd` or via a [Container Linux Config][cl-config] when the machine is created.
+You can create user accounts on a Flatcar Container Linux machine manually with `useradd` or via a [Butane Config][butane-config] when the machine is created.
 
-## Add Users via Container Linux Configs
+## Add Users via Butane Configs
 
-In your Container Linux Config, you can specify many [different parameters][config-spec] for each user. Here's an example:
+In your Butane Config, you can specify many [different parameters][config-spec] for each user. Here's an example:
 
 ```yaml
+variant: flatcar
+version: 1.0.0
 passwd:
   users:
     - name: core
@@ -29,6 +31,8 @@ passwd:
 Because `usermod` does not work to add a user to a predefined system group, you can use [systemd-userdb][systemd-userdb] to define membership. Here's the same example with userdb:
 
 ```
+variant: flatcar
+version: 1.0.0
 passwd:
   users:
     - name: elroy
@@ -93,6 +97,6 @@ $ sudo cat /etc/sudoers.d/user1
 user1 ALL=(ALL) NOPASSWD: ALL
 ```
 
-[cl-config]: ../../provisioning/cl-config
+[cl-config]: ../../provisioning/config-transpiler
 [config-spec]: ../../provisioning/config-transpiler/configuration
 [systemd-userdb]: https://www.freedesktop.org/software/systemd/man/systemd-userdbd.service.html
