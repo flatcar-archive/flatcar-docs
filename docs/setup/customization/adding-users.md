@@ -26,6 +26,25 @@ passwd:
       groups: [ sudo, docker ]
 ```
 
+Because `usermod` does not work to add a user to a predefined system group, you can use [systemd-userdb][systemd-userdb] to define membership. Here's the same example with userdb:
+
+```
+passwd:
+  users:
+    - name: elroy
+      password_hash: "$6$5s2u6/jR$un0AvWnqilcgaNB3Mkxd5yYv6mTlWfOoCYHZmfi3LDKVltj.E8XNKEcwWm..."
+      ssh_authorized_keys:
+        - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDGdByTgSVHq......."
+storage:
+  files:
+    - path: /etc/userdb/elroy:sudo.membership
+      contents:
+        inline: " "
+    - path: /etc/userdb/elroy:docker.membership
+      contents:
+        inline: " "
+```
+
 ## Add user manually
 
 If you'd like to add a user manually, SSH to the machine and use the `useradd` tool. To create the user `user`, run:
@@ -76,3 +95,4 @@ user1 ALL=(ALL) NOPASSWD: ALL
 
 [cl-config]: ../../provisioning/cl-config
 [config-spec]: ../../provisioning/config-transpiler/configuration
+[systemd-userdb]: https://www.freedesktop.org/software/systemd/man/systemd-userdbd.service.html
