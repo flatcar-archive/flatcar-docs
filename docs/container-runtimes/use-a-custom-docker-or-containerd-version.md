@@ -133,8 +133,13 @@ storage:
           [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
           SystemdCgroup = true
   directories:
-    - path: /etc/extensions/docker-flatcar
-    - path: /etc/extensions/containerd-flatcar
+  links:
+    - path: /etc/extensions/docker-flatcar.raw
+      target: /dev/null
+      overwrite: true
+    - path: /etc/extensions/containerd-flatcar.raw
+      target: /dev/null
+      overwrite: true
 ```
 
 While the system services have a `PATH` variable that prefers `/opt/bin/` by placing it first, you have to run the following command on every interactive login shell (also after `sudo` or `su`) to make sure you use the correct binaries.

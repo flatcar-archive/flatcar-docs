@@ -53,7 +53,7 @@ Upholds=docker.socket
 ## Supplying your sysext image from Ignition
 
 The following Butane Config YAML can be be transpiled to Ignition JSON and will download a custom Docker+containerd sysext image on first boot.
-It also takes care of disabling Torcx and future built-in Docker and containerd sysext images we plan to ship in Flatcar.
+It also takes care of disabling Torcx and future built-in Docker and containerd sysext images we plan to ship in Flatcar (to revert this, you can find the original target of the symlinks in `/usr/share/flatcar/etc/extensions/` - as said, this is not yet shipped).
 
 ```yaml
 variant: flatcar
@@ -65,9 +65,13 @@ storage:
       contents:
         source: https://myserver.net/mydocker.raw
     - path: /etc/systemd/system-generators/torcx-generator
-  directories:
-    - path: /etc/extensions/docker-flatcar
-    - path: /etc/extensions/containerd-flatcar
+  links:
+    - path: /etc/extensions/docker-flatcar.raw
+      target: /dev/null
+      overwrite: true
+    - path: /etc/extensions/containerd-flatcar.raw
+      target: /dev/null
+      overwrite: true
 ```
 
 After boot you can see it loaded in the output of the `systemd-sysext` command:
