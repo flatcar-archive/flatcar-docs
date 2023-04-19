@@ -300,9 +300,9 @@ Furthermore, each package directory contains a `Manifest` file with cryptographi
 Multiple package sources - in separate directories - can be stacked on top of each other.
 These “overlays” allow custom extensions or even custom sub-trees on top of an existing foundation.
 In these stacks, “upper” level packages override “lower” level ones.
-The Flatcar build system uses a fork of Gentoo upstream’s `portage-stable` at [sdk_container/src/third_party/portage-stable/](https://github.com/flatcar/scripts/blob/main/sdk_container/src/third_party/portage-stable/) as its base.
+The Flatcar build system uses a fork of Gentoo upstream’s `portage-stable` at [sdk_container/src/third_party/portage-stable/][portage] as its base.
 Packages in this directory are kept in sync with Gentoo upstream, and are Flatcar's main source of patches (bug fixes and package stabilisations) to upstream Gentoo.
-Flatcar specific tools live in the overlay directory `coreos-overlay` at [sdk_container/src/third_party/coreos-overlay/](https://github.com/flatcar/scripts/blob/main/sdk_container/src/third_party/coreos-overlay).
+Flatcar specific tools live in the overlay directory `coreos-overlay` at [sdk_container/src/third_party/coreos-overlay/][coreos].
 
 Packages are built using "ebuild" files.
 These files contain dependencies of a package - both build and runtime - as well as implement callbacks for downloading, patching, building, and installing the package.
