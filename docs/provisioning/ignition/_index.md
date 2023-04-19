@@ -44,7 +44,7 @@ Ignition can read its config from a number of different locations, but only from
 
 ## Where is Ignition supported?
 
-The [full list of supported platforms][supported-platforms] is provided and will be kept up-to-date as development progresses.
+In addition to providers supported by [upstream Ignition][ignition-supported], Flatcar [supports](https://github.com/flatcar/scripts/blob/main/sdk_container/src/third_party/coreos-overlay/sys-apps/ignition/files/0018-revert-internal-oem-drop-noop-OEMs.patch) cloudsigma, hyperv, ineroute, niftycloud, rackspace[-onmetal], and vagrant.
 
 Ignition is under active development. Expect to see support for more images in the coming months.
 
