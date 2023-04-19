@@ -50,7 +50,7 @@ systemd:
               --discovery="https://discovery.etcd.io/<token>"
 ```
 
-Note that you have to generate a new token for each unique cluster from https://discovery.etcd.io/new?size=3 where you specify the initial size of your cluster with `?size=X`.
+Note that you need to generate a new token for each unique cluster from https://discovery.etcd.io/new?size=3 where you specify the initial size of your cluster with `?size=X`.
 The used variable name needs to be changed to match those that Afterburn uses for your platform.
 Multi-region and multi-cloud deployments need to use the public IP address.
 The configuration listens on both the official ports and the legacy ports.

@@ -11,7 +11,7 @@ The etcd systemd unit can be customized by overriding the unit that ships with t
 
 ## Use client certificates
 
-etcd supports client certificates as a way to provide secure communication between clients &#8596; leader and internal traffic between etcd peers in the cluster. Configuring certificates for both scenarios are done through a Butane Config. Options provided here will augment the unit that ships with Flatcar Container Linux.
+etcd supports client certificates as a way to provide secure communication between clients &#8596; leader and internal traffic between etcd peers in the cluster. Configuring certificates for both scenarios is done through a Butane Config. Options provided here will augment the unit that ships with Flatcar Container Linux.
 
 Please follow the [instructions][self-signed-howto] on how to create self-signed certificates and private keys.
 
