@@ -1,6 +1,6 @@
 ---
 title: Adding users
-description: How to create additional user accounts, either manually or with container linux configs.
+description: How to create additional user accounts, either manually or with Butane configs.
 weight: 10
 aliases:
     - ../../os/adding-users

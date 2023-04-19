@@ -35,53 +35,22 @@ For typical use cases, we recommend enabling the `mitigations=auto,nosmt` and `t
 
 ## Configuring new machines
 
-The following Container Linux Config performs two tasks:
+The following Butane Config performs two tasks:
 
 1. Adds `mitigations=auto,nosmt tsx=auto` to the kernel command line. This affects the second and subsequent boots of the machine, but not the first boot.
 2. On the first boot, disables SMT at runtime if the system has an Intel processor. This is sufficient to protect against currently-known SMT vulnerabilities until the system is rebooted. After reboot, SMT will be re-enabled if the processor is not actually vulnerable.
 
 ```yaml
 # Add kernel command-line arguments to automatically disable SMT or TSX
-# on CPUs where they are vulnerable.  This will affect the second and
-# subsequent boots of the machine, but not the first boot.
-storage:
-  filesystems:
-    - name: OEM
-      mount:
-        device: /dev/disk/by-label/OEM
-        format: btrfs
-  files:
-    - filesystem: OEM
-      path: /grub.cfg
-      append: true
-      mode: 0644
-      contents:
-        inline: |
-          # Disable SMT on CPUs affected by MDS or similar vulnerabilities.
-          # Disable TSX on CPUs affected by TAA but not by MDS.
-          set linux_append="$linux_append mitigations=auto,nosmt tsx=auto"
-
-# On the first boot only, disable SMT at runtime if it is enabled and
-# the system has an Intel CPU.  L1TF, MDS, and TAA vulnerabilities are
-# limited to Intel CPUs.
-systemd:
-  units:
-    - name: disable-smt-firstboot.service
-      enabled: true
-      contents: |
-        [Unit]
-        Description=Disable SMT on first boot on Intel CPUs to mitigate MDS
-        DefaultDependencies=no
-        Before=sysinit.target shutdown.target
-        Conflicts=shutdown.target
-        ConditionFirstBoot=true
-
-        [Service]
-        Type=oneshot
-        ExecStart=/bin/bash -c 'active="$(cat /sys/devices/system/cpu/smt/active)" && if [[ "$active" != 0 ]] && grep -q "vendor_id.*GenuineIntel" /proc/cpuinfo; then echo "Disabling SMT." && echo off > /sys/devices/system/cpu/smt/control; fi'
-
-        [Install]
-        WantedBy=sysinit.target
+# on CPUs where they are vulnerable.
+# Disable SMT on CPUs affected by MDS or similar vulnerabilities.
+# Disable TSX on CPUs affected by TAA but not by MDS.
+variant: flatcar
+version: 1.0.0
+kernel_arguments:
+  should_exist:
+    - mitigations=auto,nosmt
+    - tsx=auto
 ```
 
 ## Configuring existing machines

@@ -58,7 +58,7 @@ Flatcar Container Linux is designed to be updated automatically with different s
 
 CloudFormation will launch a cluster of Flatcar Container Linux machines with a security and autoscaling group.
 
-## Container Linux Configs
+## Butane Configs
 
 Flatcar Container Linux allows you to configure machine parameters, configure networking, launch systemd units on startup, and more via Butane Configs. These configs are then transpiled into Ignition configs and given to booting machines. Head over to the [docs to learn about the supported features][butane-configs].
 
@@ -97,7 +97,7 @@ cat cl.yaml | docker run --rm -i quay.io/coreos/butane:latest > ignition.json
 
 ### Instance storage
 
-Ephemeral disks and additional EBS volumes attached to instances can be mounted with a `.mount` unit. Amazon's block storage devices are attached differently [depending on the instance type](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/InstanceStorage.html#InstanceStoreDeviceNames). Here's the Container Linux Config to format and mount the first ephemeral disk, `xvdb`, on most instance types:
+Ephemeral disks and additional EBS volumes attached to instances can be mounted with a `.mount` unit. Amazon's block storage devices are attached differently [depending on the instance type](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/InstanceStorage.html#InstanceStoreDeviceNames). Here's the Butane Config to format and mount the first ephemeral disk, `xvdb`, on most instance types:
 
 ```yaml
 variant: flatcar
@@ -126,11 +126,11 @@ For more information about mounting storage, Amazon's [own documentation](http:/
 
 ### Adding more machines
 
-To add more instances to the cluster, just launch more with the same Container Linux Config, the appropriate security group and the AMI for that region. New instances will join the cluster regardless of region if the security groups are configured correctly.
+To add more instances to the cluster, just launch more with the same Butane Config, the appropriate security group and the AMI for that region. New instances will join the cluster regardless of region if the security groups are configured correctly.
 
 ## SSH to your instances
 
-Flatcar Container Linux is set up to be a little more secure than other cloud images. By default, it uses the `core` user instead of `root` and doesn't use a password for authentication. You'll need to add an SSH key(s) via the AWS console or add keys/passwords via your Container Linux Config in order to log in.
+Flatcar Container Linux is set up to be a little more secure than other cloud images. By default, it uses the `core` user instead of `root` and doesn't use a password for authentication. You'll need to add an SSH key(s) via the AWS console or add keys/passwords via your Butane Config in order to log in.
 
 To connect to an instance after it's created, run:
 
@@ -462,8 +462,6 @@ For example, create the configuration for `mynode` in the file `machine-mynode.y
 
 ```yaml
 ---
-variant: flatcar
-version: 1.0.0
 passwd:
   users:
     - name: core

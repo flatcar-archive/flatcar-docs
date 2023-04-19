@@ -30,7 +30,7 @@ When configuring the Flatcar Container Linux pxelinux.cfg there are a few kernel
 - **sshkey**: Add the given SSH public key to the `core` user's authorized_keys file. Replace the example key below with your own (it is usually in `~/.ssh/id_rsa.pub`)
 - **console**: Enable kernel output and a login prompt on a given tty. The default, `tty0`, generally maps to VGA. Can be used multiple times, e.g. `console=tty0 console=ttyS0`
 - **flatcar.autologin**: Drop directly to a shell on a given console without prompting for a password. Useful for troubleshooting but use with caution. For any console that doesn't normally get a login prompt by default be sure to combine with the `console` option, e.g. `console=tty0 console=ttyS0 flatcar.autologin=tty1 flatcar.autologin=ttyS0`. Without any argument it enables access on all consoles. Note that for the VGA console the login prompts are on virtual terminals (`tty1`, `tty2`, etc), not the VGA console itself (`tty0`).
-- **flatcar.first_boot=1**: Download an Ignition config and use it to provision your booted system. Ignition configs are generated from Container Linux Configs. See the [Container Linux Config documentation][cl-configs] for more information. If a local filesystem is used for the root partition, pass this parameter only on the first boot.
+- **flatcar.first_boot=1**: Download an Ignition config and use it to provision your booted system. Ignition configs are generated from Butane Configs. See the [Butane Config documentation][butane-configs] for more information. If a local filesystem is used for the root partition, pass this parameter only on the first boot.
 - **ignition.config.url**: Download the Ignition config from the specified URL. `http`, `https`, `s3`, and `tftp` schemes are supported.
 - **ip**: Configure temporary static networking for initramfs. This parameter does not influence the final network configuration of the node and is mostly useful for first-boot provisioning of systems in DHCP-less environments. See [Ignition documentation][ignition-kargs-ip] for the complete syntax.
 
@@ -249,7 +249,7 @@ Now that you have a machine booted it is time to play around. Check out the [Fla
 [append-initrd]: http://www.syslinux.org/wiki/index.php?title=SYSLINUX#INITRD_initrd_file
 [flatcar-user]: https://groups.google.com/forum/#!forum/flatcar-linux-user
 [irc]: irc://irc.freenode.org:6667/#flatcar
-[cl-configs]: ../../provisioning/cl-config
+[butane-configs]: ../../provisioning/config-transpiler
 [ignition]: ../../provisioning/ignition
 [ignition-kargs-ip]: ../../provisioning/ignition/network-configuration/#using-static-ip-addresses-with-ignition
 [oem]: ../community-platforms/notes-for-distributors#image-customization

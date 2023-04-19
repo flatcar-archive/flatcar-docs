@@ -107,13 +107,14 @@ echo "  # For ignition files" >> /etc/apparmor.d/abstractions/libvirt-qemu
 echo "  /var/lib/libvirt/flatcar-linux/** r," >> /etc/apparmor.d/abstractions/libvirt-qemu
 ```
 
-Since the empty Ignition config is not very useful, here is an example how to write a simple Flatcar Container Linux config to add your ssh keys and write a hostname file:
+Since the empty Ignition config is not very useful, here is an example how to write a simple Butane config to add your ssh keys and write a hostname file:
 
 ```yaml
+variant: flatcar
+version: 1.0.0
 storage:
   files:
   - path: /etc/hostname
-    filesystem: "root"
     contents:
       inline: "flatcar-linux1"
 
@@ -168,9 +169,11 @@ ssh core@192.168.122.184
 
 #### Static IP
 
-By default, Flatcar Container Linux uses DHCP to get its network configuration. In this example the VM will be attached directly to the local network via a bridge on the host's virbr0 and the local network. To configure a static address add a [networkd unit][systemd-network] to the Flatcar Container Linux config:
+By default, Flatcar Container Linux uses DHCP to get its network configuration. In this example the VM will be attached directly to the local network via a bridge on the host's virbr0 and the local network. To configure a static address add a [networkd unit][systemd-network] to the Butane config:
 
 ```yaml
+variant: flatcar
+version: 1.0.0
 passwd:
   users:
   - name: core
@@ -180,21 +183,18 @@ passwd:
 storage:
   files:
   - path: /etc/hostname
-    filesystem: "root"
     contents:
       inline: flatcar-linux1
+  - path: /etc/systemd/network/10-ens3.network
+    contents:
+      inline: |
+        [Match]
+        MACAddress=52:54:00:fe:b3:c0
 
-networkd:
-  units:
-  - name: 10-ens3.network
-    contents: |
-      [Match]
-      MACAddress=52:54:00:fe:b3:c0
-
-      [Network]
-      Address=192.168.122.2
-      Gateway=192.168.122.1
-      DNS=8.8.8.8
+        [Network]
+        Address=192.168.122.2
+        Gateway=192.168.122.1
+        DNS=8.8.8.8
 ```
 
 [systemd-network]: http://www.freedesktop.org/software/systemd/man/systemd.network.html

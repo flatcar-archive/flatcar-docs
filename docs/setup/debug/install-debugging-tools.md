@@ -40,13 +40,14 @@ Pulling repository index.example.com/debug
 ...
 ```
 
-You can also specify this in a Container Linux Config:
+You can also specify this in a Butane Config:
 
 ```yaml
+variant: flatcar
+version: 1.0.0
 storage:
   files:
     - path: /home/core/.toolboxrc
-      filesystem: root
       mode: 0644
       contents:
         inline: |

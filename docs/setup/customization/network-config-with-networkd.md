@@ -9,7 +9,7 @@ aliases:
 
 Flatcar Container Linux machines are preconfigured with [networking customized][notes-for-distributors] for each platform. You can write your own networkd units to replace or override the units created for each platform. This article covers a subset of networkd functionality. You can view the [full docs here](http://www.freedesktop.org/software/systemd/man/systemd-networkd.service.html).
 
-Drop a networkd unit in `/etc/systemd/network/` or inject a unit on boot via a Container Linux Config. Files placed manually on the filesystem will need to reload networkd afterwards with `sudo systemctl restart systemd-networkd`. Network units injected via a Container Linux Config will be written to the system before networkd is started, so there are no work-arounds needed.
+Drop a networkd unit in `/etc/systemd/network/` or inject a unit on boot via a Butane Config. Files placed manually on the filesystem will need to reload networkd afterwards with `sudo systemctl restart systemd-networkd`. Network units injected via a Butane Config will be written to the system before networkd is started, so there are no work-arounds needed.
 
 Let's take a look at two common situations: using a static IP and turning off DHCP.
 
@@ -33,22 +33,25 @@ Place the file in `/etc/systemd/network/`. To apply the configuration, run:
 sudo systemctl restart systemd-networkd
 ```
 
-### Container Linux Config
+### Butane Config
 
-Setting up static networking in your Container Linux Config can be done by writing out the network unit. Be sure to modify the `[Match]` section with the name of your desired interface, and replace the IPs:
+Setting up static networking in your Butane Config can be done by writing out the network unit. Be sure to modify the `[Match]` section with the name of your desired interface, and replace the IPs:
 
 ```yaml
-networkd:
-  units:
-    - name: 00-eth0.network
-      contents: |
-        [Match]
-        Name=eth0
+variant: flatcar
+version: 1.0.0
+storage:
+  files:
+    - path: /etc/systemd/network/00-eth0.network
+      contents:
+        inline: |
+          [Match]
+          Name=eth0
 
-        [Network]
-        DNS=1.2.3.4
-        Address=10.0.0.101/24
-        Gateway=10.0.0.1
+          [Network]
+          DNS=1.2.3.4
+          Address=10.0.0.101/24
+          Gateway=10.0.0.1
 ```
 
 ## Turn off DHCP on specific interface
@@ -107,16 +110,19 @@ Gateway=192.168.122.1
 Destination=172.16.0.0/24
 ```
 
-To specify the same route in a Container Linux Config, create the systemd network unit there instead:
+To specify the same route in a Butane Config, create the systemd network unit there instead:
 
 ```yaml
-networkd:
-  units:
-    - name: 10-static.network
-      contents: |
-        [Route]
-        Gateway=192.168.122.1
-        Destination=172.16.0.0/24
+variant: flatcar
+version: 1.0.0
+storage:
+  files:
+    - path: /etc/systemd/network/10-static.network
+      contents:
+        inline: |
+          [Route]
+          Gateway=192.168.122.1
+          Destination=172.16.0.0/24
 ```
 
 ## Configure multiple IP addresses
@@ -137,22 +143,25 @@ Address=10.0.1.101/24
 Gateway=10.0.1.1
 ```
 
-To do the same thing through a Container Linux Config:
+To do the same thing through a Butane Config:
 
 ```yaml
-networkd:
-  units:
-    - name: 20-multi_ip.network
-      contents: |
-        [Match]
-        Name=eth0
+variant: flatcar
+version: 1.0.0
+storage:
+  files:
+    - path: /etc/systemd/network/20-multi_ip.network
+      contents:
+        inline: |
+          [Match]
+          Name=eth0
 
-        [Network]
-        DNS=8.8.8.8
-        Address=10.0.0.101/24
-        Gateway=10.0.0.1
-        Address=10.0.1.101/24
-        Gateway=10.0.1.1
+          [Network]
+          DNS=8.8.8.8
+          Address=10.0.0.101/24
+          Gateway=10.0.0.1
+          Address=10.0.1.101/24
+          Gateway=10.0.1.1
 ```
 
 ## Debugging networkd
@@ -180,11 +189,13 @@ systemctl restart systemd-networkd
 journalctl -b -u systemd-networkd
 ```
 
-### Enable debugging through a Container Linux Config
+### Enable debugging through a Butane Config
 
-Define a [Drop-In][drop-ins] in a [Container Linux Config][cl-configs]:
+Define a [Drop-In][drop-ins] in a [Butane Linux Config][butane-configs]:
 
 ```yaml
+variant: flatcar
+version: 1.0.0
 systemd:
   units:
     - name: systemd-networkd.service
@@ -201,6 +212,6 @@ systemd:
 - [Getting Started with systemd](../systemd/getting-started)
 - [Reading the System Log](../debug/reading-the-system-log)
 
-[cl-configs]: ../../provisioning/cl-config
+[butane-configs]: ../../provisioning/config-transpiler
 [drop-ins]: ../systemd/drop-in-units
 [notes-for-distributors]: ../../installing/community-platforms/notes-for-distributors

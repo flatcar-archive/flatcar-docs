@@ -37,7 +37,7 @@ Further details can be found in the systemd man pages:
 [systemd-modules-load.service(8)](http://www.freedesktop.org/software/systemd/man/systemd-modules-load.service.html)
 [modprobe.d(5)](http://linux.die.net/man/5/modprobe.d)
 
-This example Container Linux Config loads the `dummy` network interface module with an option specifying the number of interfaces the module should create when loaded (`numdummies=5`):
+This example Butane Config loads the `dummy` network interface module with an option specifying the number of interfaces the module should create when loaded (`numdummies=5`):
 
 ```yaml
 variant: flatcar
@@ -63,7 +63,7 @@ echo net.netfilter.nf_conntrack_max=131072 > /etc/sysctl.d/nf.conf
 sysctl --system
 ```
 
-Some parameters, such as the conntrack one above, are only available after the module they control has been loaded. To ensure any modules are loaded in advance use `modules-load.d` as described above. A complete Container Linux Config using both would look like:
+Some parameters, such as the conntrack one above, are only available after the module they control has been loaded. To ensure any modules are loaded in advance use `modules-load.d` as described above. A complete Butane Config using both would look like:
 
 ```yaml
 variant: flatcar
@@ -196,7 +196,7 @@ mkdir -p /etc/motd.d
 echo "This machine is dedicated to computing Pi" > /etc/motd.d/pi.conf
 ```
 
-Or via a Container Linux Config:
+Or via a Butane Config:
 
 ```yaml
 variant: flatcar
@@ -218,9 +218,11 @@ mkdir -p '/etc/systemd/system/getty@.service.d'
 echo -e '[Service]\nTTYVTDisallocate=no' > '/etc/systemd/system/getty@.service.d/no-disallocate.conf'
 ```
 
-Or via a Container Linux Config:
+Or via a Butane Config:
 
 ```yaml
+variant: flatcar
+version: 1.0.0
 systemd:
   units:
     - name: getty@.service
