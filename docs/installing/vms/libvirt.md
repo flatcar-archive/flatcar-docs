@@ -129,7 +129,7 @@ Assuming that you save this as `example.yaml` (and replace the dummy key with pu
 Here we run it from a Docker image:
 
 ```shell
-cat example.yaml | docker run --rm -i ghcr.io/flatcar/ct:latest > /var/lib/libvirt/flatcar-linux/flatcar-linux1/provision.ign
+cat example.yaml | docker run --rm -i quay.io/coreos/butane:release > /var/lib/libvirt/flatcar-linux/flatcar-linux1/provision.ign
 ```
 
 #### Creating the domain

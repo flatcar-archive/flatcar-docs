@@ -133,7 +133,6 @@ storage:
           runtime_type = "io.containerd.runc.v2"
           [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
           SystemdCgroup = true
-  directories:
   links:
     - path: /etc/extensions/docker-flatcar.raw
       target: /dev/null
