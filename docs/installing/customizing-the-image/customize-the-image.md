@@ -48,7 +48,7 @@ In case you converted the raw image for regular loop device mounting, you can al
 
 ### Example for legacy cgroup AMIs
 
-An example script that generates CGroup V1 AWS EC2 images to be uploaded as AMIs can be found [here](https://raw.githubusercontent.com/kinvolk/flatcar-docs/main/create_cgroupv1_ami.sh).
+An example script that generates CGroup V1 AWS EC2 images to be uploaded as AMIs can be found [here](https://raw.githubusercontent.com/flatcar/flatcar-docs/main/create_cgroupv1_ami.sh).
 
 ### Customizing the boot partition
 

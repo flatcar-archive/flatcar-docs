@@ -17,7 +17,7 @@ The Butane Config is intended to be human-friendly, and is thus in YAML. The syn
 The resulting Ignition config is very much not intended to be human-friendly. It is an artifact produced by butane that users should simply pass along to their machines. JSON was chosen over a binary format to make the process more transparent and to allow power users to inspect/modify what butane produces, but it would have worked fine if the result from butane had not been human readable at all.
 
 [butane]: https://github.com/coreos/butane/
-[ignition]: https://github.com/kinvolk/ignition
+[ignition]: https://github.com/coreos/ignition
 
 **Note:**: Butane is utilized to generate Ignition v3+ configurations. If you are still utilizing a version of Container Linux that requires Ignition v2, you can refer to the [Container Linux Config Transpiler][cl-config] documentation. This particularly applies to those using the current LTS releases.
 

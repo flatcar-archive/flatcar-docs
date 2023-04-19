@@ -13,11 +13,11 @@ If you already have CoreOS Container Linux clusters and can't or don't want to f
 
 ## The migration script
 
-The [update-to-flatcar.sh](https://raw.githubusercontent.com/kinvolk/flatcar-docs/main/update-to-flatcar.sh) script does all required steps for you:
+The [update-to-flatcar.sh](https://raw.githubusercontent.com/flatcar/flatcar-docs/main/update-to-flatcar.sh) script does all required steps for you:
 
 ```shell
 # To be run on the node via SSH
-core@host ~ $ wget https://raw.githubusercontent.com/kinvolk/flatcar-docs/main/update-to-flatcar.sh
+core@host ~ $ wget https://raw.githubusercontent.com/flatcar/flatcar-docs/main/update-to-flatcar.sh
 core@host ~ $ less update-to-flatcar.sh # Double check the content of the script
 core@host ~ $ chmod +x update-to-flatcar.sh
 core@host ~ $ ./update-to-flatcar.sh
@@ -31,7 +31,7 @@ If it fails due to SSL connection issues from outdated certificates, you can als
 ```shell
 $ VER=$(curl -fsSL --insecure --ssl-no-revoke http://stable.release.flatcar-linux.net/amd64-usr/current/version.txt | grep FLATCAR_VERSION= | cut -d = -f 2)
 $ wget --no-check-certificate "http://update.release.flatcar-linux.net/amd64-usr/$VER/flatcar_production_update.gz"
-$ wget --no-check-certificate http://raw.githubusercontent.com/flatcar-linux/init/flatcar-master/bin/flatcar-update
+$ wget --no-check-certificate http://raw.githubusercontent.com/flatcar/init/flatcar-master/bin/flatcar-update
 $ less flatcar-update # Double check the content of the script
 $ chmod +x flatcar-update
 $ sudo ./flatcar-update --to-version "$VER" --to-payload flatcar_production_update.gz --force-flatcar-key

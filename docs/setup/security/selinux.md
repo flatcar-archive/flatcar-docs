@@ -51,5 +51,5 @@ Now, edit `/etc/selinux/config` to replace `SELINUX=permissive` with `SELINUX=en
 * Starting from Flannel-0.15 installed via `kube-flannel.yml`, SELinux enforcement will prevent the CNI installation on the host. (See: [flatcar-linux/Flatcar#635][flannel-issue])
 
 
-[gh-flatcar]: https://github.com/kinvolk/Flatcar/issues
+[gh-flatcar]: https://github.com/flatcar/Flatcar/issues
 [flannel-issue]: https://github.com/flatcar/Flatcar/issues/635

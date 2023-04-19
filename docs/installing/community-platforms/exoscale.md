@@ -54,8 +54,6 @@ flatcar:
   units:
     - name: etcd2.service
       command: start
-    - name: fleet.service
-      command: start
 ```
 
 ### Adding more machines
@@ -85,8 +83,6 @@ To log in to a Flatcar Container Linux instance after it's created click on its 
 ```sh
 ssh core@<ip address>
 ```
-
-Optionally, you may want to [configure your ssh-agent](https://github.com/kinvolk/fleet/blob/master/Documentation/using-the-client.md#remote-fleet-access) to more easily run fleet commands.
 
 ## Launching instances
 

@@ -140,7 +140,7 @@ Now that the basics of Container Linux Configs have been covered, a good next st
 [clc]: ../config-transpiler/configuration
 [cloudinit]: https://github.com/kinvolk/coreos-cloudinit
 [ct]: ../config-transpiler/
-[download-ct]: https://github.com/kinvolk/container-linux-config-transpiler/releases
+[download-ct]: https://github.com/flatcar/container-linux-config-transpiler/releases
 [etcd]: https://github.com/etcd-io/etcd
 [examples]: examples
 [flannel]: https://github.com/coreos/flannel

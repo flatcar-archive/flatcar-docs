@@ -30,7 +30,7 @@ Stage 1 is somewhat of a preparation phase and does not actually involve any com
 
 Stage 2 uses the minimal (but potentially outdated) toolchain from Stage 1 to build a full-featured (and potentially updated) toolchain used in Stage 3 for building the actual SDK. Stage 2, contrary to Stage 1, offers strong library link isolation - everything installed to `/tmp/stage2root` is linked against libraries in `/tmp/stage2root`.
 
-Stage 2 utilises a (slightly modified) [bootstrap.sh](https://github.com/kinvolk/portage-stable/blob/main/scripts/bootstrap.sh) - the script upstream Gentoo uses to bootstrap a Gentoo distribution.
+Stage 2 utilises a (slightly modified) [bootstrap.sh](https://github.com/flatcar/scripts/blob/main/sdk_container/src/third_party/portage-stable/scripts/bootstrap.sh) - the script upstream Gentoo uses to bootstrap a Gentoo distribution.
 
 
 #### Stage 3 - Build the base OS
@@ -39,7 +39,7 @@ Stage 3 runs `emerge @world` to build the base OS into `/tmp/stage3root`.
 
 #### Stage 4 - Build additional SDK dependencies and cross-compiler toolchains
 
-Stage 4 builds all additional dependencies of the SDK (from [coreos-devel/sdk-depends](https://github.com/kinvolk/coreos-overlay/tree/main/coreos-devel/sdk-depends)) that were not included in the base OS packages built in Stage 3. Stage 4 also builds the ARM and x86 cross-compiler toolchains included with the SDK. Finally, Stage 4 archives the portage-stable and coreos-overlay repos used to build this stage, for use in future Stage 1s (see above).
+Stage 4 builds all additional dependencies of the SDK (from [coreos-devel/sdk-depends](https://github.com/flatcar/scripts/tree/main/sdk_container/src/third_party/coreos-overlay/coreos-devel/sdk-depends)) that were not included in the base OS packages built in Stage 3. Stage 4 also builds the ARM and x86 cross-compiler toolchains included with the SDK. Finally, Stage 4 archives the portage-stable and coreos-overlay repos used to build this stage, for use in future Stage 1s (see above).
 
 The output of Stage 4 is a full-featured SDK tarball.
 

@@ -7,9 +7,13 @@ aliases:
     - ../torcx
 ---
 
-[Torcx][gh-torcx] is a boot-time addon manager designed specifically for container OSs like Flatcar Container Linux. At the most basic level, it is a tool for applying ephemeral changes to an immutable system during early boot. This includes providing third-party binary addons and installing systemd units, which can vary across environments and boots. On every boot, Torcx reads its configuration from local disk and propagates specific assets provided by addon packages (which must be available in local stores).
+## Deprecation Notice
+
+As of 2023, torcx on Flatcar is in deprecation and is in the process of being replaced by [systemd-sysext][sysext].
 
 ## Torcx overview
+
+[Torcx][gh-torcx] is a boot-time addon manager designed specifically for container OSs like Flatcar Container Linux. At the most basic level, it is a tool for applying ephemeral changes to an immutable system during early boot. This includes providing third-party binary addons and installing systemd units, which can vary across environments and boots. On every boot, Torcx reads its configuration from local disk and propagates specific assets provided by addon packages (which must be available in local stores).
 
 Torcx complements both the [Ignition][ignition] provisioning utility and [systemd][systemd]. Torcx allows customization of Flatcar Container Linux systems without requiring the compilation of custom system images. This goal is achieved by following two main principles: customizations are ephemeral, and they are applied exactly once per boot. Torcx also has a very simple design, with the aim of providing a small low-level system utility which can be driven by more advanced and higher-level tools.
 
@@ -32,8 +36,9 @@ By the same token, this should be read as a warning against abusing Torcx in the
 
 For further details on design and goals, Torcx repository contains extensive [developer documentation][devdocs].
 
-[gh-torcx]: https://github.com/kinvolk/torcx
+[gh-torcx]: https://github.com/flatcar/torcx
 [ignition]: ../ignition
+[sysext]: ../sysext
 [systemd]: https://www.freedesktop.org/wiki/Software/systemd/
 [systemd-generator]: http://www.freedesktop.org/software/systemd/man/systemd.generator.html
-[devdocs]: https://github.com/kinvolk/torcx/blob/master/Documentation
+[devdocs]: https://github.com/flatcar/torcx/blob/master/Documentation

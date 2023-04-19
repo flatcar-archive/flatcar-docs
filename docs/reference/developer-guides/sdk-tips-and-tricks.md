@@ -77,7 +77,7 @@ The new package will now be built and installed as part of the normal build flow
 
 If tests are successful, commit the changes, push to your GitHub fork and create a pull request.
 
-[CONTRIBUTING]: https://github.com/kinvolk/flatcar#contributing-to-flatcar-container-linux
+[CONTRIBUTING]: https://github.com/flatcar/Flatcar#participate-and-contribute
 
 ### Packaging references
 

@@ -226,7 +226,7 @@ $ sudo cgpt show "$(rootdev -s /usr)" | grep successful=1
 
 Updating a machine without Internet access is done in two steps.
 First, you need to download the update payload on a non-airgapped machine, then you copy it to your airgapped machine and run the `flatcar-update` tool.
-If the `flatcar-update` tool is missing on your machine, [download](https://raw.githubusercontent.com/flatcar-linux/init/flatcar-master/bin/flatcar-update) it first, too.
+If the `flatcar-update` tool is missing on your machine, [download](https://raw.githubusercontent.com/flatcar/init/flatcar-master/bin/flatcar-update) it first, too.
 
 On the non-airgapped machine (here for amd64, use `ARCH=arm64` for arm64):
 
@@ -337,6 +337,6 @@ storage:
 
 [ipxe-boot-script]: ../../installing/bare-metal/booting-with-ipxe#setting-up-ipxe-boot-script
 [rollback]: ../debug/manual-rollbacks
-[reboot-windows]: https://github.com/kinvolk/locksmith#reboot-windows
+[reboot-windows]: https://github.com/flatcar/locksmith#reboot-windows
 [systemd-env-vars]: ../systemd/environment-variables/#system-wide-environment-variables
 [transpiler]: ../../provisioning/config-transpiler/

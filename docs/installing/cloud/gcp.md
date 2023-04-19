@@ -15,6 +15,8 @@ Before proceeding, you will need a GCE account ([GCE free trial][free-trial]) an
 
 After installation, log into your account with `gcloud auth login` and enter your project ID when prompted.
 
+Flatcar is published by the `kinvolk` publisher on GCE.
+
 ## Choosing a channel
 
 Flatcar Container Linux is designed to be updated automatically with different schedules per channel. You can [disable this feature](update-strategies), although we don't recommend it. Read the [release notes](https://flatcar-linux.org/releases) for specific features and bug fixes.
@@ -87,7 +89,7 @@ Usage: /usr/local/bin/upload_images.sh [OPTION...]
 The Dockerfile for the `quay.io/kinvolk/google-cloud-flatcar-image-upload` image is managed [here][google-cloud-flatcar-image-upload].
 
 [bucket]: https://cloud.google.com/storage/docs/key-terms#bucket-names
-[google-cloud-flatcar-image-upload]: https://github.com/kinvolk/flatcar-cloud-image-uploader/blob/master/google-cloud-flatcar-image-upload
+[google-cloud-flatcar-image-upload]: https://github.com/flatcar/flatcar-cloud-image-uploader/blob/master/google-cloud-flatcar-image-upload
 
 ## Upgrade from CoreOS Container Linux
 

@@ -95,7 +95,7 @@ Please reach out if your use case isn't covered and work with us to include it t
 ### Upstream Docker sysext images
 
 The Docker releases publish static binaries including containerd and the only missing piece are the systemd units.
-To ease the process, the [`create_docker_sysext.sh`](https://raw.githubusercontent.com/flatcar-linux/sysext-bakery/main/create_docker_sysext.sh) helper script takes care of downloading the release binaries and adding the systemd unit files, and creates a combined Docker+containerd sysext image:
+To ease the process, the [`create_docker_sysext.sh`](https://raw.githubusercontent.com/flatcar/sysext-bakery/main/create_docker_sysext.sh) helper script takes care of downloading the release binaries and adding the systemd unit files, and creates a combined Docker+containerd sysext image:
 
 ```
 ./create_docker_sysext.sh 20.10.13 mydocker
@@ -104,7 +104,7 @@ To ease the process, the [`create_docker_sysext.sh`](https://raw.githubuserconte
 
 ## Converting a Torcx image
 
-In case you have an existing Torcx image you can convert it with the [`convert_torcx_image.sh`](https://raw.githubusercontent.com/flatcar-linux/sysext-bakery/main/convert_torcx_image.sh) helper script (Currently only Torcx tar balls are supported and the conversion is done on best effort):
+In case you have an existing Torcx image you can convert it with the [`convert_torcx_image.sh`](https://raw.githubusercontent.com/flatcar/sysext-bakery/main/convert_torcx_image.sh) helper script (Currently only Torcx tar balls are supported and the conversion is done on best effort):
 
 ```
 ./convert_torcx_image.sh TORCXTAR SYSEXTNAME
