@@ -64,4 +64,4 @@ Default installs of Flatcar will likely not need custom settings, and an empty o
 
 _(for future-proofing, calling `git grep GetConfValue\(\"` in the [`update_engine`][update_engine] repo)_
 
-[update_engine]: https://github.com/kinvolk/update_engine
+[update_engine]: https://github.com/flatcar/update_engine

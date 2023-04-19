@@ -202,7 +202,7 @@ For `$public_ipv4` and `$private_ipv4` substitutions to work you either need to 
 
 Besides applying the config itself `coreos-cloudinit` supports the `guestinfo.interface.*` variables and will generate a networkd unit from them stored in `/run/systemd/network/`.
 
-The guestinfo variables known to coreos-cloudinit are (taken from [here](https://github.com/kinvolk/coreos-cloudinit/blob/flatcar-master/Documentation/vmware-guestinfo.md#cloud-config-vmware-guestinfo-variables)), with `<n>`, `<m>`, `<l>` being numbers starting from 0:
+The guestinfo variables known to coreos-cloudinit are (taken from [here](https://github.com/flatcar/coreos-cloudinit/blob/flatcar-master/Documentation/vmware-guestinfo.md#cloud-config-vmware-guestinfo-variables)), with `<n>`, `<m>`, `<l>` being numbers starting from 0:
 
 * `guestinfo.hostname` used for `hostnamectl set-hostname`
 * `guestinfo.interface.<n>.name` used in the `[Match]` section of the networkd unit (can include wildcards)

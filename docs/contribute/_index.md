@@ -51,8 +51,8 @@ We happily accept accurate translations. Please send the documents as a pull req
 2. Add an explanation about the translated document to the top of the file: "These documents were translated into Esperanto by Community Member <person@example.com> and last updated on 2015-12-01. If you find inaccuracies or problems please file an issue on GitHub."
 
 
-[asl]: https://github.com/kinvolk/flatcar-docs/blob/main/LICENSE
-[flatcar-docs]: https://kinvolk.io/docs/flatcar-container-linux/latest/
-[help-wanted]: https://github.com/kinvolk/docs/issues?q=is%3Aopen+label%3Ahelp-wanted
+[asl]: https://github.com/flatcar/flatcar-docs/blob/main/LICENSE
+[flatcar-docs]: https://flatcar.org/docs/latest/
+[help-wanted]: https://github.com/flatcar/Flatcar/issues?q=is%3Aopen+label%3Akind%2Fdocs
 [pull-requests]: https://help.github.com/articles/using-pull-requests/
 [style]: docs

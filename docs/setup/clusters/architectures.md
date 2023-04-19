@@ -59,7 +59,7 @@ systemd:
 
 This file is used to provision your local Flatcar Container Linux machine on its first boot. This sets up and enables the Docker API, which is how you can use Docker on your laptop. The Docker CLI manages containers running within the VM, *not* on your personal operating system.
 
-Using the CL Config Transpiler, or `ct`, ([download][ct-download]) convert the above yaml into an [Ignition][ignition-getting-started]. Alternatively, copy the contents of the Igntion tab in the above example. Once you have the Ignition configuration file, pass it to your provider ([complete list of supported Ignition platforms][ignition-supported]).
+Using the Butane Config Transpiler, or `butane`, ([download][butane-download]) convert the above yaml into an [Ignition][ignition-getting-started]. Alternatively, copy the contents of the Igntion tab in the above example. Once you have the Ignition configuration file, pass it to your provider ([complete list of supported Ignition platforms][ignition-supported]).
 
 Once the local VM is running, tell your Docker binary on your personal operating system to use the remote port by exporting an environment variable and start running Docker commands. Run these commands in a terminal *on your local operating system (MacOS or Linux), not in the Flatcar Container Linux virtual machine*:
 
@@ -203,15 +203,14 @@ networkd:
         Gateway=10.0.0.1
 ```
 
-[ct-download]: https://github.com/kinvolk/container-linux-config-transpiler
-[ignition-getting-started]: https://github.com/kinvolk/ignition/blob/flatcar-master/doc/getting-started.md
-[ignition-supported]: https://github.com/kinvolk/ignition/blob/flatcar-master/doc/supported-platforms.md
+[butane-download]: https://github.com/coreos/butane/releases
+[ignition-getting-started]: https://github.com/coreos/ignition/blob/main/docs/getting-started.md
+[ignition-supported]: https://github.com/coreos/ignition/blob/main/docs/supported-platforms.md
 [flatcar-qemu]: ../../installing/vms/qemu
 [minikube]: https://github.com/kubernetes/minikube
 [nebraska-update]: https://github.com/kinvolk/nebraska
 [flatcar-channels]: https://www.flatcar-linux.org/releases/
 [flatcar-supported]: ../../
-[flatcar-managed]: https://kinvolk.io/flatcar-container-linux/#kinvolk-update-service
 [flatcar-ec2]: ../../installing/cloud/aws-ec2
 [flatcar-equinix-metal]: ../../installing/cloud/equinix-metal
 [flatcar-azure]: ../../installing/cloud/azure

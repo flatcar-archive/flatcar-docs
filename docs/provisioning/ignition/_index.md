@@ -32,8 +32,6 @@ Because Ignition only runs once, there's no reason for it to incorporate dynamic
 
 Instead, use Ignition to write static files and leverage systemd's environment variable expansion to insert dynamic data. The Ignition config should install a service which fetches the necessary runtime data, then any services which need this data (such as etcd or fleet) can rely on the installed service and source in their output. The result is that the data is only collected if and when it is needed. For supported platforms, Flatcar Container Linux provides a small utility (`coreos-metadata.service`) to help fetch this data.
 
-The lack of variable substitution in Ignition has an added benefit of leveling the playing field when it comes to compute providers. The user's experience is no longer crippled because the metadata for their platform isn't supported. It is possible to write a [custom metadata agent][custom-agent] to fetch the necessary data.
-
 ### When is Ignition executed
 
 On boot, GRUB checks the EFI System Partition for a file at `flatcar/first_boot` (or `coreos/first_boot` if the machine was updated from CoreOS CL) and sets `flatcar.first_boot=detected` if found. The `flatcar.first_boot` parameter is processed by a [systemd-generator] in the [initramfs] and if the parameter value is non-zero, the Ignition units are set as dependencies of `initrd.target`, causing Ignition to run. If the parameter is set to the special value `detected`, the `flatcar/first_boot` (or `coreos/first_boot`) file is deleted after Ignition runs successfully. You can schedule a re-run of Ignition with the `flatcar-reset` tool (available since Alpha 3535.0.0), which also takes care of cleaning up old rootfs state and keeping only the data from the rootfs you want to keep.
@@ -50,11 +48,10 @@ The [full list of supported platforms][supported-platforms] is provided and will
 
 Ignition is under active development. Expect to see support for more images in the coming months.
 
-[examples]: https://github.com/kinvolk/ignition/blob/flatcar-master/doc/examples.md
+[examples]: https://github.com/coreos/ignition/blob/main/docs/examples.md
 [ignition-specification]: specification
-[cloudinit]: https://github.com/kinvolk/coreos-cloudinit
+[cloudinit]: https://github.com/flatcar/coreos-cloudinit
 [network-config]: network-configuration
-[custom-agent]: https://github.com/kinvolk/ignition/blob/flatcar-master/doc/examples.md#custom-metadata-agent
-[supported-platforms]: https://github.com/kinvolk/ignition/blob/flatcar-master/doc/supported-platforms.md
+[supported-platforms]: https://github.com/coreos/ignition/blob/main/docs/supported-platforms.md
 [systemd-generator]: http://www.freedesktop.org/software/systemd/man/systemd.generator.html
 [initramfs]: https://www.kernel.org/doc/Documentation/filesystems/ramfs-rootfs-initramfs.txt

@@ -58,12 +58,12 @@ This following table summarizes the requirements of each SLSA level, and Flatcar
 **Notes**
 
 1. Build integrity - Hermetic builds: While Flatcar includes the potential for hermetic builds today - all sources are known in advance and can be staged to a build machine isolated from the network - the current build infrastructure and automation does not implement this feature.
-   A [tracking issue](https://github.com/flatcar-linux/Flatcar/issues/833) exists to address this in the future.
+   A [tracking issue](https://github.com/flatcar/Flatcar/issues/833) exists to address this in the future.
 2. Build integrity - Reproducible: Many software packages such as compilers and core libraries insert build-variable information such as timestamps, user IDs, and host names into their binaries during the build process.
    While Flatcar's builds are 100% reproducible, the output may differ in a bit-by-bit comparison ONLY in places where this volatile information is compiled into the binaries.
 3. Common - Security: This SLSA requirement is marked TBD in the SLSA standard and is not well defined at the time of writing; the essence appears to gravitate around a verifiable tamper-proof build infrastructure, e.g. via a full chain of trust.
    Flatcar is built on Flatcar to benefit from all the security features the distribution already ships with (discussed in detail below) - immutable OS binaries, boot time integrity check, etc.
-   However, Flatcar currently does not support setting up a full chain of trust via TPM. A [roadmap item](https://github.com/flatcar-linux/Flatcar/issues/630) aims to add TPM support to Flatcar, and have the build infrastructure support a full chain of trust.
+   However, Flatcar currently does not support setting up a full chain of trust via TPM. A [roadmap item](https://github.com/flatcar/Flatcar/issues/630) aims to add TPM support to Flatcar, and have the build infrastructure support a full chain of trust.
 4. Common - Superusers: The number of users with direct access to build infrastructure is very small, and users are well trusted.
    However, changes to the build system do not enforce approval by a second administrator.
 
@@ -121,12 +121,12 @@ Renewing the image signing key requires split secrets of multiple maintainers.
 
 ###### Inputs
 1. Flatcar's build automation and package definition repositories.
-   Write access to repositories is limited to trusted group of core Flatcar maintainers (the @flatcar-linux/flatcar-maintainers team in the flatcar-linux github org).
+   Write access to repositories is limited to trusted group of core Flatcar maintainers (the @flatcar/flatcar-maintainers team in the flatcar github org).
    All changes are reviewed by at least one maintainer before merge.
-   1. A [top-level build automation repo](https://github.com/flatcar-linux/scripts).
+   1. A [top-level build automation repo](https://github.com/flatcar/scripts).
       This repository qualifies automation and package definitions of any given build by commit ID.
-   2. Package definition (ebuild) repositories "pinned" as git submodules to a commit in the build automation repo.
-      Package definitions include the [coreos-overlay](https://github.com/flatcar-linux/coreos-overlay) and [portage-stable](https://github.com/flatcar-linux/portage-stable) repositories.
+      It includes all package definitions (ebuilds) in subdirectories.
+      Package definitions include the [portage-stable](https://github.com/flatcar/scripts/blob/main/sdk_container/src/third_party/portage-stable) and [coreos-overlay](https://github.com/flatcar/scripts/blob/main/sdk_container/src/third_party/coreos-overlay) ebuild "repositories".
 2. Upstream source tarballs of applications and libraries shipped with Flatcar.
    Secured by cryptographic checksums stored in Flatcar's build automation repos (Gentoo standard).
 3. The SDK container.
@@ -139,7 +139,7 @@ Access to the infrastructure is limited to a small number of core maintainers - 
 Access is only possible via a VPN (not via public internet) and is verified with SSH keys.
 The build process entails:
 
-1. Cloning of Flatcar build automation (git repo) and package definitions / configurations (ebuilds in git repos / submodules to build automation repo).
+1. Cloning of Flatcar build automation (git repo) and package definitions / configurations.
 2. Fetching of source tarballs of apps and libraries that make up the OS image.
    Integrity of source tarballs is validated against multiple cryptographic checksums stored in package definition (ebuild) repos.
 3. Building of apps and libraries, and generation of installation images and update image.
@@ -150,8 +150,8 @@ The build process entails:
    In rare circumstances, changes to toolchains and/or core libraries would mandate an SDK rebuild.
    In that case a new SDK is published alongside the respective Flatcar Beta / Stable release.
    **Note** that we track a number of feature requests to further improve SLSA provenance generation:
-   1. Add builder ID information during CI builds: [tracking issue](https://github.com/flatcar-linux/Flatcar/issues/813)
-   2. Generate additional provenance for the whole image: [tracking issue](https://github.com/flatcar-linux/Flatcar/issues/814)
+   1. Add builder ID information during CI builds: [tracking issue](https://github.com/flatcar/Flatcar/issues/813)
+   2. Generate additional provenance for the whole image: [tracking issue](https://github.com/flatcar/Flatcar/issues/814)
 4. Signing of artifacts to enable validation of authenticity at provisioning time.
    Signing also ensures SLSA provenance is non-falisfiable.
    1. A verity hash of the OS partition is generated and injected into the initrd so Flatcar can verify tamper-free OS partition at boot time.
@@ -184,7 +184,7 @@ The public key component of the Flatcar image signing key (see above) is [availa
 Using the public key, installation images can be validated against their signatures before provisioning, either manually by the user or (preferred) automatically by provisioning automation.
 In either case the Flatcar project provides the means for validation, but executing the process is ultimately in the responsibility of the operator / user.
 In other words, while strongly recommended, validation is not enforced by the distribution, i.e. there are no mechanisms in place which would prevent installation of an image that was not validated.
-Installation automation provided by the Flatcar project (e.g. the [flatcar-install](https://github.com/flatcar-linux/init/blob/flatcar-master/bin/flatcar-install) script) will verify authenticity of installation images.
+Installation automation provided by the Flatcar project (e.g. the [flatcar-install](https://github.com/flatcar/init/blob/flatcar-master/bin/flatcar-install) script) will verify authenticity of installation images.
 
 
 Each of the Flatcar installation images (for all supported vendors / platforms) are accompanied by
@@ -214,13 +214,13 @@ To further enhance attestability and supply chain security we consider the below
 
 #### SLSA provenance
 
-1. Add builder ID information during CI builds: [tracking issue](https://github.com/flatcar-linux/Flatcar/issues/813)
-2. Generate additional provenance for the whole image: [tracking issue](https://github.com/flatcar-linux/Flatcar/issues/814)
+1. Add builder ID information during CI builds: [tracking issue](https://github.com/flatcar/Flatcar/issues/813)
+2. Generate additional provenance for the whole image: [tracking issue](https://github.com/flatcar/Flatcar/issues/814)
 
 #### Build time
 
 1. Make release builds hermetic by providing all required assets beforehand and isolating the build machine from the network during build, to address the "Build integrity - Hermetic" requirement
-   ([tracking issue](https://github.com/flatcar-linux/Flatcar/issues/833)).
+   ([tracking issue](https://github.com/flatcar/Flatcar/issues/833)).
 2. Establish a secure boot chain using TPM support when it becomes available (see "Provisioning-time" item 2. below).
 3. Remove login (local and remote) from build infrastructure and automate all build infra properties (infra-as-code).
    Require approval from 2 administrators for every change.
@@ -229,4 +229,4 @@ To further enhance attestability and supply chain security we consider the below
 #### Provisioning-time / OS upgrade / run-time
 
 1. Integrate with hardware TPM (where available) to secure the boot process right from hardware start-up instead of just from the initial ramdisk
-   [roadmap issue](https://github.com/flatcar-linux/Flatcar/issues/630), addressing the "Common - Security" requirement.
+   [roadmap issue](https://github.com/flatcar/Flatcar/issues/630), addressing the "Common - Security" requirement.

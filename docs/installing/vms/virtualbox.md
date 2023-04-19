@@ -15,12 +15,12 @@ These instructions will walk you through running Flatcar Container Linux on Orac
 
 There is a script that simplifies building the VDI image. It downloads a bare-metal image, verifies it with GPG, and converts that image to a VDI image.
 
-The script is located on [GitHub](https://github.com/kinvolk/scripts/blob/main/contrib/create-coreos-vdi). The running host must support VirtualBox tools.
+The script is located on [GitHub](https://github.com/flatcar/scripts/blob/main/contrib/create-coreos-vdi). The running host must support VirtualBox tools.
 
 As first step, you must download the script and make it executable.
 
 ```shell
-wget https://raw.githubusercontent.com/flatcar-linux/scripts/main/contrib/create-coreos-vdi
+wget https://raw.githubusercontent.com/flatcar/scripts/main/contrib/create-coreos-vdi
 chmod +x create-coreos-vdi
 ```
 
@@ -73,7 +73,7 @@ coreos_production_stable.vdi
 
 ## Creating a config-drive
 
-Cloud-config can be specified by attaching a [config-drive](https://github.com/kinvolk/coreos-cloudinit/blob/master/Documentation/config-drive.md) with the label `config-2`. This is commonly done through whatever interface allows for attaching CD-ROMs or new drives.
+Cloud-config can be specified by attaching a [config-drive](https://github.com/flatcar/coreos-cloudinit/blob/master/Documentation/config-drive.md) with the label `config-2`. This is commonly done through whatever interface allows for attaching CD-ROMs or new drives.
 
 Note that the config-drive standard was originally an OpenStack feature, which is why you'll see strings containing `openstack`. This filepath needs to be retained, although Flatcar Container Linux supports config-drive on all platforms.
 
@@ -82,7 +82,7 @@ For more information on customization that can be done with cloud-config, head o
 You need a config-drive to configure at least one SSH key to access the virtual machine. If you are in hurry, you can create a basic config-drive with following steps:
 
 ```shell
-wget https://raw.github.com/kinvolk/scripts/main/contrib/create-basic-configdrive
+wget https://raw.github.com/flatcar/scripts/main/contrib/create-basic-configdrive
 chmod +x create-basic-configdrive
 ./create-basic-configdrive -H my_vm01 -S ~/.ssh/id_rsa.pub
 ```

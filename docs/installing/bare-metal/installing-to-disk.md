@@ -175,6 +175,6 @@ Now that you have a machine booted it is time to play around. Check out the [Fla
 [release-notes]: https://flatcar-linux.org/releases
 [flatcar-iso]: booting-with-iso
 [butane-section]: #butane-configs
-[flatcar-install]: https://raw.githubusercontent.com/flatcar-linux/init/flatcar-master/bin/flatcar-install
+[flatcar-install]: https://raw.githubusercontent.com/flatcar/init/flatcar-master/bin/flatcar-install
 [cl-configs]: ../../provisioning/cl-config
 [butane]: ../../provisioning/config-transpiler

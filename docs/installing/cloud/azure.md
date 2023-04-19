@@ -22,6 +22,7 @@ Now that you have a resource group, you can choose a channel of Flatcar Containe
 ## Using the official image from the Marketplace
 
 Official Flatcar Container Linux images for all channels are available in the Marketplace.
+Flatcar is published by the `kinvolk` publisher on Marketplace.
 Flatcar Container Linux is designed to be [updated automatically][update-docs] with different schedules per channel. Updating
 can be [disabled][reboot-docs], although it is not recommended to do so. The [release notes][release-notes] contain
 information about specific features and bug fixes.
@@ -639,6 +640,6 @@ You can find this Terraform module in the repository for [Flatcar Terraform exam
 [docs]: ../../
 [resource-group]: https://docs.microsoft.com/en-us/azure/architecture/best-practices/naming-conventions#naming-rules-and-restrictions
 [storage-account]: https://docs.microsoft.com/en-us/azure/storage/common/storage-account-overview#naming-storage-accounts
-[azure-flatcar-image-upload]: https://github.com/kinvolk/flatcar-cloud-image-uploader/blob/master/azure-flatcar-image-upload
-[release-notes]: https://flatcar-linux.org/releases
+[azure-flatcar-image-upload]: https://github.com/flatcar/flatcar-cloud-image-uploader
+[release-notes]: https://flatcar.org/releases
 [update-docs]: ../../setup/releases/update-strategies

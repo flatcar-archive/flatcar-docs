@@ -53,17 +53,16 @@ A good way to look at releases and stabilisation through channels is to consider
 ## On versioning
 
 For Flatcar versioning, the scripts repo is authoritative: 
-Versioning is controlled by the [`version.txt` file in the scripts repo](https://github.com/flatcar/scripts/blob/main/sdk_container/.repo/manifests/version.txt) as well as via the commit pointers of the script repo's `portage-stable` and `coreos-overlay` gitmodules.
+Versioning is controlled by the [`version.txt` file in the scripts repo](https://github.com/flatcar/scripts/blob/main/sdk_container/.repo/manifests/version.txt).
 `version.txt` contains version strings for both the SDK version as well as the OS image version.
 
 Core idea is that a simple
 ```shell
 git checkout 3033.2.0
-git submodule update --init --recursive
 ```
 will set up the scripts repo for development on top of Flatcar release `3033.2.0`.
 
-Keeping `version.txt` and submodules in sync, updating version strings, and generating version tags is one of the main concerns of the build automation scripts.
+Keeping `version.txt` in sync, updating version strings, and generating version tags is one of the main concerns of the build automation scripts.
 Running a new build via the CI automation will *always* generate a new version.
 This can be non-production version, e.g. nightly build or a PR or branch build - in which case it should be given a suffix following the `MMMM.mm.pp` number.
 The official Flatcar CI uses `-nightly-YYYYMMDD-hhmm` as suffix for nightly builds, e.g. the tag `alpha-3066.0.0-nightly-20221231-0139` would refer to the nightly of the 31st of December, 2021.

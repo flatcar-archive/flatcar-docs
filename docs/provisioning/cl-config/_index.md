@@ -58,9 +58,9 @@ As shown in this diagram, `ct` is manually invoked only when users are manually 
 
 ## Config Transpiler
 
-The Container Linux Config Transpiler abstracts the details of configuring Flatcar Container Linux. It's responsible for transforming a Container Linux Config written by a user into an Ignition Config to be consumed by instances of Flatcar Container Linux.
+The Butane Config Transpiler abstracts the details of configuring Flatcar Container Linux. It's responsible for transforming a Container Linux Config written by a user into an Ignition Config to be consumed by instances of Flatcar Container Linux.
 
-The Container Linux Config Transpiler command line interface, `ct` for short, can be downloaded from its [GitHub Releases page][download-ct] or used via Docker (`cat example.yaml | docker run --rm -i ghcr.io/flatcar/ct:latest --platform=YOURPLATFORM`).
+The Butane Config Transpiler command line interface, `butane` for short, can be downloaded from its [GitHub Releases page][download-butane] or used via Docker (`cat example.yaml | docker run --rm -i quay.io/coreos/butane:release --platform=YOURPLATFORM`).
 
 The following config will configure an etcd cluster using the machine's public and private IP addresses:
 
@@ -138,16 +138,16 @@ For a [number of reasons][vs], coreos-cloudinit has been deprecated in favor of 
 Now that the basics of Container Linux Configs have been covered, a good next step is to read through the [examples][examples] and start experimenting. The [troubleshooting guide][troubleshooting] is a good reference for debugging issues.
 
 [clc]: ../config-transpiler/configuration
-[cloudinit]: https://github.com/kinvolk/coreos-cloudinit
+[cloudinit]: https://github.com/flatcar/coreos-cloudinit
 [ct]: ../config-transpiler/
-[download-ct]: https://github.com/kinvolk/container-linux-config-transpiler/releases
+[download-butane]: https://github.com/coreos/butane/releases
 [etcd]: https://github.com/etcd-io/etcd
 [examples]: examples
 [flannel]: https://github.com/coreos/flannel
-[locksmith]: https://github.com/kinvolk/locksmith
+[locksmith]: https://github.com/flatcar/locksmith
 [matchbox]: https://github.com/coreos/matchbox
 [metadata]: ../ignition/metadata
 [migrating]: from-cloud-config
 [rkt]: https://github.com/rkt/rkt
-[troubleshooting]: https://github.com/kinvolk/ignition/blob/master/doc/getting-started.md#troubleshooting
+[troubleshooting]: https://github.com/coreos/ignition/blob/main/docs/getting-started.md#troubleshooting
 [vs]: ../ignition/#ignition-vs-coreos-cloudinit

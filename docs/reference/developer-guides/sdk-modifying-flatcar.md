@@ -31,10 +31,10 @@ Please note these resources might be outdated and only this page reflects the mo
 
 **tl;dr** Check out a release branch and start the SDK (this uses the current Alpha release branch).
 ```shell
-$ git clone --recurse-submodules https://github.com/flatcar/scripts.git
+$ git clone https://github.com/flatcar/scripts.git
 $ cd scripts
 $ branch="$(git branch -r -l | sed -n 's:origin/\(flatcar-[0-9]\+\)$:\1:p' | sort | tail -n1)"
-$ ./checkout "$branch"
+$ git checkout "$branch"
 $ ./run_sdk_container -t
 ```
 
@@ -42,7 +42,7 @@ $ ./run_sdk_container -t
 
 Flatcar Container Linux uses a containerised SDK; pre-built container images are available via [ghcr.io][ghcr-sdk].
 The SDK itself is containerised, but it requires version information and package build instructions to build an OS image. 
-This information is contained in the scripts repository:
+Version information and build instructions for all packages (`ebuilds`) are contained in the scripts repository:
 
 ```
 scripts
@@ -67,11 +67,12 @@ The wrapper scripts will auto-detect which one is available, and use it.
 
 ### Clone the scripts repo
 
-The [scripts repository][scripts] - among other things - contains SDK wrapper scripts, a `version.txt` with release version information, and both the [coreos-overlay][coreos] and [portage-stable][portage] ebuild repositories as git submodules (more on ebuilds later).
-A good way to think of the scripts repo is this being Flatcar's "SDK repo".
+The [scripts repository][scripts] - among other things - contains SDK wrapper scripts, a `version.txt` with release version information, and both the [coreos-overlay][coreos] and [portage-stable][portage] ebuild "repositories" in subdirectories (more on ebuilds later).
+
+The name "scripts" has historic reasons - a better way to think of the scripts repo is it being Flatcar's "SDK repo".
 
 ```shell
-$ git clone --recurse-submodules https://github.com/flatcar/scripts.git
+$ git clone https://github.com/flatcar/scripts.git
 $ cd scripts
 ```
 
@@ -105,15 +106,10 @@ $ git tag -l | grep -E 'stable-[0-9.]+$' | sort | tail -n 1
 ```
 (replace `stable` with `beta` or `alpha` in accordance with your needs).
 
-We provide a helper script to check out tags or branches and keeping submodules aligned. Just run:
 
 ```shell
-$ ./checkout [branch-or-tag-from-above]
+$ git checkout [branch-or-tag-from-above]
 ```
-
-This will check out the branch or tag in the top-level `scripts` directory and update the submodules, depending on wheter a branch or tag was specified:
-- a TAG already includes the correct submodule pinnings, so submodules are simply updated to point to the correct pinned commit.
-- a BRANCH will cause the helper script to check out a branch of the same name in both submodules, and fast-forward to the latest upstream branch tip.
 
 Lastly, to verify the version in use, consult the version file.
 This file is updated on each release and reflects the SDK and OS versions corresponding to the the current commit.
@@ -127,7 +123,6 @@ FLATCAR_SDK_VERSION=3066.1.0
 ```
 
 The example above is from the release / maintenance branch of the 3066 major release at the time of writing (3066 was in the Beta channel at that time).
-
 
 **NOTE** that the version file at `sdk_container/.repo/manifests/version.txt` will be updated by `run_sdk_container` to include the git shortlog hash.
 This file is under revision control because it pins the latest official OS release and SDK version of the branch you're working on.
@@ -148,7 +143,7 @@ The `-t` flag is used to tell docker to allocate a TTY. It should be omitted whe
 The container uses the "sdk" user (user and group ID are updated on container entry to match the host user's UID and GID).
 After entering you're put right into the (host) script repository's bind mount root.
 By default, the name of the container contains SDK and OS image version.
-After starting, the version file will have been updated:
+If there are changes on top of the latest release (either your own, or upstream changes slated for the next patch release), the version file will have been updated:
 
 ```shell
 sdk@flatcar-sdk-all-3066_0_0_os-beta-3066_1_0-gcf4ff44a ~/trunk/src/scripts $ cat sdk_container/.repo/manifests/version.txt
@@ -305,7 +300,9 @@ Furthermore, each package directory contains a `Manifest` file with cryptographi
 Multiple package sources - in separate directories - can be stacked on top of each other.
 These “overlays” allow custom extensions or even custom sub-trees on top of an existing foundation.
 In these stacks, “upper” level packages override “lower” level ones.
-The Flatcar build system uses a fork of Gentoo upstream’s [portage-stable](https://github.com/flatcar/portage-stable) as its base, and the overlay repository [coreos-overlay](https://github.com/flatcar/coreos-overlay) for Flatcar specific modifications and packages on top.
+The Flatcar build system uses a fork of Gentoo upstream’s `portage-stable` at [sdk_container/src/third_party/portage-stable/](https://github.com/flatcar/scripts/blob/main/sdk_container/src/third_party/portage-stable/) as its base.
+Packages in this directory are kept in sync with Gentoo upstream, and are Flatcar's main source of patches (bug fixes and package stabilisations) to upstream Gentoo.
+Flatcar specific tools live in the overlay directory `coreos-overlay` at [sdk_container/src/third_party/coreos-overlay/](https://github.com/flatcar/scripts/blob/main/sdk_container/src/third_party/coreos-overlay).
 
 Packages are built using "ebuild" files.
 These files contain dependencies of a package - both build and runtime - as well as implement callbacks for downloading, patching, building, and installing the package.
@@ -313,9 +310,7 @@ The callbacks in these ebuild files are written in shell.
 The Gentoo package system - portage - will, when building / installing a package, run the respective callbacks in order (e.g. `src_fetch()` for downloading package sources, and `src_compile()` for building).
 Common ebuild functions shared across many packages are implemented via eclasses (in `eclass/`) which can be inherited by package ebuilds.
 
-
 For more information on Gentoo in general please refer to the [Gentoo devmanual](https://devmanual.gentoo.org/).
-
 
 ### Get to know the SDK chroot
 
@@ -544,7 +539,7 @@ To modify the configuration of a package we will run its individual build steps 
 This will allow for pausing after downloading the sources, to change the source tree configuration before building and installing.
 
 Our first step is to set you all up with a pre-configured stock Flatcar Linux kernel to base your modifications on.
-The Flatcar Linux kernel build is split over multiple gentoo ebuild files which all reside in [`coreos-overlay/sys-kernel/`](https://github.com/kinvolk/coreos-overlay/tree/main/sys-kernel):
+The Flatcar Linux kernel build is split over multiple gentoo ebuild files which all reside in [`coreos-overlay/sys-kernel/`](https://github.com/flatcar/scripts/tree/main/sdk_container/src/third_party/coreos-overlay/sys-kernel):
 
 *   `coreos-sources/` for pulling the kernel sources from git.kernel.org
 *   `coreos-kernel/` for building the main kernel (vmlinuz)
@@ -663,14 +658,13 @@ scripts $ ssh core@localhost -p 2222
 core@localhost ~ $ ...
 ```
 
+## Testing images
+
+[Mantle][mantle] is a collection of utilities used in testing and launching SDK images.
 
 ## Rebuilding the SDK
 
 Take a look at the [SDK bootstrap process](sdk-bootstrapping) to learn how to build your own SDK.
-
-## Testing images
-
-[Mantle][mantle] is a collection of utilities used in testing and launching SDK images.
 
 [flatcar-dev]: https://groups.google.com/forum/#!forum/flatcar-linux-dev
 [github-flatcar]: https://github.com/flatcar
@@ -680,8 +674,8 @@ Take a look at the [SDK bootstrap process](sdk-bootstrapping) to learn how to bu
 [flatcar-releases]: https://www.flatcar-linux.org/releases/
 
 
-[coreos]: https://github.com/flatcar/coreos-overlay
-[portage]: https://github.com/flatcar/portage-stable
+[coreos]: https://github.com/flatcar/scripts/blob/main/sdk_container/src/third_party/coreos-overlay
+[portage]: https://github.com/flatcar/scripts/blob/main/sdk_container/src/third_party/portage-stable
 [mantle]: https://github.com/flatcar/mantle
 [prodimages]: sdk-building-production-images
 [sdktips]: sdk-tips-and-tricks

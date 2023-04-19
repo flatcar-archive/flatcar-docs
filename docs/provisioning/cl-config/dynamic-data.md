@@ -16,7 +16,7 @@ As of version 0.2.0, ct has support for making this easy for users. In specific 
 
 The available information varies by provider, and is expressed in different variables by coreos-metadata. If this feature is used a `--provider` flag must be passed to ct. Currently, the `etcd` and `flannel` sections are the only ones which support this feature.
 
-[afterburn]: https://github.com/kinvolk/afterburn/
+[afterburn]: https://github.com/flatcar/afterburn/
 
 ## Supported data by provider
 

@@ -93,7 +93,7 @@ Beware that over time it is expected that upstream projects will drop support fo
 
 ## Generate AWS EC2 cgroups v1 AMIs
 
-The [`create_cgroupv1_ami.sh` script](https://raw.githubusercontent.com/kinvolk/flatcar-docs/main/create_cgroupv1_ami.sh) performs the image modification as outlined above for you to upload your own Flatcar AMI that directly boots into cgroup v1 without needing an additonal reboot.
+The [`create_cgroupv1_ami.sh` script](https://raw.githubusercontent.com/flatcar/flatcar-docs/main/create_cgroupv1_ami.sh) performs the image modification as outlined above for you to upload your own Flatcar AMI that directly boots into cgroup v1 without needing an additonal reboot.
 
 # Kubernetes
 
