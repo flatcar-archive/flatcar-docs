@@ -126,7 +126,7 @@ Renewing the image signing key requires split secrets of multiple maintainers.
    1. A [top-level build automation repo](https://github.com/flatcar/scripts).
       This repository qualifies automation and package definitions of any given build by commit ID.
       It includes all package definitions (ebuilds) in subdirectories.
-      Package definitions include the [portage-stable](https://github.com/flatcar/scripts/blob/main/sdk_container/src/third_party/portage-stable) and [coreos-overlay](https://github.com/flatcar/scripts/blob/main/sdk_container/src/third_party/coreos-overlay) ebuild "repositories".
+      Package definitions include the [portage-stable](https://github.com/flatcar/scripts/tree/main/sdk_container/src/third_party/portage-stable) and [coreos-overlay](https://github.com/flatcar/scripts/tree/main/sdk_container/src/third_party/coreos-overlay) ebuild "repositories".
 2. Upstream source tarballs of applications and libraries shipped with Flatcar.
    Secured by cryptographic checksums stored in Flatcar's build automation repos (Gentoo standard).
 3. The SDK container.

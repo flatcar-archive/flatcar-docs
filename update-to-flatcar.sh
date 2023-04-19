@@ -2,7 +2,7 @@
 set -euo pipefail
 
 sudo rm -f /tmp/key
-curl -L -o /tmp/key https://raw.githubusercontent.com/flatcar/coreos-overlay/flatcar-master/coreos-base/coreos-au-key/files/official-v2.pub.pem
+curl -L -o /tmp/key https://raw.githubusercontent.com/flatcar/scripts/main/sdk_container/src/third_party/coreos-overlay/coreos-base/coreos-au-key/files/official-v2.pub.pem
 sudo umount /usr/share/update_engine/update-payload-key.pub.pem || true
 sudo mount --bind /tmp/key /usr/share/update_engine/update-payload-key.pub.pem
 if [ -d /etc/coreos ]; then

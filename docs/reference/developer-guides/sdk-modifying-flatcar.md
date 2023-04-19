@@ -674,8 +674,8 @@ Take a look at the [SDK bootstrap process](sdk-bootstrapping) to learn how to bu
 [flatcar-releases]: https://www.flatcar-linux.org/releases/
 
 
-[coreos]: https://github.com/flatcar/scripts/blob/main/sdk_container/src/third_party/coreos-overlay
-[portage]: https://github.com/flatcar/scripts/blob/main/sdk_container/src/third_party/portage-stable
+[coreos]: https://github.com/flatcar/scripts/tree/main/sdk_container/src/third_party/coreos-overlay
+[portage]: https://github.com/flatcar/scripts/tree/main/sdk_container/src/third_party/portage-stable
 [mantle]: https://github.com/flatcar/mantle
 [prodimages]: sdk-building-production-images
 [sdktips]: sdk-tips-and-tricks

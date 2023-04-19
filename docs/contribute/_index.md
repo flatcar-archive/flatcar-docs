@@ -53,6 +53,6 @@ We happily accept accurate translations. Please send the documents as a pull req
 
 [asl]: https://github.com/flatcar/flatcar-docs/blob/main/LICENSE
 [flatcar-docs]: https://flatcar.org/docs/latest/
-[help-wanted]: https://github.com/flatcar/Flatcar/issues?q=is%3Aopen+label%3Akind%2Fdocs
+[help-wanted]: https://github.com/flatcar/Flatcar/labels/kind%2Fdocs
 [pull-requests]: https://help.github.com/articles/using-pull-requests/
 [style]: docs

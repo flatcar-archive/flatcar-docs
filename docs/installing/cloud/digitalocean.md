@@ -342,7 +342,7 @@ You can resolve the latest Flatcar Stable version with this shell command:
 curl -sSfL https://stable.release.flatcar-linux.net/amd64-usr/current/version.txt | grep -m 1 FLATCAR_VERSION_ID= | cut -d = -f 2
 ```
 
-The machine name listed in the `machines` variable is used to retrieve the corresponding [Container Linux Config](https://www.flatcar.org/docs/latest/provisioning/config-transpiler/configuration/).
+The machine name listed in the `machines` variable is used to retrieve the corresponding [Butane Config](https://www.flatcar.org/docs/latest/provisioning/config-transpiler/configuration/).
 For each machine in the list, you should have a `machine-NAME.yaml.tmpl` file with a corresponding name.
 
 For example, create the configuration for `mynode` in the file `machine-mynode.yaml.tmpl`:

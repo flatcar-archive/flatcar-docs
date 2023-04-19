@@ -111,9 +111,9 @@ Here is an example config with an additional `links` entry that ensures that the
 }
 ```
 
-[check-file]: https://github.com/flatcar/scripts/blob/9e1c23f3f44d2751076e770f43f7a6db05d49652/build_library/grub.cfg#L68-L71
-[gptprio.next]: https://github.com/flatcar/scripts/blob/9e1c23f3f44d2751076e770f43f7a6db05d49652/build_library/grub.cfg#L132
+[check-file]: https://github.com/flatcar/scripts/blob/80e49d190ff99e8c489bbf420dc2bc248ae553e3/build_library/grub.cfg#L68-L74
+[gptprio.next]: https://github.com/flatcar/scripts/blob/80e49d190ff99e8c489bbf420dc2bc248ae553e3/build_library/grub.cfg#L128
 [grub]: https://www.gnu.org/software/grub/
-[grub-config]: https://github.com/flatcar/scripts/blob/9e1c23f3f44d2751076e770f43f7a6db05d49652/build_library/grub.cfg
+[grub-config]: https://github.com/flatcar/scripts/blob/80e49d190ff99e8c489bbf420dc2bc248ae553e3/build_library/grub.cfg
 [linux-startup]: https://en.wikipedia.org/wiki/Linux_startup_process
 [search-guid]: https://github.com/flatcar/scripts/blob/9e1c23f3f44d2751076e770f43f7a6db05d49652/build_library/grub.cfg#L73-L78
