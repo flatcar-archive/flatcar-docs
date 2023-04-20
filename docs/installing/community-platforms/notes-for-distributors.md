@@ -45,8 +45,6 @@ Use Ignition to handle platform specific configuration such as custom networking
 Additionally, it is recommended that providers ensure that [Afterburn][coreos-metadata] has support for their platform. This will allow a nicer user experience, as Afterburn will be able to install users' ssh keys and users will be able to reference metadata variables in their systemd units.
 
 [ignition]: ../../provisioning/ignition
-[ign-platforms]: https://github.com/coreos/ignition/blob/main/docs/supported-platforms.md
-[ign-platforms]: https://github.com/kinvolk/ignition/blob/master/doc/supported-platforms.md
 [coreos-metadata]: https://github.com/coreos/afterburn/
 
 ### Cloud config
