@@ -577,6 +577,7 @@ passwd:
 storage:
   files:
     - path: /home/core/works
+      filesystem: root
       mode: 0755
       contents:
         inline: |
