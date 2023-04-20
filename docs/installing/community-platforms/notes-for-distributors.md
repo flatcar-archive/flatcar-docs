@@ -51,7 +51,7 @@ Additionally, it is recommended that providers ensure that [Afterburn][coreos-me
 
 ### Cloud config
 
-A Flatcar Container Linux image can also be customized using [cloud-config](https://github.com/kinvolk/coreos-cloudinit/blob/master/Documentation/cloud-config.md). Users are recommended to instead use Butane Configs (that are converted into Ignition configs with [Butane][butane-configs]), for reasons [outlined in the blog post that introduced Ignition][ignition-blog].
+A Flatcar Container Linux image can also be customized using [cloud-config](https://github.com/flatcar/coreos-cloudinit/blob/master/Documentation/cloud-config.md). Users are recommended to instead use Butane Configs (that are converted into Ignition configs with [`butane`][butane-configs]), for reasons [outlined in the blog post that introduced Ignition][ignition-blog].
 
 Providers that previously supported cloud-config should continue to do so, as not all users have switched over to Butane Configs. New platforms do not need to support cloud-config.
 

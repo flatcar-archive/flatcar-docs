@@ -89,7 +89,7 @@ Flatcar Container Linux can also be installed by booting the virtual machine via
 
 ## Butane Configs
 
-Flatcar Container Linux allows you to configure machine parameters, configure networking, launch systemd units on startup, and more via Butane Configs. These configs are then [transpiled][transpiler] into Ignition configs and given to booting machines. Head over to the [docs to learn about the supported features][transpiler].
+Flatcar Container Linux allows you to configure machine parameters, configure networking, launch systemd units on startup, and more via Butane Configs. These configs are then transpiled into Ignition configs and given to booting machines. Head over to the [docs to learn about the supported features][transpiler].
 
 You can provide a raw Ignition config to Flatcar Container Linux via VMware's [Guestinfo interface][guestinfo].
 
@@ -142,7 +142,7 @@ systemd:
 Transpile it to Ignition JSON:
 
 ```shell
-cat cl.yaml | docker run --rm -i quay.io/coreos/butane:release -platform custom > ignition.json
+cat cl.yaml | docker run --rm -i quay.io/coreos/butane:release > ignition.json
 ```
 
 For DHCP you don't need to specify any networkd units.

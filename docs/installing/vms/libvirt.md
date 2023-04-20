@@ -107,7 +107,7 @@ echo "  # For ignition files" >> /etc/apparmor.d/abstractions/libvirt-qemu
 echo "  /var/lib/libvirt/flatcar-linux/** r," >> /etc/apparmor.d/abstractions/libvirt-qemu
 ```
 
-Since the empty Ignition config is not very useful, here is an example how to write a simple Butane config to add your ssh keys and write a hostname file:
+Since the empty Ignition config is not very useful, here is an example how to write a simple Butane Config to add your ssh keys and write a hostname file:
 
 ```yaml
 variant: flatcar
@@ -169,7 +169,7 @@ ssh core@192.168.122.184
 
 #### Static IP
 
-By default, Flatcar Container Linux uses DHCP to get its network configuration. In this example the VM will be attached directly to the local network via a bridge on the host's virbr0 and the local network. To configure a static address add a [networkd unit][systemd-network] to the Butane config:
+By default, Flatcar Container Linux uses DHCP to get its network configuration. In this example the VM will be attached directly to the local network via a bridge on the host's virbr0 and the local network. To configure a static address add a [networkd unit][systemd-network] to the Butane Config:
 
 ```yaml
 variant: flatcar

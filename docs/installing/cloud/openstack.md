@@ -118,7 +118,7 @@ systemd:
 Transpile it to Ignition JSON:
 
 ```shell
-cat cl.yaml | docker run --rm -i quay.io/coreos/butane:release -platform openstack-metadata > ignition.json
+cat cl.yaml | docker run --rm -i quay.io/coreos/butane:release > ignition.json
 ```
 
 The `coreos-metadata.service` saves metadata variables to `/run/metadata/flatcar`. Systemd units can use them with `EnvironmentFile=/run/metadata/flatcar` in the `[Service]` section when setting `Requires=coreos-metadata.service` and `After=coreos-metadata.service` in the `[Unit]` section.
