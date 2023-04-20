@@ -102,9 +102,7 @@ Here is a Container Linux Config to enable the Docker service while disabling so
 ```yaml
 systemd:
   units:
-    # Ensure docker starts automatically instead of being socket-activated
-    - name: docker.socket
-      enabled: false
+    # Ensure docker starts automatically instead of being only socket-activated
     - name: docker.service
       enabled: true
 ```
