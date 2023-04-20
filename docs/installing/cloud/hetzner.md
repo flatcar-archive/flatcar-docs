@@ -291,7 +291,7 @@ server_type = "cx11"
 release_channel = "stable"
 ```
 
-The above references a deployment configuration in [Butane](https://www.flatcar.org/docs/latest/provisioning/config-transpiler/configuration/) syntax; `server-configs/server1.yaml`.
+The above references a deployment configuration in [Butane](../../../provisioning/config-transpiler/configuration/) syntax; `server-configs/server1.yaml`.
 This is used to set up containers on your node, e.g. for a simple service, or to kick off bootstrapping a complex control plane like Kubernetes.
 
 The example below will run a simple web server on the node. Create a file `server-configs/server1.yaml` with the following contents:
