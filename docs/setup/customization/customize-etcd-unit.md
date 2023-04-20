@@ -11,23 +11,35 @@ The etcd systemd unit can be customized by overriding the unit that ships with t
 
 ## Use client certificates
 
-etcd supports client certificates as a way to provide secure communication between clients &#8596; leader and internal traffic between etcd peers in the cluster. Configuring certificates for both scenarios is done through the etcd section in a Container Linux Config. Options provided here will augment the unit that ships with Flatcar Container Linux.
+etcd supports client certificates as a way to provide secure communication between clients &#8596; leader and internal traffic between etcd peers in the cluster. Configuring certificates for both scenarios is done through a Butane Config. Options provided here will augment the unit that ships with Flatcar Container Linux.
 
 Please follow the [instructions][self-signed-howto] on how to create self-signed certificates and private keys.
 
+Note that more etcd settings are needed for a proper configuration.
+
 ```yaml
-etcd:
-  # More settings are needed here for a functioning etcd daemon
-  ca_file:        /path/to/CA.pem
-  cert_file:      /path/to/server.crt
-  key_file:       /path/to/server.key
-  peer_ca_file:   /path/to/CA.pem
-  peer_cert_file: /path/to/peers.crt
-  peer_key_file:  /path/to/peers.key
+variant: flatcar
+version: 1.0.0
+systemd:
+ units:
+   - name: etcd-member.service
+     enabled: true
+     dropins:
+       - name: 20-clct-etcd-member.conf
+         contents: |
+           [Service]
+           ExecStart=
+           ExecStart=/usr/lib/coreos/etcd-wrapper $ETCD_OPTS \
+             --ca-file="/path/to/CA.pem" \
+             --cert-file="/path/to/server.crt" \
+             --key-file="/path/to/server.key" \
+             --peer-ca-file="/path/to/CA.pem" \
+             --peer-cert-file="/path/to/peers.crt" \
+             --peer-key-file="/path/to/peers.key"
+
 storage:
   files:
     - path: /path/to/CA.pem
-      filesystem: root
       mode: 0644
       contents:
         inline: |
@@ -37,7 +49,6 @@ storage:
           EtHaxYQRy72yZrte6Ypw57xPRB8sw1DIYjr821Lw05DrLuBYcbyclg==
           -----END CERTIFICATE-----
     - path: /path/to/server.crt
-      filesystem: root
       mode: 0644
       contents:
         inline: |
@@ -49,7 +60,6 @@ storage:
           a3m12FMs3AsSt7mzyZk+bH2WjZLrlUXyrvprI40=
           -----END CERTIFICATE-----
     - path: /path/to/server.key
-      filesystem: root
       mode: 0644
       contents:
         inline: |
@@ -62,7 +72,6 @@ storage:
           mgVh2LBerGMbsdsTQ268sDvHKTdD9MDAunZlQIgO2zotARY02MLV/Q5erASYdCxk
           -----END RSA PRIVATE KEY-----
     - path: /path/to/peers.crt
-      filesystem: root
       mode: 0644
       contents:
         inline: |
@@ -74,7 +83,6 @@ storage:
           St7mza3m12FMs3AsyZk+bH2WjZLrlUXyrvprI90=
           -----END CERTIFICATE-----
     - path: /path/to/peers.key
-      filesystem: root
       mode: 0644
       contents:
         inline: |

@@ -112,11 +112,13 @@ systemctl restart systemd-journald
 dmesg | grep systemd-journald
 ```
 
-## Enable debugging via a Container Linux Config
+## Enable debugging via a Butane Config
 
-Define a [Drop-In][drop-ins] in a [Container Linux Config][ct-configs]:
+Define a [Drop-In][drop-ins] in a [Butane Config][butane-configs]:
 
 ```yaml
+variant: flatcar
+version: 1.0.0
 systemd:
   units:
     - name: systemd-journald.service
@@ -128,7 +130,7 @@ systemd:
 ```
 
 [drop-ins]: ../systemd/drop-in-units
-[ct-configs]: ../../provisioning/cl-config
+[butane-configs]: ../../provisioning/config-transpiler
 
 ## More information
 

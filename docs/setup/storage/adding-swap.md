@@ -90,15 +90,16 @@ Filesystem     Type      Size  Used Avail Use% Mounted on
 
 The block device mounted at `/var/`, `/dev/sdXN`, is the correct filesystem type and has enough space for a 1GiB swapfile.
 
-## Adding swap with a Container Linux Config
+## Adding swap with a Butane Config
 
 The following config sets up a 1GiB swapfile located at `/var/vm/swapfile1`.
 
 ```yaml
+variant: flatcar
+version: 1.0.0
 storage:
   files:
   - path: /etc/sysctl.d/80-swappiness.conf
-    filesystem: root
     contents:
       inline: "vm.swappiness=10"
 
@@ -135,9 +136,11 @@ systemd:
 
 ## Using a dedicated swap disk
 
-The following Container Linux config sets up `/dev/sdb` to be used as swap:
+The following Butane config sets up `/dev/sdb` to be used as swap:
 
 ```yaml
+variant: flatcar
+version: 1.0.0
 storage:
   disks: 
     - device: /dev/sdb 
@@ -146,23 +149,11 @@ storage:
         - label: swap
           type_guid: 0657FD6D-A4AB-43C4-84E5-0933C84B4F4F
   filesystems:
-    - name: swap
-      mount:
-        device: /dev/disk/by-partlabel/swap
-        format: swap
-        wipe_filesystem: true
-        label: swap
-systemd:
-  units:
-    - name: dev-disk-by\x2dpartlabel-swap.swap
-      enabled: true
-      contents: |
-        [Unit]
-        Description=Swap
-        [Swap]
-        What=/dev/disk/by-partlabel/swap
-        [Install]
-        WantedBy=multi-user.target
+    - device: /dev/disk/by-partlabel/swap
+      format: swap
+      wipe_filesystem: true
+      label: swap
+      with_mount_unit: true
 ```
 
 NB the systemd unit name is created by

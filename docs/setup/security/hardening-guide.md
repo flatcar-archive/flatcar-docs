@@ -34,7 +34,7 @@ etcd and Locksmith should be secured and authenticated using TLS if you are usin
 
 ### Local users
 
-Flatcar Container Linux has a single default user account called "core". Generally this user is the one that gets ssh keys added to it via a Container Linux Config for administrators to login. The core user, by default, has access to the wheel group which grants sudo access. The group can't be easily changed and thus the solution to restrict access is to either require a password for sudo but not setting one, or disable login for the `core` user.
+Flatcar Container Linux has a single default user account called "core". Generally this user is the one that gets ssh keys added to it via a Butane Config for administrators to login. The core user, by default, has access to the wheel group which grants sudo access. The group can't be easily changed and thus the solution to restrict access is to either require a password for sudo but not setting one, or disable login for the `core` user.
 
 A sudo drop-in can be created under `/etc/sudoers.d/core-passwd` with the contents `core	ALL=(ALL) 	ALL` and as long as the core user has no password set it can't use `sudo`. Here is a Butane snippet:
 

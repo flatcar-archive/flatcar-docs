@@ -13,7 +13,7 @@ This allows applications to treat remote storage devices as if they were local d
 iSCSI handles taking requests from clients and carrying them out on the remote SCSI devices.
 
 Flatcar Container Linux has integrated support for mounting devices.
-This guide covers iSCSI configuration manually or automatically with [Container Linux Configs][cl-configs].
+This guide covers iSCSI configuration manually or automatically with [Butane Configs][butane-configs].
 
 ## Manual iSCSI configuration
 
@@ -90,7 +90,7 @@ systemctl enable iscsi
 
 To configure and start iSCSI automatically after a machine is provisioned, credentials need to be written to disk and the iSCSI service started.
 
-A Container Linux Config will be used to write the file `/etc/iscsi/iscsid.conf` to disk:
+A Butane Config will be used to write the file `/etc/iscsi/iscsid.conf` to disk:
 
 ```ini
 isns.address = host_ip
@@ -101,17 +101,18 @@ discovery.sendtargets.auth.username = my_username
 discovery.sendtargets.auth.password = my_secret_password
 ```
 
-### The Container Linux Config
+### The Butane Config
 
 ```yaml
+variant: flatcar
+version: 1.0.0
 systemd:
   units:
     - name: iscsi.service
-      enable: true
+      enabled: true
 storage:
   files:
     - path: /etc/iscsi/iscsid.conf
-      filesystem: root
       mode: 0644
       contents:
         inline: |
@@ -129,4 +130,4 @@ See the [mounting storage docs][mounting-storage] for an example.
 
 [iscsi-wiki]: https://en.wikipedia.org/wiki/ISCSI
 [mounting-storage]: mounting-storage
-[cl-configs]: ../../provisioning/cl-config
+[butane-configs]: ../../provisioning/config-transpiler

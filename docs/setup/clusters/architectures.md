@@ -27,13 +27,15 @@ If you're developing locally but plan to run containers in production, it's best
 
 ### Configuring your laptop
 
-Start a single Flatcar Container Linux VM with the Docker remote socket enabled in the Container Linux Config (CL Config). Here's what the CL Config looks like:
+Start a single Flatcar Container Linux VM with the Docker remote socket enabled in the Butane Config. Here's what the config looks like:
 
 ```yaml
+variant: flatcar
+version: 1.0.0
 systemd:
   units:
     - name: docker-tcp.socket
-      enable: yes
+      enabled: true
       mask: false
       contents: |
         [Unit]
@@ -47,11 +49,10 @@ systemd:
         [Install]
         WantedBy=sockets.target
     - name: enable-docker-tcp.service
-      enable: true
+      enabled: true
       contents: |
         [Unit]
         Description=Enable the Docker Socket for the API
-
         [Service]
         Type=oneshot
         ExecStart=/usr/bin/systemctl enable docker-tcp.socket
@@ -59,7 +60,7 @@ systemd:
 
 This file is used to provision your local Flatcar Container Linux machine on its first boot. This sets up and enables the Docker API, which is how you can use Docker on your laptop. The Docker CLI manages containers running within the VM, *not* on your personal operating system.
 
-Using the Butane Config Transpiler, or `butane`, ([download][butane-download]) convert the above yaml into an [Ignition][ignition-getting-started]. Alternatively, copy the contents of the Igntion tab in the above example. Once you have the Ignition configuration file, pass it to your provider.
+Using the Butane Config Transpiler, or `butane` ([download][butane-download]), convert the above yaml into an [Ignition][ignition-getting-started]. Alternatively, copy the contents of the Igntion tab in the above example. Once you have the Ignition configuration file, pass it to your provider.
 In addition to providers supported by [upstream Ignition][ignition-supported], Flatcar [supports](https://github.com/flatcar/scripts/blob/main/sdk_container/src/third_party/coreos-overlay/sys-apps/ignition/files/0018-revert-internal-oem-drop-noop-OEMs.patch) cloudsigma, hyperv, interoute, niftycloud, rackspace[-onmetal], and vagrant.
 
 Once the local VM is running, tell your Docker binary on your personal operating system to use the remote port by exporting an environment variable and start running Docker commands. Run these commands in a terminal *on your local operating system (MacOS or Linux), not in the Flatcar Container Linux virtual machine*:
@@ -89,7 +90,7 @@ There are several different options for testing Flatcar Container Linux locally:
 
 For small clusters, between 3-9 machines, running etcd on all of the machines allows for high availability without paying for extra machines that just run etcd.
 
-Getting started is easy &mdash; a single CL Config can be used to provision all machines in your environment.
+Getting started is easy &mdash; a single Butane Config can be used to provision all machines in your environment.
 
 Once you have a small cluster up and running, you can install a Kubernetes on the cluster. You can do this easily using [Typhoon][typhoon].
 
@@ -97,7 +98,7 @@ Once you have a small cluster up and running, you can install a Kubernetes on th
 
 For more information on getting started with this architecture, see the Flatcar Container Linux documentation on [supported platforms][flatcar-supported]. These include [Amazon EC2][flatcar-ec2], [Equinix Metal][flatcar-equinix-metal], [Azure][flatcar-azure], [Google Compute Platform][flatcar-gce], [bare metal iPXE][flatcar-bm], [Digital Ocean][flatcar-do], and many more community supported platforms.
 
-Boot the desired number of machines with the same CL Config and discovery token. The CL Config specifies which services will be started on each machine.
+Boot the desired number of machines with the same Butane Config and discovery token. The Butane Config specifies which services will be started on each machine.
 
 ## Easy development/testing cluster
 
@@ -122,37 +123,44 @@ Since we're only using a single etcd node, there is no need to include a discove
 
 The networkd unit is typically used for bare metal installations that require static networking. See your provider's documentation for specific examples.
 
-Here's the CL Config for the etcd machine:
+Here's the Butane Config for the etcd machine:
 
 ```yaml
-etcd:
-  version: 3.1.5
-  name: "etcdserver"
-  initial_cluster: "etcdserver=http://10.0.0.101:2380"
-  initial_advertise_peer_urls: "http://10.0.0.101:2380"
-  advertise_client_urls: "http://10.0.0.101:2379"
-  listen_client_urls: "http://0.0.0.0:2379,http://0.0.0.0:4001"
-  listen_peer_urls: "http://0.0.0.0:2380"
+variant: flatcar
+version: 1.0.0
 systemd:
   units:
     - name: etcd-member.service
-      enable: true
+      enabled: true
       dropins:
-        - name: conf1.conf
+        - name: 20-clct-etcd-member.conf
           contents: |
+            [Unit]
+            Requires=coreos-metadata.service
+            After=coreos-metadata.service
             [Service]
+            Environment=ETCD_IMAGE_TAG=v3.1.5
             Environment="ETCD_NAME=etcdserver"
-networkd:
-  units:
-    - name: 00-eth0.network
-      contents: |
-        [Match]
-        Name=eth0
+            ExecStart=
+            ExecStart=/usr/lib/coreos/etcd-wrapper $ETCD_OPTS \
+              --name="etcdserver" \
+              --listen-peer-urls="http://0.0.0.0:2380" \
+              --listen-client-urls="http://0.0.0.0:2379,http://0.0.0.0:4001" \
+              --initial-advertise-peer-urls="http://10.0.0.101:2380" \
+              --initial-cluster="etcdserver=http://10.0.0.101:2380" \
+              --advertise-client-urls="http://10.0.0.101:2379"
+storage:
+  files:
+    - path: /etc/systemd/network/00-eth0.network
+      contents:
+        inline: |
+          [Match]
+          Name=eth0
 
-        [Network]
-        DNS=1.2.3.4
-        Address=10.0.0.101/24
-        Gateway=10.0.0.1
+          [Network]
+          DNS=1.2.3.4
+          Address=10.0.0.101/24
+          Gateway=10.0.0.1
 ```
 
 ### Configuration for worker role
@@ -174,34 +182,47 @@ For large clusters, it's recommended to set aside 3-5 machines to run central se
 
 Our central services machines will run services like etcd and Kubernetes controllers that support the rest of the cluster. etcd is configured with static networking and a peers list.
 
-Here's an example CL Config for one of the central service machines. Be sure to generate a new discovery token with the initial size of your cluster:
+Here's an example Butane Config for one of the central service machines. Be sure to generate a new discovery token with the initial size of your cluster:
 
 ```yaml
-etcd:
-  version: 3.0.15
-  # generate a new token for each unique cluster from https://discovery.etcd.io/new?size=3
-  # specify the initial size of your cluster with ?size=X
-  discovery: https://discovery.etcd.io/<token>
-  # multi-region and multi-cloud deployments must use $public_ipv4
-  advertise_client_urls: http://10.0.0.101:2379
-  initial_advertise_peer_urls: http://10.0.0.101:2380
-  listen_client_urls: http://0.0.0.0:2379
-  listen_peer_urls: http://10.0.0.101:2380
+variant: flatcar
+version: 1.0.0
 systemd:
   units:
     - name: etcd-member.service
-      enable: true
-networkd:
-  units:
-    - name: 00-eth0.network
-      contents: |
-        [Match]
-        Name=eth0
+      enabled: true
+      dropins:
+        - name: 20-clct-etcd-member.conf
+          contents: |
+            [Unit]
+            Requires=coreos-metadata.service
+            After=coreos-metadata.service
+            [Service]
+            Environment=ETCD_IMAGE_TAG=v3.1.5
+            Environment="ETCD_NAME=etcdserver"
+            ExecStart=
+            ExecStart=/usr/lib/coreos/etcd-wrapper $ETCD_OPTS \
+              --name="etcdserver" \
+              --listen-peer-urls="http://10.0.0.101:2380" \
+              --listen-client-urls="http://0.0.0.0:2379" \
+              --initial-advertise-peer-urls="http://10.0.0.101:2380" \
+              --initial-cluster="etcdserver=http://10.0.0.101:2380" \
+              --advertise-client-urls="http://10.0.0.101:2379" \
+              --discovery="https://discovery.etcd.io/<token>"
+# generate a new token for each unique cluster from https://discovery.etcd.io/new?size=3
+# specify the initial size of your cluster with ?size=X
+storage:
+  files:
+    - path: /etc/systemd/network/00-eth0.network
+      contents:
+        inline: |
+          [Match]
+          Name=eth0
 
-        [Network]
-        DNS=1.2.3.4
-        Address=10.0.0.101/24
-        Gateway=10.0.0.1
+          [Network]
+          DNS=1.2.3.4
+          Address=10.0.0.101/24
+          Gateway=10.0.0.1
 ```
 
 [butane-download]: https://github.com/coreos/butane/releases

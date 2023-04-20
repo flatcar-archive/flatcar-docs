@@ -87,35 +87,38 @@ Run VMware Workstation GUI:
 
 Flatcar Container Linux can also be installed by booting the virtual machine via [PXE][PXE] or the [ISO image][ISO] and then [installing Flatcar Container Linux to disk][install].
 
-## Container Linux Configs
+## Butane Configs
 
-Flatcar Container Linux allows you to configure machine parameters, configure networking, launch systemd units on startup, and more via Container Linux Configs (CLC). These configs are then [transpiled][transpiler] into Ignition configs and given to booting machines. Head over to the [docs to learn about the supported features][cl-configs].
+Flatcar Container Linux allows you to configure machine parameters, configure networking, launch systemd units on startup, and more via Butane Configs. These configs are then transpiled into Ignition configs and given to booting machines. Head over to the [docs to learn about the supported features][transpiler].
 
 You can provide a raw Ignition config to Flatcar Container Linux via VMware's [Guestinfo interface][guestinfo].
 
-As an example, this Container Linux Config will start an NGINX Docker container and configure private and public static IP addresses:
+As an example, this Butane Config will start an NGINX Docker container and configure private and public static IP addresses:
 
 ```yaml
-networkd:
-  units:
-    - name: 00-vmware.network
-      contents: |
-        [Match]
-        Name=ens192
-        [Network]
-        DHCP=no
-        DNS=1.1.1.1
-        DNS=1.0.0.1
-        [Address]
-        Address=123.45.67.2/29
-        [Address]
-        Address=10.0.0.2/29
-        [Route]
-        Destination=0.0.0.0/0
-        Gateway=123.45.67.1
-        [Route]
-        Destination=10.0.0.0/8
-        Gateway=10.0.0.1
+variant: flatcar
+version: 1.0.0
+storage:
+  files:
+    - path: /etc/systemd/network/00-vmware.network
+      contents:
+        inline: |
+          [Match]
+          Name=ens192
+          [Network]
+          DHCP=no
+          DNS=1.1.1.1
+          DNS=1.0.0.1
+          [Address]
+          Address=123.45.67.2/29
+          [Address]
+          Address=10.0.0.2/29
+          [Route]
+          Destination=0.0.0.0/0
+          Gateway=123.45.67.1
+          [Route]
+          Destination=10.0.0.0/8
+          Gateway=10.0.0.1
 systemd:
   units:
     - name: nginx.service
@@ -139,7 +142,7 @@ systemd:
 Transpile it to Ignition JSON:
 
 ```shell
-cat cl.yaml | docker run --rm -i ghcr.io/flatcar/ct:latest -platform custom > ignition.json
+cat cl.yaml | docker run --rm -i quay.io/coreos/butane:release > ignition.json
 ```
 
 For DHCP you don't need to specify any networkd units.
@@ -151,7 +154,7 @@ Beginning with Flatcar major version 3248, fetching remote resources in Ignition
 
 IP configuration specified via `guestinfo.interface.*` and `guestinfo.dns.*` variables is currently not supported with Ignition and will only work if you provide coreos-cloudinit data (cloud-config or a script) as userdata.
 
-### Templating with Container Linux Configs and setting up metadata
+### Templating with Butane Configs and setting up metadata
 
 On many cloud providers Ignition will run the [`coreos-metadata.service`](../../provisioning/ignition/metadata/#metadataconf) (which runs `afterburn`) to set up [node metadata](../../provisioning/config-transpiler/dynamic-data). This is not the case with VMware because the network setup is defined by you and nothing generic that `afterburn` would know about.
 

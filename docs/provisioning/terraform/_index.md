@@ -28,7 +28,7 @@ It is also advisable to separate the persistent data from the disposable nodes t
 
 ## Generating the Ignition Configuration within Terraform
 
-To convert the Container Linux Config in YAML to the final Igniton Config in JSON you don't need to run [`ct`][ct] manually. Instead, you can directly do this within Terraform, through the [`terraform-ct-provider`][terraform-ct-provider].
+To convert the Butane Config in YAML to the final Igniton Config in JSON you don't need to run [`butane`][butane-configs] manually. Instead, you can directly do this within Terraform, through the [`terraform-ct-provider`][terraform-ct-provider] (starting from v0.12.0).
 Combined with the `template-provider` you can reference Terraform variables in the YAML template.
 
 An alternative is the [`terraform-ignition-provider`][terraform-ignition-provider] that allows to assemble the Ignition Config from Terraform declarations.
@@ -134,8 +134,8 @@ You can find the full code for working examples in this [git repository][example
 
 
 [cloud]: ../../installing/cloud/
-[ct]: ../container-linux-config-transpiler/
+[butane-configs]: ../config-transpiler
 [terraform-ct-provider]: https://registry.terraform.io/providers/poseidon/ct/latest
-[terraform-ignition-provider]: https://www.terraform.io/docs/providers/ignition/index.html
+[terraform-ignition-provider]: https://registry.terraform.io/providers/community-terraform-providers/ignition/latest
 [boot-process]: ../ignition/boot-process/#reprovisioning
 [example-repo]: https://github.com/flatcar/flatcar-terraform

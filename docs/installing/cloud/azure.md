@@ -186,7 +186,7 @@ If you plan to use the `core` user with an SSH key set up through Ignition userd
 ## Butane Config
 
 Flatcar Container Linux allows you to configure machine parameters, configure networking, launch systemd units on startup, and more
-via a Container Linux Config. Head over to the [provisioning docs][butane-configs] to learn how to use Butane Configs.
+via a Butane Config. Head over to the [provisioning docs][butane-configs] to learn how to use Butane Configs.
 Note that Microsoft Azure doesn't allow an instance's userdata to be modified after the instance had been launched. This
 isn't a problem since Ignition, the tool that consumes the userdata, only runs on the first boot.
 
@@ -569,8 +569,6 @@ For each machine in the list, you should have a `machine-NAME.yaml.tmpl` file wi
 Create the configuration for `mynode` in the file `cl/machine-mynode.yaml.tmpl`:
 
 ```yaml
-variant: flatcar
-version: 1.0.0
 passwd:
   users:
     - name: core
@@ -579,6 +577,7 @@ passwd:
 storage:
   files:
     - path: /home/core/works
+      filesystem: root
       mode: 0755
       contents:
         inline: |

@@ -19,10 +19,11 @@ When booting your [Flatcar Container Linux Machines on EC2][boot-ec2], configure
 Be sure to change `ECS_CLUSTER` to the cluster name you've configured via the ECS CLI or leave it empty for the default. Here's a full config example:
 
 ```yaml
+variant: flatcar
+version: 1.0.0
 storage:
   files:
     - path: /var/lib/iptables/rules-save
-      filesystem: root
       mode: 0644
       contents:
         inline: |
@@ -31,7 +32,6 @@ storage:
           -A OUTPUT -d 169.254.170.2/32 -p tcp -m tcp --dport 80 -j REDIRECT --to-ports 51679
           COMMIT
     - path: /etc/sysctl.d/localnet.conf
-      filesystem: root
       mode: 0644
       contents:
         inline: |
@@ -40,11 +40,11 @@ storage:
 systemd:
  units:
    - name: iptables-restore.service
-     enable: true
+     enabled: true
    - name: systemd-sysctl.service
-     enable: true
+     enabled: true
    - name: amazon-ecs-agent.service
-     enable: true
+     enabled: true
      contents: |
        [Unit]
        Description=AWS ECS Agent
@@ -90,12 +90,12 @@ systemd:
 
 The example above pulls the latest official Amazon ECS agent container from the Docker Hub when the machine starts. If you ever need to update the agent, it’s as simple as restarting the amazon-ecs-agent service or the Flatcar Container Linux machine.
 
-If you want to configure SSH keys in order to log in, mount disks or configure other options, see the [Container Linux Configs documentation][cl-configs].
+If you want to configure SSH keys in order to log in, mount disks or configure other options, see the [Butane config documentation][butane-configs].
 
 For more information on using ECS, check out the [official Amazon documentation][ecs-docs].
 
 [aws-ecs]: http://aws.amazon.com/ecs/
 [boot-ec2]: ../../installing/cloud/aws-ec2
-[cl-configs]: ../../provisioning/cl-config
+[butane-configs]: ../../provisioning/config-transpiler
 [ignition-docs]: ../../provisioning/ignition
 [ecs-docs]: http://aws.amazon.com/documentation/ecs/

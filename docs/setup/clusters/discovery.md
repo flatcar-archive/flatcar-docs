@@ -19,28 +19,44 @@ https://discovery.etcd.io/6a28e078895c5ec737174db2419bb2f3
 ```
 
 The discovery URL can be provided to each Flatcar Container Linux machine
-via [Container Linux Configs](../../provisioning/cl-config). The rest of this guide will
+via [Butane Configs](../../provisioning/config-transpiler). The rest of this guide will
 explain what's happening behind the scenes, but if you're trying to get
 clustered as quickly as possible, all you need to do is provide a _fresh,
 unique_ discovery token in your config.
 
-Boot each one of the machines with identical Container Linux Config and they should be automatically clustered:
+Boot each one of the machines with identical Butane Config and they should be automatically clustered:
 
 ```yaml
-etcd:
-  # generate a new token for each unique cluster from https://discovery.etcd.io/new?size=3
-  # specify the initial size of your cluster with ?size=X
-  discovery: https://discovery.etcd.io/<token>
-  # multi_region and multi_cloud deployments need to use {PUBLIC_IPV4}
-  advertise_client_urls: http://{PRIVATE_IPV4}:2379,http://{PRIVATE_IPV4}:4001
-  initial_advertise_peer_urls: http://{PRIVATE_IPV4}:2380
-  # listen on both the official ports and the legacy ports
-  # legacy ports can be omitted if your application doesn't depend on them
-  listen_client_urls: http://0.0.0.0:2379,http://0.0.0.0:4001
-  listen_peer_urls: http://{PRIVATE_IPV4}:2380
+variant: flatcar
+version: 1.0.0
+systemd:
+  units:
+    - name: etcd-member.service
+      enabled: true
+      dropins:
+        - name: 20-clct-etcd-member.conf
+          contents: |
+            [Unit]
+            Requires=coreos-metadata.service
+            After=coreos-metadata.service
+            [Service]
+            EnvironmentFile=/run/metadata/flatcar
+            ExecStart=
+            ExecStart=/usr/lib/coreos/etcd-wrapper $ETCD_OPTS \
+              --listen-peer-urls="http://${COREOS_CUSTOM_PRIVATE_IPV4}:2380" \
+              --listen-client-urls="http://0.0.0.0:2379,http://0.0.0.0:4001" \
+              --initial-advertise-peer-urls="http://${COREOS_CUSTOM_PRIVATE_IPV4}:2380" \
+              --advertise-client-urls="http://${COREOS_CUSTOM_PRIVATE_IPV4}:2379,http://${COREOS_CUSTOM_PRIVATE_IPV4}:4001" \
+              --discovery="https://discovery.etcd.io/<token>"
 ```
 
-Specific documentation are provided for each platform's guide. Not all providers support the `{PRIVATE_IPV4}` variable substitution.
+Note that you need to generate a new token for each unique cluster from https://discovery.etcd.io/new?size=3 where you specify the initial size of your cluster with `?size=X`.
+The used variable name needs to be changed to match those that Afterburn uses for your platform.
+Multi-region and multi-cloud deployments need to use the public IP address.
+The configuration listens on both the official ports and the legacy ports.
+Legacy ports can be omitted if your application doesn't depend on them.
+
+Specific documentation are provided for each platform's guide.
 
 ## New clusters
 
@@ -56,7 +72,7 @@ Starting a Flatcar Container Linux cluster requires one of the new machines to b
 
 There are a few interesting things happening during this process.
 
-First, each machine is configured with the same discovery URL and etcd figured out what to do. This allows you to load the same Container Linux Config into an auto-scaling group and it will work whether it is the first or 30th machine in the group.
+First, each machine is configured with the same discovery URL and etcd figured out what to do. This allows you to load the same Butane Config into an auto-scaling group and it will work whether it is the first or 30th machine in the group.
 
 Second, machine 3 only needed to use one of the addresses stored in the discovery URL to connect to the cluster. Since etcd uses the Raft consensus algorithm, existing machines in the cluster already maintain a list of healthy members in order for the algorithm to function properly. This list is given to the new machine and it starts normal operations with each of the other cluster members.
 

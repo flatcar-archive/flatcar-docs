@@ -36,7 +36,7 @@ curl -X POST \
 https://api.equinix.com/metal/v1/projects/<PROJECT_ID>/devices
 ```
 
-Double quotes in the `<USERDATA>` value must be escaped such that the request body is valid JSON. See the Container Linux Config section below for more information about accepted forms of userdata.
+Double quotes in the `<USERDATA>` value must be escaped such that the request body is valid JSON. See the Butane Config section below for more information about accepted forms of userdata.
 
 ## iPXE booting
 
@@ -276,9 +276,6 @@ ssh_keys     = ["ssh-rsa AA... me@mail.net"]
 Create the configuration for `mynode` in the file `machine-mynode.yaml.tmpl`:
 
 ```yaml
----
-variant: flatcar
-version: 1.0.0
 passwd:
   users:
     - name: core
@@ -287,6 +284,7 @@ passwd:
 storage:
   files:
     - path: /home/core/works
+      filesystem: root
       mode: 0755
       contents:
         inline: |

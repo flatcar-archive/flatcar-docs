@@ -164,7 +164,7 @@ If for a short time frame you want to temporarily disable update reboots, run `s
 In case when you want to permanently disable automatic updates, it's not recommended to mask the services because it makes it harder to manually apply updates.
 It's rather recommended to overwrite the `SERVER` variable in the update configuration to an invalid value.
 
-You can configure this with a Container Linux Config (needs to be [transpiled][transpiler] to Ignition JSON):
+You can configure this with a Butane Config (needs to be [transpiled][transpiler] to Ignition JSON):
 
 ```yaml
 variant: flatcar
@@ -323,11 +323,12 @@ storage:
     - device: /dev/disk/by-label/OEM
       format: btrfs
       label: OEM
+      path: /oem
   directories:
-    - path: /bin
+    - path: /oem/bin
       mode: 0755
   files:
-    - path: /bin/oem-postinst
+    - path: /oem/bin/oem-postinst
       mode: 0755
       contents:
         inline: |

@@ -42,22 +42,21 @@ There are two predominant ways that a Flatcar Container Linux image can be easil
 
 Use Ignition to handle platform specific configuration such as custom networking, running an agent on the machine, or injecting files onto disk. To do this, place an Ignition config at `/usr/share/oem/base/base.ign` and it will be prepended to the user provided config. In addition, any config placed at `/usr/share/oem/base/default.ign` will be executed if a user config is not found. On platforms that support cloud-config, use this feature to run coreos-cloudinit when no Ignition config is provided.
 
-Additionally, it is recommended that providers ensure that [coreos-metadata][coreos-metadata] and [butane][butane] have support for their platform. This will allow a nicer user experience, as coreos-metadata will be able to install users' ssh keys and users will be able to reference dynamic data in their Butane Configs.
+Additionally, it is recommended that providers ensure that [Afterburn][coreos-metadata] has support for their platform. This will allow a nicer user experience, as Afterburn will be able to install users' ssh keys and users will be able to reference metadata variables in their systemd units.
 
 [ignition]: ../../provisioning/ignition
-[ign-platforms]: https://github.com/coreos/ignition/blob/main/docs/supported-platforms.md
 [coreos-metadata]: https://github.com/coreos/afterburn/
-[butane]: https://github.com/coreos/butane
 
 ### Cloud config
 
-A Flatcar Container Linux image can also be customized using [cloud-config](https://github.com/flatcar/coreos-cloudinit/blob/master/Documentation/cloud-config.md). Users are recommended to instead use Butane Configs (that are converted into Ignition configs with [butane][butane]), for reasons [outlined in the blog post that introduced Ignition][ignition-blog].
+A Flatcar Container Linux image can also be customized using [cloud-config](https://github.com/flatcar/coreos-cloudinit/blob/master/Documentation/cloud-config.md). Users are recommended to instead use Butane Configs (that are converted into Ignition configs with [`butane`][butane-configs]), for reasons [outlined in the blog post that introduced Ignition][ignition-blog].
 
 Providers that previously supported cloud-config should continue to do so, as not all users have switched over to Butane Configs. New platforms do not need to support cloud-config.
 
 Flatcar Container Linux will automatically parse and execute `/usr/share/oem/cloud-config.yml` if it exists.
 
 [ignition-blog]: https://www.toddpigram.com/2016/04/introducing-ignition-new-coreos-machine.html
+[butane-configs]: ../../provisioning/config-transpiler
 
 ## Handling end-user Ignition files
 

@@ -49,9 +49,9 @@ At the end of the document there are instructions for deploying with Terraform.
 [reboot-docs]: ../../setup/releases/update-strategies
 [release-notes]: https://www.flatcar-linux.org/releases/
 
-## Container Linux Configs
+## Butane Configs
 
-Container Linux allows you to configure machine parameters, configure networking, launch systemd units on startup, and more via Butane Configs. These configs are then transpiled into Ignition configs and given to booting machines. Head over to the [docs to learn about the supported features][butane-configs]. Note that DigitalOcean doesn't allow an instance's userdata to be modified after the instance has been launched. This isn't a problem since Ignition only runs on the first boot.
+Flatcar Container Linux allows you to configure machine parameters, configure networking, launch systemd units on startup, and more via Butane Configs. These configs are then transpiled into Ignition configs and given to booting machines. Head over to the [docs to learn about the supported features][butane-configs]. Note that DigitalOcean doesn't allow an instance's userdata to be modified after the instance has been launched. This isn't a problem since Ignition only runs on the first boot.
 
 You can provide a raw Ignition JSON config to Flatcar Container Linux via the DigitalOcean web console or [via the DigitalOcean API](#via-the-api).
 
@@ -87,7 +87,7 @@ cat cl.yaml | docker run --rm -i quay.io/coreos/butane:latest > ignition.json
 ```
 ### Adding more machines
 
-To add more instances to the cluster, just launch more with the same Container Linux Config. New instances will join the cluster regardless of region.
+To add more instances to the cluster, just launch more with the same Butane Config. New instances will join the cluster regardless of region.
 
 ## SSH to your droplets
 
@@ -191,7 +191,7 @@ For more details, check out [DigitalOcean's API documentation][do-api-docs].
 </div>
 5. Select your SSH keys.
 
-Note that DigitalOcean is not able to inject a root password into Flatcar Container Linux images like it does with other images. You'll need to add your keys via the web console or add keys or passwords via your Container Linux Config in order to log in.
+Note that DigitalOcean is not able to inject a root password into Flatcar Container Linux images like it does with other images. You'll need to add your keys via the web console or add keys or passwords via your Butane Config in order to log in.
 
 ## Using Flatcar Container Linux
 
@@ -349,8 +349,6 @@ For example, create the configuration for `mynode` in the file `machine-mynode.y
 
 ```yaml
 ---
-variant: flatcar
-version: 1.0.0
 passwd:
   users:
     - name: core
@@ -359,6 +357,7 @@ passwd:
 storage:
   files:
     - path: /home/core/works
+      filesystem: root
       mode: 0755
       contents:
         inline: |

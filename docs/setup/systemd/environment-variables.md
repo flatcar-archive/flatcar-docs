@@ -87,20 +87,20 @@ This unit file will run nginx Docker container and bind it to specific IP addres
 
 ### System wide environment variables
 
-You can define system wide environment variables using a [Container Linux Config][cl-configs] as explained below:
+You can define system wide environment variables using a [Butane Config][butane-configs] as explained below:
 
 ```yaml
+variant: flatcar
+version: 1.0.0
 storage:
   files:
     - path: /etc/systemd/system.conf.d/10-default-env.conf
-      filesystem: root
       mode: 0644
       contents:
         inline: |
           [Manager]
           DefaultEnvironment=HTTP_PROXY=http://192.168.0.1:3128
     - path: /etc/profile.env
-      filesystem: root
       mode: 0644
       contents:
         inline: |
@@ -129,7 +129,7 @@ For more systemd examples, check out these documents:
 [customizing-sshd]: ../security/customizing-sshd#changing-the-sshd-port
 [customizing-etcd]: ../customization/customize-etcd-unit
 [customizing-docker]: ../../container-runtimes/customizing-docker#using-a-dockercfg-file-for-authentication
-[cl-configs]: ../../provisioning/cl-config
+[butane-configs]: ../../provisioning/config-transpiler
 [etcd-discovery]: ../clusters/cluster-discovery
 [systemd-udev]: udev-rules
 [etcd-cluster-reconfiguration]: https://github.com/coreos/docs/blob/master/etcd/etcd-live-cluster-reconfiguration.md

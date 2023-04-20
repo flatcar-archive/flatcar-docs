@@ -13,12 +13,14 @@ Starting from Flatcar version ≥ 3185.0.0 you can also bundle your binaries int
 
 For custom Docker/containerd binaries sysext images are the recommended way as soon as the Flatcar version in the Stable channel supports them.
 However, the Flatcar versions below 3185.0.0 don't support it yet, and even in case support is there you may find it too complicated to build a sysext image and host it elsewhere.
-In this case you can directly place the custom binaries to `/opt/bin/` as done by the following Container Linux Config which you can transpile to an Ignition config with [`ct`](../provisioning/config-transpiler/).
+In this case you can directly place the custom binaries to `/opt/bin/` as done by the following Butane Config which you can transpile to an Ignition config with [`butane`](../provisioning/config-transpiler/).
 
 This replicates the Docker setup as of Flatcar Container Linux 3033.2.3 but under `/etc` and `/opt/bin/`, and with additional support for the upstream Containerd socket location.
 You can modify it to use different socket paths or plugins, or even only ship `containerd` if you don't need Docker.
 
 ```
+variant: flatcar
+version: 1.0.0
 systemd:
   units:
     - name: prepare-docker.service
@@ -114,13 +116,12 @@ storage:
   files:
     - path: /etc/systemd/system-generators/torcx-generator
     - path: /opt/docker.tgz
-      filesystem: root
       mode: 0644
       contents:
-        remote:
-          url: https://download.docker.com/linux/static/stable/x86_64/docker-20.10.12.tgz
+        source: https://download.docker.com/linux/static/stable/x86_64/docker-20.10.12.tgz
+        verification:
+          hash: sha512-90c3ab8c465bfa6fa51e9e77cf5257ff4bf139723eeb4878afbf294e71a2f2f13558840708e392ff24f8b8853c519938013d4dff8d50b17d66ca0eeb6a1b3c1a
     - path: /etc/containerd/config.toml
-      filesystem: root
       mode: 0644
       contents:
         inline: |
@@ -132,7 +133,6 @@ storage:
           runtime_type = "io.containerd.runc.v2"
           [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
           SystemdCgroup = true
-  directories:
   links:
     - path: /etc/extensions/docker-flatcar.raw
       target: /dev/null

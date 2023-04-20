@@ -54,7 +54,7 @@ This command creates the file `$HOME/.docker/config.json`, formatted like the fo
 }
 ```
 
-On Flatcar Container Linux, this process can be automated by writing out the config file during system provisioning [with a Container Linux Config][cl-configs]. Since the config is written to the `core` user's home directory, ensure that your systemd units run as that user, by adding, e.g., `User=core`.
+On Flatcar Container Linux, this process can be automated by writing out the config file during system provisioning [with a Butane Config][butane-configs]. Since the config is written to the `core` user's home directory, ensure that your systemd units run as that user, by adding, e.g., `User=core`.
 
 Docker also offers the ability to configure a credentials store, such as your operating system's keychain. This is outlined  in the [Docker login documentation][docker-login].
 
@@ -145,7 +145,7 @@ Now rkt will authenticate with `https://registry.example.io/v0/` using the provi
 
 For more information about rkt credentials, see the [rkt configuration docs][rkt-config].
 
-Just like with the Docker config, this file can be copied to `/etc/rkt/auth.d/registry.example.io.json` on a Flatcar Container Linux node during system provisioning with [a Container Linux Config][cl-configs].
+Just like with the Docker config, this file can be copied to `/etc/rkt/auth.d/registry.example.io.json` on a Flatcar Container Linux node during system provisioning with [a Butane Config][butane-configs].
 
 ### Mesos
 
