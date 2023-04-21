@@ -104,9 +104,7 @@ variant: flatcar
 version: 1.0.0
 systemd:
   units:
-    # Ensure docker starts automatically instead of being socket-activated
-    - name: docker.socket
-      enabled: false
+    # Ensure docker starts automatically instead of being only socket-activated
     - name: docker.service
       enabled: true
 ```
