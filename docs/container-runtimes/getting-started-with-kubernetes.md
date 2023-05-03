@@ -118,7 +118,7 @@ This minimal configuration can be used with Flatcar on QEMU (:warning: be sure t
 
 ```bash
 butane < config.yaml > config.json
-./flatcar_production_qemu.sh -i config.json -- -curses
+./flatcar_production_qemu.sh -i config.json -- -display curses
 kubectl get nodes
 NAME        STATUS     ROLES           AGE    VERSION
 localhost   NotReady   control-plane   6m5s   v1.26.0
