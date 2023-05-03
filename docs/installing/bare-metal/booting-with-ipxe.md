@@ -126,7 +126,7 @@ We will use `qemu-kvm` in this guide but use whatever process you normally use f
 
 ```shell
 wget http://boot.ipxe.org/ipxe.iso
-qemu-kvm -m 1024 ipxe.iso --curses
+qemu-kvm -m 1024 ipxe.iso -display curses
 ```
 
 Next press Ctrl+B to get to the iPXE prompt and type in the following commands:

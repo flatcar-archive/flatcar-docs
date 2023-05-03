@@ -270,11 +270,11 @@ If you encounter errors with KVM, verify that virtualization is supported by you
 
 #### Boot Options
 
-After `image_to_vm.sh` completes, run `./flatcar_production_qemu.sh -curses` to launch a graphical interface to log in to the Flatcar Container Linux VM.
+After `image_to_vm.sh` completes, run `./flatcar_production_qemu.sh -- -display curses` to launch a graphical interface to log in to the Flatcar Container Linux VM.
 
 You could instead use the `-nographic` option, `./flatcar_production_qemu.sh -nographic`, which gives you the ability to switch from the VM to the QEMU monitor console by pressing <kbd>CTRL</kbd>+<kbd>a</kbd> and then <kbd>c</kbd>. To close the Flatcar Container Linux Guest OS VM, run `sudo systemctl poweroff` inside the VM.
 
-You can log in via SSH keys or with a different ssh port by running this example `./flatcar_production_qemu.sh -a ~/.ssh/authorized_keys -p 2223 -- -curses`. Refer to the [Booting with QEMU][booting-qemu] guide for more information on this usage.
+You can log in via SSH keys or with a different ssh port by running this example `./flatcar_production_qemu.sh -a ~/.ssh/authorized_keys -p 2223 -- -display curses`. Refer to the [Booting with QEMU][booting-qemu] guide for more information on this usage.
 
 ## Making changes
 
