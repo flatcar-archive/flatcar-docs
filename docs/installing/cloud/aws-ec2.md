@@ -46,17 +46,10 @@ Flatcar Container Linux is designed to be updated automatically with different s
         View as json feed: {{< docs_amis_feed "stable" >}}
       </div>
       {{< docs_amis_table "stable" >}}
-      <div class="channel-info">
-      <h4>AWS China AMIs maintained by <a href="https://www.giantswarm.io/" target="_blank">Giant Swarm</a></h4>
-      <p>The following AMIs are not part of the official Flatcar Container Linux release process and may lag behind (<a href="https://flatcar-prod-ami-import-cn-north-1.s3.cn-north-1.amazonaws.com.cn/version.txt" target="_blank">query version</a>).</p>
-      View as json feed: <a href="https://flatcar-prod-ami-import-cn-north-1.s3.cn-north-1.amazonaws.com.cn/stable-amd64-usr.json"><span class="fa fa-rss"></span>amd64</a>
-      </div>
-      {{< docs_amis_table "stable_china" >}}
     </div>
   </div>
 </div>
 
-CloudFormation will launch a cluster of Flatcar Container Linux machines with a security and autoscaling group.
 
 ## Butane Configs
 
