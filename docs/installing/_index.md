@@ -129,6 +129,9 @@ ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p 2222 core@127
 systemctl status nginx
 curl http://localhost/
 ```
+
+_NOTE_: For SSH access, you can also use the `~/.ssh/config` provided in the [QEMU][qemu-ssh] section then simply `ssh flatcar` or `scp my-file flatcar:/home/core` to send a file on the instance over SSH.
+
 If you have trouble SSHing into the VM, `./flatcar_production_qemu.sh` might have failed to auto-detect your ssh key.
 If that happens try with a user-supplied SSH key using the yaml snippet below.
 Alternatively, you can interact with the VM via the VGA console - the console has auto-login enabled and drops right into a shell.
@@ -196,6 +199,7 @@ With any of these guides you will have machines up and running in a few minutes.
 [vmware-docs]: cloud/vmware
 [virtualbox-docs]: vms/virtualbox
 [qemu-docs]: vms/qemu
+[qemu-ssh]: vms/qemu#ssh-config
 [libvirt-docs]: vms/libvirt
 [equinix-metal-docs]: cloud/equinix-metal
 [pxe-docs]: bare-metal/booting-with-pxe
