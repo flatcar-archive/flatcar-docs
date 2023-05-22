@@ -491,21 +491,15 @@ $ ./run_sdk_container.sh -t
 **tl;dr** In the SDK container, build the kernel package with a custom config, run+test, and persist
 ```shell
 ~/trunk/src/scripts $ ebuild-amd64-usr ../third_party/coreos-overlay/sys-kernel/coreos-modules/coreos-modules-<version>.ebuild configure
-~/trunk/src/scripts $ ebuild-amd64-usr ../third_party/coreos-overlay/sys-kernel/coreos-kernel/coreos-kernel-<version>.ebuild compile
-~/trunk/src/scripts $ cd /build/amd64-usr/var/tmp/portage/sys-kernel/coreos-kernel-<version>/work/coreos-kernel-<version>/build
+~/trunk/src/scripts $ cd /build/amd64-usr/var/tmp/portage/sys-kernel/coreos-modules-<version>/work/coreos-modules-<version>/build
 <build-temp-directory> $ cp .config ~/trunk/src/scripts/kernel-config.orig
 <build-temp-directory> $ make menuconfig
 <build-temp-directory> $ cp .config ~/trunk/src/scripts/kernel-config.mine
 <build-temp-directory> $ cd ~/trunk/src/scripts/
-~/trunk/src/scripts $ rm /build/amd64-usr/var/tmp/portage/sys-kernel/coreos-kernel-<version>/.compiled
-~/trunk/src/scripts $ ebuild-amd64-usr ../third_party/coreos-overlay/sys-kernel/coreos-kernel/coreos-kernel-<version>.ebuild compile
-~/trunk/src/scripts $ sed -i 's/^CONFIG_INITRAMFS_SOURCE=.*//' kernel-config.mine
-~/trunk/src/scripts $ rm -rf /build/amd64-usr/var/tmp/portage/sys-kernel/coreos-modules-<version>
-~/trunk/src/scripts $ ebuild-amd64-usr ../third_party/coreos-overlay/sys-kernel/coreos-modules/coreos-modules-<version>.ebuild unpack
-~/trunk/src/scripts $ cp kernel-config.mine /build/amd64-usr/var/tmp/portage/sys-kernel/coreos-modules-<version>/work/coreos-modules-<version>/build/.config
-~/trunk/src/scripts $ ebuild-amd64-usr ../third_party/coreos-overlay/sys-kernel/coreos-modules/coreos-modules-<version>.ebuild compile
-~/trunk/src/scripts $ ebuild-amd64-usr ../third_party/coreos-overlay/sys-kernel/coreos-kernel/coreos-kernel-<version>.ebuild package
+~/trunk/src/scripts $ rm -f /build/amd64-usr/var/tmp/portage/sys-kernel/coreos-modules-<version>/.compiled
 ~/trunk/src/scripts $ ebuild-amd64-usr ../third_party/coreos-overlay/sys-kernel/coreos-modules/coreos-modules-<version>.ebuild package
+~/trunk/src/scripts $ rm -rf /build/amd64-usr/var/tmp/portage/sys-kernel/coreos-kernel-<version>
+~/trunk/src/scripts $ ebuild-amd64-usr ../third_party/coreos-overlay/sys-kernel/coreos-kernel/coreos-kernel-<version>.ebuild package
 ~/trunk/src/scripts $ ./build_image --board=amd64-usr
 ~/trunk/src/scripts $ ./image_to_vm.sh --from=../build/images/amd64-usr/latest --board=amd64-usr --format qemu
 
@@ -519,8 +513,8 @@ core@localhost ~ $ ...
 ~/trunk/src/scripts $ cd ../third_party/coreos-overlay/sys-kernel/coreos-modules/files/
 ~/trunk/src/scripts $ vim -O commonconfig* amd64_defconfig* my.diff
 ~/trunk/src/scripts $ rm my.diff
-~/trunk/src/scripts $ emerge-amd64-usr sys-kernel/coreos-kernel
 ~/trunk/src/scripts $ emerge-amd64-usr sys-kernel/coreos-modules
+~/trunk/src/scripts $ emerge-amd64-usr sys-kernel/coreos-kernel
 ~/trunk/src/scripts $ ./build_image --board=amd64-usr
 ~/trunk/src/scripts $ ./image_to_vm.sh --from=../build/images/amd64-usr/latest --board=amd64-usr --format qemu
 
