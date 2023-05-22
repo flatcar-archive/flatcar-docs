@@ -110,9 +110,7 @@ az vm image terms accept --publish kinvolk --offer flatcar-container-linux --pla
 
 ### Flatcar Pro Images
 
-Flatcar Pro images in the marketplace are paid images and come with commercial support and extra features. They are published for the Stable and Beta channels. The Pro image for Azure has support for NVidia GPUs.
-
-Using the Azure CLI you can list the Pro images for, e.g., the Stable channel, with `az vm image list --all -p kinvolk -f flatcar_pro -s stable`.
+Flatcar Pro images were paid marketplace images that came with commercial support and extra features. All the previous features of Flatcar Pro images, such as support for NVidia GPUs, are now available to all users in standard Flatcar marketplace images.
 
 ### Plan information for building your image from the Marketplace Image
 
