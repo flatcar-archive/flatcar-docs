@@ -89,6 +89,7 @@ more.
  * [Using systemd drop-in units][systemd-drop-in]
  * [Using environment variables in systemd units][environment-variables-systemd]
  * [Using systemd and udev rules][udev-rules]
+ * [Using NVIDIA GPUs on Flatcar][using-nvidia]
  * [Scheduling tasks with systemd timers][tasks-with-systemd]
  * [Configuring DNS][dns]
  * [Configuring date & timezone][date-timezone]
