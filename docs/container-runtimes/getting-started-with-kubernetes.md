@@ -204,7 +204,7 @@ While CAPI is an evolving project and Flatcar support is in-progress regarding t
 [capi-documentation]: https://cluster-api.sigs.k8s.io/
 [capi-aws]: https://cluster-api-aws.sigs.k8s.io/
 [capi-azure]: https://capz.sigs.k8s.io/
-[capi-vsphere]: https://github.com/kubernetes-sigs/cluster-api-provider-vsphere
+[capi-vsphere]: https://github.com/kubernetes-sigs/cluster-api-provider-vsphere/blob/main/docs/ignition.md
 [cilium]: https://github.com/flatcar/mantle/pull/292
 [flatcar-779]: https://github.com/flatcar/Flatcar/issues/779
 [flatcar-891]: https://github.com/flatcar/Flatcar/issues/891
