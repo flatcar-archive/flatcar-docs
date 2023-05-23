@@ -110,7 +110,7 @@ az vm image terms accept --publish kinvolk --offer flatcar-container-linux --pla
 
 ### Flatcar Pro Images
 
-Flatcar Pro images were paid marketplace images that came with commercial support and extra features. All the previous features of Flatcar Pro images, such as support for NVidia GPUs, are now available to all users in standard Flatcar marketplace images.
+Flatcar Pro images were paid marketplace images that came with commercial support and extra features. All the previous features of Flatcar Pro images, such as support for NVIDIA GPUs, are now available to all users in standard Flatcar marketplace images.
 
 ### Plan information for building your image from the Marketplace Image
 
