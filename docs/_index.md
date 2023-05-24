@@ -235,3 +235,4 @@ APIs and troubleshooting guides for working with Flatcar Container Linux.
 [acpi]: setup/customization/ACPI
 [openstack]: installing/cloud/openstack
 [kubernetes]: container-runtimes/getting-started-with-kubernetes
+[using-nvidia]: setup/customization/using-nvidia
