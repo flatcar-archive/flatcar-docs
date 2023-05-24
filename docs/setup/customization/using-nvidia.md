@@ -34,7 +34,7 @@ echo "NVIDIA_DRIVER_VERSION=460.106.00" | sudo tee /etc/flatcar/nvidia-metadata
 sudo systemctl restart nvidia
 ```
 
-Butane Config
+**Butane Config**
 
 ```
 variant: flatcar
