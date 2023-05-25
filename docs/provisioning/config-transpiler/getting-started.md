@@ -38,9 +38,23 @@ We can see that it produces a JSON file. This file isn't intended to be human-fr
 
 The method by which this file is provided to a Container Linux machine depends on the environment in which the machine is running. For instructions on a given provider, head over to the [list of supported platforms for Ignition][2].
 
-To see some examples for what else ct can do, head over to the [examples][3].
+To see some examples for what else Butane can do, head over to the [examples][3].
+
+## Migration from Container Linux Config
+
+While quite similar, there are some changes needed to migrate a Container Linux Config to Butane.
+
+- The `variant` and `version` keys are required.
+- The Butane transpiler has no platform feature for templating with dynamic data. The resulting feature is still available by explicitly loading the metadata variables to reference [dynamic data][dynamic].
+- The high-level sections for `etcd`, `flannel`, `docker`, `update`, and `locksmith` are gone and instead the resulting units or files need to be written explicity. For etcd see the [cluster docs][cluster]. Both the `update` and `locksmith` fields go to `/etc/flatcar/update.conf`.
+- The `networkd` section is gone and instead the files need to be written directly to `/etc/systemd/network/` directory.
+- The `overwrite` field for files is not set to `true` by default anymore, so it needs to be explicitly set to `true` for the old behavior.
+- File entries can't specify filesystems anymore as was done with `filesystem: root` or `filesystem: oem`. Instead, they use the full path, and which filesystem this is depends on whether and how the initrd mount path is set for each specified filesystem.
+- Units only have the `enabled` field, support for `enable` got removed.
 
 [1]: ../config-transpiler/configuration
 [2]: https://coreos.github.io/ignition/supported-platforms/
 [3]: https://coreos.github.io/butane/examples/
 [4]: https://github.com/coreos/butane/releases
+[dynamic]: ../ignition/dynamic-data/
+[cluster]: ../../setup/clusters/
