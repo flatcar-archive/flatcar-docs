@@ -143,7 +143,6 @@ some guides to help you choose and make use of the different runtimes.
  * [Customizing Docker][customizing-docker]
  * [Using systemd to manage Docker containers][manage-docker-containers]
  * [Use a custom Docker or containerd version][use-a-custom-docker-or-containerd-version]
- * [Switching from Docker to containerd for Kubernetes][containerd-for-kubernetes]
  * [Authenticating to Container registries][registry-authentication]
  * [Getting started with Kubernetes][kubernetes]
 
