@@ -1,6 +1,9 @@
 ---
 title: Getting started with Kubernetes
 description: Operate Kubernetes from Flatcar
+aliases:
+    - ../os/switching-from-docker-to-containerd-for-kubernetes
+    - ./switching-from-docker-to-containerd-for-kubernetes
 weight: 11
 ---
 
@@ -186,6 +189,28 @@ systemd:
 ```
 
 This method is far from being ideal in terms of infrastructure as code as it requires a two steps manipulation: create the control plane to generate the join configuration then pass that configuration to the nodes. Other solutions exist to make things easier, like Cluster API or [Typhoon][typhoon].
+
+### Switching from Docker to containerd for Kubernetes
+
+In Kubernetes v1.20, `dockershim` was deprecated and it has been [officially](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.24.md#dockershim-removed-from-kubelet) removed in Kubernetes v1.24.
+
+The `containerd` CRI plugin is enabled by default and you can use containerd for Kubernetes while still allowing Docker to function.
+Recent Kubernetes versions will prefer containerd over Docker automatically on recent Flatcar versions.
+
+If you run `kubelet` in a Docker container, make sure it has access
+to the following directories on the host file system:
+- `/run/docker/libcontainerd/`
+- `/run/containerd/`
+- `/var/lib/containerd/`
+
+And that it has access to the following binaries on the host file system and that they are included in `PATH`:
+
+- `/run/torcx/unpack/docker/bin/containerd-shim-runc-v1`
+- `/run/torcx/unpack/docker/bin/containerd-shim-runc-v2`
+
+Finally, tell `kubelet` to use containerd by adding to it the following flags:
+- `--container-runtime=remote`
+- `--container-runtime-endpoint=unix:///run/containerd/containerd.sock`
 
 ## Cluster API
 
