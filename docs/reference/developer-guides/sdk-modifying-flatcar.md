@@ -33,7 +33,7 @@ Please note these resources might be outdated and only this page reflects the mo
 ```shell
 $ git clone https://github.com/flatcar/scripts.git
 $ cd scripts
-$ branch="$(git branch -r -l | sed -n 's:origin/\(flatcar-[0-9]\+\)$:\1:p' | sort | tail -n1)"
+$ branch="$(git branch -r -l | awk -F'/' '/origin\/flatcar-[0-9]+$/ {print $2}' | sort | tail -n1)"
 $ git checkout "$branch"
 $ ./run_sdk_container -t
 ```
@@ -95,7 +95,7 @@ At the same time, Alpha is not too far away from `main` so the risk of merge-tim
 Find the latest Alpha release branch:
 
 ```shell
-$ git branch -r -l | sed -n 's:origin/\(flatcar-[0-9]\+\)$:\1:p' | sort | tail -n1
+$ git branch -r -l | awk -F'/' '/origin\/flatcar-[0-9]+$/ {print $2}' | sort | tail -n1
 ```
 
 If the goal is to reproduce and to fix a bug of a release other than Alpha, it is recommended to base the work on the latest point release of the respective major version instead of Alpha. All currrently "active" major versions can be found at the top of the [releases][flatcar-releases] web page.
