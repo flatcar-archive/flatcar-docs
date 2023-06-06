@@ -164,6 +164,18 @@ storage:
           Gateway=10.0.1.1
 ```
 
+To verify whether your configuration was successful and view all IP addresses associated with a specific interface, you can use the following syntax: `ip [-4|-6] addr show dev <interface_name>`. Here is an example of the command and its output:
+
+```
+$ ip -4 addr show dev eth0
+3: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    inet 10.0.0.101/24 brd 10.0.0.255 scope global eth0
+       valid_lft forever preferred_lft forever
+    inet 10.0.1.101/24 brd 10.0.1.255 scope global secondary eth0
+       valid_lft forever preferred_lft forever
+ ```
+By executing the command `ip -4 addr show dev <interface_name>`, you can obtain detailed information about the eth0 interface. The output includes the interface's state, such as whether it is UP or DOWN, its assigned IP addresses, the corresponding subnet masks, and other relevant details.
+
 ## Debugging networkd
 
 If you've faced some problems with networkd you can enable debug mode following the instructions below.
