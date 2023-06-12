@@ -18,6 +18,8 @@ By default, Toolbox uses the stock Fedora Docker container. To start using it, s
 /usr/bin/toolbox
 ```
 
+_NOTE_: For Fedora, it's recommended to use at least 2048 MB RAM to avoid the following `dnf` operation being killed by the OOM manager.
+
 You're now in the namespace of Fedora and can install any software you'd like via `dnf`. For example, if you'd like to use `tcpdump`:
 
 ```shell
