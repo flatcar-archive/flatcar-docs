@@ -17,7 +17,7 @@ A Kubernetes basic scenario (deploy a simple Nginx) is being tested on Flatcar a
 
 One way to contribute to Flatcar would be to extend the covered CNIs (example: [kubenet][kubenet]) or to provide more complex scenarios (example: [cilium extension][cilium]).
 
-This is a compatibility matrix between Flatcar and Kubernetes:
+This is a compatibility matrix between Flatcar and Kubernetes deployed using vanilla components and Flatcar provided software:
 | :arrow_down: Flatcar channel \ Kubernetes Version :arrow_right: | 1.23               | 1.24               | 1.25               | 1.26               |
 |--------------------------------------|--------------------|--------------------|--------------------|--------------------|
 | Alpha                                | :large_orange_diamond: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
