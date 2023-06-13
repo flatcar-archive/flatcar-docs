@@ -17,7 +17,7 @@ A Kubernetes basic scenario (deploy a simple Nginx) is being tested on Flatcar a
 
 One way to contribute to Flatcar would be to extend the covered CNIs (example: [kubenet][kubenet]) or to provide more complex scenarios (example: [cilium extension][cilium]).
 
-This is a compatibility matrix between Flatcar and Kubernetes:
+This is a compatibility matrix between Flatcar and Kubernetes deployed using vanilla components and Flatcar provided software:
 | :arrow_down: Flatcar channel \ Kubernetes Version :arrow_right: | 1.23               | 1.24               | 1.25               | 1.26               |
 |--------------------------------------|--------------------|--------------------|--------------------|--------------------|
 | Alpha                                | :large_orange_diamond: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
@@ -225,6 +225,12 @@ While CAPI is an evolving project and Flatcar support is in-progress regarding t
 * [OpenStack][openstack]
 * [vSphere][capi-vsphere]
 
+## Kubespray
+
+Kubespray is an open-source project used to deploy production ready Kubernetes cluster, learn more about it on the [documentation][kubespray-documentation].
+
+Based on users feedback, Flatcar is known to work with Kubespray - you can read more about it in this section: [https://kubespray.io/#/docs/flatcar][kubespray-documentation-flatcar].
+
 [butane]: https://coreos.github.io/butane/
 [capi-documentation]: https://cluster-api.sigs.k8s.io/
 [capi-aws]: https://cluster-api-aws.sigs.k8s.io/
@@ -235,5 +241,7 @@ While CAPI is an evolving project and Flatcar support is in-progress regarding t
 [flatcar-891]: https://github.com/flatcar/Flatcar/issues/891
 [image-builder]: https://github.com/kubernetes-sigs/image-builder
 [kubenet]: https://github.com/flatcar/Flatcar/issues/579
+[kubespray-documentation]: https://kubespray.io
+[kubespray-documentation-flatcar]: https://kubespray.io/#/docs/flatcar
 [openstack]: https://cluster-api-openstack.sigs.k8s.io/clusteropenstack/configuration.html#ignition-based-images
 [typhoon]: https://typhoon.psdn.io/
