@@ -57,15 +57,15 @@ storage:
     - path: /opt/bin/kubectl
       mode: 0755
       contents:
-        source: https://storage.googleapis.com/kubernetes-release/release/v1.26.0/bin/linux/amd64/kubectl
+        source: https://dl.k8s.io/v1.26.0/bin/linux/amd64/kubectl
     - path: /opt/bin/kubeadm
       mode: 0755
       contents:
-        source: https://storage.googleapis.com/kubernetes-release/release/v1.26.0/bin/linux/amd64/kubeadm
+        source: https://dl.k8s.io/v1.26.0/bin/linux/amd64/kubeadm
     - path: /opt/bin/kubelet
       mode: 0755
       contents:
-        source: https://storage.googleapis.com/kubernetes-release/release/v1.26.0/bin/linux/amd64/kubelet
+        source: https://dl.k8s.io/v1.26.0/bin/linux/amd64/kubelet
     - path: /etc/systemd/system/kubelet.service
       contents:
         source: https://raw.githubusercontent.com/kubernetes/release/v0.14.0/cmd/kubepkg/templates/latest/deb/kubelet/lib/systemd/system/kubelet.service
@@ -151,11 +151,11 @@ storage:
     - path: /opt/bin/kubeadm
       mode: 0755
       contents:
-        source: https://storage.googleapis.com/kubernetes-release/release/v1.26.0/bin/linux/amd64/kubeadm
+        source: https://dl.k8s.io/v1.26.0/bin/linux/amd64/kubeadm
     - path: /opt/bin/kubelet
       mode: 0755
       contents:
-        source: https://storage.googleapis.com/kubernetes-release/release/v1.26.0/bin/linux/amd64/kubelet
+        source: https://dl.k8s.io/v1.26.0/bin/linux/amd64/kubelet
     - path: /etc/systemd/system/kubelet.service
       contents:
         source: https://raw.githubusercontent.com/kubernetes/release/v0.14.0/cmd/kubepkg/templates/latest/deb/kubelet/lib/systemd/system/kubelet.service
