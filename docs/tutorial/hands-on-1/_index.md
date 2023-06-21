@@ -48,7 +48,7 @@ curl localhost
 
 # Resources
 
-* [documentation][./installing/vms/qemu/#startup-flatcar-container-linux]
+* [documentation][installing/vms/qemu/#startup-flatcar-container-linux]
 
 # Demo
 
