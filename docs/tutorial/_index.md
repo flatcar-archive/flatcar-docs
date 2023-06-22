@@ -23,8 +23,8 @@ For each covered item, there is a demo and a few lines to explain what's going o
 * [Hands-on 3][hands-on-3]: Deploying
 * [Hands-on 4][hands-on-4]: Updating
 
-[hands-on-1]: tutorial/hands-on-1
-[hands-on-2]: tutorial/hands-on-2
-[hands-on-3]: tutorial/hands-on-3
-[hands-on-4]: tutorial/hands-on-4
-[quickstart]: installing
+[hands-on-1]: hands-on-1
+[hands-on-2]: hands-on-2
+[hands-on-3]: hands-on-3
+[hands-on-4]: hands-on-4
+[quickstart]: ../installing
