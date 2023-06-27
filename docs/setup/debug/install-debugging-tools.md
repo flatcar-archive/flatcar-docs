@@ -88,7 +88,7 @@ in the container, then create a new `tmux` session to which you can later attach
 and keep the service active by waiting with `strace` until the `tmux` process exits.
 
 ```shell
-systemd-run --user toolbox sh -c 'dnf install -y tmux strace procps-ng; tmux new-session -d -s sharedsession; strace -p "$(pidof tmux)"'
+systemd-run --user toolbox sh -c 'dnf install -y tmux strace procps-ng; TERM=tmux tmux new-session -d -s sharedsession; strace -p "$(pidof tmux)"'
 ```
 
 With `-d` we tell `tmux` to not allocate a TTY now (needed for `systemd-run`) but run a
