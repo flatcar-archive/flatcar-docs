@@ -36,7 +36,6 @@ systemd:
   units:
     - name: docker-tcp.socket
       enabled: true
-      mask: false
       contents: |
         [Unit]
         Description=Docker Socket for the API
@@ -48,14 +47,6 @@ systemd:
 
         [Install]
         WantedBy=sockets.target
-    - name: enable-docker-tcp.service
-      enabled: true
-      contents: |
-        [Unit]
-        Description=Enable the Docker Socket for the API
-        [Service]
-        Type=oneshot
-        ExecStart=/usr/bin/systemctl enable docker-tcp.socket
 ```
 
 This file is used to provision your local Flatcar Container Linux machine on its first boot. This sets up and enables the Docker API, which is how you can use Docker on your laptop. The Docker CLI manages containers running within the VM, *not* on your personal operating system.
