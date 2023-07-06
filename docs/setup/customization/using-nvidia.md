@@ -6,7 +6,7 @@ weight: 30
 
 ### Installation
 
-Flatcar Container Linux offers support for the installation and customization of NVIDIA drivers for Tesla GPU VMs on AWS and Azure.
+Flatcar Container Linux offers support for the installation and customization of NVIDIA drivers for Tesla GPUs (both in VMs and on bare metal).
 
 During the initial boot, the `nvidia.service` automates hardware detection and triggers driver installation within a dedicated Flatcar developer container, ensuring a streamlined process. The current version of the installed NVIDIA driver can be found in the `/usr/share/flatcar/nvidia-metadata` file, assuming it's a vanilla installation and the version hasn't been customized (see below).
 
