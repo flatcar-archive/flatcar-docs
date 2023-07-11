@@ -56,6 +56,7 @@ version: 1.0.0
 storage:
   files:
     - path: /etc/flatcar/update.conf
+      overwrite: true
       contents:
         inline: |
           REBOOT_STRATEGY=etcd-lock
@@ -72,6 +73,7 @@ This gets transpiled to the following Ignition configuration which writes the li
   "storage": {
     "files": [
       {
+        "overwrite": true,
         "path": "/etc/flatcar/update.conf",
         "contents": {
           "compression": "",
@@ -137,6 +139,7 @@ version: 1.0.0
 storage:
   files:
     - path: /etc/flatcar/update.conf
+      overwrite: true
       contents:
         inline: |
           REBOOT_STRATEGY=reboot
@@ -172,6 +175,7 @@ version: 1.0.0
 storage:
   files:
     - path: /etc/flatcar/update.conf
+      overwrite: true
       mode: 0644
       contents:
         inline: |
