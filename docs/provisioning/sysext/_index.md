@@ -18,7 +18,7 @@ Systemd-sysext is supported in Flatcar versions ≥ 3185.0.0 for user provided s
 ## Torcx deprecation
 
 Since systemd-sysext is a more generic and maintained solution than Torcx, it will replace Torcx and Torcx is scheduled for removal from Flatcar at some point in the future (no date or major release version yet).
-Starting from Flatcar version 3185.0.0 we encourage you to migrate any Torcx usage and convert your Torcx image with the `convert_torcx_image.sh` helper script from the [`sysext-bakery`](https://github.com/flatcar/sysext-bakery) repository, mentioned later in this document.
+Starting from Flatcar version 3185.0.0 we encourage you to migrate any Torcx usage and convert your Torcx image with the `convert_torcx_image.sh` helper script from the [`sysext-bakery`][sysext-bakery] repository, mentioned later in this document.
 
 ## The sysext format
 
@@ -89,7 +89,7 @@ A manual `systemd-sysext refresh` is not recommended.
 
 ## Creating custom sysext images
 
-The [`sysext-bakery`](https://github.com/flatcar/sysext-bakery) repository under the Flatcar GitHub organization serves as a central point for sysext building tools.
+The [`sysext-bakery`][sysext-bakery] repository under the Flatcar GitHub organization serves as a central point for sysext building tools.
 Please reach out if your use case isn't covered and work with us to include it there.
 
 ### Upstream Docker sysext images
@@ -115,5 +115,54 @@ Please make also sure that your don't have a `containerd.service` drop in file u
 
 ## Updating custom sysext images
 
-Future systemd versions will provide the `systemd-sysupdate` tool that covers the task of downloading newer versions of your sysext image at runtime from a location you specify.
-At the moment you have to download it manually and either reboot or reload the sysext images.
+From Flatcar 3510.2.0, it is possible to use the `systemd-sysupdate` tool that covers the task of downloading newer versions of your sysext image at runtime from a location you specify.
+
+Here is an example using Butane:
+```yaml
+# butane < config.yaml > config.json
+# ./flatcar_production_qemu.sh -i ./config.json
+variant: flatcar
+version: 1.0.0
+systemd:
+  units:
+    - name: systemd-sysupdate.timer
+      enabled: true
+storage:
+  links:
+    - target: /opt/extensions/docker/docker-24.0.5.raw
+      path: /etc/extensions/docker.raw
+      hard: false
+    - path: /etc/extensions/docker-flatcar.raw
+      target: /dev/null
+      overwrite: true
+    - path: /etc/extensions/containerd-flatcar.raw
+      target: /dev/null
+      overwrite: true
+  files:
+    - path: /opt/extensions/docker/docker-24.0.5.raw
+      contents:
+        source: https://github.com/flatcar/sysext-bakery/releases/download/20230803/docker-24.0.5.raw
+    - path: /etc/systemd/system-generators/torcx-generator
+    - path: /etc/sysupdate.d/docker.conf
+      contents:
+        inline: |
+          [Transfer]
+          Verify=false
+
+          [Source]
+          Type=url-file
+          Path=https://github.com/flatcar/sysext-bakery/releases/latest/download/
+          MatchPattern=docker-@v.raw
+
+          [Target]
+          InstancesMax=3
+          Type=regular-file
+          Path=/opt/extensions/docker
+          CurrentSymlink=/etc/extensions/docker.raw
+```
+
+This configuration will enable the `systemd-sysupdate.timer` that will weekly check for a new Docker sysext image available from the latest release of [`sysext-bakery`][sysext-bakery].
+
+Once the image downloaded and depending on the feature shipped by the extension it might be required to run `systemd-sysext refresh` or reboot to load the new image.
+
+[sysext-bakery]: https://github.com/flatcar/sysext-bakery
