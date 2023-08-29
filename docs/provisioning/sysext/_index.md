@@ -123,14 +123,10 @@ Here is an example using Butane:
 # ./flatcar_production_qemu.sh -i ./config.json
 variant: flatcar
 version: 1.0.0
-systemd:
-  units:
-    - name: systemd-sysupdate.timer
-      enabled: true
 storage:
   links:
-    - target: /opt/extensions/docker/docker-24.0.5.raw
-      path: /etc/extensions/docker.raw
+    - path: /etc/extensions/docker.raw
+      target: /opt/extensions/docker/docker-24.0.5.raw
       hard: false
     - path: /etc/extensions/docker-flatcar.raw
       target: /dev/null
@@ -143,7 +139,17 @@ storage:
       contents:
         source: https://github.com/flatcar/sysext-bakery/releases/download/20230803/docker-24.0.5.raw
     - path: /etc/systemd/system-generators/torcx-generator
-    - path: /etc/sysupdate.d/docker.conf
+    - path: /etc/sysupdate.d/noop.conf
+      contents:
+        inline: |
+          [Source]
+          Type=regular-file
+          Path=/
+          MatchPattern=invalid@v.raw
+          [Target]
+          Type=regular-file
+          Path=/
+    - path: /etc/sysupdate.docker.d/docker.conf
       contents:
         inline: |
           [Transfer]
@@ -159,10 +165,22 @@ storage:
           Type=regular-file
           Path=/opt/extensions/docker
           CurrentSymlink=/etc/extensions/docker.raw
+systemd:
+  units:
+    - name: systemd-sysupdate.timer
+      enabled: true
+    - name: systemd-sysupdate.service
+      dropins:
+        - name: docker.conf
+          contents: |
+            [Service]
+            ExecStartPre=/usr/lib/systemd/systemd-sysupdate -C docker update
+        - name: sysext.conf
+          contents: |
+            [Service]
+            ExecStartPost=systemctl restart systemd-sysext
 ```
 
-This configuration will enable the `systemd-sysupdate.timer` that will weekly check for a new Docker sysext image available from the latest release of [`sysext-bakery`][sysext-bakery].
-
-Once the image downloaded and depending on the feature shipped by the extension it might be required to run `systemd-sysext refresh` or reboot to load the new image.
+This configuration will enable the `systemd-sysupdate.timer` unit that will check every 2-6 hours for a new Docker sysext image available from the latest release of [`sysext-bakery`][sysext-bakery].
 
 [sysext-bakery]: https://github.com/flatcar/sysext-bakery
