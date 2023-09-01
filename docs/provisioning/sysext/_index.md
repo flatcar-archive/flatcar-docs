@@ -117,7 +117,7 @@ Please make also sure that your don't have a `containerd.service` drop in file u
 
 From Flatcar 3510.2.0, it is possible to use the `systemd-sysupdate` tool that covers the task of downloading newer versions of your sysext image at runtime from a location you specify.
 
-Here is an example using Butane:
+Here is a long example using Butane, the shorter recommended usage example for consuming `sysext-bakery` images is in the [sysext-bakery README](https://github.com/flatcar/sysext-bakery#consuming-the-published-images):
 ```yaml
 # butane < config.yaml > config.json
 # ./flatcar_production_qemu.sh -i ./config.json
@@ -126,7 +126,7 @@ version: 1.0.0
 storage:
   links:
     - path: /etc/extensions/docker.raw
-      target: /opt/extensions/docker/docker-24.0.5.raw
+      target: /opt/extensions/docker/docker-24.0.5-x86-64.raw
       hard: false
     - path: /etc/extensions/docker-flatcar.raw
       target: /dev/null
@@ -135,9 +135,9 @@ storage:
       target: /dev/null
       overwrite: true
   files:
-    - path: /opt/extensions/docker/docker-24.0.5.raw
+    - path: /opt/extensions/docker/docker-24.0.5-x86-64.raw
       contents:
-        source: https://github.com/flatcar/sysext-bakery/releases/download/20230803/docker-24.0.5.raw
+        source: https://github.com/flatcar/sysext-bakery/releases/download/20230901/docker-24.0.5-x86-64.raw
     - path: /etc/systemd/system-generators/torcx-generator
     - path: /etc/sysupdate.d/noop.conf
       contents:
@@ -158,7 +158,7 @@ storage:
           [Source]
           Type=url-file
           Path=https://github.com/flatcar/sysext-bakery/releases/latest/download/
-          MatchPattern=docker-@v.raw
+          MatchPattern=docker-@v-%a.raw
 
           [Target]
           InstancesMax=3
@@ -182,5 +182,6 @@ systemd:
 ```
 
 This configuration will enable the `systemd-sysupdate.timer` unit that will check every 2-6 hours for a new Docker sysext image available from the latest release of [`sysext-bakery`][sysext-bakery].
+Use `arm64` instead of `x86-64` for arm64 machines.
 
 [sysext-bakery]: https://github.com/flatcar/sysext-bakery
