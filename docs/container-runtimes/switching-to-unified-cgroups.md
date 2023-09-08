@@ -151,9 +151,7 @@ For a more detailed discussion of container runtimes, see the [Kubernetes docume
 
 ## Known issues
 
-* `aws/amazon-ecs-agent` does not support `cgroupsv2`: [Flatcar issue](https://github.com/flatcar/Flatcar/issues/585), [AWS issue](https://github.com/aws/containers-roadmap/issues/1535).
 * `aws-observability/aws-otel-collector` is segfaulting on a `cgroupsv2` host: [open-telemetry/opentelemetry-collector-contrib#10161](https://github.com/open-telemetry/opentelemetry-collector-contrib/issues/10161)
-
 
 [kube-cgroup-docs]: https://kubernetes.io/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/#migrating-to-the-systemd-driver
 [kube-runtime-docs]: https://kubernetes.io/docs/setup/production-environment/container-runtimes/
