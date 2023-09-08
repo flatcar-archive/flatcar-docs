@@ -43,7 +43,7 @@ It's important to note that you can commit using any username and image name loc
 Commit the container with the container ID, your username, and the name `apache`:
 
 ```shell
-docker commit 72d468f455ea flatcar/apache
+docker commit 72d468f455ea myname/myapache
 ```
 
 The overlay filesystem works similar to git: our image now builds off of the `ubuntu` base and adds another layer with Apache on top. These layers get cached separately so that you won't have to pull down the ubuntu base more than once.
@@ -56,10 +56,10 @@ Now we have our Ubuntu container with Apache running in one shell and an image o
 docker run [options] [image] [process]
 ```
 
-The first step is to tell Docker that we want to run our `flatcar/apache` image:
+The first step is to tell Docker that we want to run our `myname/myapache` image:
 
 ```shell
-docker run [options] flatcar/apache [process]
+docker run [options] myname/myapache [process]
 ```
 
 ### Run container detached
@@ -67,7 +67,7 @@ docker run [options] flatcar/apache [process]
 When running Docker containers manually, the most important option is to run the container in detached mode with the `-d` flag. This will output the container ID to show that the command was successful, but nothing else. At any time you can run `docker ps` in the other shell to view a list of the running containers. Our command now looks like:
 
 ```shell
-docker run -d flatcar/apache [process]
+docker run -d myname/myapache [process]
 ```
 
 After you are comfortable with the mechanics of running containers by hand, it's recommended to use [systemd units][systemd-getting-started] to run your containers on a cluster of Flatcar Container Linux machines.
@@ -85,7 +85,7 @@ We need to run the apache process in the foreground, since our container will st
 Let's add that to our command:
 
 ```shell
-docker run -d flatcar/apache /usr/sbin/apache2ctl -D FOREGROUND
+docker run -d myname/myapache /usr/sbin/apache2ctl -D FOREGROUND
 ```
 
 ### Permanently running a container
@@ -114,7 +114,7 @@ systemd:
 The default apache install will be running on port 80. To give our container access to traffic over port 80, we use the `-p` flag and specify the port on the host that maps to the port inside the container. In our case we want 80 for each, so we include `-p 80:80` in our command:
 
 ```shell
-docker run -d -p 80:80 flatcar/apache /usr/sbin/apache2ctl -D FOREGROUND
+docker run -d -p 80:80 myname/myapache /usr/sbin/apache2ctl -D FOREGROUND
 ```
 
 You can now run this command on your Flatcar Container Linux host to create the container. You should see the default apache webpage when you load either `localhost:80` or the IP of your remote server. Be sure that any firewall or EC2 Security Group allows traffic to port 80.
@@ -124,25 +124,25 @@ You can now run this command on your Flatcar Container Linux host to create the 
 Earlier we downloaded the ubuntu image remotely from the Docker public registry because it didn't exist on our local machine. We can also push local images to the public registry (or a private registry) very easily with the `push` command:
 
 ```shell
-docker push flatcar/apache
+docker push myname/myapache
 ```
 
 To push to a private repository the syntax is very similar. First, we must prefix our image with the host running our private registry instead of our username. List images by running `docker images` and insert the correct ID into the `tag` command:
 
 ```shell
-docker tag f455ea72d468 registry.example.com:5000/apache
+docker tag f455ea72d468 registry.example.com:5000/myname/myapache
 ```
 
 After tagging, the image needs to be pushed to the registry:
 
 ```shell
-docker push registry.example.com:5000/apache
+docker push registry.example.com:5000/myname/myapache
 ```
 
 Once the image is done uploading, you should be able to start the exact same container on a different Flatcar Container Linux host by running:
 
 ```shell
-docker run -d -p 80:80 registry.example.com:5000/apache /usr/sbin/apache2ctl -D FOREGROUND
+docker run -d -p 80:80 registry.example.com:5000/myname/myapache /usr/sbin/apache2ctl -D FOREGROUND
 ```
 
 ## More information
