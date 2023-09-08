@@ -91,7 +91,7 @@ Let's put a few of these concepts together to register new units within etcd. Im
 
 We can use `ExecStartPre` to scrub existing container state. The `docker kill` will force any previous copy of this container to stop, which is useful if we restarted the unit but Docker didn't stop the container for some reason. The `=-` is systemd syntax to ignore errors for this command. We need to do this because Docker will return a non-zero exit code if we try to stop a container that doesn't exist. We don't consider this an error (because we want the container stopped) so we tell systemd to ignore the possible failure.
 
-`docker rm` will remove the container and `docker pull` will pull down the latest version. You can optionally pull down a specific version as a Docker tag: `coreos/apache:1.2.3`
+`docker rm` will remove the container and `docker pull` will pull down the latest version. You can optionally pull down a specific version as a Docker tag: `docker.io/nginx:1.25`
 
 `ExecStart` is where the container is started from the container image that we pulled above.
 
@@ -107,12 +107,12 @@ After=docker.service
 
 [Service]
 TimeoutStartSec=0
-ExecStartPre=-/usr/bin/docker kill apache1
-ExecStartPre=-/usr/bin/docker rm apache1
-ExecStartPre=/usr/bin/docker pull coreos/apache
-ExecStart=/usr/bin/docker run --name apache1 -p 8081:80 coreos/apache /usr/sbin/apache2ctl -D FOREGROUND
+ExecStartPre=-/usr/bin/docker kill nginx
+ExecStartPre=-/usr/bin/docker rm nginx
+ExecStartPre=/usr/bin/docker pull docker.io/nginx
+ExecStart=/usr/bin/docker run --name nginx -p 8081:80 docker.io/nginx
 ExecStartPost=/usr/bin/etcdctl set /domains/example.com/10.10.10.123:8081 running
-ExecStop=/usr/bin/docker stop apache1
+ExecStop=/usr/bin/docker stop nginx
 ExecStopPost=/usr/bin/etcdctl rm /domains/example.com/10.10.10.123:8081
 
 [Install]
