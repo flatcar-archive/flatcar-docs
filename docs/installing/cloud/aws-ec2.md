@@ -206,10 +206,6 @@ To make it work, use `/dev/sda2` as the "Root device name" and you probably want
 
 Now that you have a machine booted it is time to play around. Check out the [Flatcar Container Linux Quickstart][quickstart] guide or dig into [more specific topics][doc-index].
 
-## Known issues
-
-* `aws/amazon-ecs-agent` does not support `cgroupsv2`: [Flatcar issue](https://github.com/flatcar/Flatcar/issues/585), [AWS issue](https://github.com/aws/containers-roadmap/issues/1535).
-
 ## Terraform
 
 The [`aws`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs) Terraform Provider allows to deploy machines in a declarative way.
@@ -488,7 +484,6 @@ Log in via `ssh core@IPADDRESS` with the printed IP address (maybe add `-o Stric
 When you make a change to `machine-mynode.yaml.tmpl` and run `terraform apply` again, the machine will be replaced.
 
 You can find this Terraform module in the repository for [Flatcar Terraform examples](https://github.com/flatcar/flatcar-terraform/tree/main/aws).
-
 
 [quickstart]: ../
 [doc-index]: ../../
