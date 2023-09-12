@@ -18,12 +18,12 @@ A Kubernetes basic scenario (deploy a simple Nginx) is being tested on Flatcar a
 One way to contribute to Flatcar would be to extend the covered CNIs (example: [kubenet][kubenet]) or to provide more complex scenarios (example: [cilium extension][cilium]).
 
 This is a compatibility matrix between Flatcar and Kubernetes deployed using vanilla components and Flatcar provided software:
-| :arrow_down: Flatcar channel \ Kubernetes Version :arrow_right: | 1.23               | 1.24               | 1.25               | 1.26               | 1.27               |
-|--------------------------------------|--------------------|--------------------|--------------------|--------------------|--------------------|
-| Alpha                                | :large_orange_diamond: | :white_check_mark: | :white_check_mark: | :white_check_mark: |:white_check_mark: |
-| Beta                                 | :large_orange_diamond: | :white_check_mark: | :white_check_mark: | :white_check_mark: |:white_check_mark: |
-| Stable                               | :large_orange_diamond: | :white_check_mark: | :white_check_mark: | :white_check_mark: |:white_check_mark: |
-| LTS                                  | :large_orange_diamond: | :white_check_mark: | :white_check_mark: | :x:                |:x:                |
+| :arrow_down: Flatcar channel \ Kubernetes Version :arrow_right: | 1.23               | 1.24               | 1.25               | 1.26               | 1.27               | 1.28 |
+|--------------------------------------|--------------------|--------------------|--------------------|--------------------|--------------------|---------------------------------|
+| Alpha                                | :large_orange_diamond: | :large_orange_diamond: | :white_check_mark: | :white_check_mark: |:white_check_mark: | :white_check_mark: |
+| Beta                                 | :large_orange_diamond: | :large_orange_diamond: | :white_check_mark: | :white_check_mark: |:white_check_mark: | :white_check_mark: |
+| Stable                               | :large_orange_diamond: | :large_orange_diamond: | :white_check_mark: | :white_check_mark: |:white_check_mark: | :white_check_mark: |
+| LTS                                  | :large_orange_diamond: | :large_orange_diamond: | :white_check_mark: | :x:                |:x:                | :x: |
 
 :large_orange_diamond:: The version is not tested anymore before a release but was known for working.
 
