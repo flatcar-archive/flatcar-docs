@@ -186,11 +186,22 @@ Use `arm64` instead of `x86-64` for arm64 machines.
 
 ## Debugging
 
-You can list the contents of a systemd-sysext image like this (assuming an image without dm-verity):
+The `systemd-dissect` tool gives a quick overview for a systemd-sysext image:
 
 ```
-sudo unshare -m sh -c "mount docker-compose-2.18.1.raw /tmp && cd /tmp && find ."
-# Remember that only the "usr" or "opt" folder will be used for the overlay
+sudo systemd-dissect docker-compose.raw
+```
+
+You can list the contents of a systemd-sysext image with the `--list` flag (or `--mtree` for a detailed view):
+
+```
+sudo systemd-dissect --list docker-compose.raw
+```
+
+A single file can be extracted with:
+
+```
+sudo systemd-dissect --with docker-compose.raw cat usr/lib/extension-release.d/extension-release.docker-compose
 ```
 
 To get more information about found incompatibilities during merging, enable the debug output:
