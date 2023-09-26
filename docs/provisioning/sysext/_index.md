@@ -184,4 +184,19 @@ systemd:
 This configuration will enable the `systemd-sysupdate.timer` unit that will check every 2-6 hours for a new Docker sysext image available from the latest release of [`sysext-bakery`][sysext-bakery].
 Use `arm64` instead of `x86-64` for arm64 machines.
 
+## Debugging
+
+You can list the contents of a systemd-sysext image like this (assuming an image without dm-verity):
+
+```
+sudo unshare -m sh -c "mount docker-compose-2.18.1.raw /tmp && cd /tmp && find ."
+# Remember that only the "usr" or "opt" folder will be used for the overlay
+```
+
+To get more information about found incompatibilities during merging, enable the debug output:
+
+```
+sudo SYSTEMD_LOG_LEVEL=debug systemd-sysext refresh
+```
+
 [sysext-bakery]: https://github.com/flatcar/sysext-bakery

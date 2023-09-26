@@ -305,7 +305,7 @@ sudo git diff --no-index /usr/share/flatcar/etc /etc
 You can also see what files got created under the real `/etc` with the following commands:
 
 ```sh
-sudo unshare -m "umount /etc; ls -lahR /etc"
+sudo unshare -m sh -c "umount /etc; ls -lahR /etc"
 ```
 
 ### Configure a post-install update hook
