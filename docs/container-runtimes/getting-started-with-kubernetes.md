@@ -40,15 +40,75 @@ _Known issues_:
 
 ## Using Kubeadm
 
-`kubeadm` remains one standard way to quickly deploy and operate a Kubernetes cluster. It's possible to install the tools (`kubeadm`, `kubelet`, etc.) using Ignition.
+`kubeadm` remains one standard way to quickly deploy and operate a Kubernetes cluster. It's possible to install the tools (`kubeadm`, `kubelet`, etc.) using Ignition or directly with the Kubernetes sysext image distributed from the [flatcar/sysext-bakery][sysext-bakery] release page.
 
 ### Setup the control plane
 
-Here's an example with [butane][butane] to setup a control plane.
+Here are two examples to setup a control plane with [Butane][butane]. The first example is using the systemd-sysext approach to bring in the binaries and update them through systemd-sysupdate. The second approach fetches the binaries but has no way of updating them in-place.
 
-:warning: To ease the reading, we voluntarily omitted the checksums of the downloaded artifacts.
-
-```yaml
+<div>
+  <ul class="nav nav-tabs">
+    <li class="active"><a href="#sysext" data-toggle="tab">With systemd-sysext and updates</a></li>
+    <li><a href="#no-sysext" data-toggle="tab">With plain binaries and no updates</a></li>
+  </ul>
+  <div class="tab-content coreos-docs-image-table">
+    <div class="tab-pane" id="sysext">
+      <div class="channel-info">
+        This is an example using systemd-sysext and systemd-sysupdate. NOTE: We are using [`Kured`][kured] to coordinate nodes reboot when there is a new Kubernetes sysext image available (or if Flatcar has been updated), hence the `/run/reboot-required` file.
+        <pre>
+---
+version: 1.0.0
+variant: flatcar
+storage:
+  links:
+    - target: /opt/extensions/kubernetes/kubernetes-v1.27.4-x86-64.raw
+      path: /etc/extensions/kubernetes.raw
+      hard: false
+  files:
+    - path: /etc/sysupdate.kubernetes.d/kubernetes.conf
+      contents:
+        source: https://github.com/flatcar/sysext-bakery/releases/download/20230901/kubernetes.conf
+    - path: /etc/sysupdate.d/noop.conf
+      contents:
+        source: https://github.com/flatcar/sysext-bakery/releases/download/20230901/noop.conf
+    - path: /opt/extensions/kubernetes/kubernetes-v1.27.4-x86-64.raw
+      contents:
+        source: https://github.com/flatcar/sysext-bakery/releases/download/20230901/kubernetes-v1.27.4-x86-64.raw
+systemd:
+  units:
+    - name: systemd-sysupdate.timer
+      enabled: true
+    - name: systemd-sysupdate.service
+      dropins:
+        - name: kubernetes.conf
+          contents: |
+            [Service]
+            ExecStartPre=/usr/bin/sh -c "readlink --canonicalize /etc/extensions/kubernetes.raw > /tmp/kubernetes"
+            ExecStartPre=/usr/lib/systemd/systemd-sysupdate -C kubernetes update
+            ExecStartPost=/usr/bin/sh -c "readlink --canonicalize /etc/extensions/kubernetes.raw > /tmp/kubernetes-new"
+            ExecStartPost=/usr/bin/sh -c "[[ $(cat /tmp/kubernetes) != $(cat /tmp/kubernetes-new) ]] && touch /run/reboot-required"
+    - name: kubeadm.service
+      enabled: true
+      contents: |
+        [Unit]
+        Description=Kubeadm service
+        Requires=containerd.service
+        After=containerd.service
+        ConditionPathExists=!/etc/kubernetes/kubelet.conf
+        [Service]
+        ExecStartPre=/usr/bin/kubeadm init
+        ExecStartPre=/usr/bin/mkdir /home/core/.kube
+        ExecStartPre=/usr/bin/cp /etc/kubernetes/admin.conf /home/core/.kube/config
+        ExecStart=/usr/bin/chown -R core:core /home/core/.kube
+        [Install]
+        WantedBy=multi-user.target
+        </pre>
+      </div>
+    </div>
+    <div class="tab-pane" id="no-sysext">
+      <div class="channel-info">
+        :warning: To ease the reading, we voluntarily omitted the checksums of the downloaded artifacts.
+        <pre>
 ---
 version: 1.0.0
 variant: flatcar
@@ -104,7 +164,6 @@ systemd:
         Requires=containerd.service
         After=containerd.service
         ConditionPathExists=!/etc/kubernetes/kubelet.conf
-
         [Service]
         Environment="PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/opt/bin"
         ExecStartPre=/opt/bin/kubeadm config images pull
@@ -112,10 +171,14 @@ systemd:
         ExecStartPre=/usr/bin/mkdir /home/core/.kube
         ExecStartPre=/usr/bin/cp /etc/kubernetes/admin.conf /home/core/.kube/config
         ExecStart=/usr/bin/chown -R core:core /home/core/.kube
-
         [Install]
         WantedBy=multi-user.target
-```
+        </pre>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 This minimal configuration can be used with Flatcar on QEMU (:warning: be sure that the instance has enough memory: 4096mb is good).
 
@@ -136,13 +199,77 @@ NAME        STATUS   ROLES           AGE     VERSION
 localhost   Ready    control-plane   8m30s   v1.26.0
 ```
 
+If you want to coordinate the nodes reboot when there is a new Kubernetes sysext image or a Flatcar update, you can deploy [`Kured`][kured]:
+```bash
+latest=$(curl -s https://api.github.com/repos/kubereboot/kured/releases | jq -r '.[0].tag_name')
+kubectl apply -f "https://github.com/kubereboot/kured/releases/download/$latest/kured-$latest-dockerhub.yaml"
+```
+
 We can now prepare the nodes to join the cluster.
 
 ### Setup the nodes
 
-Here's the [butane][butane] configuration to setup the nodes.
+Here's are two examples for a [butane][butane] configuration to setup the nodes. The first example is using the systemd-sysext approach to bring in the binaries and update them through systemd-sysupdate. The second approach fetches the binaries but has no way of updating them in-place.
 
-```yaml
+<div>
+  <ul class="nav nav-tabs">
+    <li><a href="#sysext" data-toggle="tab">With systemd-sysext and updates</a></li>
+    <li class="active"><a href="#no-sysext" data-toggle="tab">With plain binaries and no updates</a></li>
+  </ul>
+  <div class="tab-content coreos-docs-image-table">
+    <div class="tab-pane" id="sysext">
+      <div class="channel-info">
+        This is an example using systemd-sysext and systemd-sysupdate. NOTE: We are using [`Kured`][kured] to coordinate nodes reboot when there is a new Kubernetes sysext image available (or if Flatcar has been updated), hence the `/run/reboot-required` file.
+        <pre>
+---
+version: 1.0.0
+variant: flatcar
+storage:
+  links:
+    - target: /opt/extensions/kubernetes/kubernetes-v1.27.4-x86-64.raw
+      path: /etc/extensions/kubernetes.raw
+      hard: false
+  files:
+    - path: /etc/sysupdate.kubernetes.d/kubernetes.conf
+      contents:
+        source: https://github.com/flatcar/sysext-bakery/releases/download/20230901/kubernetes.conf
+    - path: /etc/sysupdate.d/noop.conf
+      contents:
+        source: https://github.com/flatcar/sysext-bakery/releases/download/20230901/noop.conf
+    - path: /opt/extensions/kubernetes/kubernetes-v1.27.4-x86-64.raw
+      contents:
+        source: https://github.com/flatcar/sysext-bakery/releases/download/20230901/kubernetes-v1.27.4-x86-64.raw
+systemd:
+  units:
+    - name: systemd-sysupdate.timer
+      enabled: true
+    - name: systemd-sysupdate.service
+      dropins:
+        - name: kubernetes.conf
+          contents: |
+            [Service]
+            ExecStartPre=/usr/bin/sh -c "readlink --canonicalize /etc/extensions/kubernetes.raw > /tmp/kubernetes"
+            ExecStartPre=/usr/lib/systemd/systemd-sysupdate -C kubernetes update
+            ExecStartPost=/usr/bin/sh -c "readlink --canonicalize /etc/extensions/kubernetes.raw > /tmp/kubernetes-new"
+            ExecStartPost=/usr/bin/sh -c "[[ $(cat /tmp/kubernetes) != $(cat /tmp/kubernetes-new) ]] && touch /run/reboot-required"
+    - name: kubeadm.service
+      enabled: true
+      contents: |
+        [Unit]
+        Description=Kubeadm service
+        Requires=containerd.service
+        After=containerd.service
+        [Service]
+        ExecStart=/usr/bin/kubeadm join $(output from 'kubeadm token create --print-join-command')
+        [Install]
+        WantedBy=multi-user.target
+        </pre>
+      </div>
+    </div>
+    <div class="tab-pane" id="no-sysext">
+      <div class="channel-info">
+        :warning: To ease the reading, we voluntarily omitted the checksums of the downloaded artifacts.
+        <pre>
 ---
 version: 1.0.0
 variant: flatcar
@@ -179,14 +306,16 @@ systemd:
         Description=Kubeadm service
         Requires=containerd.service
         After=containerd.service
-
         [Service]
         Environment="PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/opt/bin"
-        ExecStart=/opt/bin/kubeadm join <output from 'kubeadm token create --print-join-command'>
-
+        ExecStart=/opt/bin/kubeadm join $(output from 'kubeadm token create --print-join-command')
         [Install]
         WantedBy=multi-user.target
-```
+        </pre>
+      </div>
+    </div>
+  </div>
+</div>
 
 This method is far from being ideal in terms of infrastructure as code as it requires a two steps manipulation: create the control plane to generate the join configuration then pass that configuration to the nodes. Other solutions exist to make things easier, like Cluster API or [Typhoon][typhoon].
 
@@ -243,5 +372,7 @@ Based on users feedback, Flatcar is known to work with Kubespray - you can read 
 [kubenet]: https://github.com/flatcar/Flatcar/issues/579
 [kubespray-documentation]: https://kubespray.io
 [kubespray-documentation-flatcar]: https://kubespray.io/#/docs/flatcar
+[kured]: https://kured.dev/docs/
 [openstack]: https://cluster-api-openstack.sigs.k8s.io/clusteropenstack/configuration.html#ignition-based-images
+[sysext-bakery]: https://github.com/flatcar/sysext-bakery
 [typhoon]: https://typhoon.psdn.io/
