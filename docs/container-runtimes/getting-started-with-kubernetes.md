@@ -48,13 +48,13 @@ Here are two examples to setup a control plane with [Butane][butane]. The first 
 
 <div>
   <ul class="nav nav-tabs">
-    <li class="active"><a href="#sysext" data-toggle="tab">With systemd-sysext and updates</a></li>
+    <li class="active"><a href="#sysext" class="active" data-toggle="tab">With systemd-sysext and updates</a></li>
     <li><a href="#no-sysext" data-toggle="tab">With plain binaries and no updates</a></li>
   </ul>
   <div class="tab-content coreos-docs-image-table">
-    <div class="tab-pane" id="sysext">
+    <div class="tab-pane active" id="sysext">
       <div class="channel-info">
-        This is an example using systemd-sysext and systemd-sysupdate. NOTE: We are using [`Kured`][kured] to coordinate nodes reboot when there is a new Kubernetes sysext image available (or if Flatcar has been updated), hence the `/run/reboot-required` file.
+        This is an example using systemd-sysext and systemd-sysupdate. NOTE: We are using <a href="https://kured.dev/docs/">Kured</a> to coordinate nodes reboot when there is a new Kubernetes sysext image available (or if Flatcar has been updated), hence the /run/reboot-required file.
         <pre>
 ---
 version: 1.0.0
@@ -213,13 +213,13 @@ Here's are two examples for a [butane][butane] configuration to setup the nodes.
 
 <div>
   <ul class="nav nav-tabs">
-    <li><a href="#sysext" data-toggle="tab">With systemd-sysext and updates</a></li>
-    <li class="active"><a href="#no-sysext" data-toggle="tab">With plain binaries and no updates</a></li>
+    <li class="active"><a class="active" href="#sysext-nodes" data-toggle="tab">With systemd-sysext and updates</a></li>
+    <li><a href="#no-sysext-nodes" data-toggle="tab">With plain binaries and no updates</a></li>
   </ul>
   <div class="tab-content coreos-docs-image-table">
-    <div class="tab-pane" id="sysext">
+    <div class="tab-pane active" id="sysext-nodes">
       <div class="channel-info">
-        This is an example using systemd-sysext and systemd-sysupdate. NOTE: We are using [`Kured`][kured] to coordinate nodes reboot when there is a new Kubernetes sysext image available (or if Flatcar has been updated), hence the `/run/reboot-required` file.
+        This is an example using systemd-sysext and systemd-sysupdate. NOTE: We are using <a href="https://kured.dev/docs/">Kured</a> to coordinate nodes reboot when there is a new Kubernetes sysext image available (or if Flatcar has been updated), hence the /run/reboot-required file.
         <pre>
 ---
 version: 1.0.0
@@ -266,7 +266,7 @@ systemd:
         </pre>
       </div>
     </div>
-    <div class="tab-pane" id="no-sysext">
+    <div class="tab-pane" id="no-sysext-nodes">
       <div class="channel-info">
         :warning: To ease the reading, we voluntarily omitted the checksums of the downloaded artifacts.
         <pre>
