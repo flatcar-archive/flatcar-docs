@@ -18,10 +18,9 @@ Hint: two services are used:
 
 ```
 # download a previous version of Flatcar and the qemu helper
-$ wget https://stable.release.flatcar-linux.net/amd64-usr/3374.2.5/flatcar_production_qemu_image.img.bz2
-$ wget https://stable.release.flatcar-linux.net/amd64-usr/3374.2.5/flatcar_production_qemu.sh
+$ wget https://stable.release.flatcar-linux.net/amd64-usr/3602.2.0/flatcar_production_qemu_image.img
+$ wget https://stable.release.flatcar-linux.net/amd64-usr/3602.2.0/flatcar_production_qemu.sh
 $ chmod +x flatcar_production_qemu.sh
-$ bzip2 --decompress ./flatcar_production_qemu_image.img.bz2
 # boot the instance with the nginx Ignition from a previous lab
 $ ./flatcar_production_qemu.sh -i ../hands-on-2/config.json -- -display curses
 # assert that `locksmithd.service` and `update-engine` are up and running

@@ -17,11 +17,13 @@ mkdir flatcar; cd flatcar
 # get the qemu helper
 wget https://stable.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu.sh
 # get the latest stable release for qemu
-wget https://stable.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu_image.img.bz2
-# extract the downloaded image
-bzip2 --decompress --keep flatcar_production_qemu_image.img.bz2
+wget https://stable.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu_image.img
+# create a backup to always have a fresh image around
+mv flatcar_production_qemu_image.img flatcar_production_qemu_image.img.fresh
 # make the qemu helper executable
 chmod +x flatcar_production_qemu.sh
+# before starting, make sure you boot a fresh image
+cp -i --reflink=auto flatcar_production_qemu_image.img.fresh flatcar_production_qemu_image.img
 # starts the flatcar image in console mode
 ./flatcar_production_qemu.sh -- -display curses
 ```
