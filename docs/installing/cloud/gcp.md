@@ -19,7 +19,7 @@ Flatcar is published by the `kinvolk` publisher on GCE.
 
 ## Choosing a channel
 
-Flatcar Container Linux is designed to be updated automatically with different schedules per channel. You can [disable this feature](update-strategies), although we don't recommend it. Read the [release notes](https://flatcar-linux.org/releases) for specific features and bug fixes.
+Flatcar Container Linux is designed to be updated automatically with different schedules per channel. You can [disable this feature][update-strategies], although we don't recommend it. Read the [release notes](https://flatcar-linux.org/releases) for specific features and bug fixes.
 
 Create 3 instances from the image above using our Ignition from `example.ign`:
 
@@ -297,5 +297,5 @@ Now that you have a machine booted it is time to play around. Check out the [Fla
 [mounting-storage]: ../../setup/storage/mounting-storage
 [quickstart]: ../
 [doc-index]: ../../
-[update-strategies]: ../../setup/releases/update-strategies/
+[update-strategies]: ../../setup/releases/update-strategies
 [cl-configs]: ../../provisioning/config-transpiler
