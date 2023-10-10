@@ -30,16 +30,35 @@ Jun 27 18:07:22 localhost kernel: fips mode: enabled
 
 [OpenSSL][openssl] is an open-source library used for ciphering and hashing. As a library, it is widely used by programming software and third-party programs to ensure security. OpenSSL 3.0 FIPS provider is FIPS [validated][certificate] since Aug. 2022.
 
-OpenSSL FIPS module is built by default on Flatcar but it is required to update the OpenSSL configuration to actually use this module:
-```bash
-openssl fipsinstall \
-    -out /etc/ssl/fipsmodule.cnf \
-    -module /usr/lib64/ossl-modules/fips.so
-mv /etc/ssl/openssl.cnf.fips /etc/ssl/openssl.cnf
+OpenSSL FIPS module is built by default on Flatcar. Overwriting `/etc/ssl/openssl.cnf` with the following section will enable the provider:
 ```
+config_diagnostics = 1
+openssl_conf = openssl_init
+# it includes the fipsmodule configuration
+.include /etc/ssl/fipsmodule.cnf
+[openssl_init]
+providers = provider_sect
+[provider_sect]
+fips = fips_sect
+base = base_sect
+[base_sect]
+activate = 1
+```
+
+NOTE: For Flatcar LTS-2023 (with OpenSSL < 3.0.8), it's still required to generate the fipsmodule configuration, see upstream [documentation][openssl-fipsinstall] on how to do it.
 
 Once again, it's possible to check that FIPS is enabled:
 ```bash
+$ openssl list -providers
+Providers:
+  base
+    name: OpenSSL Base Provider
+    version: 3.0.8
+    status: active
+  fips
+    name: OpenSSL FIPS Provider
+    version: 3.0.8
+    status: active
 $ echo "Flatcar + FIPS" | openssl sha1 -
 SHA1(stdin)= ee2219bd6a234fa0e4436b475fc3b351e2dc85a0
 $ echo "Flatcar + FIPS" | openssl md5 -
@@ -75,14 +94,14 @@ kernel_arguments:
 storage:
   files:
     - path: /etc/system-fips
-    - path: /etc/ssl/openssl.cnf.fips
+    - path: /etc/ssl/openssl.cnf
+      overwrite: true
       mode: 0644
       contents:
         inline: |
           config_diagnostics = 1
           openssl_conf = openssl_init
-          # it includes the fipsmodule configuration generated
-          # by the `enable-fips.service`
+          # it includes the fipsmodule configuration
           .include /etc/ssl/fipsmodule.cnf
           [openssl_init]
           providers = provider_sect
@@ -91,24 +110,6 @@ storage:
           base = base_sect
           [base_sect]
           activate = 1
-systemd:
-  units:
-    - name: enable-fips.service
-      enabled: true
-      contents: |
-        [Unit]
-        Description=Enable OpenSSL FIPS provider
-        ConditionPathExists=!/etc/ssl/fipsmodule.cnf
-        After=system-config.target
-        [Service]
-        Type=oneshot
-        RemainAfterExit=yes
-        ExecStart=/usr/bin/openssl fipsinstall \
-          -out /etc/ssl/fipsmodule.cnf \
-          -module /usr/lib64/ossl-modules/fips.so
-        ExecStart=/usr/bin/mv /etc/ssl/openssl.cnf.fips /etc/ssl/openssl.cnf
-        [Install]
-        WantedBy=multi-user.target
 ```
 
 # Troubleshooting
@@ -127,4 +128,5 @@ In this case, it is likely that one of the `Ciphers`, defined in the `/etc/ssh/s
 [fips-140-2]: https://csrc.nist.gov/publications/detail/fips/140/2/final
 [rsa-key-size]: https://github.com/torvalds/linux/blob/941e3e7912696b9fbe3586083a7c2e102cee7a87/crypto/rsa_helper.c#L33-L37
 [openssl]: https://www.openssl.org/
+[openssl-fipsinstall]: https://www.openssl.org/docs/man3.0/man1/openssl-fipsinstall.html#EXAMPLES
 [certificate]: https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/4282
