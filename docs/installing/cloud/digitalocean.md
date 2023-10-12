@@ -127,7 +127,7 @@ read SSH_KEY_ID
 If not done yet, [create a custom image](https://developers.digitalocean.com/documentation/v2/#create-a-custom-image) from the current Flatcar Container Linux Stable version:
 
 ```shell
-VER=$(curl https://stable.release.flatcar-linux.net/amd64-usr/current/version.txt | grep -m 1 FLATCAR_VERSION_ID= | cut -d = -f 2)
+VER=$(source <(curl https://stable.release.flatcar-linux.net/amd64-usr/current/version.txt); echo "${FLATCAR_VERSION_ID}")
 curl --request POST "https://api.digitalocean.com/v2/images" \
      --header "Content-Type: application/json" \
      --header "Authorization: Bearer $TOKEN" \
@@ -339,7 +339,7 @@ flatcar_stable_version = "x.y.z"
 You can resolve the latest Flatcar Stable version with this shell command:
 
 ```shell
-curl -sSfL https://stable.release.flatcar-linux.net/amd64-usr/current/version.txt | grep -m 1 FLATCAR_VERSION_ID= | cut -d = -f 2
+(source <(curl -sSfL https://stable.release.flatcar-linux.net/amd64-usr/current/version.txt); echo "${FLATCAR_VERSION_ID}")
 ```
 
 The machine name listed in the `machines` variable is used to retrieve the corresponding [Butane Config](https://www.flatcar.org/docs/latest/provisioning/config-transpiler/configuration/).

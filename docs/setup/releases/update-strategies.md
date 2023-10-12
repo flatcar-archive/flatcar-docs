@@ -189,7 +189,7 @@ The `flatcar-update` tool automatically removes the `SERVER=disabled` line to ap
 
 ```shell
 $ # For example, update to the latest Stable release:
-$ VER=$(curl -fsSL https://stable.release.flatcar-linux.net/amd64-usr/current/version.txt | grep FLATCAR_VERSION= | cut -d = -f 2)
+$ VER=$(source <(curl -fsSL https://stable.release.flatcar-linux.net/amd64-usr/current/version.txt); echo "${FLATCAR_VERSION}")
 $ sudo flatcar-update --to-version $VER
 ```
 
@@ -236,7 +236,7 @@ On the non-airgapped machine (here for amd64, use `ARCH=arm64` for arm64):
 
 ```shell
 ARCH=amd64
-VER=$(curl -fsSL https://stable.release.flatcar-linux.net/${ARCH}-usr/current/version.txt | grep FLATCAR_VERSION= | cut -d = -f 2)
+VER=$(source <(curl -fsSL "https://stable.release.flatcar-linux.net/${ARCH}-usr/current/version.txt"; echo "${FLATCAR_VERSION}")
 echo "$VER"
 # or if you know which version to update to, set it like VER=3033.2.1 (no channel info needed)
 wget "https://update.release.flatcar-linux.net/${ARCH}-usr/${VER}/flatcar_production_update.gz"

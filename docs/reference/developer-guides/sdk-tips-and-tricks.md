@@ -218,7 +218,7 @@ In some cases such a file can pin an exact version of a specific package, which 
 Some packages like `coreos-modules` take a long time to build. Use:
 
 ```shell
-./build_packages --getbinpkgver=$(gsutil cat gs://…/boards/amd64-usr/current-master/version.txt |& sed -n 's/^FLATCAR_VERSION=//p')
+./build_packages --getbinpkgver=$(source <(gsutil cat gs://…/boards/amd64-usr/current-master/version.txt); echo "${FLATCAR_VERSION}")
 ```
 
 to use packages from the another build store.

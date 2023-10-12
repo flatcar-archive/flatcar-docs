@@ -558,7 +558,7 @@ resource_group_location = "westeurope"
 You can resolve the latest Flatcar Stable version with this shell command:
 
 ```
-curl -sSfL https://stable.release.flatcar-linux.net/amd64-usr/current/version.txt | grep -m 1 FLATCAR_VERSION_ID= | cut -d = -f 2
+(source <(curl -sSfL https://stable.release.flatcar-linux.net/amd64-usr/current/version.txt); echo "${FLATCAR_VERSION_ID}")
 ```
 
 The machine name listed in the `machines` variable is used to retrieve the corresponding [Container Linux Config](../../provisioning/config-transpiler/configuration) template from the `cl/` subfolder.

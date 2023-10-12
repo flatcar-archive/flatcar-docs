@@ -29,7 +29,7 @@ core@host ~ $ sudo systemctl reboot
 If it fails due to SSL connection issues from outdated certificates, you can also download the update payload of the latest Stable release through plain HTTP and use the `flatcar-update` script instead:
 
 ```shell
-$ VER=$(curl -fsSL --insecure --ssl-no-revoke http://stable.release.flatcar-linux.net/amd64-usr/current/version.txt | grep FLATCAR_VERSION= | cut -d = -f 2)
+$ VER=$(source <(curl -fsSL --insecure --ssl-no-revoke http://stable.release.flatcar-linux.net/amd64-usr/current/version.txt); echo "${FLATCAR_VERSION}")
 $ wget --no-check-certificate "http://update.release.flatcar-linux.net/amd64-usr/$VER/flatcar_production_update.gz"
 $ wget --no-check-certificate http://raw.githubusercontent.com/flatcar/init/flatcar-master/bin/flatcar-update
 $ less flatcar-update # Double check the content of the script

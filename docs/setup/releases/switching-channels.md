@@ -89,7 +89,7 @@ $ # In case another channel is set as GROUP, first remove it so that in the futu
 $ sudo sed -i "/GROUP=.*/d" /etc/flatcar/update.conf
 $ # Set the channel you want to jump to:
 $ CHANNEL=beta
-$ VER=$(curl -fsSL "https://$CHANNEL.release.flatcar-linux.net/amd64-usr/current/version.txt" | grep FLATCAR_VERSION= | cut -d = -f 2)
+$ VER=$(source <(curl -fsSL "https://$CHANNEL.release.flatcar-linux.net/amd64-usr/current/version.txt"); echo "${FLATCAR_VERSION}")
 $ sudo flatcar-update --to-version "$VER"
 ```
 
