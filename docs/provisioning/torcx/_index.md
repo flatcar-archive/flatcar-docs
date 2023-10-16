@@ -1,5 +1,5 @@
 ---
-title: Torcx
+title: [DEPRECATED / EOL] Torcx
 description: Addon manager for applying ephemeral changes
 weight: 100
 aliases:
@@ -10,6 +10,8 @@ aliases:
 ## Deprecation Notice
 
 As of 2023, torcx on Flatcar is in deprecation and is in the process of being replaced by [systemd-sysext][sysext].
+
+**Releases after major version 3760 do not ship torcx. If you are using torcx for managing add-ons please migrate to sysext before upgrading to a major release higher than 3760.**
 
 ## Torcx overview
 
