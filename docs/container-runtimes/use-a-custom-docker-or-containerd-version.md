@@ -1,5 +1,5 @@
 ---
-title: Using a custom Docker or containerd version
+title: Using a custom Docker or containerd version (LEGACY)
 linktitle: Using custom versions
 description: How to download and run a different version of docker or containerd than the one shipped by Flatcar.
 weight: 30
@@ -9,9 +9,9 @@ aliases:
 
 Some system tooling can't be run on Container Linux via containers and this is especially true for the container runtime itself.
 As with other special binaries you want to bring to the system you can use an Ignition config that downloads the binaries.
-Starting from Flatcar version ≥ 3185.0.0 you can also bundle your binaries into [systemd-sysext images](../provisioning/sysext/).
+Starting from Flatcar version ≥ 3185.0.0 a [systemd-sysext images](../provisioning/sysext/) should be used instead of the below.
 
-For custom Docker/containerd binaries sysext images are the recommended way as soon as the Flatcar version in the Stable channel supports them.
+For custom Docker/containerd binaries sysext images are the recommended way.
 However, the Flatcar versions below 3185.0.0 don't support it yet, and even in case support is there you may find it too complicated to build a sysext image and host it elsewhere.
 In this case you can directly place the custom binaries to `/opt/bin/` as done by the following Butane Config which you can transpile to an Ignition config with [`butane`](../provisioning/config-transpiler/).
 
@@ -149,5 +149,7 @@ export PATH="/opt/bin:$PATH"
 ```
 
 The empty file `/etc/systemd/system-generators/torcx-generator` serves the purpose of disabling Torcx to make sure it is not used accidentally in case `/opt/bin` was missing from the `PATH` variable.
+Flatcar releases newer than major release 3760 do not ship torcx so that line can as well be removed from the above config.
+However, leaving it in does not have any side effects.
 
 The `/etc/extensions/` symlinks make sure that the future built-in Docker/containerd sysext images won't be enabled.

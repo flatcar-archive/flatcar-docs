@@ -107,6 +107,24 @@ systemd:
     # Ensure docker starts automatically instead of being only socket-activated
     - name: docker.service
       enabled: true
+storage:
+  links:
+  - path: /etc/systemd/system/multi-user.target.wants/docker.service
+    target: /usr/lib/systemd/system/docker.service
+    hard: false
+    overwrite: true
+```
+
+**NOTE** for Flatcar versions prior to (older than) the 3761 major release the soft link is unnecessary. The following configuration suffices:
+
+```yaml
+variant: flatcar
+version: 1.0.0
+systemd:
+  units:
+    # Ensure docker starts automatically instead of being only socket-activated
+    - name: docker.service
+      enabled: true
 ```
 
 ### Network access to 80

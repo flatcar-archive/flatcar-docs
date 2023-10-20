@@ -17,7 +17,7 @@ Systemd-sysext is supported in Flatcar versions ≥ 3185.0.0 for user provided s
 
 ## Torcx deprecation
 
-Since systemd-sysext is a more generic and maintained solution than Torcx, it will replace Torcx and Torcx is scheduled for removal from Flatcar at some point in the future (no date or major release version yet).
+Since systemd-sysext is a more generic and maintained solution than Torcx, it will replace Torcx. Flatcar releases after major version 3760 will not ship torcx at all.
 Starting from Flatcar version 3185.0.0 we encourage you to migrate any Torcx usage and convert your Torcx image with the `convert_torcx_image.sh` helper script from the [`sysext-bakery`][sysext-bakery] repository, mentioned later in this document.
 
 ## The sysext format

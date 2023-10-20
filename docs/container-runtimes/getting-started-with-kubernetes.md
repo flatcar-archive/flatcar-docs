@@ -333,9 +333,12 @@ to the following directories on the host file system:
 - `/var/lib/containerd/`
 
 And that it has access to the following binaries on the host file system and that they are included in `PATH`:
-
-- `/run/torcx/unpack/docker/bin/containerd-shim-runc-v1`
-- `/run/torcx/unpack/docker/bin/containerd-shim-runc-v2`
+- For Flatcar releases until major version 3760:
+  - `/run/torcx/unpack/docker/bin/containerd-shim-runc-v1`
+  - `/run/torcx/unpack/docker/bin/containerd-shim-runc-v2`
+- For Flatcar releases above major version 3760:
+  - `/usr/bin/containerd-shim-runc-v1`
+  - `/usr/bin/containerd-shim-runc-v2`
 
 Finally, tell `kubelet` to use containerd by adding to it the following flags:
 - `--container-runtime=remote`

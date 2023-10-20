@@ -15,7 +15,9 @@ For switching to using containerd with Kubernetes, there is an [extra guide](../
 ## Use a custom containerd configuration
 
 The default configuration under `/run/torcx/unpack/docker/usr/share/containerd/config.toml` can't be changed but you can copy it to `/etc/containerd/config.toml` and modify it.
-Then create a `/etc/systemd/system/containerd.service.d/10-use-custom-config.conf` unit drop-in file to select the new configuration:
+**NOTE** that newer Flatcar major releases (above major release version 3760) ship the default configuration under `/usr/share/containerd/config.toml`.
+
+Create a `/etc/systemd/system/containerd.service.d/10-use-custom-config.conf` unit drop-in file to select the new configuration:
 
 ```ini
 [Service]
