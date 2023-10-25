@@ -1,5 +1,5 @@
 ---
-title: [DEPRECATED / EOL] Torcx
+title: "[DEPRECATED / EOL] Torcx"
 description: Addon manager for applying ephemeral changes
 weight: 100
 aliases:
