@@ -41,20 +41,21 @@ $ ./run_sdk_container -t
 </td></tr></table>
 
 Flatcar Container Linux uses a containerised SDK; pre-built container images are available via [ghcr.io][ghcr-sdk].
-The SDK itself is containerised, but it requires version information and package build instructions to build an OS image. 
+The SDK itself is containerised, but it requires version information and package build instructions to build an OS image.
 Version information and build instructions for all packages (`ebuilds`) are contained in the scripts repository:
 
 ```
 scripts
    +--sdk_container
-          +---------src
-          |          +--third_party
-          |                  +------coreos-overlay
-          |                  +------portage-stable
-          `---------.repo
-                     +----manifests
-                           +-------- version.txt
+   |      +---------src
+   |                 +--third_party
+   |                         +------coreos-overlay
+   |                         +------portage-stable
+   +--manifests
+          +-------- version.txt
 ```
+
+Note that if using older version/checkout of the scripts repository, the version.txt file may still be in old location, `sdk_container/.repo/manifests/version.txt`.
 
 There are 2 ways to use the SDK container:
 1. Standalone: Run the container and clone the scripts repo inside the container.
@@ -115,7 +116,7 @@ Lastly, to verify the version in use, consult the version file.
 This file is updated on each release and reflects the SDK and OS versions corresponding to the the current commit.
 
 ```shell
-$ cat sdk_container/.repo/manifests/version.txt
+$ cat manifests/version.txt
 FLATCAR_VERSION=3066.1.0
 FLATCAR_VERSION_ID=3066.1.0
 FLATCAR_BUILD_ID=""
@@ -124,9 +125,9 @@ FLATCAR_SDK_VERSION=3066.1.0
 
 The example above is from the release / maintenance branch of the 3066 major release at the time of writing (3066 was in the Beta channel at that time).
 
-**NOTE** that the version file at `sdk_container/.repo/manifests/version.txt` will be updated by `run_sdk_container` to include the git shortlog hash.
+**NOTE** that the version file at `manifests/version.txt` will be updated by `run_sdk_container` to include the git shortlog hash.
 This file is under revision control because it pins the latest official OS release and SDK version of the branch you're working on.
-**If you like to switch branches later, make sure to run `git checkout sdk_container/.repo/manifests/version.txt` to revert the change made by `run_sdk_container`.**
+**If you like to switch branches later, make sure to run `git checkout manifests/version.txt` to revert the change made by `run_sdk_container`.**
 
 ### Start the SDK
 
@@ -135,7 +136,7 @@ This will download the container image of the respective version if not present 
 
 ```shell
 $ ./run_sdk_container -t
-sdk@flatcar-sdk-all-3066_0_0_os-beta-3066_1_0-gcf4ff44a  ~/trunk/src/scripts $ cat sdk_container/.repo/manifests/version.txt
+sdk@flatcar-sdk-all-3066_0_0_os-beta-3066_1_0-gcf4ff44a  ~/trunk/src/scripts $ cat manifests/version.txt
 ```
 
 The `-t` flag is used to tell docker to allocate a TTY. It should be omitted when calling `run_sdk_container` from a script.
@@ -146,7 +147,7 @@ By default, the name of the container contains SDK and OS image version.
 If there are changes on top of the latest release (either your own, or upstream changes slated for the next patch release), the version file will have been updated:
 
 ```shell
-sdk@flatcar-sdk-all-3066_0_0_os-beta-3066_1_0-gcf4ff44a ~/trunk/src/scripts $ cat sdk_container/.repo/manifests/version.txt
+sdk@flatcar-sdk-all-3066_0_0_os-beta-3066_1_0-gcf4ff44a ~/trunk/src/scripts $ cat manifests/version.txt
 FLATCAR_VERSION=3066.1.0+5-gcf4ff44a
 FLATCAR_VERSION_ID=3066.0.1
 FLATCAR_BUILD_ID="5-gcf4ff44a"

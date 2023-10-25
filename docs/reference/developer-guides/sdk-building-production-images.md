@@ -52,8 +52,8 @@ A good way to look at releases and stabilisation through channels is to consider
 
 ## On versioning
 
-For Flatcar versioning, the scripts repo is authoritative: 
-Versioning is controlled by the [`version.txt` file in the scripts repo](https://github.com/flatcar/scripts/blob/main/sdk_container/.repo/manifests/version.txt).
+For Flatcar versioning, the scripts repo is authoritative:
+Versioning is controlled by the [`version.txt` file in the scripts repo](https://github.com/flatcar/scripts/blob/main/manifests/version.txt).
 `version.txt` contains version strings for both the SDK version as well as the OS image version.
 
 Core idea is that a simple
