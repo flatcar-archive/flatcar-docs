@@ -1,8 +1,10 @@
-# Flatcar Container Linux Documentation
+# :warning: This repo is archived - all new Flatcar docs contribution can be done on the [flatcar-website](https://github.com/flatcar/flatcar-website) repository. :warning:
+
+## Flatcar Container Linux Documentation
 
 This repository contains the Markdown source of the [Flatcar Container Linux documentation][flatcar-docs].
 
-## Contributing
+### Contributing
 
 Flatcar Container Linux documentation is released under the [Apache 2.0 License][asl], and we welcome contributions. Check out the [help-wanted tag][help-wanted] in this project's Issues list for good places to start participating, and review the [contribution guidelines][contributing] to find out how to submit your edits and improvements.
 
