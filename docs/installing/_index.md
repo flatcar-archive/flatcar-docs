@@ -49,8 +49,7 @@ First download the Flatcar QEMU image and the helper script to start it with QEM
 ```shell
 wget https://stable.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu.sh
 chmod +x flatcar_production_qemu.sh
-wget https://stable.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu_image.img.bz2
-bunzip2 flatcar_production_qemu_image.img.bz2
+wget https://stable.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu_image.img
 ```
 
 For Ignition configurations to be recognized we have to make sure that we always boot an unmodified fresh image because Ignition only runs on first boot.

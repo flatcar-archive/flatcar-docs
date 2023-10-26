@@ -38,9 +38,8 @@ Flatcar Container Linux is designed to be updated automatically with different s
       <pre>
 mkdir -p /var/lib/libvirt/images/flatcar-linux
 cd /var/lib/libvirt/images/flatcar-linux
-wget https://alpha.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu_image.img.bz2{,.sig}
-gpg --verify flatcar_production_qemu_image.img.bz2.sig
-bunzip2 flatcar_production_qemu_image.img.bz2</pre>
+wget https://alpha.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu_image.img{,.sig}
+gpg --verify flatcar_production_qemu_image.img.sig</pre>
     </div>
     <div class="tab-pane" id="beta-create">
       <p>The Beta channel consists of promoted Alpha releases. The current version is Flatcar Container Linux {{< param beta_channel >}}.</p>
@@ -48,9 +47,8 @@ bunzip2 flatcar_production_qemu_image.img.bz2</pre>
       <pre>
 mkdir -p /var/lib/libvirt/images/flatcar-linux
 cd /var/lib/libvirt/images/flatcar-linux
-wget https://beta.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu_image.img.bz2{,.sig}
-gpg --verify flatcar_production_qemu_image.img.bz2.sig
-bunzip2 flatcar_production_qemu_image.img.bz2</pre>
+wget https://beta.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu_image.img{,.sig}
+gpg --verify flatcar_production_qemu_image.img.sig</pre>
     </div>
     <div class="tab-pane active" id="stable-create">
       <p>The Stable channel should be used by production clusters. Versions of Flatcar Container Linux are battle-tested within the Beta and Alpha channels before being promoted. The current version is Flatcar Container Linux {{< param stable_channel >}}.</p>
@@ -58,9 +56,9 @@ bunzip2 flatcar_production_qemu_image.img.bz2</pre>
       <pre>
 mkdir -p /var/lib/libvirt/images/flatcar-linux
 cd /var/lib/libvirt/images/flatcar-linux
-wget https://stable.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu_image.img.bz2{,.sig}
-gpg --verify flatcar_production_qemu_image.img.bz2.sig
-bunzip2 flatcar_production_qemu_image.img.bz2</pre>
+wget https://stable.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu_image.img{,.sig}
+gpg --verify flatcar_production_qemu_image.img.sig
+bunzip2 flatcar_production_qemu_image.img</pre>
     </div>
   </div>
 </div>
@@ -251,8 +249,7 @@ First, prepare the base image and make sure you don't boot it via the [`flatcar_
 
 ```sh
 cd ~/Downloads
-wget https://stable.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu_image.img.bz2
-bunzip2 flatcar_production_qemu_image.img.bz2
+wget https://stable.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu_image.img
 mv flatcar_production_qemu_image.img flatcar_production_qemu_image-libvirt-import.img
 # optional, increase the image by 5 GB:
 qemu-img resize flatcar_production_qemu_image-libvirt-import.img +5G

@@ -83,11 +83,10 @@ Flatcar Container Linux is designed to be updated automatically with different s
       <pre>mkdir flatcar; cd flatcar
 wget https://stable.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu.sh
 wget https://stable.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu.sh.sig
-wget https://stable.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu_image.img.bz2
-wget https://stable.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu_image.img.bz2.sig
+wget https://stable.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu_image.img
+wget https://stable.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu_image.img.sig
 gpg --verify flatcar_production_qemu.sh.sig
-gpg --verify flatcar_production_qemu_image.img.bz2.sig
-bzip2 -d flatcar_production_qemu_image.img.bz2
+gpg --verify flatcar_production_qemu_image.img.sig
 chmod +x flatcar_production_qemu.sh</pre>
     </div>
     <div class="tab-pane" id="alpha">
@@ -99,11 +98,10 @@ chmod +x flatcar_production_qemu.sh</pre>
       <pre>mkdir flatcar; cd flatcar
 wget https://alpha.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu.sh
 wget https://alpha.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu.sh.sig
-wget https://alpha.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu_image.img.bz2
-wget https://alpha.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu_image.img.bz2.sig
+wget https://alpha.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu_image.img
+wget https://alpha.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu_image.img.sig
 gpg --verify flatcar_production_qemu.sh.sig
-gpg --verify flatcar_production_qemu_image.img.bz2.sig
-bzip2 -d flatcar_production_qemu_image.img.bz2
+gpg --verify flatcar_production_qemu_image.img.sig
 chmod +x flatcar_production_qemu.sh</pre>
     </div>
     <div class="tab-pane" id="beta">
@@ -115,11 +113,10 @@ chmod +x flatcar_production_qemu.sh</pre>
       <pre>mkdir flatcar; cd flatcar
 wget https://beta.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu.sh
 wget https://beta.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu.sh.sig
-wget https://beta.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu_image.img.bz2
-wget https://beta.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu_image.img.bz2.sig
+wget https://beta.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu_image.img
+wget https://beta.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu_image.img.sig
 gpg --verify flatcar_production_qemu.sh.sig
-gpg --verify flatcar_production_qemu_image.img.bz2.sig
-bzip2 -d flatcar_production_qemu_image.img.bz2
+gpg --verify flatcar_production_qemu_image.img.sig
 chmod +x flatcar_production_qemu.sh</pre>
     </div>
   </div>
