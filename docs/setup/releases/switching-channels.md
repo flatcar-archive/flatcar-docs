@@ -25,7 +25,7 @@ New major releases come out around once per year, marking a new LTS stream, and 
 
 ![Update Timeline](../../img/update-timeline.png)
 
-By default, Flatcar uses the public update server `public.update.flatcar-linux.net`.
+By default, Flatcar uses the public update server [https://stable.release.flatcar-linux.net/](https://stable.release.flatcar-linux.net/).
 It promotes the new releases for each channel at the same time they are published.
 If you need more control about the update rollout, you can have a look at the possible [reboot strategies and manual update methods](update-strategies).
 The other alternative is running your own update server which allows you to control the update rollout over your fleet and even divide it into groups that have different rollout policies and release versions.
