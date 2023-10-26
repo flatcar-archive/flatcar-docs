@@ -184,6 +184,8 @@ We will be launching three instances, with a few parameters in the User Data, an
 
 ## Installation from a VMDK image
 
+Note: it is not recommened to install from a VMDK image, due to intermittent AMI corruptions. Please consider using a raw image `flatcar_production_ami_image.bin.bz2` instead.
+
 One of the possible ways of installation is to import the generated VMDK Flatcar image as a snapshot. The image file will be in `https://${CHANNEL}.release.flatcar-linux.net/${ARCH}-usr/${VERSION}/flatcar_production_ami_vmdk_image.vmdk.bz2`.
 Make sure you download the signature (it's available in `https://${CHANNEL}.release.flatcar-linux.net/${ARCH}-usr/${VERSION}/flatcar_production_ami_vmdk_image.vmdk.bz2.sig`) and check it before proceeding.
 
